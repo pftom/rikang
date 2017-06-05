@@ -1,0 +1,40 @@
+{
+  "name": "DangJian",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "lodash": "4.17.4",
+    "mkp-react-native-picker": "1.0.7",
+    "query-string": "4.3.4",
+    "react": "16.0.0-alpha.6",
+    "react-native": "0.44.2",
+    "react-native-circular-progress": "0.0.8",
+    "react-native-elevated-view": "0.0.4",
+    "react-native-html-render": "1.0.5",
+    "react-native-image-picker": "0.26.3",
+    "react-native-linear-gradient": "2.0.0",
+    "react-native-picker": "4.0.18",
+    "react-native-scrollable-tab-view": "0.6.6",
+    "react-native-swiper": "1.5.4",
+    "react-navigation": "1.0.0-beta.11",
+    "react-redux": "5.0.5",
+    "redux": "3.6.0",
+    "redux-form": "6.7.0",
+    "redux-persist": "4.8.0",
+    "redux-thunk": "2.2.0"
+  },
+  "devDependencies": {
+    "babel-jest": "20.0.3",
+    "babel-preset-react-native": "1.9.2",
+    "jest": "20.0.4",
+    "react-test-renderer": "16.0.0-alpha.6",
+    "redux-logger": "3.0.6"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
