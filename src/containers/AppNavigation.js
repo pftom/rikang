@@ -33,7 +33,7 @@ export const AppNavigation = StackNavigator(
   },
   {
     navigationOptions: {
-      
+      headerLeft: null,
       headerStyle: Platform.OS === 'ios' ? { height: 90 } : { height: 88 },
     },
     initialRouteName: 'TabBarNavigation'
