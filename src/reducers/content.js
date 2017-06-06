@@ -7,12 +7,33 @@ import {
   REQUEST_SINGLE_NEWS,
   REQUEST_SINGLE_NEWS_SUCCESSFUL,
   REQUEST_SINGLE_NEWS_FAILURE,
+  REQUEST_ATTEND,
+  REQUEST_ATTEND_FAILURE,
+  REQUEST_ATTEND_SUCCESSFUL,
 } from '../constants';
+
+const initialAttendState = {
+  isFetching: false,
+  attend: {},
+  err: false,
+};
+
+function attend (state = initialAttendState, action) {
+  switch (action.type) {
+    case REQUEST_ATTEND:
+      return { ...state, isFetching: true };
+    case REQUEST_ATTEND_SUCCESSFUL: 
+      return { ...state, isFetching: false, attend: action.data };
+    case REQUEST_ATTEND_FAILURE:
+      return { ...state, isFetching: false, err: true };
+    default: return state;
+  }
+}
 
 const initialEventState = {
   isFetching: false,
   event: {},
-  err: null,
+  err: false,
 };
 
 function event (state = initialEventState, action) {
@@ -22,7 +43,7 @@ function event (state = initialEventState, action) {
     case REQUEST_EVENT_SUCCESSFUL:
       return { ...state, isFetching: false, event: action.data, err: null };
     case REQUEST_EVENT_FAILURE:
-      return { ...state, isFetching: false, err: action.err };
+      return { ...state, isFetching: false, err: true };
     default:  return state;
   }
 }
@@ -30,7 +51,7 @@ function event (state = initialEventState, action) {
 const initialNewState = {
   isFetching: false,
   new: {},
-  err: null,
+  err: false,
 };
 
 
@@ -41,7 +62,7 @@ function single_news (state = initialNewState, action) {
     case REQUEST_SINGLE_NEWS_SUCCESSFUL:
       return { ...state, isFetching: false, new: action.data, err: null, };
     case REQUEST_SINGLE_NEWS_FAILURE:
-      return { ...state, isFetching: false, err: action.err,  };
+      return { ...state, isFetching: false, err: true,  };
     default:
       return state;
   }
@@ -50,4 +71,5 @@ function single_news (state = initialNewState, action) {
 export default combineReducers({
   event,
   single_news,
+  attend
 });

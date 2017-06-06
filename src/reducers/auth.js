@@ -5,7 +5,7 @@ import {
   RECEIVE_LOGIN_SUCCESSFUL, 
   REQUEST_LOGIN, 
   LOGOUT,
-  SUBMIT_COMFIRM,
+  SUBMIT_CONFIRM,
   SET_TOKEN,
 } from '../constants';
 
@@ -29,7 +29,7 @@ function auth(state = initialAuthState, action) {
       return { ...state, authenticated: false, isFetching: false, failure: true, };
     case LOGOUT:
       return { ...state, authenticated: false };
-    case SUBMIT_COMFIRM:
+    case SUBMIT_CONFIRM:
       return { ...state, failure: false };
     case SET_TOKEN:
       return { ...state, token: action.data }

@@ -8,30 +8,33 @@ import {
   REQUEST_NEWS_SUCCESSFUL,
   REQUEST_NEWS_FAILURE,
   REQUEST_EVENTS_HEADLINE_SUCCESSFUL,
+  REQUEST_EVENTS_ACTIVE_SUCCESSFUL,
 } from '../constants';
+
+var totalActive = [];
+let total1 = [];
+let total2 = [];
+
+function concatArray(data, type) {
+  if (type === 'REQUEST_EVENTS_SUCCESSFUL') {
+    total1 = total1.slice().concat(data.results);
+    return { ...data, results: total1 };
+  } else if (type === 'REQUEST_NEWS_SUCCESSFUL') {
+    total2 = total2.slice().concat(data.results);
+    return { ...data, results: total2};
+  } else if (type === 'REQUEST_EVENTS_ACTIVE_SUCCESSFUL') {
+    totalActive = totalActive.slice().concat(data.results);
+    return { ...data, results: totalActive };
+  }
+}
 
 const initialEventsState = {
   isFetching: false,
   events: {},
-  err: null,
+  err: false,
   headlineEvents: {},
+  activeEvents: {},
 };
-
-var total1 = [];
-var total2 = [];
-
-function concatArray(data, type) {
-  if (type === 'EVENTS') {
-    total1 = total1.slice().concat(data.results);
-    return { ...data, results: total1 };
-  } else if (type === 'NEWS') {
-    total2 = total2.slice().concat(data.results);
-    return { ...data, results: total2};
-  }
-   
-
-  return { ...data, results: total };
-}
 
 function events (state = initialEventsState, action) {
   switch (action.type) {
@@ -41,13 +44,15 @@ function events (state = initialEventsState, action) {
       return { 
         ...state, 
         isFetching: false, 
-        events: concatArray(action.data, 'EVENTS'),
-        err: null 
+        events: concatArray(action.data, action.type),
+        err: false 
       };
     case REQUEST_EVENTS_FAILURE:
-      return { ...state, isFetching: false, err: action.err };
+      return { ...state, isFetching: false, err: true };
     case REQUEST_EVENTS_HEADLINE_SUCCESSFUL:
-      return { ...state, isFetching: false, headlineEvents: action.data }
+      return { ...state, isFetching: false, headlineEvents: action.data, err: false, };
+    case REQUEST_EVENTS_ACTIVE_SUCCESSFUL:
+      return { ...state, isFetching: false, err: false, activeEvents: concatArray(action.data, action.type)};
     default:  return state;
   }
 }
@@ -55,7 +60,7 @@ function events (state = initialEventsState, action) {
 const initialNewsState = {
   isFetching: false,
   news: {},
-  err: null,
+  err: false,
 };
 
 
@@ -64,9 +69,9 @@ function news (state = initialNewsState, action) {
     case REQUEST_NEWS:
       return { ...state, isFetching: true, };
     case REQUEST_NEWS_SUCCESSFUL:
-      return { ...state, isFetching: false, news: concatArray(action.data, 'NEWS'), err: null, };
+      return { ...state, isFetching: false, news: concatArray(action.data, action.type), err: false, };
     case REQUEST_NEWS_FAILURE:
-      return { ...state, isFetching: false, err: action.err,  };
+      return { ...state, isFetching: false, err: false,  };
     default:
       return state;
   }

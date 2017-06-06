@@ -1,11 +1,12 @@
 'use strict';
 
 
-export const header = (METHOD) => ({
-  method: `${METHOD}`,
+export const header = (METHOD, token) => ({
+  method: METHOD,
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
+    'Authorization': token,
   }
 })
 
@@ -21,4 +22,5 @@ export const commonApi = {
 export const singleApi = (id) => ({
   news_id: `home/news/${id}`,
   event_id: `home/events/${id}`,
+  attend: `home/events/${id}/attend`,
 });

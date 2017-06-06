@@ -6,7 +6,7 @@ import {
   REQUEST_ASYNCSTORAGE_CHANGE,
   ASYNCSTORAGE_SUCCESS,
   ASYNCSTORAGE_ERROR,
-  SUBMIT_COMFIRM,
+  SUBMIT_CONFIRM,
 } from '../constants/index';
 
 import { AsyncStorage } from 'react-native';
@@ -34,8 +34,8 @@ export const asyncStorageChangeError = () => ({
   type: ASYNCSTORAGE_ERROR,
 });
 
-export const submitComfirm = () => ({
-  type: SUBMIT_COMFIRM,
+export const submitConfirm = () => ({
+  type: SUBMIT_CONFIRM,
 })
 
 
@@ -64,8 +64,8 @@ export const receiveLoginFailure = (err) => ({
 export const fetchLogin = values => dispatch => {
   dispatch(requestLogin(values));
   return request.post(commonApi.base + commonApi.login, values)
-    .catch(err => dispatch(receiveLoginFailure(err)))
-    .then(json => dispatch(receiveLoginSucess(json)));
+    .then(json => dispatch(receiveLoginSucess(json)))
+    .catch(err => dispatch(receiveLoginFailure(err)));
 };
 
 export const logout = () => dispatch => {

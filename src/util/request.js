@@ -7,12 +7,18 @@ import { header } from './config';
 
 let request = {};
 
-request.get =  ( url, params ) => {
+request.get =  ( url, params, token ) => {
+  let options = null;
   if (params) {
     url += '?' + queryString.stringify(params);
   }
 
-  return fetch(url)
+  if (token) {
+    options = _.extend(header('GET', token));
+  }
+
+
+  return fetch(url, options)
       .then(response => {
         if (response.status !== 200 || !response.ok) {
           throw response.json();
@@ -25,6 +31,7 @@ request.post = ( url, body ) => {
   let options = _.extend(header('POST'), {
     body: JSON.stringify(body),
   });
+
 
   return fetch(url, options)
         .then(response => {

@@ -3,7 +3,7 @@ import { Text, View, AsyncStorage, Modal, Button , TextInput, Keyboard ,Touchabl
 import { NavigationActions } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import { connect } from 'react-redux';
-import { submitComfirm } from '../actions/user';
+import MessageBox from '../components/common/MessageBox';
 
 import { fetchLogin } from '../actions/user';
 
@@ -24,13 +24,15 @@ class Login extends Component {
       this.setState({
         [key]: value,
       });
+      console.log('value', value);
     }
     
 
     submit() {
+      console.log('value1', this.state.value1);
       this.props.dispatch(fetchLogin({
-        username: this.state.value1,
-        password: this.state.value2,
+        username: this.state.value1 || '',
+        password: this.state.value2 || '',
       }))
     }
 
@@ -39,21 +41,7 @@ class Login extends Component {
       return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
-          <Modal
-            animationType={'fade'}
-            visible={failure}
-            transparent={true}
-          >
-            <TouchableWithoutFeedback onPress={() => dispatch(submitComfirm())}>
-              <View style={styles.box}>
-              <View style={styles.modalBox}>
-                  <View style={styles.btnBox}>
-                    <Text style={styles.btnText}>用户名或密码错误</Text>
-                  </View>
-              </View>
-            </View>
-            </TouchableWithoutFeedback>
-          </Modal>
+          <MessageBox dispatch={dispatch} message={'用户名或密码错误'} />
           <Image source={require('../components/img/logo.png')} style={styles.logo} />
           <View style={styles.textInputBox}>
                   <TextInput

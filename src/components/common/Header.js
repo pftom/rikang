@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Text, StyleSheet, Platform, View, Dimensions, TouchableOpacity } from 'react-native';
+import { Image, Alert, Text, StyleSheet, Platform, View, Dimensions, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import px2dp from '../../util/index';
 
@@ -25,7 +25,7 @@ const Header = (props) => {
                               </Image>
                             </TouchableOpacity>}
         <Text style={[styles.headerText, style]}>{props.headerText}</Text>
-        <TouchableOpacity style={styles.logoBox} onPress={() => props.navigation.navigate('MessageBox')}>
+        <TouchableOpacity style={styles.logoBox} onPress={() => Alert.alert('功能即将上线')}>
           {
             !!props.logoRight && <Image source={props.logoRight} />
           }

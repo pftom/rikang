@@ -5,6 +5,9 @@ import {
   REQUEST_SINGLE_NEWS,
   REQUEST_SINGLE_NEWS_SUCCESSFUL,
   REQUEST_SINGLE_NEWS_FAILURE,
+  REQUEST_ATTEND,
+  REQUEST_ATTEND_SUCCESSFUL,
+  REQUEST_ATTEND_FAILURE,
 } from '../constants'
 
 import { commonApi, header, singleApi } from '../util/config';
@@ -28,8 +31,9 @@ const requestNewFailure = (err) => ({
 export const fetchNew = (id) => dispatch => {
   dispatch(requestNew());
   return request.get(commonApi.base + singleApi(id).news_id)
-              .catch(err => dispatch(requestNewFailure(err)))
-              .then(data => dispatch(requestNewSuccessful(data)));
+              .then(data => dispatch(requestNewSuccessful(data)))
+              .catch(err => dispatch(requestNewFailure(err)));
+
 }
 
 
@@ -51,6 +55,29 @@ const requestEventFailure = (err) => ({
 export const fetchEvent = (id, params) => dispatch => {
   dispatch(reqeustEvent());
   return request.get(commonApi.base + singleApi(id).event_id)
+              .then(data => dispatch(requestEventSuccessful(data)))
               .catch(err => dispatch(requestEventFailure(err)))
-              .then(data => dispatch(requestEventSuccessful(data)));
+}
+
+const requestAttend = () => ({
+  type: REQUEST_ATTEND,
+});
+
+const requestAttendFailure = () => ({
+  type: REQUEST_ATTEND_FAILURE,
+});
+
+const requestAttendSuccessful = (data) => ({
+  type: REQUEST_ATTEND_SUCCESSFUL,
+  data: data,
+});
+
+export const fetchAttend = (id, token) => dispatch => {
+  dispatch(requestAttend());
+  return request.get(commonApi.base + singleApi(id).attend, null, token,)
+              .then(data => dispatch(requestAttendSuccessful(data)))
+              .catch(err => {
+                console.log('err', err);
+                dispatch(requestAttendFailure(err))
+              });
 }

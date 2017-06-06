@@ -21,7 +21,10 @@ import {
 
 const { width, height } = Dimensions.get('window');
 
-const ACTIONS = [REQUEST_EVENT, REQUEST_SINGLE_NEWS];
+const ACTIONS = [
+  REQUEST_EVENT, 
+  REQUEST_SINGLE_NEWS,
+];
 import { handleTime } from '../../../util/index';
 
 class TabOneScreenTwo extends PureComponent {
@@ -44,17 +47,6 @@ class TabOneScreenTwo extends PureComponent {
       dispatch(fetchEvent(data.id));
     } else if (ACTIONS[data.type] === REQUEST_SINGLE_NEWS) {
       dispatch(fetchNew(data.id));
-    }
-  }
-
-  _onRefresh(id) {
-    this.setState({
-      isRefreshing: true,
-    })
-    if (ACTIONS[id] === REQUEST_SINGLE_NEWS) {
-      this.props.dispatch(fetchNew());
-    } else if (ACTIONS[id] === REQUEST_EVENT) {
-      this.props.dispatch(fetchEvent());
     }
   }
 
@@ -81,21 +73,17 @@ class TabOneScreenTwo extends PureComponent {
       <View style={styles.containerBox}>
           <ScrollView
             showsVerticalScrollIndicator={false}
-            refreshControl={
-                          <RefreshControl
-                            refreshing={this.state.isRefreshing}
-                          />
-            }
         >
           <View style={styles.container}>
             <View style={styles.header}>
-              <Image source={{ uri: res.photo }} style={styles.pic} />
-              <Text style={styles.title}>{res.title}</Text>
-              <Text style={styles.time}>{time}</Text>
+              {!!res.photo && <Image source={{ uri: res.photo }} style={styles.pic} />}
+              {!!data.pic && <View style={styles.picBox}><Image source={data.pic} style={styles.avatar} /></View>}
+              <Text style={[ styles.title, data.title && styles.head]}>{res.title || data.title}</Text>
+              {!!res.created && <Text style={styles.time}>{time}</Text>}
             </View>
             <View style={styles.content}>
               <HTMLView
-                value={res.body}
+                value={res.body || data.content}
               />
             </View>
           </View>
@@ -130,6 +118,12 @@ const styles = StyleSheet.create({
     width: 296,
     height: 166,
     borderRadius: 5,
+  },
+  head: {
+    fontSize: 30,
+  },
+  picBox: {
+    marginLeft: px2dp(60)
   },
   header: {
     paddingBottom: 12,

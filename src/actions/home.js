@@ -5,7 +5,8 @@ import {
   REQUEST_EVENTS,
   REQUEST_EVENTS_SUCCESSFUL,
   REQUEST_EVENTS_FAILURE,
-  REQUEST_EVENTS_HEADLINE_SUCCESSFUL
+  REQUEST_EVENTS_HEADLINE_SUCCESSFUL,
+  REQUEST_EVENTS_ACTIVE_SUCCESSFUL,
 } from '../constants';
 
 import request from '../util/request';
@@ -31,8 +32,8 @@ export const fetchNews = (page) => dispatch => {
   return request.get(commonApi.base + commonApi.news, {
     page: page
   })
-  .catch(err => dispatch(requestNewsFailure(err)))
-  .then(data => dispatch(requestNewsSuccessful(data)));
+  .then(data => dispatch(requestNewsSuccessful(data)))
+  .catch(err => dispatch(requestNewsFailure(err)));
 }
 
 const requestEvents = () => ({
@@ -59,8 +60,8 @@ export const fetchEventHeadline = () => dispatch => {
   return request.get(commonApi.base + commonApi.events, {
     headline: true,
   })
-  .catch(err => dispatch(requestEventsFailure(err)))
-  .then(data => dispatch(requestEventsHeadlineSuccessful(data)));
+  .then(data => dispatch(requestEventsHeadlineSuccessful(data)))
+  .catch(err => dispatch(requestEventsFailure(err)));
 }
 
 
@@ -69,6 +70,21 @@ export const fetchEvents = (page, headline) => dispatch => {
   return request.get(commonApi.base + commonApi.events, {
     page: page,
   })
-  .catch(err => dispatch(requestEventsFailure(err)))
-  .then(data => dispatch(requestEventsSuccessful(data)));
+  .then(data => dispatch(requestEventsSuccessful(data)))
+  .catch(err => dispatch(requestEventsFailure(err)));
+}
+
+const requestEventsActiveSuccessful = (data) => ({
+  type: REQUEST_EVENTS_ACTIVE_SUCCESSFUL,
+  data: data,
+})
+
+export const fetchEventsActive = (page) => dispatch => {
+  dispatch(requestEvents());
+  return request.get(commonApi.base + commonApi.events, {
+    active: true,
+    page: page,
+  })
+  .then(data => dispatch(requestEventsActiveSuccessful(data)))
+  .catch(err => dispatch(requestEventsFailure(err)));
 }
