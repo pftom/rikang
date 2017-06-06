@@ -6,6 +6,8 @@ const {
   View,
   Animated,
   Image,
+  Platform,
+  TouchableOpacity,
 } = ReactNative;
 
 const Button = require('./Button');
@@ -60,13 +62,25 @@ const DefaultTabBar = React.createClass({
   render() {
     const containerWidth = this.props.containerWidth;
     const numberOfTabs = this.props.tabs.length;
-    const tabUnderlineStyle = {
-      position: 'absolute',
-      width: 75,
-      height: 4,
-      bottom: 0,
-      marginLeft: 54,
-    };
+    let tabUnderlineStyle = null;
+
+    if (Platform.OS === 'ios') {
+      tabUnderlineStyle = {
+        position: 'absolute',
+        width: 75,
+        height: 4,
+        bottom: 0,
+        marginLeft: 54,
+      };
+    } else {
+      tabUnderlineStyle = {
+        position: 'absolute',
+        width: containerWidth / numberOfTabs,
+        bottom: 0,
+        justifyContent: "center",
+        alignItems: "center"
+      }
+    }
 
     const left = this.props.scrollValue.interpolate({
       inputRange: [0, 1, ], outputRange: [0,  containerWidth / numberOfTabs, ],

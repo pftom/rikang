@@ -5,6 +5,7 @@ import {
   REQUEST_EVENTS,
   REQUEST_EVENTS_SUCCESSFUL,
   REQUEST_EVENTS_FAILURE,
+  REQUEST_EVENTS_HEADLINE_SUCCESSFUL
 } from '../constants';
 
 import request from '../util/request';
@@ -43,16 +44,30 @@ const requestEventsSuccessful = (data) => ({
   data: data,
 });
 
+const requestEventsHeadlineSuccessful = (data) => ({
+  type: REQUEST_EVENTS_HEADLINE_SUCCESSFUL,
+  data: data.results,
+});
+
 const requestEventsFailure = (err) => ({
   type: REQUEST_EVENTS_FAILURE,
   err: err,
 });
 
-
-export const fetchEvents = (page) => dispatch => {
+export const fetchEventHeadline = () => dispatch => {
   dispatch(requestEvents());
   return request.get(commonApi.base + commonApi.events, {
-    page: page
+    headline: true,
+  })
+  .catch(err => dispatch(requestEventsFailure(err)))
+  .then(data => dispatch(requestEventsHeadlineSuccessful(data)));
+}
+
+
+export const fetchEvents = (page, headline) => dispatch => {
+  dispatch(requestEvents());
+  return request.get(commonApi.base + commonApi.events, {
+    page: page,
   })
   .catch(err => dispatch(requestEventsFailure(err)))
   .then(data => dispatch(requestEventsSuccessful(data)));

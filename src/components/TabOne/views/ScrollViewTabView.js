@@ -20,7 +20,8 @@ const TimerMixin = require('react-timer-mixin');
 
 const SceneComponent = require('./SceneComponent');
 const DefaultTabBar = require('./DefaultTabBar');
-import Carousel from './Carousel';
+import px2dp from '../../../util/index';
+import Carousel1 from './Carousel1';
 
 const { width, height } = Dimensions.get('window');
 
@@ -331,7 +332,7 @@ const ScrollableTabView = React.createClass({
                         />
                       }
        style={{ flex: 1}}>
-        <View style={{ height: 184, width: width }}><Carousel imgOpacity={this.props.imgOpacity} /></View>
+        <View style={{ height: px2dp(184), width: width,}}><Carousel1 headline={this.props.headline}  imgOpacity={this.props.imgOpacity} navigation={this.props.navigation} /></View>
           <View style={[styles.container, this.props.style, ]} onLayout={this._handleLayout}>
           {this.props.tabBarPosition === 'top' && this.renderTabBar(tabBarProps)}
           {this.renderScrollableContent()}

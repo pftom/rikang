@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import AppNavigation from './containers/AppNavigation';
 import Login from './containers/Login';
 import { SET_TOKEN } from './constants';
-import { fetchEvents, fetchNews } from './actions/home';
+import { fetchEvents, fetchNews, fetchEventHeadline } from './actions/home';
 
 class App extends Component {
 
@@ -39,6 +39,7 @@ class App extends Component {
                       this.props.dispatch({ type: SET_TOKEN, data: value });
                       this.props.dispatch(fetchEvents());
                       this.props.dispatch(fetchNews());
+                      this.props.dispatch(fetchEventHeadline());
                       that.setState({
                         isLogged: true,
                       })

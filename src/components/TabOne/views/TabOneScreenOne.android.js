@@ -10,8 +10,11 @@ import {
   ListView, 
   ScrollView, 
   TouchableOpacity, 
+  Platform,
 } from 'react-native';
 import ScrollViewTabView from './ScrollViewTabView';
+import ScrollViewTabView1 from 'react-native-scrollable-tab-view';
+import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
 import { connect } from 'react-redux';
 
 import Carousel from './Carousel';
@@ -195,14 +198,7 @@ class TabOneScreenOne extends Component {
     }
     return (
       <View style={styles.container}>
-        <View style={styles.indicatorBox}>
-          <ActivityIndicator/>
-        </View>
-        <Animated.View
-          style={[ styles.topView, style1]}
-        >
-          <View style={styles.listBox}>
-            <ScrollViewTabView
+        <ScrollViewTabView1
               ref={(listView) => this.listView = listView}
               isFetching={isFetching}
               dispatch={dispatch}
@@ -245,10 +241,7 @@ class TabOneScreenOne extends Component {
                   </Animated.View>
                 ))
               }
-          </ScrollViewTabView>
-        </View>
-        </Animated.View>
-
+          </ScrollViewTabView1>
       </View>
     )
   }

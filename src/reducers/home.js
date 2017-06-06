@@ -7,12 +7,14 @@ import {
   REQUEST_NEWS,
   REQUEST_NEWS_SUCCESSFUL,
   REQUEST_NEWS_FAILURE,
+  REQUEST_EVENTS_HEADLINE_SUCCESSFUL,
 } from '../constants';
 
 const initialEventsState = {
   isFetching: false,
   events: {},
   err: null,
+  headlineEvents: {},
 };
 
 var total1 = [];
@@ -44,6 +46,8 @@ function events (state = initialEventsState, action) {
       };
     case REQUEST_EVENTS_FAILURE:
       return { ...state, isFetching: false, err: action.err };
+    case REQUEST_EVENTS_HEADLINE_SUCCESSFUL:
+      return { ...state, isFetching: false, headlineEvents: action.data }
     default:  return state;
   }
 }

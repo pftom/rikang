@@ -48,7 +48,7 @@ const requestEventFailure = (err) => ({
 });
 
 
-export const fetchEvent = (id) => dispatch => {
+export const fetchEvent = (id, params) => dispatch => {
   dispatch(reqeustEvent());
   return request.get(commonApi.base + singleApi(id).event_id)
               .catch(err => dispatch(requestEventFailure(err)))
