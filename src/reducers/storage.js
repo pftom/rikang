@@ -9,6 +9,7 @@ export const initialStorageState = {
   isChanging: false,
   isFailure: false,
   isSuccess: false,
+  data: {},
 }
 
 function storage (state = initialStorageState, action) {
@@ -16,9 +17,9 @@ function storage (state = initialStorageState, action) {
     case REQUEST_ASYNCSTORAGE_CHANGE:
       return { ...state, isChanging: true };
     case ASYNCSTORAGE_SUCCESS:
-      return { ...state, isSuccess: true };
+      return { ...state, isChanging: false ,isSuccess: true, data: action.data, isFailure: false, };
     case ASYNCSTORAGE_ERROR:
-      return { ...state, isFailure: true };
+      return { ...state, isChanging: fasle ,isFailure: true, isSuccess: false, };
     default:
       return state;
   }

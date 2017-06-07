@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity, TextInput, ScrollView , Dimensions, StyleSheet, PixelRatio, Platform } from 'react-native';
 
 import Header from './Header';
+import { fetchChangePasswd } from '../../actions/user';
 
 const width = Dimensions.get('window').width;
 
@@ -58,6 +59,14 @@ class ModifyPassword extends Component {
   handleTextChange(text, title) {
     this.setState({ [title]: text });
   }
+
+  submit() {
+      this.props.dispatch(fetchChangePasswd({
+        username: this.state.value1 || '',
+        password: this.state.value2 || '',
+      }))
+  }
+
   render(){
     return (
       <View style={styles.container}>

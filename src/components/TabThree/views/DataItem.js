@@ -6,7 +6,7 @@ import SelectPhoto from './SelectPhoto';
 import { logout } from '../../../actions/user';
 const width = Dimensions.get('window').width;
 
-const AUTHORITY = [3, 4, 6, 8, 9, 10, 11, 13];
+const AUTHORITY = [8, 9, 10, 11, 13];
 const NAVIGATION = {
   ['8']: 'PushNotification',
   ['9']: 'ModifyPassword',
@@ -39,23 +39,15 @@ class PersonDataItem extends Component {
           <TouchableOpacity onPress={() => id > 8 ? this.props.navigation.navigate(NAVIGATION[id]) : this.props.showSwitchPage(this.props.id)}>
           <View style={styles.textBox}>
             { <Text style={styles.text}>{id === 12 ? this.props.content : ( id >= 8 ? ' ' : this.props[this.props.DATA[id - 1].title])}</Text> }
-            { (id !== 11) && <Image source={require('../img/arrow.png')} style={[styles.arrow, id > 8 && styles.arrow1]} /> }
+            { (id !== 11 && id > 8) && <Image source={require('../img/arrow.png')} style={[styles.arrow, id > 8 && styles.arrow1]} /> }
           </View>
         </TouchableOpacity>
         )
       )
     } else {
       renderContentBox = (
-        <View>
-          <TextInput style={styles.content} 
-                            onChangeText={(text) => this.props.handleTextChange(text, this.props.title)} 
-                            value={this.props.text}  
-                            defaultValue={this.props.content} 
-                            returnKeyType="done"
-                            maxLength={10}
-                            clearButtonMode="while-editing"
-                            autoCorrect={false}
-                        />
+        <View style={styles.content}>
+          <Text style={styles.contentText}>{this.props[this.props.DATA[id - 1].title]}</Text>
         </View>
       )
     }
@@ -80,7 +72,7 @@ class PersonDataItem extends Component {
         { 
           id !== 13 && (
             <View style={styles.right}>
-              { !!this.props.avatar && <View style={styles.imgBox}><SelectPhoto num={2} /></View>}
+              { !!this.props.avatar && <View style={styles.imgBox}><SelectPhoto num={2} avatar={this.props.data.avatar} /></View>}
               <View style={styles.contentBox}>
                 {renderContentBox}
               </View>
@@ -122,17 +114,20 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#FF3B30'
   },
-  content: {
+  contentText: {
     fontFamily: 'PingFangSC-Light',
     fontSize: 15,
     color: '#8F8E94',
     letterSpacing: -0.41,
+    backgroundColor: 'transparent',
+    textAlign: 'right',
+  },
+  content: {
     paddingRight: 10,
     height: 40,
     width: 330,
-    backgroundColor: 'transparent',
     marginTop: 2,
-    textAlign: 'right',
+    justifyContent: 'center',
   },
   right: {
     flexDirection: 'row',

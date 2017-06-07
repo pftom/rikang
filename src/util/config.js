@@ -6,7 +6,7 @@ export const header = (METHOD, token) => ({
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
-    'Authorization': token,
+    'Authorization': 'Token ' + token,
   }
 })
 
@@ -15,12 +15,12 @@ export const commonApi = {
   news: 'home/news/',
   events: 'home/events/',
   login: 'users/login/',
-  changePassword: 'users/change-password',
+  changePassword: 'users/change-password/',
   profile: 'users/profile/',
 };
 
 export const singleApi = (id) => ({
   news_id: `home/news/${id}`,
   event_id: `home/events/${id}`,
-  attend: `home/events/${id}/attend`,
+  attend: `home/events/${id}/attend/`,
 });

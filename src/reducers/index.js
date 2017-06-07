@@ -6,6 +6,7 @@ import auth from './auth';
 import storage from './storage';
 import home from './home';
 import content from './content';
+import users from './users';
 
 const AppReducers = combineReducers({
   nav,
@@ -13,6 +14,7 @@ const AppReducers = combineReducers({
   home,
   content,
   storage,
+  users,
   form: formReducer,
 });
 

@@ -25,7 +25,7 @@ class SelectPhoto extends Component {
     super(props);
     
     this.state = {
-      avatarSource: 'https://images.unsplash.com/photo-1441742917377-57f78ee0e582?h=1024',
+      avatarSource: this.props.avatar,
     }
 
     this.selectPhotoTapped = this.selectPhotoTapped.bind(this);

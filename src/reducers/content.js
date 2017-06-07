@@ -10,12 +10,14 @@ import {
   REQUEST_ATTEND,
   REQUEST_ATTEND_FAILURE,
   REQUEST_ATTEND_SUCCESSFUL,
+  SUBMIT_CONFIRM,
 } from '../constants';
 
 const initialAttendState = {
   isFetching: false,
   attend: {},
   err: false,
+  success: false,
 };
 
 function attend (state = initialAttendState, action) {
@@ -23,9 +25,11 @@ function attend (state = initialAttendState, action) {
     case REQUEST_ATTEND:
       return { ...state, isFetching: true };
     case REQUEST_ATTEND_SUCCESSFUL: 
-      return { ...state, isFetching: false, attend: action.data };
+      return { ...state, isFetching: false, attend: action.data, err: false, success: true };
     case REQUEST_ATTEND_FAILURE:
-      return { ...state, isFetching: false, err: true };
+      return { ...state, isFetching: false, err: true, success: true, };
+    case SUBMIT_CONFIRM:
+      return { ...state, err: false };
     default: return state;
   }
 }

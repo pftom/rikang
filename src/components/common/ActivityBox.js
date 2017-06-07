@@ -28,7 +28,6 @@ class ActivityItem extends Component {
 
     this.state = {
       status: false,
-      modalVisibile: false,
     }
 
     this.changeStatus = this.changeStatus.bind(this);
@@ -36,34 +35,25 @@ class ActivityItem extends Component {
   }
 
   changeStatus() {
-    this.setState({ 
-      status: true,
-      modalVisibile: false,
-    });
+    const that = this;
+    this.timer1 = setTimeout(() => {
+      that.setState({
+        status: true,
+      })
+    }, 1700);
   }
 
   dispatchAttend() {
     const { dispatch, token, id } = this.props;
-    this.setState({
-      modalVisibile: true,
-    })
     dispatch(fetchAttend(id, token));
   }
 
-  waitRefreshing() {
-    const that = this;
-    this.timers = setTimeout(() => {
-      that.setState({
-        modalVisibile: false,
-      });
-    }, 1500);
+  componentWillUnmount() {
+    clearTimeout(this.timer1);
   }
 
   render() {
     const { attend } = this.props;
-    if (attend.isFetching) {
-      this.waitRefreshing();
-    }
     const renderStatus = (
       <LinearGradient
         start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}
@@ -82,8 +72,6 @@ class ActivityItem extends Component {
     return (
       <TouchableOpacity onPress={() => this.props.navigation.navigate("TabOneScreenTwo", { data: { type: 0, id: this.props.id }, title: '校园活动' })}>
         <View style={styles.containerItem} >
-        <ModalActivity changeStatus={this.changeStatus} modalVisibile={this.state.modalVisibile} {...MODAL_TEXT} />
-        
         <Image source={{ uri: this.props.photo }} style={styles.pic} />
         <LinearGradient
           colors={['rgba(0, 0, 0, 0)', 'rgba(0, 0, 0, 0.6)']}
@@ -101,7 +89,7 @@ class ActivityItem extends Component {
                 {renderStatus}
               </TouchableOpacity>
             )
-            : renderStatus
+            : TouchableWith
           }
         </View>
         </View>
@@ -130,6 +118,10 @@ class ActivityBox extends Component {
         isRefreshing: false,
       });
     }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timers);
   }
 
   _renderNoMore() {
@@ -177,10 +169,11 @@ class ActivityBox extends Component {
   });
   
   render() {
-    const { navigation, activeEvents, isFetching,   } = this.props;
+    const { navigation, activeEvents, isFetching, dispatch, attend,   } = this.props;
     let dataSource = this.ds.cloneWithRows(activeEvents.results || []);
     return (
     <View style={styles.container}>
+      <ModalMessage failure={attend.err} message={'签到失败，请检查网络连接'} dispatch={dispatch}/>
       <ListView
         refreshControl={
                         <RefreshControl

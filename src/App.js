@@ -6,6 +6,7 @@ import AppNavigation from './containers/AppNavigation';
 import Login from './containers/Login';
 import { SET_TOKEN } from './constants';
 import { fetchEvents, fetchNews, fetchEventHeadline } from './actions/home';
+import { getStorageData } from './actions/user';
 
 class App extends Component {
 
@@ -36,10 +37,12 @@ class App extends Component {
       AsyncStorage.getItem('token')
                   .then(value => {
                     if (value && value.length) {
-                      this.props.dispatch({ type: SET_TOKEN, data: value });
-                      this.props.dispatch(fetchEvents());
-                      this.props.dispatch(fetchNews());
-                      this.props.dispatch(fetchEventHeadline());
+                      const { dispatch } = this.props;
+                      dispatch({ type: SET_TOKEN, data: value });
+                      dispatch(getStorageData());
+                      dispatch(fetchEvents());
+                      dispatch(fetchNews());
+                      dispatch(fetchEventHeadline());
                       that.setState({
                         isLogged: true,
                       })

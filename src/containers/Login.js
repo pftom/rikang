@@ -3,7 +3,7 @@ import { Text, View, AsyncStorage, Modal, Button , TextInput, Keyboard ,Touchabl
 import { NavigationActions } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import { connect } from 'react-redux';
-import MessageBox from '../components/common/MessageBox';
+import ModalMessage from '../components/common/ModalMessage';
 
 import { fetchLogin } from '../actions/user';
 
@@ -24,12 +24,10 @@ class Login extends Component {
       this.setState({
         [key]: value,
       });
-      console.log('value', value);
     }
     
 
     submit() {
-      console.log('value1', this.state.value1);
       this.props.dispatch(fetchLogin({
         username: this.state.value1 || '',
         password: this.state.value2 || '',
@@ -41,7 +39,7 @@ class Login extends Component {
       return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.container}>
-          <MessageBox dispatch={dispatch} message={'用户名或密码错误'} />
+          <ModalMessage  dispatch={dispatch} message={'用户名或密码错误'} failure={failure} />
           <Image source={require('../components/img/logo.png')} style={styles.logo} />
           <View style={styles.textInputBox}>
                   <TextInput
@@ -126,26 +124,6 @@ const styles = StyleSheet.create({
   textBox: {
     marginTop: 49
   },
-  box: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
-  },
-  modalBox: {
-    width: 160,
-    padding: 30,
-    paddingLeft: 5,
-    paddingRight: 5,
-    borderRadius: 5,
-    backgroundColor: '#000',
-    opacity: 0.8
-  },
-  btnText: {
-    fontSize: 16,
-    color: '#fff',
-    textAlign: 'center',
-  }
 })
 
 

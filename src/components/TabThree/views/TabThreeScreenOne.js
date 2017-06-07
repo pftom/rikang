@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
+import { connect } from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 
+import px2dp from '../../../util/index';
 import Header from '../../common/Header'
 import SettingItem from './SettingItem';
 import SelectPhoto from './SelectPhoto';
@@ -36,16 +38,28 @@ const SCREEN = [ "MessageBox", "ActivityBox", "PersonData", "Setting" ];
 
 class TabThreeScreenOne extends Component {
   render() {
+    const { profile, navigation } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.upSide}>
-          <SelectPhoto num={1} />
+          <SelectPhoto num={1} avatar={profile.avatar} />
           <View style={styles.rightSide}>
-            <Text style={styles.name}>周思达</Text>
             <View style={styles.identityBox}>
-              <Image source={require('../img/female.png')} style={styles.sex} />
-              <Text style={styles.identity}>共青团员</Text>
+              <Text style={styles.name}>{profile.full_name}</Text>
+              <Text style={styles.identity}>{profile.identity}</Text>
             </View>
+            <TouchableOpacity onPress={() => navigation.navigate('PersonData', { data: profile })}>
+              <LinearGradient
+                colors={[ '#FF0467', '#FC7437']}
+                start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}
+                style={styles.profileGradient}
+              >
+                <View style={styles.profileBox}>
+                  <Image source={require('../img/person_data.png')} style={styles.profileImg} />
+                  <Text style={styles.profileText}>查看个人档案</Text>
+                </View>
+              </LinearGradient>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.downSide}>
@@ -58,7 +72,7 @@ class TabThreeScreenOne extends Component {
           </View>
           <View style={styles.itemBox}>
             {
-              ITEMS.map(item => <TouchableOpacity key={item.id} onPress={() => this.props.navigation.navigate(SCREEN[item.id - 1])}><SettingItem {...item} /></TouchableOpacity>)
+              ITEMS.map(item => <TouchableOpacity key={item.id} onPress={() => item.id === 3 ? Alert.alert('功能即将上线') : navigation.navigate(SCREEN[item.id - 1])}><SettingItem {...item}/></TouchableOpacity>)
             }
           </View>
         </View>
@@ -89,11 +103,11 @@ const styles = StyleSheet.create({
   },
   upSide: {
     flexDirection: 'row',
-    marginRight: 70,
+    marginRight: px2dp(41),
     marginTop: 51,
   },
   rightSide: {
-    marginTop: -1
+    marginTop: -15
   },
   name: {
     fontFamily: 'PingFangSC-Medium',
@@ -107,9 +121,10 @@ const styles = StyleSheet.create({
     marginLeft: 1,
   },
   identity: {
-    fontFamily: 'PingFangSC-Regular',
-    fontSize: 18,
-    color: 'rgba(100,100,100,0.80)',
+    fontFamily: 'PingFangSC-Light',
+    fontSize: 14,
+    color: 'rgba(136,136,136,0.80)',
+    marginLeft: 12,
   },
   sex: {
     marginTop: -1.5,
@@ -123,7 +138,7 @@ const styles = StyleSheet.create({
   gradientBox: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    marginTop: -20,
+    marginTop: -25,
   },
   itemBox: {
     flexDirection: 'row',
@@ -131,10 +146,35 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     marginRight: -7,
     marginTop: 21,
+  },
+  profileGradient: {
+    width: px2dp(144),
+    height: px2dp(36),
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  profileBox: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: px2dp(142),
+    height: px2dp(34),
+    backgroundColor: '#FFF',
+    borderRadius: 7,
+  },
+  profileText: {
+    fontFamily: 'PingFangSC-Regular',
+    fontSize: 16,
+    color: '#D0011B',
+    backgroundColor: 'transparent',
   }
 })
 
 
+const mapStateToProps = (state) => ({
+  profile: JSON.parse(state.storage.data),
+});
 
-
-export default TabThreeScreenOne;
+export default connect(mapStateToProps)(TabThreeScreenOne);

@@ -74,8 +74,11 @@ const requestAttendSuccessful = (data) => ({
 
 export const fetchAttend = (id, token) => dispatch => {
   dispatch(requestAttend());
-  return request.get(commonApi.base + singleApi(id).attend, null, token,)
-              .then(data => dispatch(requestAttendSuccessful(data)))
+  return fetch(commonApi.base + singleApi(id).attend, token)
+              .then(data => {
+                console.log('data', data);
+                dispatch(requestAttendSuccessful(data));
+              })
               .catch(err => {
                 console.log('err', err);
                 dispatch(requestAttendFailure(err))

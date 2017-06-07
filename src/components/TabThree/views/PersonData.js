@@ -44,85 +44,86 @@ const DATA = [
   }
 ];
 
-const SWITCH = {
-  ['3']: [
-    {
-      key: 1,
-      value: '男',
-    },
-    {
-      key: 2,
-      value: '女',
-    }
-  ],
-  ['4']: [
-    {
-      key: 1,
-      value: '共青团员',
-    },
-    {
-      key: 2,
-      value: '共产党员',
-    },
-    {
-      key: 3,
-      value: '群众'
-    },
-  ],
-  ['6']: [
-    {
-      key: 1,
-      value: '计算机',
-    },
-    {
-      key: 2,
-      value: '软件',
-    },
-    {
-      key: 3,
-      value: '信安',
-    },
-    {
-      key: 4,
-      value: '网络'
-    }
+// const SWITCH = {
+//   ['3']: [
+//     {
+//       key: 1,
+//       value: '男',
+//     },
+//     {
+//       key: 2,
+//       value: '女',
+//     }
+//   ],
+//   ['4']: [
+//     {
+//       key: 1,
+//       value: '共青团员',
+//     },
+//     {
+//       key: 2,
+//       value: '共产党员',
+//     },
+//     {
+//       key: 3,
+//       value: '群众'
+//     },
+//   ],
+//   ['6']: [
+//     {
+//       key: 1,
+//       value: '计算机',
+//     },
+//     {
+//       key: 2,
+//       value: '软件',
+//     },
+//     {
+//       key: 3,
+//       value: '信安',
+//     },
+//     {
+//       key: 4,
+//       value: '网络'
+//     }
 
-  ]
-};
+//   ]
+// };
 
 class PersonData extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      ["姓名"]: null,
+      ["姓名"]: '周思达',
       ["性别"]: '男',
       ["身份"]: '共青团员',
       ["学院"]: '计算机学院',
       ["专业"]: '卓越软件1402',
       ["学号"]: '123456',
       activeId: 3,
-      options: SWITCH[3],
+      // options: SWITCH[3],
     }
 
     this.handleTextChange = this.handleTextChange.bind(this);
-    this.showSwitchPage = this.showSwitchPage.bind(this);
+    // this.showSwitchPage = this.showSwitchPage.bind(this);
   }
 
   handleTextChange(text, title) {
     this.setState({ [title]: text });
   }
-
-  showSwitchPage(id) {
-    this.setState({ 
-      activeId: id,
-      options: SWITCH[id],
-    });
-    this.singlePicker.show();
-  }
+  // 用于选择身份，暂时不支持自己选择。
+  // showSwitchPage(id) {
+  //   this.setState({ 
+  //     activeId: id,
+  //     options: SWITCH[id],
+  //   });
+  //   this.singlePicker.show();
+  // }
 
   
   render() {
+    const { data } = this.props.navigation.state.params;
     let itemOne = [];
     let itemTwo = [];
     DATA.map((item, key) => {
@@ -131,8 +132,9 @@ class PersonData extends Component {
                         DATA={DATA}
                         {...this.state} 
                         key={item.id}
+                        data={data}
                         handleTextChange={this.handleTextChange}
-                        showSwitchPage={this.showSwitchPage}
+                        // showSwitchPage={this.showSwitchPage}
                         />)
       } else {
         itemTwo.push(<PersonDataItem
@@ -141,7 +143,7 @@ class PersonData extends Component {
                         key={item.id} 
                         {...this.state} 
                         handleTextChange={this.handleTextChange} 
-                        showSwitchPage={this.showSwitchPage}
+                        // showSwitchPage={this.showSwitchPage}
                         />)
       }
     });
@@ -149,19 +151,22 @@ class PersonData extends Component {
       <ScrollView style={styles.container}>
         <View style={styles.itemContainer}>{itemOne}</View>
         <View style={styles.itemContainer}>{itemTwo}</View>
-        <SinglePicker
-            lang="zh-CN"
-            ref={ref => this.singlePicker = ref}
-            onConfirm={(option)=>{
-                this.setState({ [DATA[this.state.activeId - 1].title]: option.value })
-            }}
-            style={styles.singlePicker}
-            options={this.state.options}
-        />
+
       </ScrollView>
     )
   }
 }
+
+        // 用于进行身份选择的组件
+        // <SinglePicker
+        //     lang="zh-CN"
+        //     ref={ref => this.singlePicker = ref}
+        //     onConfirm={(option)=>{
+        //         this.setState({ [DATA[this.state.activeId - 1].title]: option.value })
+        //     }}
+        //     style={styles.singlePicker}
+        //     options={this.state.options}
+        // />
 
 PersonData.navigationOptions = ({ navigation }) => ({
   headerTitle: (

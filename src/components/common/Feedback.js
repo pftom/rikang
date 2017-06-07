@@ -32,7 +32,7 @@ class TextBox extends Component {
             <TextInput style={styles.content} 
                             onChangeText={(text) => this.props.handleTextChange(text, 'upSide')} 
                             value={this.props.upSide}  
-                            placeholder="Emain 或 Q Q / Wechat 号"
+                            placeholder="Email 或 Q Q / Wechat 号"
                             returnKeyType="done"
                             maxLength={10}
                             clearButtonMode="while-editing"

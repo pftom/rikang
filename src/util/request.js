@@ -42,8 +42,8 @@ request.post = ( url, body ) => {
         })
 }
 
-request.put = ( url, body ) => {
-  let options = _.extend(header('PUT'), {
+request.put = ( url, token, body ) => {
+  let options = _.extend(header('PUT', token), {
     body: JSON.stringify(body),
   });
 
