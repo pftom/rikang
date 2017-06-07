@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity, TextInput, ScrollView , Dimensions, StyleSheet, PixelRatio, Platform } from 'react-native';
+import { connect } from 'react-redux';
 
 import Header from './Header';
 import { fetchChangePasswd } from '../../actions/user';
+import ModalMessage from '../common/ModalMessage';
 
 const width = Dimensions.get('window').width;
 
@@ -51,6 +53,7 @@ class ModifyPassword extends Component {
       oldPasswd: '',
       newPasswd: '',
       newPasswd2: '',
+      status: false,
     }
 
     this.handleTextChange = this.handleTextChange.bind(this);
@@ -61,10 +64,9 @@ class ModifyPassword extends Component {
   }
 
   submit() {
-      this.props.dispatch(fetchChangePasswd({
-        username: this.state.value1 || '',
-        password: this.state.value2 || '',
-      }))
+      this.setState({
+        status: true,
+      })
   }
 
   render(){
@@ -150,4 +152,4 @@ const styles = StyleSheet.create({
   
 })
 
-export default ModifyPassword;
+export default connect()(ModifyPassword);

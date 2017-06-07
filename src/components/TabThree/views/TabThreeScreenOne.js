@@ -38,7 +38,20 @@ const SCREEN = [ "MessageBox", "ActivityBox", "PersonData", "Setting" ];
 
 class TabThreeScreenOne extends Component {
   render() {
-    const { profile, navigation } = this.props;
+    let { profile, navigation } = this.props;
+
+    if (profile) {
+      profile = profile && JSON.parse(profile);
+    } else {
+      profile = {
+                    avatar: '',
+                    college: '',
+                    full_name: '',
+                    identity: '',
+                    major: '',
+                    sex: '',
+                  }
+    }
     return (
       <View style={styles.container}>
         <View style={styles.upSide}>
@@ -174,7 +187,7 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state) => ({
-  profile: JSON.parse(state.storage.data),
+  profile: state.storage.data || state.users.usersProfile.data,
 });
 
 export default connect(mapStateToProps)(TabThreeScreenOne);

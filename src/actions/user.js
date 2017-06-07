@@ -56,6 +56,7 @@ export const getStorageData = () => dispatch => {
 
 
 export const receiveLoginSucess = (json) => dispatch => {
+  console.log('json', json);
   dispatch(requestAsyncStorageChange());
   return AsyncStorage.setItem('token', json.token)
               .then((data) => {
