@@ -51,7 +51,7 @@ export const getStorageData = () => dispatch => {
   return AsyncStorage.getItem('profile')
                   .then(data => dispatch(asyncStorageChangeSuccess(data)))
                   .catch(err => dispatch(asyncStorageChangeError()));
-}
+};
 
 
 
@@ -158,5 +158,5 @@ export const fetchPersonProfile = (token) => dispatch => {
                   dispatch(requestPersonProlfileSuccessful(JSON.stringify(userProfile)))
                 })
                 .catch(err => dispatch(requestPersonProlfileFailure()));
-}
+};
 
