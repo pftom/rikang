@@ -16,7 +16,7 @@ const nav = function nav(state = initialNavState, action) {
       nextState = state.merge(AppNavigator.router.getStateForAction(NavigationActions.back(), state.toJS()));
       break;
     case 'Logout':
-      nextState = state.merge(AppNavigator.router.getStateForAction(NavigationActions.navigate({ routeName: 'Login' }), state.toJS()));
+      nextState = state.merge(AppNavigator.router.getStateForAction(NavigationActions.navigate({ routeName: 'Register' }), state.toJS()));
       break;
     default:
       nextState = state.merge(AppNavigator.router.getStateForAction(action, state.toJS()));

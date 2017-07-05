@@ -12,21 +12,21 @@ import { FormInput } from './common/';
 import { ContainerStyle as styles} from './styles/'
 
 //对组件进行二次封装，以应对不同的处理场景如：注册，登录等共用一套逻辑
-class LoginScreen extends Component {
+class Register extends Component {
   render() {
-
+    
     return (
       <View style={styles.container}>
-        <FormInput {...this.props} kind={'Login'}/>
+        <FormInput {...this.props} kind={'Register'}/>
       </View>
     )
   }
 }
 
 
-let LoginForm =  reduxForm({
-  form: 'Login',
+let RegisterForm =  reduxForm({
+  form: 'Register',
   asyncBlurFields: ['username'],
-})(LoginScreen);
+})(Register);
 
-export default connect()(LoginForm);
+export default connect()(RegisterForm);

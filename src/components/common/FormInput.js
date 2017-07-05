@@ -22,7 +22,7 @@ import {
 } from '../../utils/validate.js';
 
 //sync submit validate function
-// import submit from '../../utils/submit';
+import submit from '../../utils/submit';
 
 //single field async validate function
 import asyncValidate from '../../utils/asyncValidate';
@@ -38,19 +38,26 @@ import { renderInput } from './Input';
 class FormInput extends Component {
   constructor(props) {
     super(props);
-    
-    this.submit = this.submit.bind(this);
+  
+    this.jump = this.jump.bind(this);
   }
 
-  submit(values) {
-    this.props.dispatch({ type: 'Login' });
-    console.log('hhh');
+  jump() {
+    const { navigation, kind } = this.props;
+    if (kind === 'Register') {
+      navigation.goBack();
+    } else {
+      navigation.navigate('Register');
+    }
   }
 
   render() {
-    const {  handleSubmit, pristine, load, submitting, error } = this.props;
+    const {  handleSubmit, pristine, load, submitting, error, kind } = this.props;
     return (
       <View style={styles.container}>
+        <TouchableOpacity onPress={this.jump}>
+          <Text>{kind === 'Register' ? '返回' : '新用户注册'}</Text>
+        </TouchableOpacity>
         <Field 
           name="username" 
           component={renderInput} 
@@ -60,7 +67,7 @@ class FormInput extends Component {
           component={renderInput} 
           label="在此输入您的密码" />
         {error && <Text>{error}</Text>}
-        <TouchableOpacity onPress={handleSubmit(this.submit)} disabled={pristine || submitting}>
+        <TouchableOpacity onPress={handleSubmit(submit)} disabled={pristine || submitting}>
           <Text style={styles.button}>Submit</Text>
         </TouchableOpacity>
       </View>

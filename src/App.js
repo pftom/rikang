@@ -2,15 +2,17 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 
 import AppWithNavigationState from './navigators/AppNavigator';
-import Login from './components/LoginScreen';
+import { UserNavigator } from './navigators/AppNavigator';
+import ProfileScreen from './components/ProfileScreen';
+import { addNavigationHelpers } from 'react-navigation';
 
 class App extends Component {
   render() {
     const { isLoggedIn } = this.props;
     if (!isLoggedIn) {
-      return <Login />
+      return <UserNavigator />
     }
-    return <AppWithNavigationState />
+    return <AppWithNavigationState navigation={addNavigationHelpers()}/>
   }
 }
 

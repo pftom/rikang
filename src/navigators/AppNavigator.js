@@ -3,11 +3,25 @@ import { connect } from 'react-redux';
 import { addNavigationHelpers, StackNavigator } from 'react-navigation';
 
 import LoginScreen from '../components/LoginScreen';
+import Register from '../components/Register';
 import MainScreen from '../components/MainScreen';
 import ProfileScreen from '../components/ProfileScreen';
+import Practice from '../components/practice';
+
+export const UserNavigator = StackNavigator({
+    Login: { screen: LoginScreen },
+    Register: { screen: Register },
+  },
+  {
+    navigationOptions: {
+      gesturesEnabled: false,
+      header: null,
+    }
+  }
+);
 
 export const AppNavigator = StackNavigator({
-  Login: { screen: LoginScreen },
+  UserNavigator: { screen: UserNavigator },
   Main: { screen: MainScreen },
   Profile: { screen: ProfileScreen },
 });

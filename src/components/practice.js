@@ -7,22 +7,13 @@ import { connect } from 'react-redux';
 
 class Practice extends Component {
 
-
-  handleSubmit() {
-    this.props.dispatch(
-      NavigationActions.navigate({
-        routeName: 'Main',
-      })
-    )
-  }
-
   render() {
     return (
-      <TouchableOpacity onPress={this.handleSubmit.bind(this)}>
+      <TouchableOpacity>
         <Text>hhhh</Text>
       </TouchableOpacity>
     )
   }
 }
 
-export default connect()(Practice);
+export default Practice;
