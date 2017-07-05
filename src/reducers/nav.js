@@ -1,17 +1,29 @@
-import React from 'react';
 import { NavigationActions } from 'react-navigation';
+import Immutable from 'immutable';
 
-import { AppNavigation } from '../containers/AppNavigation';
+import { AppNavigator } from '../navigators/AppNavigator';
 
-function nav(state, action) {
+const firstAction = AppNavigator.router.getActionForPathAndParams('Main');
+const tempNavState = AppNavigator.router.getStateForAction(firstAction);
+
+
+const initialNavState = Immutable.fromJS(tempNavState);
+
+const nav = function nav(state = initialNavState, action) {
   let nextState;
-
   switch (action.type) {
+    case 'Login':
+      nextState = state.merge(AppNavigator.router.getStateForAction(NavigationActions.back(), state.toJS()));
+      break;
+    case 'Logout':
+      nextState = state.merge(AppNavigator.router.getStateForAction(NavigationActions.navigate({ routeName: 'Login' }), state.toJS()));
+      break;
     default:
-      nextState = AppNavigation.router.getStateForAction(action, state);
-    break;
+      nextState = state.merge(AppNavigator.router.getStateForAction(action, state.toJS()));
+      break;
   }
 
+  // Simply return the original `state` if `nextState` is null or undefined.
   return nextState || state;
 }
 

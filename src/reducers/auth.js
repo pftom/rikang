@@ -1,38 +1,21 @@
-import { REHYDRATE } from 'redux-persist/constants';
+import { REHYDRATE } from 'redux-persist-immutable/constants';
+import Immutable from 'immutable';
 
-import { 
-  RECEIVE_LOGIN_FAILURE, 
-  RECEIVE_LOGIN_SUCCESSFUL, 
-  REQUEST_LOGIN, 
-  LOGOUT,
-  SUBMIT_CONFIRM,
-  SET_TOKEN,
-} from '../constants';
+import { persistor } from '../store';
 
+const initialAuthState = Immutable.Map({ isLoggedIn: false });
 
-export const initialAuthState = {
-  authenticated:  false,
-  isFetching: false,
-  failure: false,
-  token: null,
-}
-
-function auth(state = initialAuthState, action) {
+const auth = function auth(state = initialAuthState, action) {
   switch (action.type) {
-    case REHYDRATE: 
-      return { ...state, authenticated: true };
-    case REQUEST_LOGIN:
-      return { ...state, isFetching: true, authenticated: false, failure: false, };
-    case RECEIVE_LOGIN_SUCCESSFUL:
-      return { ...state, authenticated: true, isFetching: false, failure: false, };
-    case RECEIVE_LOGIN_FAILURE:
-      return { ...state, authenticated: false, isFetching: false, failure: true, };
-    case LOGOUT:
-      return { ...state, authenticated: false };
-    case SUBMIT_CONFIRM:
-      return { ...state, failure: false };
-    case SET_TOKEN:
-      return { ...state, token: action.data }
+    case 'Login':
+      return state.set('isLoggedIn', true);
+    case 'Logout':
+      persistor.purge();
+      return state.set('isLoggedIn', false);
+    case REHYDRATE:
+      const { auth } = action.payload;
+      let isLoggedIn = auth ? auth.get('isLoggedIn') : false;
+      return state.set('isLoggedIn', isLoggedIn);
     default:
       return state;
   }

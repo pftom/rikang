@@ -1,7 +1,10 @@
 {
   "globalDependencies": {
+    "immutable": "registry:dt/immutable#3.8.1+20161028131303",
+    "isomorphic-fetch": "registry:dt/isomorphic-fetch#0.0.0+20170223183302",
     "query-string": "registry:dt/query-string#4.3.0+20170315104407",
     "redux": "registry:dt/redux#3.5.2+20160703092728",
+    "redux-saga": "registry:dt/redux-saga#0.9.1+20160703120921",
     "redux-thunk": "registry:dt/redux-thunk#2.1.0+20160703120921"
   }
 }

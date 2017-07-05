@@ -1,29 +1,41 @@
-import { createStore, applyMiddleware, compose,  } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import {  persistStore, autoRehydrate } from 'redux-persist-immutable';
+import { REHYDRATE } from 'redux-persist-immutable/constants';
 import { createLogger } from 'redux-logger';
-import thunk from 'redux-thunk';
 import { AsyncStorage } from 'react-native';
-import { autoRehydrate, persistStore, getStoredState } from 'redux-persist';
-import { REHYDRATE } from 'redux-persist/constants';
+import createActionBuffer from 'redux-action-buffer';
+import immutableTransforms from 'redux-persist-transform-immutable';
+import { Iterable } from 'immutable';
 
-import AppReducers from './reducers/index';
 
-const middleware = [ thunk ];
-if (process.env.NODE_ENV !== 'production') {
-  middleware.push(createLogger());
+import rootReduers from './reducers';
+
+const middlewares = [ createActionBuffer(REHYDRATE) ];
+
+const stateTransformer = (state) => {
+  if (Iterable.isIterable(state)) return state.toJS();
+  else return state;
+}
+
+if (__DEV__) {
+  middlewares.push(createLogger({
+    stateTransformer,
+  }));
 }
 
 
-
 const store = createStore(
-  AppReducers, 
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  compose(
-    applyMiddleware(...middleware),
-  )
-);
+    rootReduers,
+    compose(
+      applyMiddleware(...middlewares),
+      autoRehydrate(),
+    ),
+  );
 
-export const persistor = persistStore(store, { storage: AsyncStorage, whitelist: ['token'] }, () => {
-  console.log('completed');
-})
+
+export const persistor = persistStore(store, { storage: AsyncStorage, whitelist: ['auth'] }, (err, state) => {
+  console.log('persistStore', state);
+});
+
 
 export default store;

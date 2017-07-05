@@ -1,1 +1,1 @@
-import './miui';
+import './Root';

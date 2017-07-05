@@ -1,21 +1,15 @@
-import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form';
+import { combineReducers } from 'redux-immutable';
+import { reducer as formReducer } from 'redux-form/immutable';
 
 import nav from './nav';
 import auth from './auth';
-import storage from './storage';
-import home from './home';
-import content from './content';
-import users from './users';
+import account from './account';
 
-const AppReducers = combineReducers({
+const AppReducer = combineReducers({
   nav,
   auth,
-  home,
-  content,
-  storage,
-  users,
+  account,
   form: formReducer,
 });
 
-export default AppReducers;
+export default AppReducer;
