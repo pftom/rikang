@@ -8,7 +8,7 @@ import {
 import { Provider } from 'react-redux';;
 
 import store from './src/store';
-import AppWithNavigationState from './src/navigators/AppNavigator';
+import AppContainer from './src/containers/AppContainer';
 
 
 class DangJianApp extends React.Component {
@@ -16,7 +16,7 @@ class DangJianApp extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <AppWithNavigationState />
+        <AppContainer />
       </Provider>
     );
   }

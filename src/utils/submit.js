@@ -1,26 +1,20 @@
 import { SubmissionError } from 'redux-form';
 import { Alert } from 'react-native';
-// import 'isomorphic-fetch';
+import { NavigationActions } from 'react-navigation';
 
 
-const submit = async function submit(values) {
+const submit = function submit(values) {
   try {
-    console.log(JSON.stringify({
-      username: values.get('username'),
-      password: values.get('password')
-    }));
-    const response = await fetch('http://106.14.146.36/users/login/', {
-      method: 'POST',
-      body: JSON.stringify({
-        username: values.get('username'),
-        password: values.get('password')
-      })
-    });
-    console.log(response);
+    console.log(values);
   } catch (e) {
     console.log(e);
     throw new SubmissionError({ _error: '账号或密码错误' });
   }
+  console.log('Navigation', NavigationActions);
+
+  NavigationActions.navigate({
+      routeName: 'Login',
+  });
 }
 
 export default submit;
