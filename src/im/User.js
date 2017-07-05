@@ -10,6 +10,10 @@ class User extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      normalConv: [],
+    }
+
     this.handleChat = this.handleChat.bind(this);
   }
 
@@ -19,13 +23,12 @@ class User extends Component {
   }
 
   getConversations() {
+    const that = this;
     return this.getNormalConvs()
       .then(data => {
-        normalConv = data;
-        
-        normalConv.map(conv => {
-          console.log(conv, conv.unreadMessagesCount);
-        })
+        that.setState({
+          normalConv: data,
+        });
       })
   }
 
@@ -41,16 +44,22 @@ class User extends Component {
       transient: false,
       unique: true,
     }).then(conversation => {
+      console.log('hhhhh');
       navigation.navigate('ChatDetail', { clientId: clientId, myId: myId, imClient: imClient, conv: conversation });
     }).catch(console.error.bind(console));
   }
 
   render() {
-    const { myId } = this.props;
+    const { myId, imClient } = this.props;
+    const { normalConv } = this.state;
+    if(normalConv.length) {
+      console.log('normal', normalConv[0]);
+      console.log('normalConv', imClient);
+    }
     return (
       <TouchableOpacity style={styles.container} onPress={() => this.handleChat()}>
         <Text style={styles.body}>{myId}</Text>
-        <Text style={styles.body}>未读消息{normalConv.length && normalConv[0].unreadMessagesCount}</Text>
+        <Text style={styles.body}>{normalConv.length && normalConv[0].lastMessage._lctext}</Text>
       </TouchableOpacity>
     );
   }

@@ -8,6 +8,7 @@
     "postinstall": "rndebugger-open"
   },
   "dependencies": {
+    "aurora-imui-react-native": "0.4.3",
     "leancloud-realtime": "3.5.2",
     "leancloud-realtime-plugin-typed-messages": "2.0.0",
     "leancloud-storage": "3.0.1",

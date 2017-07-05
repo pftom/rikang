@@ -8,13 +8,9 @@ import {
   Dimensions,
   FlatList,
 } from 'react-native';
-import { TextMessage } from 'leancloud-realtime';
+import { TextMessage, Message } from 'leancloud-realtime';
 
 const { width, height } = Dimensions.get('window');
-
-let messages = [];
-let messageIterator = null;
-let hasLoadAllMessages = false;
 
 class ChatDetail extends Component {
 
@@ -28,6 +24,8 @@ class ChatDetail extends Component {
     this.state = {
       maxResultsAmount: 50,
       draft: '',
+      messages: [],
+      hasLoadAllMessages: false,
     };
   }
 
@@ -43,57 +41,50 @@ class ChatDetail extends Component {
     const { navigation } = this.props;
     const { imClient, conv } = navigation.state.params;
     const that = this;
-    console.log('imClient', imClient);
     return imClient.getConversation(conv.id)
         .then(conversation => {
           console.log('conversation', conversation);
-          messageIterator = conversation.createMessagesIterator({limit: 20});
-            const readMarker = msg => {
-              // 暂态消息不标记
-              // 特殊情况：暂态对话的所有消息都是暂态的，因此暂态对话收到消息全部标记
-              if (msg.transient && !conversation.transient) {
-                return;
-              }
-              // 当前 tab 未激活不标记
-              if (document.hidden) {
-                return;
-              }
-              // 当前对话标记为已读
-              conversation.read();
-            };
+          this.messageIterator = conversation.createMessagesIterator({limit: 20});
 
-            const messageUpdater = msg => {
-              // 如果收到未知类型的暂态消息，直接丢弃
-              if (msg.transient && msg.type === Message.TYPE) {
-                return;
-              }
-              // 消息列表滚动
-              messages.push(msg);
-            };
+          this.currentConversation = conversation;
+          console.log('unreadMessagesCount', conversation);
+          this.currentConversation.on('message', this.readMarker);
+          this.currentConversation.on('message', this.messageUpdater);
 
-            const handleVisiblilityChange = () => {
-              if (conversation.unreadMessagesCount) {
-                conversation.read();
-              }
-            }
-
-            conversation.on('message', readMarker);
-            conversation.on('message', messageUpdater);
-
-            this.loadMoreMessages();
-            conversation.read();
-            return conversation;
+          this.loadMoreMessages();
+          conversation.read();
+          return conversation;
         })
   }
 
-  handleVisiblilityChange() {
-    const { conv } = this.props;
-    if (conv.unreadMessagesCount) {
-      conv.read();
+  messageUpdater(msg) {
+    if (msg.transient && msg.type === Message.TYPE) {
+      return;
     }
+    // 消息列表滚动
+    let { messages } = this.state;
+    messages.push(msg);
+    this.setState({ messages });
+  }
+
+  readMarker(msg) {
+    // 暂态消息不标记
+    // 特殊情况：暂态对话的所有消息都是暂态的，因此暂态对话收到消息全部标记
+    if (msg.transient && !conversation.transient) {
+      return;
+    }
+    // 当前对话标记为已读
+    conversation.read();
+  }
+
+  componentWillUnmount() {
+    this.currentConversation.off('message', this.messageUpdater);
+    this.currentConversation.off('message', this.readMarker);
   }
 
   send(message) {
+    const that = this;
+    let { messages } = that.state;
     return this.getCurrentConversation()
       .then(conversation => {
         const sendPromise = conversation.send(message, {
@@ -101,6 +92,9 @@ class ChatDetail extends Component {
         });
         messages.push(message);
         console.log(messages);
+        that.setState({
+          messages,
+        });
         return sendPromise;
       })
       .catch(console.error.bind(console));
@@ -119,16 +113,19 @@ class ChatDetail extends Component {
   }
 
   loadMoreMessages() {
-    if (hasLoadAllMessages) {
+    if (this.state.hasLoadAllMessages) {
       return;
     }
-    
-    return messageIterator.next().then(result => {
-      if (result.done) {
-        hasLoadAllMessages = true;
-      }
+    const that = this;
+    return this.messageIterator.next().then(result => {
+      const { messages } = that.state
+      const newState = {};
 
-      messages = result.value.concat(messages);
+      if (result.done) {
+        newState.hasLoadAllMessages = true;
+      }
+      newState.messages = result.value.concat(messages);
+      this.setState(newState)
     })
   }
 
@@ -144,49 +141,25 @@ class ChatDetail extends Component {
 
 
   render() {
-    const { clientId } = this.props;
+    const { clientId, navigation } = this.props;
+    const { imClient, conv } = navigation.state.params;
+    const { messages } = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.messageBody}>
-          <FlatList
-            data={[
-              {key: 'Devin'},
-              {key: 'Jackson'},
-              {key: 'James'},
-              {key: 'Joel'},
-              {key: 'John'},
-              {key: 'Jillian'},
-              {key: 'Jimmy'},
-              {key: 'ule'},
-              {key: 'ackson'},
-              {key: 'ams'},
-              {key: 'oel'},
-              {key: 'ohn'},
-              {key: 'illian'},
-              {key: 'immy'},
-              {key: 'ulie'},
-              {key: 'akson'},
-              {key: 'ames'},
-              {key: 'el'},
-              {key: 'hn'},
-              {key: 'llian'},
-              {key: 'mmy'},
-              {key: 'lie'},
-              {key: 'kson'},
-              {key: 'es'},
-              {key: 'l'},
-              {key: 'n'},
-              {key: 'lian'},
-              {key: 'my'},
-              {key: 'ie'},
-            ]}
-            renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
-          />
+          {
+            messages.map((msg, key) => (
+              <View key={key} style={imClient.id === msg.from ? styles.isMine : styles.isYou}>
+                <Text>{msg.getText()}</Text>
+              </View>
+            ))
+          }
         </View>
         <View style={styles.inputBody}>
           <View>
             <TextInput 
               style={styles.textInput}
+              value={this.state.draft}
               onChangeText={value => this.handleChange(value)} />
             </View>
         </View>
@@ -227,6 +200,15 @@ const styles = StyleSheet.create({
   },
   sendBtn: {
     alignItems: 'center',
+  },
+  isMine: {
+    height: 50,
+    backgroundColor: '#23BCBB',
+    alignItems: 'flex-end'
+  },
+  isYou: {
+    height: 50,
+    backgroundColor: '#23BCBB',
   }
 })
 

@@ -26,36 +26,40 @@ class Login extends Component {
 
     this.state = {
       clientId: '',
+      hhh: 12,
+      messages: [],
     };
 
     this.handleLogin = this.handleLogin.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
+
+
   handleLogin() {
-    const { clientId } = this.state;
-    LeanRT.realtime.createIMClient(clientId)
-      .then(userClient => {
-        LeanRT.imClient = userClient;
-        this.props.navigation.navigate('Chat', { clientId: this.state.clientId, LeanRT: LeanRT  })
-      })
-      .catch(console.error.bind(console));
+    const { clientId } = this.state;
+    LeanRT.realtime.createIMClient(clientId)
+      .then(userClient => {
+        LeanRT.imClient = userClient;
+        this.props.navigation.navigate('Chat', { clientId: this.state.clientId, LeanRT: LeanRT  })
+      })
+      .catch(console.error.bind(console));
   }
 
   handleChange(value) {
-    console.log(value);
-    this.setState({
-      clientId: value,
-    });
+    const newState = {};
+    newState.clientId = value,
+    this.setState(newState);
   }
 
   render() {
+    console.log('state', this.state);
     return (
       <View style={styles.container}>
         <View>
           <TextInput 
             style={styles.textInput}
-            value={this.state.id}
+            value={this.state.clientId}
             onChangeText={value => this.handleChange(value)} />
         </View>
         <TouchableOpacity onPress={this.handleLogin}>
