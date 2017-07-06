@@ -1,7 +1,18 @@
-import { NOT_LOGIN } from '../constants/';
 
-export const notLogin = function notLogin() {
+const clearItem = function clearItem(ITEM_IDENTITY) {
   return {
-    type: NOT_LOGIN,
+    type: ITEM_IDENTITY,
   };
+};
+
+const setItem = function setItem(ITEM_IDENTITY, payload) {
+  return {
+    type: ITEM_IDENTITY,
+    payload,
+  };
+}
+
+export {
+  clearItem,
+  setItem
 };

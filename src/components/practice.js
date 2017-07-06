@@ -9,11 +9,11 @@ class Practice extends Component {
 
   render() {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}onPress={() => this.props.dispatch({ type: 'LOGIN', payload: { username: '13786684444', password: 'huang1314' } })}>
         <Text>hhhh</Text>
       </TouchableOpacity>
     )
   }
 }
 
-export default Practice;
+export default connect()(Practice);

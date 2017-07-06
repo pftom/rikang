@@ -47,9 +47,9 @@ request.post = ( url, body ) => {
     body: JSON.stringify(body),
   });
 
-
   return fetch(url, options)
         .then(response => {
+          console.log(response);
           if (response.status !== 200 || !response.ok) {
             throw response.json();
           }

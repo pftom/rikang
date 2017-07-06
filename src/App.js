@@ -5,6 +5,8 @@ import AppWithNavigationState from './navigators/AppNavigator';
 import { UserNavigator } from './navigators/AppNavigator';
 import { addNavigationHelpers } from 'react-navigation';
 
+import Practice from './components/practice';
+
 class App extends Component {
   render() {
     const { isLoggedIn } = this.props;

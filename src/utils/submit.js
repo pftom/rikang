@@ -8,6 +8,7 @@ const submit = function submit(values, kind, dispatch) {
     const username = values.get('username');
     const password = values.get('password');
 
+    //input fied submit validate
     if (!username || !password) {
       throw new SubmissionError({
         _error: '账号密码不能为空',
@@ -32,6 +33,7 @@ const submit = function submit(values, kind, dispatch) {
         })
       } 
 
+      //connect data for submit
       const payload = {
         username: username,
         password: password,
@@ -39,7 +41,7 @@ const submit = function submit(values, kind, dispatch) {
 
       //dispatch Login or Register async actions
       // when kind === login, and then dispatch Login actions...
-      dispatch({ type: kind, payload:  payload });
+      dispatch({ type: kind, payload });
 
       //cancel submiss level errors, later I will delete this.
       dispatch(stopSubmit(kind, {}));

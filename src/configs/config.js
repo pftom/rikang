@@ -1,8 +1,6 @@
 'use strict';
 
-export const commonApi = {
-  base: 'http://127.0.0.1:8000/',
-};
+export const base = 'http://localhost:8000/';
 
 export const homeApi = {
   posts: 'home/posts/',
@@ -19,11 +17,11 @@ export const homeSingleApi = (id) => ({
   singleDoctorAnswer: 'home/doctors/${id}/answers/',
   addsingleDoctorFav: 'home/doctors/${id}/fav/',
   singleDoctorComments: 'home/doctors/${id}/comments/',
-  addsingleDoctorComments: 'home/doctors/${id}/comments/new/',
+  addsingleDoctorComments: 'home/doctors/${id}/comments/new',
 });
 
 export const usersApi = {
-  register: 'users/register/',
+  register: 'users/register',
   login: 'users/login/',
   changePassword: 'users/change-password/',
   doctorInit: 'users/doctor-init/',
