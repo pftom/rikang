@@ -13,7 +13,7 @@ import AppContainer from './src/containers/AppContainer';
 
 
 
-class DangJianApp extends React.Component {
+class RiKangApp extends React.Component {
 
   render() {
     return (
@@ -24,4 +24,4 @@ class DangJianApp extends React.Component {
   }
 }
 
-AppRegistry.registerComponent('DangJian', () => DangJianApp);
+AppRegistry.registerComponent('DangJian', () => RiKangApp);
