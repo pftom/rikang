@@ -6,5 +6,8 @@
     "redux": "registry:dt/redux#3.5.2+20160703092728",
     "redux-saga": "registry:dt/redux-saga#0.9.1+20160703120921",
     "redux-thunk": "registry:dt/redux-thunk#2.1.0+20160703120921"
+  },
+  "globalDevDependencies": {
+    "jest": "registry:dt/jest#19.2.0+20170312200138"
   }
 }

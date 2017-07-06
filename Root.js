@@ -11,6 +11,8 @@ import store from './src/store';
 import AppContainer from './src/containers/AppContainer';
 
 
+
+
 class DangJianApp extends React.Component {
 
   render() {

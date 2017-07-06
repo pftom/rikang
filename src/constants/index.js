@@ -1,2 +1,3 @@
 //User action type
-export const NOT_LOGIN = 'NOT_LOGIN';
+export const LOGIN = 'LOGIN';
+export const REGISTER = 'REGISTER';

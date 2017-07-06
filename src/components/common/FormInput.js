@@ -7,19 +7,11 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  Keyboard,
 } from 'react-native';
 import { Field } from 'redux-form/immutable';
 
 import { NavigationActions } from 'react-navigation';
-
-//single field sync validate function
-import {
-  required,
-  minLength5,
-  maxLength15,
-  number,
-  validate
-} from '../../utils/validate.js';
 
 //sync submit validate function
 import submit from '../../utils/submit';
@@ -31,7 +23,7 @@ import asyncValidate from '../../utils/asyncValidate';
 import { InputStyle as styles } from '../styles/'
 
 //Field input component
-import { renderInput } from './Input';
+import RenderInput from './Input';
 
 
 //our FormInput component
@@ -40,6 +32,7 @@ class FormInput extends Component {
     super(props);
   
     this.jump = this.jump.bind(this);
+    this.selectSubmit = this.selectSubmit.bind(this);
   }
 
   jump() {
@@ -51,8 +44,14 @@ class FormInput extends Component {
     }
   }
 
+  selectSubmit(values) {
+    const { kind, dispatch } = this.props;
+    Keyboard.dismiss();
+    submit(values, kind, dispatch);
+  }
+
   render() {
-    const {  handleSubmit, pristine, load, submitting, error, kind } = this.props;
+    const {  handleSubmit, pristine, load, submitting, error, kind, reset } = this.props;
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={this.jump}>
@@ -60,14 +59,21 @@ class FormInput extends Component {
         </TouchableOpacity>
         <Field 
           name="username" 
-          component={renderInput} 
+          component={RenderInput}
+          kind="username" 
+          returnKeyType="next"
+          onSubmit={() => this.passwd.focus()}
           label="在此输入您的手机号码" />
         <Field 
+          passwdRef={pd => this.passwd = pd}
           name="password" 
-          component={renderInput} 
+          component={RenderInput} 
+          kind="password"
+          onSubmit={handleSubmit(this.selectSubmit)}
+          returnKeyType="default"
           label="在此输入您的密码" />
         {error && <Text>{error}</Text>}
-        <TouchableOpacity onPress={handleSubmit(submit)} disabled={pristine || submitting}>
+        <TouchableOpacity onPress={handleSubmit(this.selectSubmit)} disabled={pristine || submitting}>
           <Text style={styles.button}>Submit</Text>
         </TouchableOpacity>
       </View>
