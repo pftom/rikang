@@ -44,7 +44,7 @@ const submit = function submit(values, kind, dispatch) {
       dispatch({ type: kind, payload });
 
       //cancel submiss level errors, later I will delete this.
-      dispatch(stopSubmit(kind, {}));
+      // dispatch(stopSubmit(kind, {}));
 }
 
 export default submit;

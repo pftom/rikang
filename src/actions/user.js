@@ -5,11 +5,11 @@ const clearItem = function clearItem(ITEM_IDENTITY) {
   };
 };
 
-const setItem = function setItem(ITEM_IDENTITY, payload) {
-  return {
+const setItem = (ITEM_IDENTITY, payload) => dispatch => {
+  dispatch({
     type: ITEM_IDENTITY,
     payload,
-  };
+  });
 }
 
 export {

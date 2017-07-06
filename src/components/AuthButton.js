@@ -21,7 +21,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch({ type: 'Logout' }),
+  logout: () => dispatch({ type: 'LOGOUT' }),
   login: () => dispatch(NavigationActions.navigate({ routeName: 'Login' })),
 });
 

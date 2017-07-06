@@ -8,16 +8,17 @@ import { LOGIN, REGISTER, LOGOUT, LOGIN_SUCCESS, LOGIN_ERROR, CLEAR_TOKEN, SET_T
 import request from '../configs/request';
 //import uri config api
 import { base, usersApi } from '../configs/config';
-//import clear token api
-import { clearItem, setItem } from '../actions/user';
+//  import clear token api
+// import { clearItem, setItem } from '../actions/user';
 
 
 function* authorize(payload) {
+  console.log('base', base + usersApi.login);
   try {
-    const token = yield call(request.post, base + usersApi.login, payload);
+    const { token } = yield call(request.post, base + usersApi.login, payload);
     console.log('token', token);
-    yield put({ type: LOGIN_SUCCESS, token });
-    yield call(setItem, SET_TOKEN, token)
+    yield put({ type: LOGIN_SUCCESS });
+    yield put({ type: SET_TOKEN, payload: token });
     return token;
   } catch(error) {
     yield put({ type: LOGIN_ERROR });
@@ -34,7 +35,7 @@ function* loginFlow() {
     if (action.type === LOGOUT) {
       yield cancel(task);
     }
-    yield call(clearItem, CLEAR_TOKEN);
+    yield put({ type: CLEAR_TOKEN });
   }
 }
 

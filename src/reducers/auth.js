@@ -38,7 +38,7 @@ const auth = function auth(state = initialAuthState, action) {
       return state.merge({
         isLoadingData: false,
         loginError: true,
-      })
+      });
 
     case LOGOUT:
       //clear all the persist data in the storage
@@ -47,7 +47,8 @@ const auth = function auth(state = initialAuthState, action) {
       //change the show screen
       return state.merge({
         isLoggedIn: false,
-      })
+        token: null,
+      });
 
     case SET_TOKEN: 
 
@@ -75,7 +76,7 @@ const auth = function auth(state = initialAuthState, action) {
       return state.merge({
         isLoggedIn,
         token
-      })
+      });
 
     default:
       return state;
