@@ -2,7 +2,6 @@
 // import what we need
 import React, { PropTypes, Component } from 'react';
 import {
-  Button,
   Text,
   View,
   TextInput,
@@ -10,6 +9,7 @@ import {
   Keyboard,
 } from 'react-native';
 import { Field } from 'redux-form/immutable';
+import { Button, Toast } from 'antd-mobile';
 
 import { NavigationActions } from 'react-navigation';
 
@@ -53,8 +53,38 @@ class FormInput extends Component {
     submit(values, kind, dispatch);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { initialValues } = nextProps;
+    const loginError = initialValues.get('loginError');
+    const loginSuccess = initialValues.get('loginSuccess');
+    const isLoadingData = initialValues.get('isLoadingData');
+    
+    if(isLoadingData) {
+      this.loadingToast()
+    }
+
+    if(loginError) {
+      this.failToast();
+    }
+  }
+
+  successToast() {
+    Toast.success('登录成功', 1);
+  }
+
+  failToast() {
+    Toast.fail('账号密码错误', 1);
+  }
+
+  loadingToast() {
+    Toast.loading('请稍后...', 1, () => {
+      console.log('登录成功');
+    });
+  }
+
   render() {
-    const {  handleSubmit, pristine, load, submitting, error, kind, reset } = this.props;
+    const {  handleSubmit, initialValues, pristine, load, submitting, error, kind, reset } = this.props;
+    console.log('loginError', initialValues.get('loginError'));
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={this.jump}>
@@ -76,9 +106,9 @@ class FormInput extends Component {
           returnKeyType="default"
           label="在此输入您的密码" />
         {error && <Text>{error}</Text>}
-        <TouchableOpacity onPress={handleSubmit(this.selectSubmit)} disabled={pristine || submitting}>
-          <Text style={styles.button}>Submit</Text>
-        </TouchableOpacity>
+        <Button type="ghost" onClick={handleSubmit(this.selectSubmit)} disabled={pristine || submitting}>
+          Submit
+        </Button>
       </View>
     )
   }

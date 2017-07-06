@@ -10,6 +10,7 @@ const initialAuthState = Immutable.Map({
   isLoggedIn: false,
   isLoadingData: false,
   loginError: false,
+  loginSuccess: false,
 });
 
 const auth = function auth(state = initialAuthState, action) {
@@ -22,6 +23,7 @@ const auth = function auth(state = initialAuthState, action) {
       return state.merge({
         isLoadingData: true,
         loginError: false,
+        loginSuccess: false,
       });
 
     case LOGIN_SUCCESS:
@@ -30,6 +32,7 @@ const auth = function auth(state = initialAuthState, action) {
       return state.merge({
         isLoggedIn: true,
         isLoadingData: false,
+        loginSuccess: true,
       });
 
     case LOGIN_ERROR:
@@ -48,6 +51,8 @@ const auth = function auth(state = initialAuthState, action) {
       return state.merge({
         isLoggedIn: false,
         token: null,
+        loginError: false,
+        loginSuccess: false,
       });
 
     case SET_TOKEN: 
@@ -71,11 +76,13 @@ const auth = function auth(state = initialAuthState, action) {
       const token = auth && auth.has('token') && auth.get('token');
 
       //use isLoggedIn show the initialScreen
-      let isLoggedIn = !!token ? true : false;
+      const isLoggedIn = !!token ? true : false;
       
       return state.merge({
+        loginError: null,
         isLoggedIn,
-        token
+        token,
+        loginSuccess: false,
       });
 
     default:

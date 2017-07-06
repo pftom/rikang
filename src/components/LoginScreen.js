@@ -29,7 +29,13 @@ class LoginScreen extends Component {
 
 let LoginForm =  reduxForm({
   form: 'Login',
-  asyncBlurFields: ['username'],
 })(LoginScreen);
 
-export default connect()(LoginForm);
+const mapStateToProps = (state) => {
+  console.log('initialValues', state.getIn(['auth']).toJS());
+  return {
+    initialValues: state.getIn(['auth']),
+  }
+}
+
+export default connect(mapStateToProps)(LoginForm);
