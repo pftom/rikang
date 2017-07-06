@@ -8,6 +8,9 @@ import { connect } from 'react-redux';
 //commomn 表单组件
 import { FormInput } from './common/';
 
+//import async action consts
+import { LOGIN } from '../constants/';
+
 //Form container style
 import { ContainerStyle as styles} from './styles/'
 
@@ -17,7 +20,7 @@ class LoginScreen extends Component {
 
     return (
       <View style={styles.container}>
-        <FormInput {...this.props} kind={'Login'}/>
+        <FormInput {...this.props} kind={LOGIN}/>
       </View>
     )
   }

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import AppWithNavigationState from './navigators/AppNavigator';
 import { UserNavigator } from './navigators/AppNavigator';
-import ProfileScreen from './components/ProfileScreen';
 import { addNavigationHelpers } from 'react-navigation';
 
 class App extends Component {

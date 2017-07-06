@@ -7,8 +7,6 @@ const initialAuthState = Immutable.Map({ isLoggedIn: false });
 
 const auth = function auth(state = initialAuthState, action) {
   switch (action.type) {
-    case 'Login':
-      return state.set('isLoggedIn', true);
     case 'Logout':
       persistor.purge();
       return state.set('isLoggedIn', false);

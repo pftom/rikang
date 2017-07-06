@@ -8,6 +8,9 @@ import { connect } from 'react-redux';
 //commomn 表单组件
 import { FormInput } from './common/';
 
+//引入Action constants
+import { REGISTER } from '../constants/';
+
 //Form container style
 import { ContainerStyle as styles} from './styles/'
 
@@ -17,7 +20,7 @@ class Register extends Component {
     
     return (
       <View style={styles.container}>
-        <FormInput {...this.props} kind={'Register'}/>
+        <FormInput {...this.props} kind={REGISTER}/>
       </View>
     )
   }

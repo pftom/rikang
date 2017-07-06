@@ -32,7 +32,16 @@ const submit = function submit(values, kind, dispatch) {
         })
       } 
 
-      console.log('hhhhh');
+      const payload = {
+        username: username,
+        password: password,
+      };
+
+      //dispatch Login or Register async actions
+      // when kind === login, and then dispatch Login actions...
+      dispatch({ type: kind, payload:  payload });
+
+      //cancel submiss level errors, later I will delete this.
       dispatch(stopSubmit(kind, {}));
 }
 

@@ -25,6 +25,9 @@ import { InputStyle as styles } from '../styles/'
 //Field input component
 import RenderInput from './Input';
 
+//import action constants
+import { LOGIN, REGISTER } from '../../constants/';
+
 
 //our FormInput component
 class FormInput extends Component {
@@ -37,7 +40,7 @@ class FormInput extends Component {
 
   jump() {
     const { navigation, kind } = this.props;
-    if (kind === 'Register') {
+    if (kind === REGISTER) {
       navigation.goBack();
     } else {
       navigation.navigate('Register');
@@ -55,7 +58,7 @@ class FormInput extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={this.jump}>
-          <Text>{kind === 'Register' ? '返回' : '新用户注册'}</Text>
+          <Text>{kind === REGISTER ? '返回' : '新用户注册'}</Text>
         </TouchableOpacity>
         <Field 
           name="username" 
