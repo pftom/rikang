@@ -53,8 +53,8 @@ request.get =  ( url, params, token ) => {
       })
 }
 
-request.post = ( url, body, token ) => {
-  let options = _.extend(header('POST', token), {
+request.post = ( url, body, token, multiform ) => {
+  let options = _.extend(header('POST', token, multiform), {
     body: JSON.stringify(body),
   });
 

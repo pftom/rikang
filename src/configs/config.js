@@ -35,14 +35,14 @@ export const usersApi = {
 
 export const qaApi = {
   questions: 'qa/questions/',
-  addQuestions: 'qa/questions/new/',
+  addQuestion: 'qa/questions/new/',
 };
 
 export const qaSingleApi = (id) => ({
   addQuestionImg: '/qa/questions/${id}/addimg/',
   singleQuestion: 'qa/questions/${id}/',
   updateSingleQuestion: 'qa/questions/${id}/',
-  singleQuestionImgs: 'qa/questions/${id}/images/',
+  singleQuestionAllImg: 'qa/questions/${id}/images/',
   singleQuestionStar: 'qa/questions/${id}/star/',
   singleQuestionAnswers: 'qa/questions/${id}/answers/',
   addSingleQuestionAnswers: 'qa/questions/${id}/answers/new/',

@@ -28,6 +28,17 @@ import {
 //patient watch and handle func
 import { watchGetPatientProfile, watchUpdatePatientProfile } from './patientSaga';
 
+//question watch and handle func
+import {
+  watchGetQuestions,
+  watchCreateSingleQuestion,
+  watchAddSingleQuestionImg,
+  watchGetSingleQuestion,
+  watchUpdateSingleQuestion,
+  watchGetSingleQuestionAllImg,
+  watchStarSingleQuestion,
+} from './questionSaga'
+
 export default function* rootSaga() {
   yield all([
     loginFlow(),
@@ -51,5 +62,13 @@ export default function* rootSaga() {
 
     watchGetPatientProfile(),
     watchUpdatePatientProfile(),
+
+    watchGetQuestions(),
+    watchCreateSingleQuestion(),
+    watchAddSingleQuestionImg(),
+    watchGetSingleQuestion(),
+    watchUpdateSingleQuestion(),
+    watchGetSingleQuestionAllImg(),
+    watchStarSingleQuestion(),
   ]);
 }
