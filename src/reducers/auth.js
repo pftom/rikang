@@ -2,7 +2,17 @@ import { REHYDRATE } from 'redux-persist-immutable/constants';
 import Immutable from 'immutable';
 
 //import action constants
-import { LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT, LOGIN, CLEAR_TOKEN, SET_TOKEN } from '../constants/'
+import { 
+  LOGIN_SUCCESS, 
+  LOGIN_ERROR, 
+  LOGOUT, 
+  LOGIN, 
+  CLEAR_TOKEN, 
+  SET_TOKEN,
+  REGISTER,
+  REGISTER_ERROR,
+  CLEAR_ERROR
+} from '../constants/'
 import { persistor } from '../store';
 
 const initialAuthState = Immutable.Map({ 
@@ -11,12 +21,26 @@ const initialAuthState = Immutable.Map({
   isLoadingData: false,
   loginError: false,
   loginSuccess: false,
+  registerError: false,
 });
 
 const auth = function auth(state = initialAuthState, action) {
   switch (action.type) {
 
     // later write the register logic
+    case REGISTER:
+      
+      return state.merge({
+        isLoadingData: true,
+        registerError: false,
+      });
+
+    case REGISTER_ERROR:
+    
+      return state.merge({
+        isLoadingData: false,
+        registerError: true,
+      })
 
     case LOGIN: 
       //capture login action and show loading spinner
@@ -55,6 +79,13 @@ const auth = function auth(state = initialAuthState, action) {
         loginSuccess: false,
       });
 
+    case CLEAR_ERROR:
+
+      return state.merge({
+        loginError: false,
+        registerError: false,
+      });
+
     case SET_TOKEN: 
 
     //set the token for operate database later
@@ -77,9 +108,10 @@ const auth = function auth(state = initialAuthState, action) {
 
       //use isLoggedIn show the initialScreen
       const isLoggedIn = !!token ? true : false;
-      
+
       return state.merge({
         loginError: null,
+        registerError: false,
         isLoggedIn,
         token,
         loginSuccess: false,

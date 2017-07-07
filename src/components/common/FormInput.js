@@ -26,7 +26,7 @@ import { InputStyle as styles } from '../styles/'
 import RenderInput from './Input';
 
 //import action constants
-import { LOGIN, REGISTER } from '../../constants/';
+import { LOGIN, REGISTER, CLEAR } from '../../constants/';
 
 
 //our FormInput component
@@ -36,6 +36,7 @@ class FormInput extends Component {
   
     this.jump = this.jump.bind(this);
     this.selectSubmit = this.selectSubmit.bind(this);
+    // this.failToast = this.failToast.bind(this);
   }
 
   jump() {
@@ -55,9 +56,9 @@ class FormInput extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { toast } = nextProps;
-    const { loginError, loginSuccess, isLoadingData } = toast;
+    const { loginError, loginSuccess, isLoadingData, registerError } = toast;
     if (loginError) {
-      this.failToast();
+      this.failToast('账号密码错误');
     }
 
     if (isLoadingData) {
@@ -67,20 +68,23 @@ class FormInput extends Component {
     if(loginSuccess) {
       this.loginSuccess();
     }
+
+    if(registerError) {
+      this.failToast('注册失败');
+    }
   }
 
   successToast() {
     Toast.success('登录成功', 1);
   }
 
-  failToast() {
-    Toast.fail('账号密码错误', 1);
+  failToast(msg) {
+    this.props.dispatch({ type: CLEAR });
+    Toast.fail(msg, 1);
   }
 
   loadingToast() {
-    Toast.loading('请稍后...', 1, () => {
-      console.log('登录成功');
-    });
+    Toast.loading('请稍后...', 1);
   }
 
   render() {

@@ -12,6 +12,8 @@ import {
   REGISTER,
   REGISTER_ERROR,
   REGISTER_SUCCESS,
+  CLEAR,
+  CLEAR_ERROR,
 } from '../constants/';
 
 //import request api
@@ -62,8 +64,18 @@ function* registerAuthorize(payload) {
 }
 
 function* registerFlow() {
-  const { payload } = yield take(REGISTER);
-  yield call(registerAuthorize, payload);
+  while (true) {
+    const { payload } = yield take(REGISTER);
+    yield call(registerAuthorize, payload);
+  }
+}
+
+function* clearFlow() {
+  while(true) {
+    yield take(CLEAR);
+    yield delay(1000);
+    yield put({ type: CLEAR_ERROR });
+  }
 }
 
 
@@ -71,4 +83,5 @@ function* registerFlow() {
 export {
   loginFlow,
   registerFlow,
+  clearFlow,
 }
