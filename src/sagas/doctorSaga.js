@@ -27,6 +27,10 @@ import {
   GET_SINGLE_DOCTOR_COMMENTS_SUCCESS,
   GET_SINGLE_DOCTOR_COMMENTS_ERROR,
 
+  CREATE_SINGLE_DOCTOR_COMMENTS,
+  CREATE_SINGLE_DOCTOR_COMMENTS_SUCCESS,
+  CREATE_SINGLE_DOCTOR_COMMENTS_ERROR,
+
 } from '../constants/';
 
 //import request api
@@ -104,13 +108,30 @@ function* getSingleDoctorComments() {
   }
 }
 
+//create single doctor comment
+function* createSingleDoctorComments() {
+  try {
+    const { id, token, content } = payload;
+    //emit http get, fetch single doctor comment
+    const comments = yield call(request.post, base + homeSingleApi(id).addsingleDoctorComments, content, token);
+    //create doctor comments success 
+    yield put({ type: CREATE_SINGLE_DOCTOR_COMMENTS_SUCCESS, comments });
+  } catch (error) {
+    //create comments error
+    yield put({ type: CREATE_SINGLE_DOCTOR_COMMENTS_ERROR });
+  }
+}
+
 
 //DOCTORS async actions handle function
 function* getDoctors(payload) {
   try {
+    //emit http get, fetch  doctors 
     const { doctors } = yield call(request.get, base + homeApi.doctors, null, payload);
+    //emit get doctors success
     yield put({ type: GET_DOCTORS_SUCCESS, payload: doctors });
   } catch(error) {
+    //emit get doctors error
     yield put({ type: GET_DOCTORS_ERROR });
   }
 }
@@ -118,8 +139,9 @@ function* getDoctors(payload) {
 //DOCTORS async actions watch function
 function* watchGetDoctor() {
   while (true) {
+    //listen on GET_SINGLE_DOCTOR
     const { payload } = yield take(GET_SINGLE_DOCTOR);
-    // fork return a Task object for cancel later
+    //invoke getSingleDoctor generator function
     yield call(getSingleDoctor, payload);
   }
 }
@@ -127,8 +149,9 @@ function* watchGetDoctor() {
 //DOCTORS async actions watch function
 function* watchGetDoctors() {
   while (true) {
+    //listen on GET_DOCTORS
     const { payload } = yield take(GET_DOCTORS);
-    // fork return a Task object for cancel later
+    //invoke getDoctors generator function
     yield call(getDoctors, payload);
   }
 }
@@ -139,8 +162,9 @@ function* watchGetDoctors() {
 //watch doctor info
 function* watchDoctorInfo() {
   while (true) {
+    //listen on GET_SINGLE_DOCTOR_INFO
     const { payload } = yield take(GET_SINGLE_DOCTOR_INFO);
-    // fork return a Task object for cancel later
+    //invoke getSingleDoctorInfo generator function
     yield call(getSingleDoctorInfo, payload);
   }
 }
@@ -148,8 +172,9 @@ function* watchDoctorInfo() {
 //watch doctor comments
 function* watchDoctorComments() {
   while (true) {
+    //listen on GET_SINGLE_DOCTOR_COMMENTS
     const { payload } = yield take(GET_SINGLE_DOCTOR_COMMENTS);
-    // fork return a Task object for cancel later
+    //invoke getSingleDoctorComments generator function
     yield call(getSingleDoctorComments, payload);
   }
 }
@@ -157,8 +182,9 @@ function* watchDoctorComments() {
 //watch add doctor fav
 function* watchAddDoctorFav() {
   while (true) {
+    //listen on ADD_SINGLE_DOCTOR_FAV
     const { payload } = yield take(ADD_SINGLE_DOCTOR_FAV);
-    // fork return a Task object for cancel later
+    //invoke addSingleDoctorFav generator function
     yield call(addSingleDoctorFav, payload);
   }
 }
@@ -166,9 +192,20 @@ function* watchAddDoctorFav() {
 //watch doctor answers
 function* watchDoctorAnswers() {
   while (true) {
+    //listen on GET_SINGLE_DOCTOR_ANSWERS
     const { payload } = yield take(GET_SINGLE_DOCTOR_ANSWERS);
-    // fork return a Task object for cancel later
+    //invoke getSingleDoctorAnswers generator function
     yield call(getSingleDoctorAnswers, payload);
+  }
+}
+
+function* watchCreateSingleDoctorComment() {
+  while (true) {
+    //listen on CREATE_SINGLE_DOCTOR_COMMENTS
+    const { payload } = yield take(CREATE_SINGLE_DOCTOR_COMMENTS);
+
+    //invoke createSingleDoctorComments generator function
+    yield call(createSingleDoctorComments, payload);
   }
 }
 
