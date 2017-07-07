@@ -13,6 +13,8 @@ import {
   watchGetHospitalDoctors,
 } from './hospitalSaga';
 
+
+//doctor watch and handle func
 import {
   watchGetDoctor,
   watchGetDoctors,
@@ -22,6 +24,9 @@ import {
   watchDoctorAnswers,
   watchAddDoctorFav,
 } from './doctorSaga'
+
+//patient watch and handle func
+import { watchGetPatientProfile, watchUpdatePatientProfile } from './patientSaga';
 
 export default function* rootSaga() {
   yield all([
@@ -43,5 +48,8 @@ export default function* rootSaga() {
     watchDoctorComments(),
     watchDoctorAnswers(),
     watchAddDoctorFav(),
+
+    watchGetPatientProfile(),
+    watchUpdatePatientProfile(),
   ]);
 }

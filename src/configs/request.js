@@ -3,19 +3,30 @@
 import queryString from 'query-string';
 import _ from 'lodash';
 
-const header = (METHOD, token) => {
+const header = (METHOD, token, multiform) => {
   let auth = {};
+  let multiForm = {};
+
   if (token) {
     auth = {
       'Authorization': 'Token ' + token,
     }
   }
+
+  // supply some form data submit use multipart/form-data
+  if (multiform) {
+    multiForm = {
+      'Content-Type': 'multipart/form-data',
+    }
+  }
+
   return ({
     method: METHOD,
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       ...auth,
+      ...multiForm,
     }
   })
 }
@@ -57,8 +68,10 @@ request.post = ( url, body, token ) => {
         })
 }
 
-request.put = ( url, token, body ) => {
-  let options = _.extend(header('PUT', token), {
+request.put = ( url, token, body, multiform ) => {
+
+  //multiform support
+  let options = _.extend(header('PUT', token, multiform), {
     body: JSON.stringify(body),
   });
 
