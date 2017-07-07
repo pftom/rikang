@@ -29,7 +29,7 @@ function* getSingleDoctor(payload) {
 }
 
 
-//LOGIN async actions handle function
+//DOCTORS async actions handle function
 function* getDoctors(payload) {
   try {
     const { doctors } = yield call(request.get, base + homeApi.doctors, null, payload);
@@ -39,7 +39,7 @@ function* getDoctors(payload) {
   }
 }
 
-//LOGIN async actions watch function
+//DOCTORS async actions watch function
 function* watchGetDoctor() {
   while (true) {
     const { payload } = yield take(GET_SINGLE_DOCTOR);
@@ -48,7 +48,7 @@ function* watchGetDoctor() {
   }
 }
 
-//LOGIN async actions watch function
+//DOCTORS async actions watch function
 function* watchGetDoctors() {
   while (true) {
     const { payload } = yield take(GET_DOCTORS);

@@ -29,7 +29,7 @@ function* getSinglePost(payload) {
 }
 
 
-//LOGIN async actions handle function
+//POSTS async actions handle function
 function* getPosts(payload) {
   try {
     const { posts } = yield call(request.get, base + homeApi.posts, null, payload);
@@ -39,7 +39,7 @@ function* getPosts(payload) {
   }
 }
 
-//LOGIN async actions watch function
+//POSTS async actions watch function
 function* watchGetPost() {
   while (true) {
     const { payload } = yield take(GET_SINGLE_POST);
@@ -48,7 +48,7 @@ function* watchGetPost() {
   }
 }
 
-//LOGIN async actions watch function
+//POSTS async actions watch function
 function* watchGetPosts() {
   while (true) {
     const { payload } = yield take(GET_POSTS);
