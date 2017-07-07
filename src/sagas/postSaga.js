@@ -1,5 +1,5 @@
 import { delay } from 'redux-saga';
-import { put, take, select, call, fork, cancel, cancelled } from 'redux-saga/effects';
+import { put, take, call } from 'redux-saga/effects';
 
 //import POSTS action constans
 import { 
@@ -21,7 +21,7 @@ import { base, homeApi, homeSingleApi } from '../configs/config';
 function* getSinglePost(payload) {
   try {
     const { id, token } = payload;
-    const { post } = yield call(request.get, base + homeSingleApi(id), null, token);
+    const { post } = yield call(request.get, base + homeSingleApi(id).getSinglePost, null, token);
     yield put({ type: GET_SINGLE_POST_SUCCESS, post });
   } catch (error) {
     yield put({ type: GET_SINGLE_POST_ERROR });
