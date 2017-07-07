@@ -1,11 +1,17 @@
 //User action type
-export const LOGIN = 'LOGIN';
 export const REGISTER = 'REGISTER';
 export const REGISTER_ERROR = 'REGISTER_ERROR';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+
 export const LOGOUT = 'LOGOUT';
+
+export const LOGIN = 'LOGIN';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
+
+export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
+export const CHANGE_PASSWORD_SUCCESS = 'CHANGE_PASSWORD_SUCCESS';
+export const CHANGE_PASSWORD_ERROR = 'CHANGE_PASSWORD_ERROR';
 
 //after show the error toast and then clear it
 export const CLEAR_ERROR = 'CLEAR_ERROR';
@@ -14,6 +20,9 @@ export const CLEAR = 'CLEAR';
 //clear token in the storage
 export const CLEAR_TOKEN = 'CLEAR_TOKEN';
 export const SET_TOKEN = 'SET_TOKEN';
+
+
+
 
 //main screen fetch data
 //export const
@@ -79,4 +88,6 @@ export const GET_SINGLE_DOCTOR_COMMENTS_SUCCESS = 'GET_SINGLE_DOCTOR_COMMENTS_SU
 export const CREATE_SINGLE_DOCTOR_COMMENTS = 'CREATE_SINGLE_DOCTOR_COMMENTS';
 export const CREATE_SINGLE_DOCTOR_COMMENTS_ERROR = 'CREATE_SINGLE_DOCTOR_COMMENTS_ERROR';
 export const CREATE_SINGLE_DOCTOR_COMMENTS_SUCCESS = 'CREATE_SINGLE_DOCTOR_COMMENTS_SUCCESS';
+
+
 
