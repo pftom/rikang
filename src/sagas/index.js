@@ -7,7 +7,21 @@ import { loginFlow, registerFlow, clearFlow } from './userSaga';
 import { watchGetPost, watchGetPosts } from './postSaga';
 
 //import hospitals sagas
-import { watchGetHospital, watchGetHospitals, watchGetHospitalDoctors } from './hospitalSaga';
+import { 
+  watchGetHospital, 
+  watchGetHospitals, 
+  watchGetHospitalDoctors,
+} from './hospitalSaga';
+
+import {
+  watchGetDoctor,
+  watchGetDoctors,
+
+  watchDoctorInfo,
+  watchDoctorComments,
+  watchDoctorAnswers,
+  watchAddDoctorFav,
+} from './doctorSaga'
 
 export default function* rootSaga() {
   yield all([
@@ -21,5 +35,12 @@ export default function* rootSaga() {
     watchGetHospital(),
     watchGetHospitals(),
     watchGetHospitalDoctors(),
+
+    watchGetDoctor(),
+    watchGetDoctors(),
+    watchDoctorInfo(),
+    watchDoctorComments(),
+    watchDoctorAnswers(),
+    watchAddDoctorFav(),
   ]);
 }

@@ -14,8 +14,8 @@ export const homeSingleApi = (id) => ({
   singleHospitalDoctors: 'home/hospitals/${id}/doctors/',
   singleDoctor: 'home/doctors/${id}/',
   singleDoctorInfo: 'home/doctors/${id}/info/',
-  singleDoctorAnswer: 'home/doctors/${id}/answers/',
-  addsingleDoctorFav: 'home/doctors/${id}/fav/',
+  singleDoctorAnswers: 'home/doctors/${id}/answers/',
+  addSingleDoctorFav: 'home/doctors/${id}/fav/',
   singleDoctorComments: 'home/doctors/${id}/comments/',
   addsingleDoctorComments: 'home/doctors/${id}/comments/new',
 });
