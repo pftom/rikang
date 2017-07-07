@@ -14,6 +14,9 @@ import { LOGIN } from '../constants/';
 //Form container style
 import { ContainerStyle as styles} from './styles/'
 
+//通过selector最小限度获取最需要的数据
+import { getInputInitial } from '../selectors/inputSelector';
+
 //对组件进行二次封装，以应对不同的处理场景如：注册，登录等共用一套逻辑
 class LoginScreen extends Component {
   render() {
@@ -31,10 +34,13 @@ let LoginForm =  reduxForm({
   form: 'Login',
 })(LoginScreen);
 
+
+//connect redux-store and react-native, get the data from the store.
 const mapStateToProps = (state) => {
-  console.log('initialValues', state.getIn(['auth']).toJS());
+  const inital = getInputInitial(state);
+  console.log(state.getIn(['form', 'initial']) === state.getIn(['form', 'values']));
   return {
-    initialValues: state.getIn(['auth']),
+    toast: inital,
   }
 }
 

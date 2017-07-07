@@ -1,4 +1,4 @@
-import { SubmissionError, stopSubmit } from 'redux-form';
+import { SubmissionError, stopSubmit } from 'redux-form/immutable';
 import { Alert } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 
@@ -7,6 +7,9 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const submit = function submit(values, kind, dispatch) {
     const username = values.get('username');
     const password = values.get('password');
+
+    console.log('username', username);
+    console.log('password', password);
 
     //input fied submit validate
     if (!username || !password) {

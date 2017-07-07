@@ -54,17 +54,18 @@ class FormInput extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { initialValues } = nextProps;
-    const loginError = initialValues.get('loginError');
-    const loginSuccess = initialValues.get('loginSuccess');
-    const isLoadingData = initialValues.get('isLoadingData');
-    
-    if(isLoadingData) {
-      this.loadingToast()
+    const { toast } = nextProps;
+    const { loginError, loginSuccess, isLoadingData } = toast;
+    if (loginError) {
+      this.failToast();
     }
 
-    if(loginError) {
-      this.failToast();
+    if (isLoadingData) {
+      this.loadingToast();
+    }
+
+    if(loginSuccess) {
+      this.loginSuccess();
     }
   }
 
@@ -83,8 +84,8 @@ class FormInput extends Component {
   }
 
   render() {
-    const {  handleSubmit, initialValues, pristine, load, submitting, error, kind, reset } = this.props;
-    console.log('loginError', initialValues.get('loginError'));
+    const {  handleSubmit, toast, initialValues, pristine, load, submitting, error, kind, reset } = this.props;
+    console.log('toast', toast);
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={this.jump}>
