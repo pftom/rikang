@@ -12,7 +12,10 @@ import { FormInput } from './common/';
 import { REGISTER } from '../constants/';
 
 //Form container style
-import { ContainerStyle as styles} from './styles/'
+import { ContainerStyle as styles} from './styles/';
+
+//通过selector最小限度获取最需要的数据
+import { getInputInitial } from '../selectors/inputSelector';
 
 //对组件进行二次封装，以应对不同的处理场景如：注册，登录等共用一套逻辑
 class Register extends Component {
@@ -32,4 +35,8 @@ let RegisterForm =  reduxForm({
   asyncBlurFields: ['username'],
 })(Register);
 
-export default connect()(RegisterForm);
+const mapStateToProps = (state) => ({
+    toast: getInputInitial(state),
+});
+
+export default connect(mapStateToProps)(RegisterForm);

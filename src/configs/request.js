@@ -50,7 +50,7 @@ request.post = ( url, body ) => {
   return fetch(url, options)
         .then(response => {
           console.log(response);
-          if (response.status !== 200 || !response.ok) {
+          if (![200, 201].includes(response.status) || !response.ok) {
             throw response.json();
           }
           return response.json();

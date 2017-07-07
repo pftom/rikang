@@ -2,7 +2,17 @@ import { delay } from 'redux-saga';
 import { put, take, select, call, fork, cancel, cancelled } from 'redux-saga/effects';
 
 //import LOGIN action constans
-import { LOGIN, REGISTER, LOGOUT, LOGIN_SUCCESS, LOGIN_ERROR, CLEAR_TOKEN, SET_TOKEN } from '../constants/';
+import { 
+  LOGIN,  
+  LOGOUT, 
+  LOGIN_SUCCESS, 
+  LOGIN_ERROR, 
+  CLEAR_TOKEN, 
+  SET_TOKEN,
+  REGISTER,
+  REGISTER_ERROR,
+  REGISTER_SUCCESS,
+} from '../constants/';
 
 //import request api
 import request from '../configs/request';
@@ -12,11 +22,11 @@ import { base, usersApi } from '../configs/config';
 // import { clearItem, setItem } from '../actions/user';
 
 
-function* authorize(payload) {
+//LOGIN async actions handle function
+function* loginAuthorize(payload) {
   console.log('base', base + usersApi.login);
   try {
     const { token } = yield call(request.post, base + usersApi.login, payload);
-    console.log('token', token);
     yield put({ type: LOGIN_SUCCESS });
     yield put({ type: SET_TOKEN, payload: token });
     return token;
@@ -25,11 +35,12 @@ function* authorize(payload) {
   }
 }
 
+//LOGIN async actions watch function
 function* loginFlow() {
   while (true) {
     const { payload } = yield take(LOGIN);
     // fork return a Task object for cancel later
-    const task = yield fork(authorize, payload);
+    const task = yield fork(loginAuthorize, payload);
     const action = yield take([LOGOUT, LOGIN_ERROR]);
 
     if (action.type === LOGOUT) {
@@ -39,4 +50,25 @@ function* loginFlow() {
   }
 }
 
-export default loginFlow;
+//register async actions handle function
+function* registerAuthorize(payload) {
+  try {
+    yield call(request.post, base + usersApi.register, payload);
+    yield put({ type: REGISTER_SUCCESS });
+    yield put({ type: LOGIN, payload });
+  } catch (error) {
+    yield put({ type: REGISTER_ERROR });
+  }
+}
+
+function* registerFlow() {
+  const { payload } = yield take(REGISTER);
+  yield call(registerAuthorize, payload);
+}
+
+
+
+export {
+  loginFlow,
+  registerFlow,
+}

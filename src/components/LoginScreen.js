@@ -12,7 +12,7 @@ import { FormInput } from './common/';
 import { LOGIN } from '../constants/';
 
 //Form container style
-import { ContainerStyle as styles} from './styles/'
+import { ContainerStyle as styles} from './styles/';
 
 //通过selector最小限度获取最需要的数据
 import { getInputInitial } from '../selectors/inputSelector';
@@ -36,12 +36,8 @@ let LoginForm =  reduxForm({
 
 
 //connect redux-store and react-native, get the data from the store.
-const mapStateToProps = (state) => {
-  const inital = getInputInitial(state);
-  console.log(state.getIn(['form', 'initial']) === state.getIn(['form', 'values']));
-  return {
-    toast: inital,
-  }
-}
+const mapStateToProps = (state) => ({
+    toast: getInputInitial(state),
+});
 
 export default connect(mapStateToProps)(LoginForm);

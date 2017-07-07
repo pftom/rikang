@@ -1,9 +1,10 @@
 import { all } from 'redux-saga/effects';
 
-import userSaga from './userSaga';
+import { loginFlow, registerFlow } from './userSaga';
 
 export default function* rootSaga() {
-  yield ([
-    userSaga(),
+  yield all([
+    loginFlow(),
+    registerFlow(),
   ]);
 }
