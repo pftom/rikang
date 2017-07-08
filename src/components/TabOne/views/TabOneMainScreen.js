@@ -8,7 +8,7 @@ import {
 import { connect } from 'react-redux';
 
 //import selector to get selected data
-import { getTabOneMainScreenSelector } from '../../../selectors/TabOneMainSelector';
+import { getTabOneMainScreenSelector } from '../../../selectors/';
 import LoginStatusMessage from '../../LoginStatusMessage';
 import AuthButton from '../../AuthButton';
 
@@ -33,6 +33,7 @@ class HomeMainScreen extends PureComponent {
 
   render() {
     const { loadingError, doctors, posts, navigation, token, dispatch } = this.props;
+
     return (
       <View style={styles.container}>
         <Text>loading data ....</Text>

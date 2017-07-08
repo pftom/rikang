@@ -21,7 +21,7 @@ import { base, homeApi, homeSingleApi } from '../configs/config';
 function* getSinglePost(payload) {
   try {
     const { id, token } = payload;
-    const post = yield call(request.get, base + homeSingleApi(id).getSinglePost, null, token);
+    const post = yield call(request.get, base + homeSingleApi(id).singlePost, null, token);
     yield put({ type: GET_SINGLE_POST_SUCCESS, post });
   } catch (error) {
     yield put({ type: GET_SINGLE_POST_ERROR });

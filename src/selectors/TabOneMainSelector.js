@@ -16,3 +16,22 @@ export const getTabOneMainScreenSelector = createSelector(
     loadingError,
   }),
 );
+
+
+const getDoctor = (state) => state.getIn(['homeSingle', 'doctor']);
+
+export const getDoctorSelector = createSelector(
+  [ getDoctor ],
+  (doctor) => ({
+    doctor,
+  }),
+);
+
+const getPost = (state) => state.getIn(['homeSingle', 'post']);
+
+export const getPostSelector = createSelector(
+  [ getPost ],
+  (post) => ({
+    post,
+  }),
+);

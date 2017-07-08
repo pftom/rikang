@@ -15,7 +15,7 @@ import { REGISTER } from '../constants/';
 import { ContainerStyle as styles} from './styles/';
 
 //通过selector最小限度获取最需要的数据
-import { getInputInitial } from '../selectors/inputSelector';
+import { getInputInitial } from '../selectors/';
 
 //对组件进行二次封装，以应对不同的处理场景如：注册，登录等共用一套逻辑
 class Register extends PureComponent {

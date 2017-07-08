@@ -7,6 +7,9 @@ import { connect } from 'react-redux';
 //import async action constants
 import { GET_SINGLE_POST } from '../../../constants/'
 
+//import selector for computing data
+import { getPostSelector } from '../../../selectors/'
+
 
 class PostDetail extends PureComponent {
 
@@ -18,10 +21,14 @@ class PostDetail extends PureComponent {
   }
 
   render() {
+    const { post } = this.props;
+    console.log('post', post);
     return (
       <Text>hhhh</Text>
     )
   }
 }
 
-export default PostDetail;
+export default connect(
+  state => getPostSelector(state),
+)(PostDetail);

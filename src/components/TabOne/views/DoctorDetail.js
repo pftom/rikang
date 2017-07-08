@@ -4,6 +4,9 @@ import { TouchableOpacity, Text, View, } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 
+//import selector for computing data
+import { getDoctorSelector } from '../../../selectors/';
+
 //import async action constants
 import { GET_SINGLE_DOCTOR } from '../../../constants/'
 
@@ -18,10 +21,14 @@ class DoctorDetail extends PureComponent {
   }
 
   render() {
+    const { doctor } = this.props;
+    console.log('doctor', doctor);
     return (
       <Text>hhhh</Text>
     )
   }
 }
 
-export default DoctorDetail;
+export default connect(
+  state => getDoctorSelector(state),
+)(DoctorDetail);
