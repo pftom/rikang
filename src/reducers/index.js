@@ -5,11 +5,13 @@ import { fromJS } from 'immutable';
 import nav from './nav';
 import auth from './auth';
 import account from './account';
+import home from './home';
 
 const AppReducer = combineReducers({
   nav,
   auth,
   account,
+  home,
   form: formReducer,
 });
 

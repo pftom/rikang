@@ -21,7 +21,7 @@ import { base, homeApi, homeSingleApi } from '../configs/config';
 function* getSinglePost(payload) {
   try {
     const { id, token } = payload;
-    const { post } = yield call(request.get, base + homeSingleApi(id).getSinglePost, null, token);
+    const post = yield call(request.get, base + homeSingleApi(id).getSinglePost, null, token);
     yield put({ type: GET_SINGLE_POST_SUCCESS, post });
   } catch (error) {
     yield put({ type: GET_SINGLE_POST_ERROR });
@@ -32,7 +32,8 @@ function* getSinglePost(payload) {
 //POSTS async actions handle function
 function* getPosts(payload) {
   try {
-    const { posts } = yield call(request.get, base + homeApi.posts, null, payload);
+    const { token } = payload;
+    const posts = yield call(request.get, base + homeApi.posts, null, token);
     yield put({ type: GET_POSTS_SUCCESS, payload: posts });
   } catch(error) {
     yield put({ type: GET_POSTS_ERROR });

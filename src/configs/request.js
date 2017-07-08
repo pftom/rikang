@@ -43,9 +43,11 @@ request.get =  ( url, params, token ) => {
     options = _.extend(header('GET', token));
   }
 
+  console.log('url', url);
 
   return fetch(url, options)
       .then(response => {
+        console.log('response', response)
         if (response.status !== 200 || !response.ok) {
           throw response.json();
         }

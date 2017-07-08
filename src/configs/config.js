@@ -9,14 +9,14 @@ export const homeApi = {
 };
 
 export const homeSingleApi = (id) => ({
-  singlePost: 'home/posts/${id}/',
-  singleHospital: 'home/hospitals/${id}/',
-  singleHospitalDoctors: 'home/hospitals/${id}/doctors/',
-  singleDoctor: 'home/doctors/${id}/',
-  singleDoctorInfo: 'home/doctors/${id}/info/',
-  singleDoctorAnswers: 'home/doctors/${id}/answers/',
-  addSingleDoctorFav: 'home/doctors/${id}/fav/',
-  singleDoctorComments: 'home/doctors/${id}/comments/',
+  singlePost: `home/posts/${id}/`,
+  singleHospital: `home/hospitals/${id}/`,
+  singleHospitalDoctors: `home/hospitals/${id}/doctors/`,
+  singleDoctor: `home/doctors/${id}/`,
+  singleDoctorInfo: `home/doctors/${id}/info/`,
+  singleDoctorAnswers: `home/doctors/${id}/answers/`,
+  addSingleDoctorFav: `home/doctors/${id}/fav/`,
+  singleDoctorComments: `home/doctors/${id}/comments/`,
   addsingleDoctorComments: 'home/doctors/${id}/comments/new',
 });
 
@@ -39,15 +39,15 @@ export const qaApi = {
 };
 
 export const qaSingleApi = (id) => ({
-  addQuestionImg: '/qa/questions/${id}/addimg/',
-  singleQuestion: 'qa/questions/${id}/',
-  updateSingleQuestion: 'qa/questions/${id}/',
-  singleQuestionAllImg: 'qa/questions/${id}/images/',
-  singleQuestionStar: 'qa/questions/${id}/star/',
-  singleQuestionAnswer: 'qa/questions/${id}/answers/',
-  addSingleQuestionAnswers: 'qa/questions/${id}/answers/new/',
-  singleAnswer: 'qa/answers/${id}/',
-  singleAnswerUpvote: 'qa/answers/${id}/upvote/',
-  singleAnswerAllComments: 'qa/answers/{id}/comments/',
-  addSingleAnswerComments: 'qa/answers/{answer_id}/comments/new',
+  addQuestionImg: `/qa/questions/${id}/addimg/`,
+  singleQuestion: `qa/questions/${id}/`,
+  updateSingleQuestion: `qa/questions/${id}/`,
+  singleQuestionAllImg: `qa/questions/${id}/images/`,
+  singleQuestionStar: `qa/questions/${id}/star/`,
+  singleQuestionAnswer: `qa/questions/${id}/answers/`,
+  addSingleQuestionAnswers: `qa/questions/${id}/answers/new/`,
+  singleAnswer: `qa/answers/${id}/`,
+  singleAnswerUpvote: `qa/answers/${id}/upvote/`,
+  singleAnswerAllComments: `qa/answers/{id}/comments/`,
+  addSingleAnswerComments: `qa/answers/{answer_id}/comments/new`,
 });

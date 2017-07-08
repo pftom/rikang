@@ -9,9 +9,13 @@ import Register from '../components/Register';
 
 //home section screen
 import TabBarNavigation from './TabBarNavigation';
+import DoctorDetail from '../components/TabOne/views/DoctorDetail';
+import PostDetail from '../components/TabOne/views/PostDetail';
 
 import ProfileScreen from '../components/ProfileScreen';
 import Practice from '../components/practice';
+
+
 
 //register and login logic navigator
 export const UserNavigator = StackNavigator({
@@ -32,7 +36,11 @@ export const UserNavigator = StackNavigator({
 
 export const AppNavigator = StackNavigator({
     TabBarNavigation: { screen: TabBarNavigation },
+    DoctorDetail: { screen: DoctorDetail },
+    PostDetail: { screen: PostDetail },
+
     UserNavigator: { screen: UserNavigator },
+
     Profile: { screen: ProfileScreen },
   },
   {
