@@ -41,6 +41,7 @@ const hospitalValue = (state = initialHospitalValue, action) => {
       case GET_HOSPITALS_SUCCESS:
 
         const { hospitals } = action;
+        console.log('hospitals', hospitals);
         return state.merge({
           isLoadingData: false,
           loadingSuccess: true,

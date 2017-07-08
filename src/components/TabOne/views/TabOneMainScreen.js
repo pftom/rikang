@@ -8,7 +8,7 @@ import {
 import { connect } from 'react-redux';
 
 //import selector to get selected data
-import { getTabOneMainScreenSelector } from '../../../selectors/';
+import { getHomeSelector } from '../../../selectors/';
 import LoginStatusMessage from '../../LoginStatusMessage';
 import AuthButton from '../../AuthButton';
 
@@ -70,5 +70,5 @@ HomeMainScreen.navigationOptions = {
 };
 
 export default connect(
-  (state) => getTabOneMainScreenSelector(state),
+  (state) => getHomeSelector(state),
 )(HomeMainScreen);

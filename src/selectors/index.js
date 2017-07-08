@@ -1,11 +1,11 @@
 import { getInputInitial } from './inputSelector';
-import { getTabOneMainScreenSelector, getDoctorSelector, getPostSelector } from './TabOneMainSelector';
+import { getHomeSelector, getDoctorSelector, getPostSelector } from './TabOneMainSelector';
 
 
 export {
   getInputInitial,
 
-  getTabOneMainScreenSelector,
+  getHomeSelector,
   getDoctorSelector,
   getPostSelector,
 }

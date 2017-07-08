@@ -50,21 +50,20 @@ const home = (state = initialHomeValue, action) => {
     
     case GET_DOCTORS_SUCCESS:
 
-      const { payload } = action;
+      const { doctors } = action;
       return state.merge({
         isLoadingData: false,
         loadingSuccess: true,
-        doctors: payload,
+        doctors,
       });
     
     case GET_POSTS_SUCCESS:
 
-    //as payload has already defined
-    //so use action.payload
+    const { posts } = action;
     return state.merge({
       isLoadingData: false,
       loadingSuccess: true,
-      posts: action.payload,
+      posts,
     });
 
 

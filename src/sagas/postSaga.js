@@ -34,7 +34,7 @@ function* getPosts(payload) {
   try {
     const { token } = payload;
     const posts = yield call(request.get, base + homeApi.posts, null, token);
-    yield put({ type: GET_POSTS_SUCCESS, payload: posts });
+    yield put({ type: GET_POSTS_SUCCESS, posts });
   } catch(error) {
     yield put({ type: GET_POSTS_ERROR });
   }

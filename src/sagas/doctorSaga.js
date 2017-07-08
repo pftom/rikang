@@ -130,7 +130,7 @@ function* getDoctors(payload) {
     //emit http get, fetch  doctors 
     const doctors = yield call(request.get, base + homeApi.doctors, null, token);
     //emit get doctors success
-    yield put({ type: GET_DOCTORS_SUCCESS, payload: doctors });
+    yield put({ type: GET_DOCTORS_SUCCESS, doctors });
   } catch(error) {
     //emit get doctors error
     yield put({ type: GET_DOCTORS_ERROR });

@@ -39,7 +39,7 @@ function* getHospitals(payload) {
   try {
     const { token } = payload;
     const hospitals = yield call(request.get, base + homeApi.hospitals, null, token);
-    yield put({ type: GET_HOSPITALS_SUCCESS, payload: { hospitals } });
+    yield put({ type: GET_HOSPITALS_SUCCESS, hospitals });
   } catch(error) {
     yield put({ type: GET_HOSPITALS_ERROR });
   }
