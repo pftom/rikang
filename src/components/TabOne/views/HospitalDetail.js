@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { TouchableOpacity, Text, View, } from 'react-native';
+import { TouchableWithoutFeedback, Text, View, } from 'react-native';
 
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -8,7 +8,10 @@ import { connect } from 'react-redux';
 import { getHospitalSelector } from '../../../selectors/';
 
 //import async action constants
-import { GET_SINGLE_HOSPITAL } from '../../../constants/'
+import { GET_SINGLE_HOSPITAL, GET_SINGLE_HOSPITAL_DOCTORS } from '../../../constants/'
+
+//import Hospital Doctor lists
+import HospitalDoctors from './HospitalDoctors'
 
 
 class HospitalDetail extends PureComponent {
@@ -21,9 +24,17 @@ class HospitalDetail extends PureComponent {
   }
 
   render() {
-    const { hospital } = this.props;
+    const { hospital, navigation, dispatch } = this.props;
+    const { token, id } = navigation.state.params;
     return (
-      <Text>{hospital && hospital.get('name')}</Text>
+      <View>
+        <TouchableWithoutFeedback onPress={() => { dispatch({ type: GET_SINGLE_HOSPITAL_DOCTORS, payload: { id, token }}) }}>
+        <View>
+          <Text>{hospital && hospital.get('name')}</Text>
+        </View>
+      </TouchableWithoutFeedback>
+      <HospitalDoctors payload={ {token, id, navigation} }/>
+      </View>
     )
   }
 }
