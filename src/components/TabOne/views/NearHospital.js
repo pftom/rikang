@@ -5,7 +5,7 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 
 //import selector for computing data
-import { getDoctorSelector } from '../../../selectors/';
+import { getHospitalsSelector } from '../../../selectors/';
 
 //import async action constants
 import { GET_HOSPITALS } from '../../../constants/'
@@ -14,19 +14,23 @@ import { GET_HOSPITALS } from '../../../constants/'
 class NearHospital extends PureComponent {
 
   componentDidMount() {
-    const { navigation } = this.props;
-    const { token, dispatch } = navigation.state.params;
+    const { navigation, dispatch } = this.props;
+    const { token } = navigation.state.params;
 
     dispatch({ type: GET_HOSPITALS, payload: { token }});
   }
 
   render() {
+    const { hospitals, navigation } = this.props;
+    const { token } = navigation.state.params;
     return (
-      <Text>near </Text>
+      <TouchableOpacity onPress={() => { navigation.navigate('HospitalDetail', { id: hospitals.getIn(['results', '0', 'id']), token })}}>
+        <Text>{hospitals && hospitals.getIn(['results', '0', 'name'])}</Text>
+      </TouchableOpacity>
     )
   }
 }
 
 export default connect(
-  state => getDoctorSelector(state),
+  state => getHospitalsSelector(state),
 )(NearHospital);

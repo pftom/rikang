@@ -14,8 +14,8 @@ import { getPostSelector } from '../../../selectors/'
 class PostDetail extends PureComponent {
 
   componentDidMount() {
-    const { navigation } = this.props;
-    const { token, id, dispatch } = navigation.state.params;
+    const { navigation, dispatch } = this.props;
+    const { token, id } = navigation.state.params;
 
     dispatch({ type: GET_SINGLE_POST, payload: { token, id }});
   }

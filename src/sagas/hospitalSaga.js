@@ -27,7 +27,7 @@ function* getSingleHospital(payload) {
   try {
     const { id, token } = payload;
     const hospital = yield call(request.get, base + homeSingleApi(id).singleHospital, null, token);
-    yield put({ type: GET_SINGLE_HOSPITAL_SUCCESS, payload: { hospital } });
+    yield put({ type: GET_SINGLE_HOSPITAL_SUCCESS, hospital });
   } catch (error) {
     yield put({ type: GET_SINGLE_HOSPITAL_ERROR });
   }

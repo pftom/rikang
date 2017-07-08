@@ -39,7 +39,7 @@ class HomeMainScreen extends PureComponent {
         <Text>loading data ....</Text>
         {
           doctors && (
-            <TouchableWithoutFeedback onPress={() => {navigation.navigate('DoctorDetail', { id: doctors.getIn(['results', '0', 'id']), token, dispatch })}}>
+            <TouchableWithoutFeedback onPress={() => {navigation.navigate('DoctorDetail', { id: doctors.getIn(['results', '0', 'id']), token })}}>
               <View>
                 <Text>doctor: {doctors.getIn(['results', '0', 'name'])}</Text>
               </View>
@@ -48,14 +48,14 @@ class HomeMainScreen extends PureComponent {
         }
         {
           posts && (
-            <TouchableWithoutFeedback onPress={() => { navigation.navigate('PostDetail', { id: posts.getIn(['results', '0', 'id']), token, dispatch })}}>
+            <TouchableWithoutFeedback onPress={() => { navigation.navigate('PostDetail', { id: posts.getIn(['results', '0', 'id']), token })}}>
               <View>
                 <Text>posts: {posts.getIn(['results', '0', 'title'])}</Text>
               </View>
             </TouchableWithoutFeedback>
           )
         }
-        <TouchableWithoutFeedback onPress={() => { navigation.navigate('NearHospital', { token: token, dispatch })}}>
+        <TouchableWithoutFeedback onPress={() => { navigation.navigate('NearHospital', { token })}}>
           <View>
             <Text>Go to nearby hospital</Text>
           </View>

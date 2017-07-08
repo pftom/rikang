@@ -5,30 +5,29 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 
 //import selector for computing data
-import { getDoctorSelector } from '../../../selectors/';
+import { getHospitalSelector } from '../../../selectors/';
 
 //import async action constants
-import { GET_SINGLE_DOCTOR } from '../../../constants/'
+import { GET_SINGLE_HOSPITAL } from '../../../constants/'
 
 
-class DoctorDetail extends PureComponent {
+class HospitalDetail extends PureComponent {
 
   componentDidMount() {
     const { navigation, dispatch } = this.props;
     const { token, id } = navigation.state.params;
-    
-    dispatch({ type: GET_SINGLE_DOCTOR, payload: { token, id }});
+    console.log('single', token);
+    dispatch({ type: GET_SINGLE_HOSPITAL, payload: { token, id }});
   }
 
   render() {
-    const { doctor } = this.props;
-    console.log('doctor', doctor);
+    const { hospital } = this.props;
     return (
-      <Text>{doctor && doctor.get('name')}</Text>
+      <Text>{hospital && hospital.get('name')}</Text>
     )
   }
 }
 
 export default connect(
-  state => getDoctorSelector(state),
-)(DoctorDetail);
+  state => getHospitalSelector(state),
+)(HospitalDetail);
