@@ -24,7 +24,7 @@ class DoctorDetail extends PureComponent {
     const { doctor } = this.props;
     console.log('doctor', doctor);
     return (
-      <Text>hhhh</Text>
+      <Text>{doctor && doctor.get('name')}</Text>
     )
   }
 }
