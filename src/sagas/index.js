@@ -39,6 +39,16 @@ import {
   watchStarSingleQuestion,
 } from './questionSaga'
 
+//answers watch and handle func
+import {
+  watchGetSingleQuestionAllAnswers,
+  watchCreateSingleQuestionAnswer,
+  watchGetSingleQuestionAnswer,
+  watchUpvoteSingleQuestionAnswer,
+  watchGetQuestionAllComments,
+  watchCreateSingleQuestionAnswerComment,
+} from './answerSaga';
+
 export default function* rootSaga() {
   yield all([
     loginFlow(),
@@ -70,5 +80,13 @@ export default function* rootSaga() {
     watchUpdateSingleQuestion(),
     watchGetSingleQuestionAllImg(),
     watchStarSingleQuestion(),
+
+
+    watchGetSingleQuestionAllAnswers(),
+    watchCreateSingleQuestionAnswer(),
+    watchGetSingleQuestionAnswer(),
+    watchUpvoteSingleQuestionAnswer(),
+    watchGetQuestionAllComments(),
+    watchCreateSingleQuestionAnswerComment(),
   ]);
 }

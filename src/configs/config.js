@@ -44,8 +44,10 @@ export const qaSingleApi = (id) => ({
   updateSingleQuestion: 'qa/questions/${id}/',
   singleQuestionAllImg: 'qa/questions/${id}/images/',
   singleQuestionStar: 'qa/questions/${id}/star/',
-  singleQuestionAnswers: 'qa/questions/${id}/answers/',
+  singleQuestionAnswer: 'qa/questions/${id}/answers/',
   addSingleQuestionAnswers: 'qa/questions/${id}/answers/new/',
   singleAnswer: 'qa/answers/${id}/',
   singleAnswerUpvote: 'qa/answers/${id}/upvote/',
+  singleAnswerAllComments: 'qa/answers/{id}/comments/',
+  addSingleAnswerComments: 'qa/answers/{answer_id}/comments/new',
 });
