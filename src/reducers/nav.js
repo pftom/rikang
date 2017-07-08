@@ -3,17 +3,12 @@ import Immutable from 'immutable';
 
 import { AppNavigator } from '../navigators/AppNavigator';
 
-const firstAction = AppNavigator.router.getActionForPathAndParams('Main');
-const tempNavState = AppNavigator.router.getStateForAction(firstAction);
 
-
-const initialNavState = Immutable.fromJS(tempNavState);
-
-const nav = function nav(state = initialNavState, action) {
+const nav = function nav(state, action) {
   let nextState;
   switch (action.type) {
     default:
-      nextState = state.merge(AppNavigator.router.getStateForAction(action, state.toJS()));
+      nextState = AppNavigator.router.getStateForAction(action, state);
       break;
   }
 
