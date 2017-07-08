@@ -5,27 +5,27 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 
 //import async action constants
-import { GET_SINGLE_HOSPITAL_DOCTORS } from '../../../constants/'
+import { GET_SINGLE_DOCTOR_INFO } from '../../../constants/'
 
 //import selector for computing data
 import { getHospitalDoctorsSelector } from '../../../selectors/'
 
 
-class HospitalDoctors extends PureComponent {
+class DoctorDetailInfo extends PureComponent {
 
   componentDidMount() {
-    const { payload, dispatch } = this.props;
-    const { token, id } = payload;
-    dispatch({ type: GET_SINGLE_HOSPITAL_DOCTORS, payload: { token, id }});
+    const { navigation, dispatch } = this.props;
+    const { token, id } = navigation.state.params;
+    dispatch({ type: GET_SINGLE_DOCTOR_INFO, payload: { token, id }});
   }
 
   render() {
-    const { hospitalDoctors, payload } = this.props;
-    const { token, id, navigation } = payload;
+    // const { hospitalDoctors, payload } = this.props;
+    // const { token, id, navigation } = payload;
     return (
       <View>
         <TouchableOpacity onPress={() => { navigation.navigate('DoctorDetail', { token, id }) }}>
-          <Text>{hospitalDoctors && hospitalDoctors.getIn(['results', '0', 'name'])}</Text>
+          <Text>hhhh</Text>
         </TouchableOpacity>
       </View>
     )
@@ -34,4 +34,4 @@ class HospitalDoctors extends PureComponent {
 
 export default connect(
   state => getHospitalDoctorsSelector(state),
-)(HospitalDoctors);
+)(DoctorDetailInfo);

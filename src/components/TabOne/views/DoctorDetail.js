@@ -21,10 +21,18 @@ class DoctorDetail extends PureComponent {
   }
 
   render() {
-    const { doctor } = this.props;
-    console.log('doctor', doctor);
+    const { navigation } = this.props;
+    const { token, id } = navigation.state.params;
+
     return (
-      <Text>{doctor && doctor.get('name')}</Text>
+      <View>
+        <TouchableOpacity onPress={() => { navigation.navigate('DoctorDetailInfo', { id, token }) } }>
+          <Text>查看详细资料</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {console.log('hhh')}}>
+          <Text>添加收藏</Text>
+        </TouchableOpacity>
+      </View>
     )
   }
 }

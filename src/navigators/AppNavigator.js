@@ -15,6 +15,8 @@ import PostDetail from '../components/TabOne/views/PostDetail';
 import NearHospital from '../components/TabOne/views/NearHospital';
 //single hospital
 import HospitalDetail from '../components/TabOne/views/HospitalDetail';
+//doctor detail info
+import DoctorDetailInfo from '../components/TabOne/views/DoctorDetailInfo';
 
 import ProfileScreen from '../components/ProfileScreen';
 import Practice from '../components/practice';
@@ -44,6 +46,7 @@ export const AppNavigator = StackNavigator({
     PostDetail: { screen: PostDetail },
     NearHospital: { screen: NearHospital },
     HospitalDetail: { screen: HospitalDetail },
+    DoctorDetailInfo: { screen: DoctorDetailInfo },
 
     UserNavigator: { screen: UserNavigator },
 

@@ -55,7 +55,7 @@ function* getSingleDoctor(payload) {
 }
 
 //get single doctor info
-function* getSingleDoctorInfo() {
+function* getSingleDoctorInfo(payload) {
   try {
     const { id, token } = payload;
     //emit http get, fetch single doctor info
@@ -69,7 +69,7 @@ function* getSingleDoctorInfo() {
 }
 
 //get single doctor all answers
-function* getSingleDoctorAnswers() {
+function* getSingleDoctorAnswers(payload) {
   try {
     const { id, token } = payload;
     //emit http get, fetch single doctor info
@@ -82,7 +82,7 @@ function* getSingleDoctorAnswers() {
   }
 }
 
-function* addSingleDoctorFav() {
+function* addSingleDoctorFav(payload) {
   try {
     const { id, token } = payload;
     //emit http get, fetch single doctor fav
@@ -95,7 +95,7 @@ function* addSingleDoctorFav() {
   }
 }
 
-function* getSingleDoctorComments() {
+function* getSingleDoctorComments(payload) {
   try {
     const { id, token } = payload;
     //emit http get, fetch single doctor comment
@@ -109,7 +109,7 @@ function* getSingleDoctorComments() {
 }
 
 //create single doctor comment
-function* createSingleDoctorComments() {
+function* createSingleDoctorComments(payload) {
   try {
     const { id, token, content } = payload;
     //emit http get, fetch single doctor comment
