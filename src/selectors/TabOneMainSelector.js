@@ -18,7 +18,7 @@ export const getTabOneMainScreenSelector = createSelector(
 );
 
 
-const getDoctor = (state) => state.getIn(['homeSingle', 'doctor']);
+const getDoctor = (state) => state.getIn(['home', 'doctor']);
 
 export const getDoctorSelector = createSelector(
   [ getDoctor ],
@@ -27,7 +27,7 @@ export const getDoctorSelector = createSelector(
   }),
 );
 
-const getPost = (state) => state.getIn(['homeSingle', 'post']);
+const getPost = (state) => state.getIn(['home', 'post']);
 
 export const getPostSelector = createSelector(
   [ getPost ],

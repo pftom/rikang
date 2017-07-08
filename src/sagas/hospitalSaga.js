@@ -26,8 +26,8 @@ import { base, homeApi, homeSingleApi } from '../configs/config';
 function* getSingleHospital(payload) {
   try {
     const { id, token } = payload;
-    const { hospital } = yield call(request.get, base + homeSingleApi(id).singleHospital, null, token);
-    yield put({ type: GET_SINGLE_HOSPITAL_SUCCESS, doctor });
+    const hospital = yield call(request.get, base + homeSingleApi(id).singleHospital, null, token);
+    yield put({ type: GET_SINGLE_HOSPITAL_SUCCESS, payload: { hospital } });
   } catch (error) {
     yield put({ type: GET_SINGLE_HOSPITAL_ERROR });
   }
@@ -37,8 +37,9 @@ function* getSingleHospital(payload) {
 //HOSPITAL async actions handle function
 function* getHospitals(payload) {
   try {
-    const { hospitals } = yield call(request.get, base + homeApi.hospitals, null, payload);
-    yield put({ type: GET_HOSPITALS_SUCCESS, payload: hospitals });
+    const { token } = payload;
+    const hospitals = yield call(request.get, base + homeApi.hospitals, null, token);
+    yield put({ type: GET_HOSPITALS_SUCCESS, payload: { hospitals } });
   } catch(error) {
     yield put({ type: GET_HOSPITALS_ERROR });
   }
@@ -47,8 +48,8 @@ function* getHospitals(payload) {
 function* getSingleHospitalDoctors(payload) {
   try {
     const { token, id } = payload;
-    const { singleHospitalDoctors } = yield call(request.get, base + homeSingleApi(id).singleHospitalDoctors, null, token);
-    yield put({ type: GET_SINGLE_HOSPITAL_DOCTORS_SUCCESS, payload: singleHospitalDoctors });
+    const singleHospitalDoctors = yield call(request.get, base + homeSingleApi(id).singleHospitalDoctors, null, token);
+    yield put({ type: GET_SINGLE_HOSPITAL_DOCTORS_SUCCESS, payload: { singleHospitalDoctors } });
   } catch(error) {
     yield put({ type: GET_SINGLE_HOSPITAL_DOCTORS_ERROR });
   }

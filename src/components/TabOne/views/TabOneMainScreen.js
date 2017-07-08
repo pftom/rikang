@@ -55,6 +55,11 @@ class HomeMainScreen extends PureComponent {
             </TouchableWithoutFeedback>
           )
         }
+        <TouchableWithoutFeedback onPress={() => { navigation.navigate('NearHospital', { token: token, dispatch })}}>
+          <View>
+            <Text>Go to nearby hospital</Text>
+          </View>
+        </TouchableWithoutFeedback>
       </View>
     )
   }

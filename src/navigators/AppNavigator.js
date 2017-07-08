@@ -11,6 +11,8 @@ import Register from '../components/Register';
 import TabBarNavigation from './TabBarNavigation';
 import DoctorDetail from '../components/TabOne/views/DoctorDetail';
 import PostDetail from '../components/TabOne/views/PostDetail';
+//nearby hospital
+import NearHospital from '../components/TabOne/views/NearHospital';
 
 import ProfileScreen from '../components/ProfileScreen';
 import Practice from '../components/practice';
@@ -38,6 +40,7 @@ export const AppNavigator = StackNavigator({
     TabBarNavigation: { screen: TabBarNavigation },
     DoctorDetail: { screen: DoctorDetail },
     PostDetail: { screen: PostDetail },
+    NearHospital: { screen: NearHospital },
 
     UserNavigator: { screen: UserNavigator },
 
