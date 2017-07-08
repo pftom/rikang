@@ -1,6 +1,6 @@
 
 // import what we need
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View } from 'react-native';
 import { reduxForm } from 'redux-form/immutable';
 import { connect } from 'react-redux';
@@ -18,7 +18,7 @@ import { ContainerStyle as styles} from './styles/';
 import { getInputInitial } from '../selectors/inputSelector';
 
 //对组件进行二次封装，以应对不同的处理场景如：注册，登录等共用一套逻辑
-class Register extends Component {
+class Register extends PureComponent {
   render() {
     
     return (

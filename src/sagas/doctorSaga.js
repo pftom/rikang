@@ -126,8 +126,9 @@ function* createSingleDoctorComments() {
 //DOCTORS async actions handle function
 function* getDoctors(payload) {
   try {
+    const { token } = payload;
     //emit http get, fetch  doctors 
-    const { doctors } = yield call(request.get, base + homeApi.doctors, null, payload);
+    const doctors = yield call(request.get, base + homeApi.doctors, null, token);
     //emit get doctors success
     yield put({ type: GET_DOCTORS_SUCCESS, payload: doctors });
   } catch(error) {

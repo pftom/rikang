@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import {
   StyleSheet,
   Text,
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 });
 
 
-class ProfileScreen extends React.Component {
+class ProfileScreen extends PureComponent {
   render() {
     console.log('props', this.props);
     return (

@@ -66,7 +66,7 @@ class FormInput extends Component {
     }
 
     if(loginSuccess) {
-      this.loginSuccess();
+      this.successToast();
     }
 
     if(registerError) {
