@@ -8,7 +8,11 @@ import { connect } from 'react-redux';
 import { getDoctorSelector } from '../../../selectors/';
 
 //import async action constants
-import { GET_SINGLE_DOCTOR } from '../../../constants/'
+import { 
+  GET_SINGLE_DOCTOR,
+  GET_SINGLE_DOCTOR_ANSWERS,
+  GET_SINGLE_DOCTOR_COMMENTS,
+} from '../../../constants/';
 
 
 class DoctorDetail extends PureComponent {
@@ -18,11 +22,14 @@ class DoctorDetail extends PureComponent {
     const { token, id } = navigation.state.params;
     
     dispatch({ type: GET_SINGLE_DOCTOR, payload: { token, id }});
+    dispatch({ type: GET_SINGLE_DOCTOR_ANSWERS, payload: { token, id }});
+    dispatch({ type: GET_SINGLE_DOCTOR_COMMENTS, payload: { token, id }});
   }
 
   render() {
-    const { navigation } = this.props;
+    const { navigation, comments, answers } = this.props;
     const { token, id } = navigation.state.params;
+
 
     return (
       <View>

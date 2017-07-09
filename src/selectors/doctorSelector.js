@@ -5,11 +5,15 @@ import { getToken } from './commonSelector';
 
 //doctor selector
 const getDoctor = (state) => state.getIn(['home', 'doctor']);
+const getDoctorAnswers = (state) => state.getIn(['doctor', 'answers']);
+const getDoctorComments = (state) => state.getIn(['doctor', 'comments']);
 
 export const getDoctorSelector = createSelector(
-  [ getDoctor ],
-  (doctor) => ({
+  [ getDoctor, getDoctorAnswers, getDoctorComments ],
+  (doctor, answers, comments) => ({
     doctor,
+    answers,
+    comments,
   }),
 );
 
