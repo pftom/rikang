@@ -1,25 +1,32 @@
 import { getInputInitial } from './inputSelector';
+
 import { 
   getHomeSelector, 
-
-  getDoctorSelector, 
   getPostSelector,
+} from './TabOneMainSelector';
 
+import {
   getHospitalsSelector,
   getHospitalSelector,
   getHospitalDoctorsSelector,
-} from './TabOneMainSelector';
+} from './hospitalSelector';
 
+import {
+  getDoctorSelector,
+  getDoctorInfoSelector, 
+} from './doctorSelector';
 
 export {
   getInputInitial,
 
   getHomeSelector,
   
-  getDoctorSelector,
   getPostSelector,
 
   getHospitalsSelector,
   getHospitalSelector,
   getHospitalDoctorsSelector,
+
+  getDoctorSelector,
+  getDoctorInfoSelector,
 }

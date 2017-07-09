@@ -19,16 +19,6 @@ export const getHomeSelector = createSelector(
 );
 
 
-//doctor selector
-const getDoctor = (state) => state.getIn(['home', 'doctor']);
-
-export const getDoctorSelector = createSelector(
-  [ getDoctor ],
-  (doctor) => ({
-    doctor,
-  }),
-);
-
 //post selector
 const getPost = (state) => state.getIn(['home', 'post']);
 
@@ -36,36 +26,5 @@ export const getPostSelector = createSelector(
   [ getPost ],
   (post) => ({
     post,
-  }),
-);
-
-
-//all hospital selector
-const getHospitals = (state) => state.getIn(['hospital', 'hospitals']);
-
-export const getHospitalsSelector = createSelector(
-  [ getHospitals ],
-  (hospitals) => ({
-    hospitals,
-  }),
-);
-
-//hospital selector
-const getHospital = (state) => state.getIn(['hospital', 'hospital']);
-
-export const getHospitalSelector = createSelector(
-  [ getHospital ],
-  (hospital) => ({
-    hospital,
-  }),
-);
-
-//hospital all doctors selector
-const getHospitalDoctors = (state) => state.getIn(['hospital', 'hospitalDoctors']);
-
-export const getHospitalDoctorsSelector = createSelector(
-  [ getHospitalDoctors ],
-  (hospitalDoctors) => ({
-    hospitalDoctors,
   }),
 );

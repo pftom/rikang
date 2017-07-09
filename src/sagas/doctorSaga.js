@@ -59,9 +59,9 @@ function* getSingleDoctorInfo(payload) {
   try {
     const { id, token } = payload;
     //emit http get, fetch single doctor info
-    const info = yield call(request.get, base + homeSingleApi(id).singleDoctorInfo, null, token);
+    const doctorInfo = yield call(request.get, base + homeSingleApi(id).singleDoctorInfo, null, token);
     //get doctor info success 
-    yield put({ type: GET_SINGLE_DOCTOR_INFO_SUCCESS, info });
+    yield put({ type: GET_SINGLE_DOCTOR_INFO_SUCCESS, doctorInfo });
   } catch (error) {
     //get doctor info error
     yield put({ type: GET_SINGLE_DOCTOR_INFO_ERROR });

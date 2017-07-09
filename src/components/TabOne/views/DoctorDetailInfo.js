@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { GET_SINGLE_DOCTOR_INFO } from '../../../constants/'
 
 //import selector for computing data
-import { getHospitalDoctorsSelector } from '../../../selectors/'
+import { getDoctorInfoSelector } from '../../../selectors/'
 
 
 class DoctorDetailInfo extends PureComponent {
@@ -20,18 +20,15 @@ class DoctorDetailInfo extends PureComponent {
   }
 
   render() {
-    // const { hospitalDoctors, payload } = this.props;
-    // const { token, id, navigation } = payload;
+    const { doctorInfo, payload } = this.props;
     return (
       <View>
-        <TouchableOpacity onPress={() => { navigation.navigate('DoctorDetail', { token, id }) }}>
-          <Text>hhhh</Text>
-        </TouchableOpacity>
+        <Text>hhhh</Text>
       </View>
     )
   }
 }
 
 export default connect(
-  state => getHospitalDoctorsSelector(state),
+  state => getDoctorInfoSelector(state),
 )(DoctorDetailInfo);
