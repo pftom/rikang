@@ -8,6 +8,7 @@ import account from './account';
 import home from './home';
 import hospital from './hospital';
 import doctor from './doctor';
+import fav from './fav';
 
 
 const AppReducer = combineReducers({
@@ -17,6 +18,7 @@ const AppReducer = combineReducers({
   home,
   hospital,
   doctor,
+  fav,
   form: formReducer,
 });
 

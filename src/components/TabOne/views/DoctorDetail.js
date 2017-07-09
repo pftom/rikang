@@ -12,6 +12,8 @@ import {
   GET_SINGLE_DOCTOR,
   GET_SINGLE_DOCTOR_ANSWERS,
   GET_SINGLE_DOCTOR_COMMENTS,
+
+  ADD_SINGLE_DOCTOR_FAV,
 } from '../../../constants/';
 
 
@@ -27,7 +29,7 @@ class DoctorDetail extends PureComponent {
   }
 
   render() {
-    const { navigation, comments, answers } = this.props;
+    const { navigation, comments, answers, doctor, dispatch } = this.props;
     const { token, id } = navigation.state.params;
 
 
@@ -36,7 +38,7 @@ class DoctorDetail extends PureComponent {
         <TouchableOpacity onPress={() => { navigation.navigate('DoctorDetailInfo', { id, token }) } }>
           <Text>查看详细资料</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {console.log('hhh')}}>
+        <TouchableOpacity onPress={() => { dispatch({ type: ADD_SINGLE_DOCTOR_FAV, payload: { token, id, doctor }})}}>
           <Text>添加收藏</Text>
         </TouchableOpacity>
       </View>
