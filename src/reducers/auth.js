@@ -57,6 +57,7 @@ const auth = function auth(state = initialAuthState, action) {
         isLoggedIn: true,
         isLoadingData: false,
         loginSuccess: true,
+        token: action.token,
       });
 
     case LOGIN_ERROR:
@@ -84,14 +85,6 @@ const auth = function auth(state = initialAuthState, action) {
       return state.merge({
         loginError: false,
         registerError: false,
-      });
-
-    case SET_TOKEN: 
-
-    //set the token for operate database later
-      const { payload } = action;
-      return state.merge({
-        token: payload,
       });
       
     case CLEAR_TOKEN: 

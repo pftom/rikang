@@ -24,4 +24,4 @@ class RiKangApp extends React.Component {
   }
 }
 
-AppRegistry.registerComponent('DangJian', () => RiKangApp);
+AppRegistry.registerComponent('RiKang', () => RiKangApp);

@@ -37,8 +37,7 @@ function* loginAuthorize(payload) {
   console.log('base', base + usersApi.login);
   try {
     const { token } = yield call(request.post, base + usersApi.login, payload);
-    yield put({ type: LOGIN_SUCCESS });
-    yield put({ type: SET_TOKEN, payload: token });
+    yield put({ type: LOGIN_SUCCESS, token });
     return token;
   } catch(error) {
     yield put({ type: LOGIN_ERROR });

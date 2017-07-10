@@ -1,5 +1,5 @@
 {
-  "presets": ["es2015", "babel-preset-expo", "react-native"],
+  "presets": ["babel-preset-expo", "react-native"],
   "plugins": [["import", { "libraryName": "antd-mobile" }]]
 }
 
