@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the answer reducer work as well 1`] = `
+Immutable.Map {
+  answers: null,
+  isLoadingData: true,
+  loadingError: false,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the answer reducer work as well 2`] = `
+Immutable.Map {
+  answers: Immutable.Map {
+  },
+  isLoadingData: false,
+  loadingError: false,
+  loadingSuccess: true,
+}
+`;
+
+exports[`the answer reducer work as well 3`] = `
+Immutable.Map {
+  answers: null,
+  isLoadingData: false,
+  loadingError: true,
+  loadingSuccess: false,
+}
+`;

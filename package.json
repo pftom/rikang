@@ -1,11 +1,14 @@
 {
-  "name": "DangJian",
+  "name": "RiKang",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "postinstall": "rndebugger-open"
+    "postinstall": "rndebugger-open",
+    "build": "babel src/ -d lib/",
+    "prepublish": "yarn run build",
+    "flow": "flow"
   },
   "dependencies": {
     "antd-mobile": "1.4.1",
@@ -44,8 +47,11 @@
     "reselect": "3.0.1"
   },
   "devDependencies": {
+    "babel-cli": "6.24.1",
     "babel-jest": "20.0.3",
     "babel-plugin-import": "1.2.1",
+    "babel-preset-es2015": "6.24.1",
+    "babel-preset-flow": "6.23.0",
     "babel-preset-react-native": "1.9.2",
     "jest": "20.0.4",
     "react-test-renderer": "16.0.0-alpha.6",

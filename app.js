@@ -17,7 +17,7 @@ import Login from './src/im/index';
 import Chat from './src/im/Chat';
 import ChatDetail from './src/im/ChatDetail';
 
-const DangJianApp = StackNavigator({
+const RiKang = StackNavigator({
   Login: { screen: Login },
   Chat: { screen: Chat },
   ChatDetail: { screen: ChatDetail },
@@ -42,4 +42,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('DangJian', () => DangJianApp);
+AppRegistry.registerComponent('RiKang', () => RiKang);
