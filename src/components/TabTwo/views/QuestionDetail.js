@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { 
   GET_SINGLE_QUESTION,
   GET_SINGLE_QUESTION_ALL_IMG,
+  STAR_SINGLE_QUESTION,
 } from '../../../constants/'
 
 //import selector for computing data
@@ -25,9 +26,15 @@ class QuestionDetail extends PureComponent {
   }
 
   render() {
-    const { question, AllImg } = this.props;
+    const { question, AllImg, dispatch, navigation } = this.props;
+    const { token, id } = navigation.state.params;
     return (
-      <Text>{question && question.get('title')}</Text>
+      <View>
+        <Text>{question && question.get('title')}</Text>
+        <TouchableOpacity onPress={() => { dispatch({ type: STAR_SINGLE_QUESTION, payload: { token, id, question }})}}>
+          <Text>关注</Text>
+        </TouchableOpacity>
+      </View>
     )
   }
 }

@@ -5,15 +5,19 @@ import {
   ADD_SINGLE_DOCTOR_FAV,
   ADD_SINGLE_DOCTOR_FAV_SUCCESS,
   ADD_SINGLE_DOCTOR_FAV_ERROR,
+
+  STAR_SINGLE_QUESTION,
+  STAR_SINGLE_QUESTION_SUCCESS,
+  STAR_SINGLE_QUESTION_ERROR,
 } from '../constants/';
 
 
 
 //home reducers
 const initialPatientValue = Map({
-  doctorFavs: List([]),
-  postFavs: List([]),
-  questions: List([]),
+  doctorFav: List([]),
+  postFav: List([]),
+  questionStar: List([]),
   isLoadingData: false,
   loadingError: false,
   loadingSuccess: false,
@@ -22,6 +26,7 @@ const initialPatientValue = Map({
 const fav = (state = initialPatientValue, action) => {
   switch (action.type) {
     case ADD_SINGLE_DOCTOR_FAV:
+    case STAR_SINGLE_QUESTION:
 
       return state.merge({
         isLoadingData: true,
@@ -33,14 +38,26 @@ const fav = (state = initialPatientValue, action) => {
 
       const { doctor } = action;
       return state
-            .update('doctorFavs', list => list.shift(doctor))
+            .update('doctorFav', list => list.unshift(doctor))
             .merge({
               isLoadingData: false,
               loadingSuccess: true,
             });
       
+    case STAR_SINGLE_QUESTION_SUCCESS:
+
+      const { question } = action;
+      console.log('question', question);
+
+      return state
+            .update('questionStar', list => list.unshift(question))
+            .merge({
+              isLoadingData: false,
+              loadingSuccess: true,
+            });
 
     case ADD_SINGLE_DOCTOR_FAV_ERROR:
+    case STAR_SINGLE_QUESTION_ERROR:
 
       return state.merge({
         isLoadingData: false,
