@@ -34,7 +34,7 @@ const fav = (state = initialFavValue, action) => {
 
       const { doctor } = action;
       return state
-            .update('doctorFavs', list => list.push(doctor))
+            .update('doctorFavs', list => list.shift(doctor))
             .merge({
               isLoadingData: false,
               loadingSuccess: true,

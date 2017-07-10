@@ -16,6 +16,10 @@ import {
   getDoctorInfoSelector, 
 } from './doctorSelector';
 
+import {
+  getPatientSelector,
+} from './userSelector';
+
 export {
   getInputInitial,
 
@@ -29,4 +33,6 @@ export {
 
   getDoctorSelector,
   getDoctorInfoSelector,
+
+  getPatientSelector,
 }

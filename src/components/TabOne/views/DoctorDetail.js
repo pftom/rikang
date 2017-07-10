@@ -46,6 +46,8 @@ class DoctorDetail extends PureComponent {
   }
 }
 
+//之后做answers和comments的展现，以及IM之后的new comment
+
 export default connect(
   state => getDoctorSelector(state),
 )(DoctorDetail);
