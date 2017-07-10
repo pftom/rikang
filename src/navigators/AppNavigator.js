@@ -7,7 +7,11 @@ import { addNavigationHelpers, StackNavigator, TabNavigator } from 'react-naviga
 import LoginScreen from '../components/LoginScreen';
 import Register from '../components/Register';
 
-//home section screen
+/*
+ *
+ * 
+ * home section screen
+*/
 import TabBarNavigation from './TabBarNavigation';
 import DoctorDetail from '../components/TabOne/views/DoctorDetail';
 import PostDetail from '../components/TabOne/views/PostDetail';
@@ -20,6 +24,14 @@ import DoctorDetailInfo from '../components/TabOne/views/DoctorDetailInfo';
 
 import ProfileScreen from '../components/ProfileScreen';
 import Practice from '../components/practice';
+
+
+/*
+ *
+ * 
+ * qa section screen
+*/
+import QuestionDetail from '../components/TabTwo/views/QuestionDetail';
 
 
 
@@ -51,6 +63,8 @@ export const AppNavigator = StackNavigator({
     UserNavigator: { screen: UserNavigator },
 
     Profile: { screen: ProfileScreen },
+
+    QuestionDetail: { screen: QuestionDetail },
   },
   {
     navigationOptions: {

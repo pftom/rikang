@@ -1,8 +1,12 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { PureComponent } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 
-import LoginStatusMessage from '../../LoginStatusMessage';
-import AuthButton from '../../AuthButton';
+//import action constants
+import { GET_QUESTIONS } from '../../../constants/'
+//import selector
+import { getQaSelector } from '../../../selectors/'
+
 
 const styles = StyleSheet.create({
   container: {
@@ -13,15 +17,30 @@ const styles = StyleSheet.create({
   },
 });
 
-const QaScreen = () => (
-  <View style={styles.container}>
-    <LoginStatusMessage />
-    <AuthButton />
-  </View>
-);
+class QaScreen extends PureComponent {
+
+  componentDidMount() {
+    const { navigation, dispatch, token } = this.props;
+
+    dispatch({ type: GET_QUESTIONS, payload: { token }});
+  }
+
+  render() {
+    const { questions, navigation, token } = this.props;
+    return (
+      <View style={styles.container}>
+        <TouchableOpacity onPress={() => { navigation.navigate('QuestionDetail', { id: questions.getIn(['results', '0', 'id']), token, navigation } ) } }>
+          <Text>{questions && questions.getIn(['results', '0', 'title'])}</Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+}
 
 QaScreen.navigationOptions = {
   title: 'Qa Screen',
 };
 
-export default QaScreen;
+export default connect(
+  state => getQaSelector(state),
+)(QaScreen);

@@ -2,26 +2,25 @@ import { List, Map } from 'immutable';
 
 //import action constants
 import { 
-  ADD_SINGLE_DOCTOR_FAV,
-  ADD_SINGLE_DOCTOR_FAV_SUCCESS,
-  ADD_SINGLE_DOCTOR_FAV_ERROR,
+  GET_QUESTIONS,
+  GET_QUESTIONS_SUCCESS,
+  GET_QUESTIONS_ERROR,
+
 } from '../constants/';
 
 
 
 //home reducers
-const initialPatientValue = Map({
-  doctorFavs: List([]),
-  postFavs: List([]),
-  questions: List([]),
+const initialQaValue = Map({
+  questions: null,
   isLoadingData: false,
   loadingError: false,
   loadingSuccess: false,
 });
 
-const fav = (state = initialPatientValue, action) => {
+const qa = (state = initialQaValue, action) => {
   switch (action.type) {
-    case ADD_SINGLE_DOCTOR_FAV:
+    case GET_QUESTIONS:
 
       return state.merge({
         isLoadingData: true,
@@ -29,18 +28,27 @@ const fav = (state = initialPatientValue, action) => {
         loadingSuccess: false,
       });
     
-    case ADD_SINGLE_DOCTOR_FAV_SUCCESS:
+    case GET_QUESTIONS_SUCCESS:
 
-      const { doctor } = action;
+      const { questions } = action;
+      
+      if (!state.get('questions')) {
+        return state.merge({
+          questions,
+        });
+      }
+
+      let oldQuestions = state.getIn(['questions', 'results']);
       return state
-            .update('doctorFavs', list => list.shift(doctor))
             .merge({
               isLoadingData: false,
               loadingSuccess: true,
-            });
+              questions,
+            })
+            .updateIn(['questions', 'results'], list => list.concat(oldQuestions));
       
 
-    case ADD_SINGLE_DOCTOR_FAV_ERROR:
+    case GET_QUESTIONS_ERROR:
 
       return state.merge({
         isLoadingData: false,
@@ -52,4 +60,4 @@ const fav = (state = initialPatientValue, action) => {
   }
 };
 
-export default fav;
+export default qa;

@@ -9,6 +9,7 @@ import home from './home';
 import hospital from './hospital';
 import doctor from './doctor';
 import patient from './patient';
+import qa from './qa';
 
 
 const AppReducer = combineReducers({
@@ -19,6 +20,7 @@ const AppReducer = combineReducers({
   hospital,
   doctor,
   patient,
+  qa,
   form: formReducer,
 });
 
