@@ -14,10 +14,12 @@ export const getQaSelector = createSelector(
 );
 
 const getQuestion = (state) => state.getIn(['qa', 'question']);
+const getQuestionAllImg = (state) => state.getIn(['qa', 'AllImg']);
 
 export const getSingleQaSelector = createSelector(
-  [ getQuestion ],
-  (question) => ({
+  [ getQuestion, getQuestionAllImg ],
+  (question, AllImg) => ({
     question,
+    AllImg,
   }),
 );
