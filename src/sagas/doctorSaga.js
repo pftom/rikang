@@ -84,11 +84,11 @@ function* getSingleDoctorAnswers(payload) {
 
 function* addSingleDoctorFav(payload) {
   try {
-    const { id, token } = payload;
+    const { id, token, doctor } = payload;
     //emit http get, fetch single doctor fav
     yield call(request.get, base + homeSingleApi(id).addSingleDoctorFav, null, token);
     //get doctor fav success 
-    yield put({ type: ADD_SINGLE_DOCTOR_FAV_SUCCESS });
+    yield put({ type: ADD_SINGLE_DOCTOR_FAV_SUCCESS, doctor });
   } catch (error) {
     //get fav info error
     yield put({ type: ADD_SINGLE_DOCTOR_FAV_ERROR });
