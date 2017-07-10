@@ -42,8 +42,8 @@ function* getSingleQuestionAllAnswer(payload) {
     //get token for authorization and id for api
     const { id, token } = payload;
     //get http request for allAnswers, the follow code are as same format
-    const allAnswers = yield call(request.get, base + qaSingleApi(id).singleQuestionAllImg, null, token);
-    yield put({ type: GET_SINGLE_QUESTION_ALL_ANSWERS_SUCCESS, allAnswers });
+    const answers = yield call(request.get, base + qaSingleApi(id).singleQuestionAllImg, null, token);
+    yield put({ type: GET_SINGLE_QUESTION_ALL_ANSWERS_SUCCESS, answers });
   } catch (error) {
     yield put({ type: GET_SINGLE_QUESTION_ALL_ANSWERS_ERROR });
   }

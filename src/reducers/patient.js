@@ -47,7 +47,6 @@ const fav = (state = initialPatientValue, action) => {
     case STAR_SINGLE_QUESTION_SUCCESS:
 
       const { question } = action;
-      console.log('question', question);
 
       return state
             .update('questionStar', list => list.unshift(question))

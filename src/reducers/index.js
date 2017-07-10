@@ -4,23 +4,23 @@ import { fromJS } from 'immutable';
 
 import nav from './nav';
 import auth from './auth';
-import account from './account';
 import home from './home';
 import hospital from './hospital';
 import doctor from './doctor';
 import patient from './patient';
 import qa from './qa';
+import answer from './answer';
 
 
 const AppReducer = combineReducers({
   nav,
   auth,
-  account,
   home,
   hospital,
   doctor,
   patient,
   qa,
+  answer,
   form: formReducer,
 });
 

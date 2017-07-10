@@ -32,6 +32,7 @@ import Practice from '../components/practice';
  * qa section screen
 */
 import QuestionDetail from '../components/TabTwo/views/QuestionDetail';
+import AnswerDetail from '../components/TabTwo/views/AnswerDetail';
 
 
 
@@ -65,6 +66,7 @@ export const AppNavigator = StackNavigator({
     Profile: { screen: ProfileScreen },
 
     QuestionDetail: { screen: QuestionDetail },
+    AnswerDetail: { screen: AnswerDetail },
   },
   {
     navigationOptions: {
