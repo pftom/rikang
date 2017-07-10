@@ -69,7 +69,7 @@ const getDoctorCommentsErrorAction = {
   type: GET_SINGLE_DOCTOR_COMMENTS_ERROR,
 };
 
-test('the answer reducer work as well', () => {
+test('the doctor reducer work as well', () => {
   //test doctor info
   expect(doctor(initialDoctorValue, getDoctorInfoAction)).toMatchSnapshot();
   expect(doctor(initialDoctorValue.merge({ isLoadingData: true }), getDoctorInfoSuccessAction)).toMatchSnapshot();

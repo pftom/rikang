@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the home reducer work as well 1`] = `
+Immutable.Map {
+  doctors: null,
+  posts: null,
+  doctor: null,
+  post: null,
+  isLoadingData: true,
+  loadingError: false,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the home reducer work as well 2`] = `
+Immutable.Map {
+  doctors: Immutable.Map {
+  },
+  posts: null,
+  doctor: null,
+  post: null,
+  isLoadingData: false,
+  loadingError: false,
+  loadingSuccess: true,
+}
+`;
+
+exports[`the home reducer work as well 3`] = `
+Immutable.Map {
+  doctors: null,
+  posts: null,
+  doctor: null,
+  post: null,
+  isLoadingData: false,
+  loadingError: true,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the home reducer work as well 4`] = `
+Immutable.Map {
+  doctors: null,
+  posts: null,
+  doctor: null,
+  post: null,
+  isLoadingData: true,
+  loadingError: false,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the home reducer work as well 5`] = `
+Immutable.Map {
+  doctors: null,
+  posts: Immutable.Map {
+  },
+  doctor: null,
+  post: null,
+  isLoadingData: false,
+  loadingError: false,
+  loadingSuccess: true,
+}
+`;
+
+exports[`the home reducer work as well 6`] = `
+Immutable.Map {
+  doctors: null,
+  posts: null,
+  doctor: null,
+  post: null,
+  isLoadingData: false,
+  loadingError: true,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the home reducer work as well 7`] = `
+Immutable.Map {
+  doctors: null,
+  posts: null,
+  doctor: null,
+  post: null,
+  isLoadingData: true,
+  loadingError: false,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the home reducer work as well 8`] = `
+Immutable.Map {
+  doctors: null,
+  posts: null,
+  doctor: Immutable.Map {
+  },
+  post: null,
+  isLoadingData: false,
+  loadingError: false,
+  loadingSuccess: true,
+}
+`;
+
+exports[`the home reducer work as well 9`] = `
+Immutable.Map {
+  doctors: null,
+  posts: null,
+  doctor: null,
+  post: null,
+  isLoadingData: false,
+  loadingError: true,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the home reducer work as well 10`] = `
+Immutable.Map {
+  doctors: null,
+  posts: null,
+  doctor: null,
+  post: null,
+  isLoadingData: true,
+  loadingError: false,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the home reducer work as well 11`] = `
+Immutable.Map {
+  doctors: null,
+  posts: null,
+  doctor: null,
+  post: Immutable.Map {
+  },
+  isLoadingData: false,
+  loadingError: false,
+  loadingSuccess: true,
+}
+`;
+
+exports[`the home reducer work as well 12`] = `
+Immutable.Map {
+  doctors: null,
+  posts: null,
+  doctor: null,
+  post: null,
+  isLoadingData: false,
+  loadingError: true,
+  loadingSuccess: false,
+}
+`;

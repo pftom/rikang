@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the hospital reducer work as well 1`] = `
+Immutable.Map {
+  hospitals: null,
+  hospital: null,
+  hospitalDoctors: null,
+  isLoadingData: true,
+  loadingError: false,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the hospital reducer work as well 2`] = `
+Immutable.Map {
+  hospitals: Immutable.Map {
+  },
+  hospital: null,
+  hospitalDoctors: null,
+  isLoadingData: false,
+  loadingError: false,
+  loadingSuccess: true,
+}
+`;
+
+exports[`the hospital reducer work as well 3`] = `
+Immutable.Map {
+  hospitals: null,
+  hospital: null,
+  hospitalDoctors: null,
+  isLoadingData: false,
+  loadingError: true,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the hospital reducer work as well 4`] = `
+Immutable.Map {
+  hospitals: null,
+  hospital: null,
+  hospitalDoctors: null,
+  isLoadingData: true,
+  loadingError: false,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the hospital reducer work as well 5`] = `
+Immutable.Map {
+  hospitals: null,
+  hospital: Immutable.Map {
+  },
+  hospitalDoctors: null,
+  isLoadingData: false,
+  loadingError: false,
+  loadingSuccess: true,
+}
+`;
+
+exports[`the hospital reducer work as well 6`] = `
+Immutable.Map {
+  hospitals: null,
+  hospital: null,
+  hospitalDoctors: null,
+  isLoadingData: false,
+  loadingError: true,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the hospital reducer work as well 7`] = `
+Immutable.Map {
+  hospitals: null,
+  hospital: null,
+  hospitalDoctors: null,
+  isLoadingData: true,
+  loadingError: false,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the hospital reducer work as well 8`] = `
+Immutable.Map {
+  hospitals: null,
+  hospital: null,
+  hospitalDoctors: Immutable.Map {
+  },
+  isLoadingData: false,
+  loadingError: false,
+  loadingSuccess: true,
+}
+`;
+
+exports[`the hospital reducer work as well 9`] = `
+Immutable.Map {
+  hospitals: null,
+  hospital: null,
+  hospitalDoctors: null,
+  isLoadingData: false,
+  loadingError: true,
+  loadingSuccess: false,
+}
+`;
