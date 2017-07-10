@@ -6,6 +6,10 @@ import {
   GET_QUESTIONS_SUCCESS,
   GET_QUESTIONS_ERROR,
 
+  GET_SINGLE_QUESTION,
+  GET_SINGLE_QUESTION_SUCCESS,
+  GET_SINGLE_QUESTION_ERROR,
+
 } from '../constants/';
 
 
@@ -13,6 +17,7 @@ import {
 //home reducers
 const initialQaValue = Map({
   questions: null,
+  question: null,
   isLoadingData: false,
   loadingError: false,
   loadingSuccess: false,
@@ -21,6 +26,7 @@ const initialQaValue = Map({
 const qa = (state = initialQaValue, action) => {
   switch (action.type) {
     case GET_QUESTIONS:
+    case GET_SINGLE_QUESTION:
 
       return state.merge({
         isLoadingData: true,
@@ -46,9 +52,21 @@ const qa = (state = initialQaValue, action) => {
               questions,
             })
             .updateIn(['questions', 'results'], list => list.concat(oldQuestions));
+
+      
+      case GET_SINGLE_QUESTION_SUCCESS:
+
+      const { question } = action;
+    
+      return state.merge({
+        isLoadingData: false,
+        loadingSuccess: true,
+        question,
+      });
       
 
     case GET_QUESTIONS_ERROR:
+    case GET_SINGLE_QUESTION_ERROR:
 
       return state.merge({
         isLoadingData: false,

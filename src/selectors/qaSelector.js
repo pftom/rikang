@@ -12,3 +12,12 @@ export const getQaSelector = createSelector(
     questions,
   }),
 );
+
+const getQuestion = (state) => state.getIn(['qa', 'question']);
+
+export const getSingleQaSelector = createSelector(
+  [ getQuestion ],
+  (question) => ({
+    question,
+  }),
+);

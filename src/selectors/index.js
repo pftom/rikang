@@ -22,6 +22,7 @@ import {
 
 import {
   getQaSelector,
+  getSingleQaSelector,
 } from './qaSelector';
 
 export {
@@ -40,5 +41,6 @@ export {
 
   getPatientSelector,
 
-  getQaSelector
+  getQaSelector,
+  getSingleQaSelector,
 }

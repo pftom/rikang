@@ -29,7 +29,7 @@ class QaScreen extends PureComponent {
     const { questions, navigation, token } = this.props;
     return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={() => { navigation.navigate('QuestionDetail', { id: questions.getIn(['results', '0', 'id']), token, navigation } ) } }>
+        <TouchableOpacity onPress={() => { navigation.navigate('QuestionDetail', { id: questions.getIn(['results', '0', 'id']), token } ) } }>
           <Text>{questions && questions.getIn(['results', '0', 'title'])}</Text>
         </TouchableOpacity>
       </View>

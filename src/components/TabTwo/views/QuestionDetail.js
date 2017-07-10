@@ -5,10 +5,10 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 
 //import async action constants
-import { GET_SINGLE_POST } from '../../../constants/'
+import { GET_SINGLE_QUESTION } from '../../../constants/'
 
 //import selector for computing data
-import { getPostSelector } from '../../../selectors/'
+import { getSingleQaSelector } from '../../../selectors/'
 
 
 class QuestionDetail extends PureComponent {
@@ -17,16 +17,17 @@ class QuestionDetail extends PureComponent {
     const { navigation, dispatch } = this.props;
     const { token, id } = navigation.state.params;
 
-    // dispatch({ type: GET_SINGLE_POST, payload: { token, id }});
+    dispatch({ type: GET_SINGLE_QUESTION, payload: { token, id }});
   }
 
   render() {
+    const { question } = this.props;
     return (
-      <Text>hhhh</Text>
+      <Text>{question && question.get('title')}</Text>
     )
   }
 }
 
 export default connect(
-  state => getPostSelector(state),
+  state => getSingleQaSelector(state),
 )(QuestionDetail);
