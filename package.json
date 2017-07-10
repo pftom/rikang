@@ -5,10 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "postinstall": "rndebugger-open",
-    "build": "babel src/ -d lib/",
-    "prepublish": "yarn run build",
-    "flow": "flow"
+    "postinstall": "rndebugger-open"
   },
   "dependencies": {
     "antd-mobile": "1.4.1",
@@ -59,5 +56,10 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "babel": {
+    "preset": [
+      "es2015"
+    ]
   }
 }

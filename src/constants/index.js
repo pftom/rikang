@@ -35,7 +35,7 @@ export const UPDATE_PATIENT_PROFILE_SUCCESS = 'UPDATE_PATIENT_PROFILE_SUCCESS';
 export const UPDATE_PATIENT_PROFILE_ERROR = 'UPDATE_PATIENT_PROFILE_ERROR';
 
 //after show the error toast and then clear it
-export const CLEAR_ERROR = 'CLEAR_ERROR';
+export const CLEAR_STATE = 'CLEAR_STATE';
 export const CLEAR = 'CLEAR';
 
 //clear token in the storage

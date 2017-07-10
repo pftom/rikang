@@ -21,7 +21,7 @@ import {
   SET_TOKEN,
 
   CLEAR,
-  CLEAR_ERROR,
+  CLEAR_STATE,
 } from '../constants/';
 
 //import request api
@@ -102,7 +102,7 @@ function* clearFlow() {
   while(true) {
     yield take(CLEAR);
     yield delay(1000);
-    yield put({ type: CLEAR_ERROR });
+    yield put({ type: CLEAR_STATE });
   }
 }
 

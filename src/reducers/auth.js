@@ -11,7 +11,8 @@ import {
   SET_TOKEN,
   REGISTER,
   REGISTER_ERROR,
-  CLEAR_ERROR
+  REGISTER_SUCCESS,
+  CLEAR_STATE
 } from '../constants/'
 import { persistor } from '../store';
 
@@ -22,6 +23,7 @@ const initialAuthState = Immutable.Map({
   loginError: false,
   loginSuccess: false,
   registerError: false,
+  registerSuccess: false,
 });
 
 const auth = function auth(state = initialAuthState, action) {
@@ -33,6 +35,7 @@ const auth = function auth(state = initialAuthState, action) {
       return state.merge({
         isLoadingData: true,
         registerError: false,
+        registerSuccess: false,
       });
 
     case REGISTER_ERROR:
@@ -41,6 +44,13 @@ const auth = function auth(state = initialAuthState, action) {
         isLoadingData: false,
         registerError: true,
       })
+
+    case REGISTER_SUCCESS:
+
+      return state.merge({
+        isLoadingData: false,
+        registerSuccess: true,
+      });
 
     case LOGIN: 
       //capture login action and show loading spinner
@@ -59,6 +69,7 @@ const auth = function auth(state = initialAuthState, action) {
         loginSuccess: true,
         token: action.token,
       });
+
 
     case LOGIN_ERROR:
 
@@ -80,11 +91,13 @@ const auth = function auth(state = initialAuthState, action) {
         loginSuccess: false,
       });
 
-    case CLEAR_ERROR:
+    case CLEAR_STATE:
 
       return state.merge({
         loginError: false,
         registerError: false,
+        loginSuccess: false,
+        registerSuccess: false,
       });
       
     case CLEAR_TOKEN: 
