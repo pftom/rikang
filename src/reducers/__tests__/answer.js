@@ -36,6 +36,7 @@ const singleQAError = {
   type: GET_SINGLE_QUESTION_ALL_ANSWERS_ERROR,
 };
 
+
 test('the answer reducer work as well', () => {
   expect(answer(initialAnswerValue, singleQA)).toMatchSnapshot();
   expect(answer(initialAnswerValue, singleQASuccess)).toMatchSnapshot();

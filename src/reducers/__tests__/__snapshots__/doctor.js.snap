@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the answer reducer work as well 1`] = `
+Immutable.Map {
+  doctorInfo: null,
+  answers: null,
+  comments: null,
+  isLoadingData: true,
+  loadingError: false,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the answer reducer work as well 2`] = `
+Immutable.Map {
+  doctorInfo: Immutable.Map {
+  },
+  answers: null,
+  comments: null,
+  isLoadingData: false,
+  loadingError: false,
+  loadingSuccess: true,
+}
+`;
+
+exports[`the answer reducer work as well 3`] = `
+Immutable.Map {
+  doctorInfo: null,
+  answers: null,
+  comments: null,
+  isLoadingData: false,
+  loadingError: true,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the answer reducer work as well 4`] = `
+Immutable.Map {
+  doctorInfo: null,
+  answers: null,
+  comments: null,
+  isLoadingData: true,
+  loadingError: false,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the answer reducer work as well 5`] = `
+Immutable.Map {
+  doctorInfo: null,
+  answers: Immutable.Map {
+  },
+  comments: null,
+  isLoadingData: false,
+  loadingError: false,
+  loadingSuccess: true,
+}
+`;
+
+exports[`the answer reducer work as well 6`] = `
+Immutable.Map {
+  doctorInfo: null,
+  answers: null,
+  comments: null,
+  isLoadingData: false,
+  loadingError: true,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the answer reducer work as well 7`] = `
+Immutable.Map {
+  doctorInfo: null,
+  answers: null,
+  comments: null,
+  isLoadingData: true,
+  loadingError: false,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the answer reducer work as well 8`] = `
+Immutable.Map {
+  doctorInfo: null,
+  answers: null,
+  comments: Immutable.Map {
+  },
+  isLoadingData: false,
+  loadingError: false,
+  loadingSuccess: true,
+}
+`;
+
+exports[`the answer reducer work as well 9`] = `
+Immutable.Map {
+  doctorInfo: null,
+  answers: null,
+  comments: null,
+  isLoadingData: false,
+  loadingError: true,
+  loadingSuccess: false,
+}
+`;
