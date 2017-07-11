@@ -12,10 +12,10 @@ const routeConfigs = {
       screen: TabOneNavigation,
       navigationOptions: {
         tabBarLabel: '日康之家',
-        tabBarIcon: ({ tintColor }) => (
+        tabBarIcon: ({ focused, tintColor }) => (
             <Image
-                source={require('./img/homeBar.png')}
-                style={[styles.icon1, { tintColor: tintColor }]}
+                source={ focused ? require('./img/homeBarActive.png') : require('./img/homeBar.png') }
+                style={[styles.icon1]}
             />
   )
       }
@@ -24,10 +24,10 @@ const routeConfigs = {
       screen: TabTwoNavigation,
       navigationOptions: {
         tabBarLabel: '日康知道',
-        tabBarIcon: ({ tintColor }) => ( <
-            Image source = { require('./img/qaBar.png') }
+        tabBarIcon: ({ focused, tintColor }) => ( <
+            Image source = { focused ? require('./img/qaBarActive.png') : require('./img/qaBar.png') }
             style = {
-                [styles.icon2, { tintColor: tintColor }]
+                [styles.icon2]
             }
             />
         )
@@ -37,12 +37,14 @@ const routeConfigs = {
       screen: TabThreeNavigation,
       navigationOptions: {
         tabBarLabel: '我的账号',
-        tabBarIcon: ({ tintColor}) => (
-            <Image
-            source={require('./img/userBar.png')}
-            style={[styles.icon3, { tintColor: tintColor }]}
-            />
-        )
+        tabBarIcon: ({ focused, tintColor }) => {
+            return (
+                <Image
+                    source={focused ? require('./img/userBarActive.png') : require('./img/userBar.png') }
+                    style={[styles.icon3]}
+                />
+            )
+        }
       }
   
   },
@@ -50,19 +52,29 @@ const routeConfigs = {
 
 const tabNavigatorConfig = {
     tabBarOptions: {
-        activeTintColor: '#D0011B',
-        inactiveTintColor: 'black',
+        activeTintColor: '#09C79C',
+        inactiveTintColor: '#000',
+        indicatorStyle: {
+            backgroundColor: 'transparent',
+        },
         style: {
-            height: 59.5,
-            borderColor: '#E0E0E0',
+            height: 60,
+            borderColor: '#D2D2D2',
             borderWidth: 0.5,
-            backgroundColor: '#F5F6F7',
+            backgroundColor: 'rgba(245, 246, 247, 0.98)',
             paddingTop: 4.7,
             paddingLeft: 25.3,
             paddingRight: 24,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            position: 'absolute',
+        },
+        tabStyle: {
+            backgroundColor: 'transparent',
         },
         labelStyle: {
-            fontFamily: 'PingFangSC-Light',
+            fontFamily: 'PingFangSC-Thin',
             fontSize: 12,
             top: 0.3,
         }
@@ -78,15 +90,15 @@ const tabNavigatorConfig = {
 
 const styles = StyleSheet.create({
     icon1: {
-        width: 28,
-        height: 30.71,
+        width: 34,
+        height: 31,
     },
     icon2: {
-        width: 30,
-        height: 29,
+        width: 34,
+        height: 34,
     },
     icon3: {
-        width: 26,
+        width: 30,
         height: 30,
     }
 })
