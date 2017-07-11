@@ -60,7 +60,7 @@ const tabNavigatorConfig = {
         style: {
             height: 60,
             borderColor: '#D2D2D2',
-            borderWidth: 0.5,
+
             backgroundColor: 'rgba(245, 246, 247, 0.98)',
             paddingTop: 4.7,
             paddingLeft: 25.3,

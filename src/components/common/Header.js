@@ -15,7 +15,7 @@ const Header = (props) => {
   return (
       <LinearGradient
         start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}
-        colors={['#FF0467', '#FC7437']}
+        colors={['#23BCBB', '#45E994']}
         style={styles.linearGradient}>
         {!!props.logoLeft && <TouchableOpacity 
                               onPress={() => props.navigation.goBack()} 
@@ -44,14 +44,14 @@ const Header = (props) => {
 
 const styles = StyleSheet.create({
   linearGradient: {
-    height: 90,
+    height: 81,
     flexDirection: 'row',
     width: width,
     ...Platform.select({
       ios: {
-        shadowColor: '#D0011B',
-        shadowOffset: { width: 0, height: 3},
-        shadowRadius: 40,
+        shadowColor: '#50E3C2',
+        shadowOffset: { width: 0, height: 5},
+        shadowRadius: 10,
         shadowOpacity: 0.5,
       },
       android: {

@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headerTitle: {
-    top: -10,
+    top: -1
   },
   linearGradient: {
     flex: 1,
@@ -47,26 +47,22 @@ class UserScreen extends PureComponent {
   render() {
     const { dispatch } = this.props;
     return (
-      <LinearGradient colors={['#4c669f', '#3b5998']} style={styles.linearGradient}>
-        <Text style={styles.buttonText}>
-          Sign in with Facebook
-        </Text>
-      </LinearGradient>
+      <Text style={{ backgroundColor: 'transparent' }}>hhh</Text>
     )
   }
 }
 
 
-// UserScreen.navigationOptions = ({ navigation }) => ({
-//   headerTitle: (
-//     <View style={styles.headerTitle}>
-//       <Header 
-//         headerText="个人信息"
-//         navigation={navigation}
-//       />
-//     </View>
-//   ),
-// })
+UserScreen.navigationOptions = ({ navigation }) => ({
+  headerTitle: (
+    <View style={styles.headerTitle}>
+      <Header 
+        headerText="个人信息"
+        navigation={navigation}
+      />
+    </View>
+  ),
+})
 
 export default connect(
   state => getPatientSelector(state),
