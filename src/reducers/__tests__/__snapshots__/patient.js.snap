@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the patient reducer work as well 1`] = `
+Immutable.Map {
+  doctorFav: Immutable.List [
+  ],
+  postFav: Immutable.List [
+  ],
+  questionStar: Immutable.List [
+  ],
+  isLoadingData: true,
+  loadingError: false,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the patient reducer work as well 2`] = `
+Immutable.Map {
+  doctorFav: Immutable.List [
+    Object {},
+  ],
+  postFav: Immutable.List [
+  ],
+  questionStar: Immutable.List [
+  ],
+  isLoadingData: false,
+  loadingError: false,
+  loadingSuccess: true,
+}
+`;
+
+exports[`the patient reducer work as well 3`] = `
+Immutable.Map {
+  doctorFav: Immutable.List [
+  ],
+  postFav: Immutable.List [
+  ],
+  questionStar: Immutable.List [
+  ],
+  isLoadingData: false,
+  loadingError: true,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the patient reducer work as well 4`] = `
+Immutable.Map {
+  doctorFav: Immutable.List [
+  ],
+  postFav: Immutable.List [
+  ],
+  questionStar: Immutable.List [
+  ],
+  isLoadingData: true,
+  loadingError: false,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the patient reducer work as well 5`] = `
+Immutable.Map {
+  doctorFav: Immutable.List [
+  ],
+  postFav: Immutable.List [
+  ],
+  questionStar: Immutable.List [
+    Object {},
+  ],
+  isLoadingData: false,
+  loadingError: false,
+  loadingSuccess: true,
+}
+`;
+
+exports[`the patient reducer work as well 6`] = `
+Immutable.Map {
+  doctorFav: Immutable.List [
+  ],
+  postFav: Immutable.List [
+  ],
+  questionStar: Immutable.List [
+  ],
+  isLoadingData: false,
+  loadingError: true,
+  loadingSuccess: false,
+}
+`;

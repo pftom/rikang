@@ -12,7 +12,7 @@ import {
   REGISTER,
   REGISTER_ERROR,
   REGISTER_SUCCESS,
-  CLEAR_STATE
+  CLEAR_STATE,
 } from '../constants/'
 import { persistor } from '../store';
 
