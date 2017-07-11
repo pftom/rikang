@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`the qa reducer work as well 1`] = `
+Immutable.Map {
+  questions: null,
+  question: null,
+  AllImg: null,
+  isLoadingData: true,
+  loadingError: false,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the qa reducer work as well 2`] = `
+Immutable.Map {
+  questions: Immutable.Map {
+  },
+  question: null,
+  AllImg: null,
+  isLoadingData: true,
+  loadingError: false,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the qa reducer work as well 3`] = `
+Immutable.Map {
+  questions: null,
+  question: null,
+  AllImg: null,
+  isLoadingData: false,
+  loadingError: true,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the qa reducer work as well 4`] = `
+Immutable.Map {
+  questions: null,
+  question: null,
+  AllImg: null,
+  isLoadingData: true,
+  loadingError: false,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the qa reducer work as well 5`] = `
+Immutable.Map {
+  questions: null,
+  question: Immutable.Map {
+  },
+  AllImg: null,
+  isLoadingData: false,
+  loadingError: false,
+  loadingSuccess: true,
+}
+`;
+
+exports[`the qa reducer work as well 6`] = `
+Immutable.Map {
+  questions: null,
+  question: null,
+  AllImg: null,
+  isLoadingData: false,
+  loadingError: true,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the qa reducer work as well 7`] = `
+Immutable.Map {
+  questions: null,
+  question: null,
+  AllImg: null,
+  isLoadingData: true,
+  loadingError: false,
+  loadingSuccess: false,
+}
+`;
+
+exports[`the qa reducer work as well 8`] = `
+Immutable.Map {
+  questions: null,
+  question: null,
+  AllImg: Immutable.Map {
+  },
+  isLoadingData: false,
+  loadingError: false,
+  loadingSuccess: true,
+}
+`;
+
+exports[`the qa reducer work as well 9`] = `
+Immutable.Map {
+  questions: null,
+  question: null,
+  AllImg: null,
+  isLoadingData: false,
+  loadingError: true,
+  loadingSuccess: false,
+}
+`;

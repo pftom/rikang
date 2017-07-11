@@ -1,70 +1,89 @@
 import { Map, List } from 'immutable';
 
-import patient from '../patient';
+import qa from '../qa';
 
 //import single action constants
 import {
   GET_QUESTIONS,
-  GET_QUESTIONS_SUCCESS,
-  GET_QUESTIONS_ERROR,
-  GET_SINGLE_QUESTION,
-  GET_SINGLE_QUESTION_SUCCESS,
-  GET_SINGLE_QUESTION_ERROR,
+  GET_QUESTIONS_SUCCESS,
+  GET_QUESTIONS_ERROR,
 
-  GET_SINGLE_QUESTION_ALL_IMG,
-  GET_SINGLE_QUESTION_ALL_IMG_SUCCESS,
-  GET_SINGLE_QUESTION_ALL_IMG_ERROR,
+  GET_SINGLE_QUESTION,
+  GET_SINGLE_QUESTION_SUCCESS,
+  GET_SINGLE_QUESTION_ERROR,
+
+  GET_SINGLE_QUESTION_ALL_IMG,
+  GET_SINGLE_QUESTION_ALL_IMG_SUCCESS,
+  GET_SINGLE_QUESTION_ALL_IMG_ERROR,
 } from '../../constants/';
 
 
-//add fav
-const addSingleDoctorFavAction = {
-  type: ADD_SINGLE_DOCTOR_FAV,
+//test questions
+const getQuestionsAction = {
+  type: GET_QUESTIONS,
 };
 
-const addSingleDoctorFavSuccessAction = {
-  type: ADD_SINGLE_DOCTOR_FAV_SUCCESS,
-  doctor: {},
+const getQuestionsSuccessAction = {
+  type: GET_QUESTIONS_SUCCESS,
+  questions: {},
 };
 
-const addSingleDoctorFavErrorAction = {
-  type: ADD_SINGLE_DOCTOR_FAV_ERROR,
+const getQuestionsErrorAction = {
+  type: GET_QUESTIONS_ERROR,
 };
 
-
-
-//star single question
-const starSingleQuestionAction = {
-  type: STAR_SINGLE_QUESTION,
+//test single question
+const getSingleQuestionAction = {
+  type: GET_SINGLE_QUESTION,
 };
 
-const starSingleQuestionSuccessAction = {
-  type: STAR_SINGLE_QUESTION_SUCCESS,
+const getSingleQuestionSuccessAction = {
+  type: GET_SINGLE_QUESTION_SUCCESS,
   question: {},
 };
 
-const starSingleQuestionErrorAction = {
-  type: STAR_SINGLE_QUESTION_ERROR,
+const getSingleQuestionErrorAction = {
+  type: GET_SINGLE_QUESTION_ERROR,
 };
 
-//patient single reducers
-const initialPatientValue = Map({
-  doctorFav: List([]),
-  postFav: List([]),
-  questionStar: List([]),
-  isLoadingData: false,
-  loadingError: false,
-  loadingSuccess: false,
+//test all img
+const getSingleQuestionAllImgAction = {
+  type: GET_SINGLE_QUESTION_ALL_IMG,
+};
+
+const getSingleQuestionAllImgSuccessAction = {
+  type: GET_SINGLE_QUESTION_ALL_IMG_SUCCESS,
+  AllImg: {},
+};
+
+const getSingleQuestionAllImgErrorAction = {
+  type: GET_SINGLE_QUESTION_ALL_IMG_ERROR,
+};
+
+//qa reducers
+const initialQaValue = Map({
+  questions: null,
+  question: null,
+  AllImg: null,
+  isLoadingData: false,
+  loadingError: false,
+  loadingSuccess: false,
 });
 
-test('the patient reducer work as well', () => {
-  //test doctor
-  expect(patient(initialPatientValue, addSingleDoctorFavAction)).toMatchSnapshot();
-  expect(patient(initialPatientValue.merge({ isLoadingData: true }), addSingleDoctorFavSuccessAction)).toMatchSnapshot();
-  expect(patient(initialPatientValue.merge({ isLoadingData: true }), addSingleDoctorFavErrorAction)).toMatchSnapshot();
 
-  //test patient
-  expect(patient(initialPatientValue, starSingleQuestionAction)).toMatchSnapshot();
-  expect(patient(initialPatientValue.merge({ isLoadingData: true }), starSingleQuestionSuccessAction)).toMatchSnapshot();
-  expect(patient(initialPatientValue.merge({ isLoadingData: true }), starSingleQuestionErrorAction)).toMatchSnapshot();
+test('the qa reducer work as well', () => {
+  //test questions
+  expect(qa(initialQaValue, getQuestionsAction)).toMatchSnapshot();
+  expect(qa(initialQaValue.merge({ isLoadingData: true }), getQuestionsSuccessAction)).toMatchSnapshot();
+  expect(qa(initialQaValue.merge({ isLoadingData: true }), getQuestionsErrorAction)).toMatchSnapshot();
+
+  //test single question
+  expect(qa(initialQaValue, getSingleQuestionAction)).toMatchSnapshot();
+  expect(qa(initialQaValue.merge({ isLoadingData: true }), getSingleQuestionSuccessAction)).toMatchSnapshot();
+  expect(qa(initialQaValue.merge({ isLoadingData: true }), getSingleQuestionErrorAction)).toMatchSnapshot();
+
+  //test all img
+  expect(qa(initialQaValue, getSingleQuestionAction)).toMatchSnapshot();
+  expect(qa(initialQaValue.merge({ isLoadingData: true }), getSingleQuestionAllImgSuccessAction)).toMatchSnapshot();
+  expect(qa(initialQaValue.merge({ isLoadingData: true }), getSingleQuestionAllImgErrorAction)).toMatchSnapshot();
 });

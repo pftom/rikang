@@ -17,8 +17,7 @@ import {
 } from '../constants/';
 
 
-
-//home reducers
+//qa reducers
 const initialQaValue = Map({
   questions: null,
   question: null,
