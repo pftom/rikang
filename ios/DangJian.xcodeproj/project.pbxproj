@@ -22,7 +22,6 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
-		227C19660787439FA72F2D50 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C8BDAEC4DAA482191799EE6 /* libBVLinearGradient.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -48,10 +47,10 @@
 		C521AFA61F14AA6700A07EBF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C521AFA51F14AA6700A07EBF /* QuartzCore.framework */; };
 		C521AFA81F14AA7900A07EBF /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C521AFA71F14AA7900A07EBF /* CoreMotion.framework */; };
 		C521AFAA1F14AA8700A07EBF /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C521AFA91F14AA8700A07EBF /* libc++.tbd */; };
+		C521AFC11F14CB0100A07EBF /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C521AFC01F14CAFB00A07EBF /* libBVLinearGradient.a */; };
 		C53728801F0B881700F1C082 /* RCTAuroraIMUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C53728651F0B875A00F1C082 /* RCTAuroraIMUI.framework */; };
 		C53728811F0B881700F1C082 /* RCTAuroraIMUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C53728651F0B875A00F1C082 /* RCTAuroraIMUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C56EB5161EE540670083BC86 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C56EB4FC1EE540550083BC86 /* libART.a */; };
-		C56EB5741EE54C600083BC86 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C56EB5561EE5456B0083BC86 /* libBVLinearGradient.a */; };
 		C5BCAEB41F0BC6160006F002 /* defoult_header.png in Resources */ = {isa = PBXBuildFile; fileRef = C5BCAEB11F0BC6160006F002 /* defoult_header.png */; };
 		C5BCAEB51F0BC6160006F002 /* defoult_header@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5BCAEB21F0BC6160006F002 /* defoult_header@2x.png */; };
 		C5BCAEB61F0BC6160006F002 /* defoult_header@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C5BCAEB31F0BC6160006F002 /* defoult_header@3x.png */; };
@@ -259,6 +258,13 @@
 			remoteGlobalIDString = 0094C1961E70F65E0006D297;
 			remoteInfo = PingppModule;
 		};
+		C521AFBF1F14CAFB00A07EBF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C521AFBB1F14CAFB00A07EBF /* BVLinearGradient.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = BVLinearGradient;
+		};
 		C53728621F0B875A00F1C082 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFCC97F93F0F4CAB86919FF4 /* RCTAuroraIMUI.xcodeproj */;
@@ -300,13 +306,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 014A3B5C1C6CF33500B6D375;
 			remoteInfo = RNImagePicker;
-		};
-		C56EB5551EE5456B0083BC86 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 14E1780AD4BB47E3B538D5D4 /* BVLinearGradient.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = BVLinearGradient;
 		};
 		C56EB55B1EE5456B0083BC86 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -361,7 +360,6 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = DangJian/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = DangJian/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
-		14E1780AD4BB47E3B538D5D4 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* DangJian-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DangJian-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* DangJian-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DangJian-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		36B491FADDF4457E916C7D66 /* UIKit.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -373,7 +371,6 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		7E6A875B8EA146D5845338B5 /* libRCTBEEPickerManager.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTBEEPickerManager.a; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
-		8C8BDAEC4DAA482191799EE6 /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
 		93CD024C876E4801BD1BF0F8 /* RNSVG.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
 		A04F1A8F5D9C46859DBB8835 /* CoreTelephony.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		AB5566D32E8D4F82A69B87C7 /* RCTBEEPickerManager.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTBEEPickerManager.xcodeproj; path = "../node_modules/react-native-picker/ios/RCTBEEPickerManager.xcodeproj"; sourceTree = "<group>"; };
@@ -385,6 +382,7 @@
 		C521AFA51F14AA6700A07EBF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C521AFA71F14AA7900A07EBF /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		C521AFA91F14AA8700A07EBF /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		C521AFBB1F14CAFB00A07EBF /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		C56EB4F71EE540550083BC86 /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
 		C5BCAEB11F0BC6160006F002 /* defoult_header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = defoult_header.png; path = "../../RiKangApp/aurora-imui-master/ReactNative/sample/ios/defoult_header.png"; sourceTree = "<group>"; };
 		C5BCAEB21F0BC6160006F002 /* defoult_header@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "defoult_header@2x.png"; path = "../../RiKangApp/aurora-imui-master/ReactNative/sample/ios/defoult_header@2x.png"; sourceTree = "<group>"; };
@@ -405,6 +403,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C521AFC11F14CB0100A07EBF /* libBVLinearGradient.a in Frameworks */,
 				73428C858CCE4FDABF420996 /* libz.tbd in Frameworks */,
 				C521AFAA1F14AA8700A07EBF /* libc++.tbd in Frameworks */,
 				C521AFA81F14AA7900A07EBF /* CoreMotion.framework in Frameworks */,
@@ -420,11 +419,9 @@
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
-				C56EB5741EE54C600083BC86 /* libBVLinearGradient.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				DF87818F58A94509A187AB6E /* libRNImagePicker.a in Frameworks */,
-				227C19660787439FA72F2D50 /* libBVLinearGradient.a in Frameworks */,
 				E264828F0F074CDA89A9A79B /* libRCTBEEPickerManager.a in Frameworks */,
 				B7862D78C166415D9AE3028C /* libAuroraIMUI.a in Frameworks */,
 				C0D5C87269844B918ABFD752 /* CoreTelephony.framework in Frameworks */,
@@ -613,6 +610,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				C521AFBB1F14CAFB00A07EBF /* BVLinearGradient.xcodeproj */,
 				C56EB4F71EE540550083BC86 /* ART.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -626,7 +624,6 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				B7B03EF2D0A94C1CAF67695F /* RNImagePicker.xcodeproj */,
-				14E1780AD4BB47E3B538D5D4 /* BVLinearGradient.xcodeproj */,
 				AB5566D32E8D4F82A69B87C7 /* RCTBEEPickerManager.xcodeproj */,
 				93CD024C876E4801BD1BF0F8 /* RNSVG.xcodeproj */,
 				BFCC97F93F0F4CAB86919FF4 /* RCTAuroraIMUI.xcodeproj */,
@@ -676,6 +673,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		C521AFBC1F14CAFB00A07EBF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C521AFC01F14CAFB00A07EBF /* libBVLinearGradient.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C53728581F0B875A00F1C082 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -706,14 +711,6 @@
 			isa = PBXGroup;
 			children = (
 				C56EB55C1EE5456B0083BC86 /* libRCTBEEPickerManager.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		C56EB5511EE5456B0083BC86 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C56EB5561EE5456B0083BC86 /* libBVLinearGradient.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -844,8 +841,8 @@
 					ProjectRef = C56EB4F71EE540550083BC86 /* ART.xcodeproj */;
 				},
 				{
-					ProductGroup = C56EB5511EE5456B0083BC86 /* Products */;
-					ProjectRef = 14E1780AD4BB47E3B538D5D4 /* BVLinearGradient.xcodeproj */;
+					ProductGroup = C521AFBC1F14CAFB00A07EBF /* Products */;
+					ProjectRef = C521AFBB1F14CAFB00A07EBF /* BVLinearGradient.xcodeproj */;
 				},
 				{
 					ProductGroup = C521AF7F1F14A9DC00A07EBF /* Products */;
@@ -1105,6 +1102,13 @@
 			remoteRef = C521AF841F14A9DC00A07EBF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		C521AFC01F14CAFB00A07EBF /* libBVLinearGradient.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBVLinearGradient.a;
+			remoteRef = C521AFBF1F14CAFB00A07EBF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		C53728631F0B875A00F1C082 /* libAuroraIMUI.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1138,13 +1142,6 @@
 			fileType = archive.ar;
 			path = libRNImagePicker.a;
 			remoteRef = C56EB5401EE541480083BC86 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C56EB5561EE5456B0083BC86 /* libBVLinearGradient.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libBVLinearGradient.a;
-			remoteRef = C56EB5551EE5456B0083BC86 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		C56EB55C1EE5456B0083BC86 /* libRCTBEEPickerManager.a */ = {
@@ -1388,6 +1385,7 @@
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/aurora-imui-react-native/iOS/IMUIMessageCollectionView/**",
 					"$(SRCROOT)/../node_modules/pingpp-react-native/ios/PingppModule/**",
+					"$(SRCROOT)/../react-native/react",
 				);
 				INFOPLIST_FILE = DangJian/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1416,6 +1414,7 @@
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/aurora-imui-react-native/iOS/IMUIMessageCollectionView/**",
 					"$(SRCROOT)/../node_modules/pingpp-react-native/ios/PingppModule/**",
+					"$(SRCROOT)/../react-native/react",
 				);
 				INFOPLIST_FILE = DangJian/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

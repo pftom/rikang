@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
+import LinearGradient from 'react-native-linear-gradient';
 
 //import action constants
 import { GET_PATIENT_PROFILE, LOGOUT } from '../../../constants/'
@@ -19,6 +20,20 @@ const styles = StyleSheet.create({
   headerTitle: {
     top: -10,
   },
+  linearGradient: {
+    flex: 1,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderRadius: 5
+  },
+  buttonText: {
+    fontSize: 18,
+    fontFamily: 'Gill Sans',
+    textAlign: 'center',
+    margin: 10,
+    color: '#ffffff',
+    backgroundColor: 'transparent',
+  },
 });
 
 
@@ -32,32 +47,26 @@ class UserScreen extends PureComponent {
   render() {
     const { dispatch } = this.props;
     return (
-      <ScrollView contentContainerStyle={styles.container}>
-        <Text>用户页</Text>
-        <TouchableOpacity onPress={() => { dispatch({ type: LOGOUT } )}}>
-          <Text>登出</Text>
-        </TouchableOpacity>
-        <View style={{ 
-          height: 30, width: 74, backgroundColor: '#09C79C',
-          marginBottom: -300,
-        }}>
-        </View>
-      </ScrollView>
+      <LinearGradient colors={['#4c669f', '#3b5998']} style={styles.linearGradient}>
+        <Text style={styles.buttonText}>
+          Sign in with Facebook
+        </Text>
+      </LinearGradient>
     )
   }
 }
 
 
-UserScreen.navigationOptions = ({ navigation }) => ({
-  headerTitle: (
-    <View style={styles.headerTitle}>
-      <Header 
-        headerText="个人信息"
-        navigation={navigation}
-      />
-    </View>
-  ),
-})
+// UserScreen.navigationOptions = ({ navigation }) => ({
+//   headerTitle: (
+//     <View style={styles.headerTitle}>
+//       <Header 
+//         headerText="个人信息"
+//         navigation={navigation}
+//       />
+//     </View>
+//   ),
+// })
 
 export default connect(
   state => getPatientSelector(state),
