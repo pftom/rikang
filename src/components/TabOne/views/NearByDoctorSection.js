@@ -12,12 +12,11 @@ class NearByDoctorSection extends PureComponent {
         <View style={styles.nearbyDoctorItemBox}>
           <Image source={item.avatar} style={styles.doctorAvatar} />
           <Text style={styles.doctorName}>{item.name}</Text>
-          <View style={styles.categoryBox}>
-            <Image source={item.categoryImg} style={styles.categoryImg} />
-            <Text style={styles.categoryTitle}>{item.categoryTitle}</Text>
-          </View>
+          <Image source={item.categoryImg} style={styles.categoryImg} />
           <View style={styles.ageBox}>
-            <Text style={styles.doctorAge}>{item.doctorAge}</Text>
+            <View style={styles.doctorAgeBox}>
+              <Text style={styles.doctorAge}>从医{item.doctorAge}年</Text>
+            </View>
           </View>
         </View>
       </TouchableOpacity>

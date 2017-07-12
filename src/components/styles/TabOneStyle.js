@@ -9,6 +9,7 @@ const { width, height } = Dimensions.get('window');
 export const MainScreenStyle = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#F5F6F7'
   },
   linearGradient: {
     left: 0,
@@ -34,14 +35,13 @@ export const MainScreenStyle = StyleSheet.create({
     marginTop: 20,
   },
 
-
   headerBox: {
     flexDirection: 'row',
     paddingLeft: px2dp(38),
     paddingRight: px2dp(38),
     justifyContent: 'space-between',
     marginTop: px2dp(28),
-    marginBottom: px2dp(14),
+    marginBottom: px2dp(15),
   },
   headerItemBox: {
     flex: 1,
@@ -72,6 +72,8 @@ export const MainScreenStyle = StyleSheet.create({
     justifyContent: 'space-between',
     paddingLeft: px2dp(23),
     paddingRight: px2dp(7),
+    backgroundColor: '#F5F6F7',
+    marginBottom: px2dp(15),
   },
   sectionLeftBox: {
     width: px2dp(97),
@@ -82,7 +84,7 @@ export const MainScreenStyle = StyleSheet.create({
   },
   sectionGradient: {
     width: px2dp(8),
-    height: px2dp(40),
+    height: px2dp(36),
     borderRadius: 7.5,
   },
   sectionTitle: {
@@ -107,8 +109,84 @@ export const MainScreenStyle = StyleSheet.create({
     width: px2dp(8.01),
   },
 
+
   nearbyDoctorBox: {
     marginBottom: px2dp(14),
     marginTop: (14),
+    paddingLeft: px2dp(24),
+  },
+  nearbyDoctorItemBox: {
+    marginRight: px2dp(27),
+    width: px2dp(63),
+    marginLeft: px2dp(-5),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  doctorAvatar: {
+    width: px2dp(60),
+    height: px2dp(60),
+  },
+  doctorName: {
+    fontFamily: 'PingFangSC-Regular',
+    fontSize: px2dp(16),
+    color: '#000',
+    marginTop: 6,
+    marginBottom: 3,
+  },
+  categoryImg: {
+    marginBottom: 5,
+  },
+  ageBox: {
+    width: px2dp(63),
+    height: px2dp(21),
+    backgroundColor: '#C4C4C4',
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  doctorAgeBox: {
+    width: px2dp(62),
+    height: px2dp(20),
+    backgroundColor: '#F5F6F7',
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  doctorAge: {
+    fontFamily: 'PingFangSC-Light',
+    fontSize: 12,
+    color: '#BABABA',
+  },
+
+
+
+  postBox: {
+    width: width,
+    height: px2dp(77),
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 12,
+  },
+  postImgBox: {
+    marginRight: 20,
+  },
+  postImg: {
+    height: px2dp(77),
+    width: px2dp(107),
+    borderRadius: 10,
+  },
+  postContent: {
+    width: px2dp(200),
+  },
+  postTitle: {
+    fontFamily: 'PingFangSC-Regular',
+    fontSize: px2dp(18),
+    color: '#000',
+    marginBottom: px2dp(5),
+  },
+  postTime: {
+    fontFamily: 'PingFangSC-Light',
+    fontSize: px2dp(14),
+    color: '#9E9E9E'
   }
 });

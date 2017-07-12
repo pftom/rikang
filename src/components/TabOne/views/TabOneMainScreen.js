@@ -33,6 +33,8 @@ import {
 import HeaderSection from './HeaderSection';
 //import nearby doc
 import NearByDoctorSection from './NearByDoctorSection';
+//import post section 
+import PostSection from './PostSection';
 
 class HomeMainScreen extends PureComponent {
   constructor(props) {
@@ -88,8 +90,8 @@ class HomeMainScreen extends PureComponent {
           onEndReachedThreshold={10}
           ListHeaderComponent={() => <HeaderSection navigation={navigation} headerTitleData={headerTitleData} />}
           sections={[
-            { data: [{ nearbyDoctor, key: 1 }], key: '推荐医生', renderItem: ({ item }) => <NearByDoctorSection itemnavigation={navigation} nearbyDoctor={item.nearbyDoctor} /> },
-            { data: healthPost, key: '健康咨询', renderItem: ({ item }) => <Text key={item.title} style={styles.text}>{item.title}</Text> },
+            { data: [{ nearbyDoctor, key: 1 }], key: '推荐医生', renderItem: ({ item }) => <NearByDoctorSection navigation={navigation} nearbyDoctor={item.nearbyDoctor} /> },
+            { data: healthPost, key: '健康咨询', renderItem: ({ item }) =>  <PostSection navigation={navigation} healthPostItem={item} /> },
           ]}
           renderSectionHeader={({ section }) => {
             if (section.key === '推荐医生') {
