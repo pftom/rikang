@@ -37,7 +37,7 @@ export const MainScreenStyle = StyleSheet.create({
 
 
   loadingMore: {
-     marginVertical: 20,
+     marginBottom: 90,
   },
 
   headerBox: {

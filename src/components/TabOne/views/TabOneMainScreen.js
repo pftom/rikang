@@ -7,6 +7,7 @@ import {
   Image,
   SectionList,
   ActivityIndicator,
+  RefreshControl,
 } from 'react-native';
 import { connect } from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
@@ -42,6 +43,11 @@ class HomeMainScreen extends PureComponent {
   constructor(props) {
     super(props);
 
+    this.state = {
+      loading: false,
+    };
+
+    this.onRefresh = this.onRefresh.bind(this);
   }
 
   componentDidMount() {
@@ -49,11 +55,12 @@ class HomeMainScreen extends PureComponent {
     const { token, dispatch } = this.props;
     dispatch({ type: GET_DOCTORS, payload: { token } });
     dispatch({ type: GET_POSTS, payload: { token, loadMore: true } });
-
   }
 
-  componentWillReceiveProps(nextProps) {
-    
+  componentWillUnmount() {
+    clearTimeout(this.mountTimer);
+    clearTimeout(this.refreshTimer);
+    clearTimeout(this.endReachedTimer);
   }
 
   renderSectionComponent(item, right) {
@@ -103,35 +110,45 @@ class HomeMainScreen extends PureComponent {
     return true;
   }
 
-  onRefresh = () => {
+  onRefresh() {
     //judge whether is loading, if it is, wait for loading
-    const { isLoadingData } = this.props;
-
-    if (isLoadingData) {
+    if (this.state.loading) {
       return;
     }
 
-    const { token } = this.props;
+    this.setState({ loading: true });
+
+    const { token, dispatch } = this.props;
 
     dispatch({ type: GET_POSTS, payload: { token, combine: true } })
+
+    this.refreshTimer = setTimeout(() => {
+      this.setState({ loading: false })
+    }, 2000)
   }
 
   onEndReached = () => {
     //get loading for loading 
-    const { isLoadingData, posts } = this.props;
+    const { posts } = this.props;
+    const { loading } = this.state;
     const next = posts.get('next');
 
-    if (!this.hasMore() || isLoadingData) {
+    if (!this.hasMore() || loading) {
       return;
     }
+
+    this.setState({ loading: true });
     const { dispatch, token } = this.props;
     const { query } = parse(next);
 
     dispatch({ type: GET_POSTS, payload: { token, loadMore: true, query } })
+    this.endReachedTimer = setTimeout(() => {
+      this.setState({ loading: false })
+    }, 1000)
   }
 
   renderFoot = () => {
-    const { isLoadingData } = this.props;
+    const { loading } = this.state;
 
     if (!this.hasMore()) {
       return this.renderNoMore();
@@ -139,7 +156,7 @@ class HomeMainScreen extends PureComponent {
 
     const { posts } = this.props;
 
-    if (!posts || !isLoadingData) {
+    if (!posts || !loading) {
       return <View style={styles.loadingMore} />
     }
 
@@ -147,14 +164,14 @@ class HomeMainScreen extends PureComponent {
   }
 
   render() {
-    const { loadingError, doctors, posts, navigation, token, dispatch } = this.props;
+    const { loadingError, isLoadingData, doctors, posts, navigation, token, dispatch } = this.props;
 
     let healthPost = [];
     if (posts) {
       healthPost = handleHealthPost(posts.get('results'));
     }
 
-    console.log('healthPost', healthPost);
+    console.log('loading', this.state.loading);
 
     return (
       <View style={styles.container}>
@@ -166,7 +183,17 @@ class HomeMainScreen extends PureComponent {
         <SectionList
           showsVerticalScrollIndicator={false}
           onEndReachedThreshold={10}
+          onEndReached={this.onEndReached}
+          automaticallyAdjustContentInsets={false}
+          scrollEventThrottle={16}
           ListFooterComponent={this.renderFoot}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.loading}
+              onRefresh={this.onRefresh}
+              title='拼命加载中...'
+            />
+          }
           ListHeaderComponent={() => <HeaderSection navigation={navigation} headerTitleData={headerTitleData} />}
           sections={[
             { data: [{ nearbyDoctor, key: 1 }], key: '推荐医生', renderItem: ({ item }) => <NearByDoctorSection navigation={navigation} nearbyDoctor={item.nearbyDoctor} /> },
