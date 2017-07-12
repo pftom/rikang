@@ -6,9 +6,11 @@ import {
   TouchableWithoutFeedback,
   Image,
   SectionList,
+  ActivityIndicator,
 } from 'react-native';
 import { connect } from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
+import parse from 'url-parse';
 
 
 //import selector to get selected data
@@ -22,11 +24,11 @@ import { GET_DOCTORS, GET_POSTS } from '../../../constants/'
 //impor style from styles
 import { MainScreenStyle as styles } from '../../styles/';
 
-//import data
+//import data handle func
 import {
   headerTitleData,
   nearbyDoctor,
-  healthPost,
+  handleHealthPost,
 } from '../data/TabOneMainScreen_data.js';
 
 //import headerTitle component
@@ -39,13 +41,19 @@ import PostSection from './PostSection';
 class HomeMainScreen extends PureComponent {
   constructor(props) {
     super(props);
+
   }
 
   componentDidMount() {
+
     const { token, dispatch } = this.props;
     dispatch({ type: GET_DOCTORS, payload: { token } });
-    dispatch({ type: GET_POSTS, payload: { token } });
+    dispatch({ type: GET_POSTS, payload: { token, loadMore: true } });
 
+  }
+
+  componentWillReceiveProps(nextProps) {
+    
   }
 
   renderSectionComponent(item, right) {
@@ -74,9 +82,79 @@ class HomeMainScreen extends PureComponent {
     )
   }
 
+  renderNoMore() {
+    return (
+      <View style={styles.loadingMore}>
+        <Text style={styles.loadingMoreText}>没有更多了...</Text>
+      </View>
+    )
+  }
+
+  hasMore = () => {
+    const { posts } = this.props;
+
+    //only for posts exist and then get the next for judge has more
+    if (posts) {
+      const next = posts.get('next');
+      return next !== null;
+    }
+
+    //initial data return true to show blank page
+    return true;
+  }
+
+  onRefresh = () => {
+    //judge whether is loading, if it is, wait for loading
+    const { isLoadingData } = this.props;
+
+    if (isLoadingData) {
+      return;
+    }
+
+    const { token } = this.props;
+
+    dispatch({ type: GET_POSTS, payload: { token, combine: true } })
+  }
+
+  onEndReached = () => {
+    //get loading for loading 
+    const { isLoadingData, posts } = this.props;
+    const next = posts.get('next');
+
+    if (!this.hasMore() || isLoadingData) {
+      return;
+    }
+    const { dispatch, token } = this.props;
+    const { query } = parse(next);
+
+    dispatch({ type: GET_POSTS, payload: { token, loadMore: true, query } })
+  }
+
+  renderFoot = () => {
+    const { isLoadingData } = this.props;
+
+    if (!this.hasMore()) {
+      return this.renderNoMore();
+    }
+
+    const { posts } = this.props;
+
+    if (!posts || !isLoadingData) {
+      return <View style={styles.loadingMore} />
+    }
+
+    return <ActivityIndicator style={styles.loadingMore}/>
+  }
+
   render() {
     const { loadingError, doctors, posts, navigation, token, dispatch } = this.props;
 
+    let healthPost = [];
+    if (posts) {
+      healthPost = handleHealthPost(posts.get('results'));
+    }
+
+    console.log('healthPost', healthPost);
 
     return (
       <View style={styles.container}>
@@ -88,6 +166,7 @@ class HomeMainScreen extends PureComponent {
         <SectionList
           showsVerticalScrollIndicator={false}
           onEndReachedThreshold={10}
+          ListFooterComponent={this.renderFoot}
           ListHeaderComponent={() => <HeaderSection navigation={navigation} headerTitleData={headerTitleData} />}
           sections={[
             { data: [{ nearbyDoctor, key: 1 }], key: '推荐医生', renderItem: ({ item }) => <NearByDoctorSection navigation={navigation} nearbyDoctor={item.nearbyDoctor} /> },

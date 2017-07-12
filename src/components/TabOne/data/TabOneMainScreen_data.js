@@ -28,21 +28,48 @@ for (let i = 0; i < 10; i++) {
 }
 
 
+//up refresh, use new data replace all old data
+const refresh = (oldData, newData) => {
+  return newData;
+}
 
-const healthPost = [];
+//down refresh, old data concat new data
+const combine = (oldData, newData) => {
+  const results = oldData.get('results');
 
-for (let i = 0; i < 20; i++) {
-  const healthPostItem = {
-    img: require('../img/postImg.png'),
-    title: '5个大招让你旅途中也能睡个好觉',
-    time: '2017年5月24日',
-    key: 10 + i,
-};
-  healthPost.push(healthPostItem);
+  return newData.update('results', list => results.concat(list));
+}
+
+
+//handle 
+const handleTime = (time) => {
+  let afterTime = '';
+  afterTime += time.slice(0, 10);
+  afterTime += ' ';
+  afterTime += time.slice(11, 19);
+  return afterTime;
+}
+
+//handle immutable data to plain object
+const handleHealthPost = (data) => {
+  let dataSource = [];
+ 
+  data.map((item) => {
+    dataSource.push({
+      key: item.get('id'),
+      img: item.get('photo'),
+      title: item.get('title'),
+      time: handleTime(item.get('created')),
+    });
+  })
+
+  return dataSource;
 }
 
 export {
   headerTitleData,
   nearbyDoctor,
-  healthPost,
+  refresh,
+  combine,
+  handleHealthPost,
 }

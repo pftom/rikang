@@ -35,6 +35,11 @@ export const MainScreenStyle = StyleSheet.create({
     marginTop: 20,
   },
 
+
+  loadingMore: {
+     marginVertical: 20,
+  },
+
   headerBox: {
     flexDirection: 'row',
     paddingLeft: px2dp(38),
@@ -53,6 +58,7 @@ export const MainScreenStyle = StyleSheet.create({
   headerTitle: {
     fontFamily: 'PingFangSC-Light',
     fontSize: 14,
+    backgroundColor: 'transparent'
   },
   headerTitleQa: {
     color: '#4990E2',
@@ -177,6 +183,8 @@ export const MainScreenStyle = StyleSheet.create({
   },
   postContent: {
     width: px2dp(200),
+    height: px2dp(77),
+    justifyContent: 'space-between',
   },
   postTitle: {
     fontFamily: 'PingFangSC-Regular',

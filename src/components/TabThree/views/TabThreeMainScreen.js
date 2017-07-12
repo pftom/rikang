@@ -47,7 +47,9 @@ class UserScreen extends PureComponent {
   render() {
     const { dispatch } = this.props;
     return (
-      <Text style={{ backgroundColor: 'transparent' }}>hhh</Text>
+      <TouchableOpacity onPress={() => { dispatch({ type: LOGOUT })}}>
+        <Text style={{ top: 20 }}>logout</Text>
+      </TouchableOpacity>
     )
   }
 }
