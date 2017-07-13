@@ -5,11 +5,16 @@ import { StyleSheet, Platform, Dimensions } from 'react-native';
 import px2dp from '../../utils/px2dp';
 const { width, height } = Dimensions.get('window');
 
+import { commonStyle } from './commonStyle';
+
 //single input style
 export const MainScreenStyle = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5F6F7'
+  },
+  headerTitleText: {
+    top: -10,
   },
   linearGradient: {
     left: 0,
@@ -36,19 +41,9 @@ export const MainScreenStyle = StyleSheet.create({
   },
 
 
-  loadingMore: {
-    marginTop: 10,
-     marginBottom: 90,
-     flexDirection: 'row',
-     justifyContent: 'center',
-  },
-  loadingTextBox: {
-    marginLeft: 5,
-    justifyContent: 'center',
-  },
-  loadingText: {
-    color: 'gray',
-  },
+  loadingMore: commonStyle.loadingMore,
+  loadingTextBox: commonStyle.loadingTextBox,
+  loadingText: commonStyle.loadingText,
 
   headerBox: {
     flexDirection: 'row',

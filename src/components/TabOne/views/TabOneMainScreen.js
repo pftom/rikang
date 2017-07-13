@@ -4,6 +4,7 @@ import {
   Text,
   NetInfo,
   TouchableWithoutFeedback,
+  TouchableOpacity,
   Image,
   SectionList,
   ActivityIndicator,
@@ -47,7 +48,7 @@ class HomeMainScreen extends PureComponent {
     super(props);
 
     this.state = {
-      loading: false,
+      loadingTop: false,
       loadingTail: false,
     };
 
@@ -62,11 +63,11 @@ class HomeMainScreen extends PureComponent {
     dispatch({ type: GET_POSTS, payload: { token, refresh: true } });
 
     this.setState({
-      loading: true,
+      loadingTop: true,
     });
 
     this.mountTimer = setTimeout(() => {
-      this.setState({ loading: false });
+      this.setState({ loadingTop: false });
     }, 2000);
   }
 
@@ -92,12 +93,12 @@ class HomeMainScreen extends PureComponent {
         </View>
         {
           right && (
-            <TouchableWithoutFeedback onPress={() => { navigation.navigate('DoctorList', { token }) }}>
+            <TouchableOpacity onPress={() => { navigation.navigate('DoctorList', { token }) }}>
               <View style={styles.sectionRightBox}>
                 <Text style={styles.seeAll}>查看全部</Text>
                 <Image source={require('../img/rightArrow.png')} style={styles.sectionImg} />
               </View>
-            </TouchableWithoutFeedback>
+            </TouchableOpacity>
           )
         }
       </View>
@@ -127,11 +128,11 @@ class HomeMainScreen extends PureComponent {
 
   _onRefresh() {
     //judge whether is loading, if it is, wait for loading
-    if (this.state.loading) {
+    if (this.state.loadingTop) {
       return;
     }
 
-    this.setState({ loading: true });
+    this.setState({ loadingTop: true });
 
     const { token, dispatch } = this.props;
 
@@ -139,7 +140,7 @@ class HomeMainScreen extends PureComponent {
     dispatch({ type: GET_DOCTORS, payload: { token, refresh: true } });
 
     this.refreshTimer = setTimeout(() => {
-      this.setState({ loading: false });
+      this.setState({ loadingTop: false });
     }, 2000);
   }
 
@@ -200,17 +201,14 @@ class HomeMainScreen extends PureComponent {
 
     let nearbyDoctor = [];
     if (doctors) {
-      nearbyDoctor = handleNearbyDoctor(doctors.get('results'));
+      //the second params for horizontal show ten item,
+      nearbyDoctor = handleNearbyDoctor(doctors.get('results'), true);
       console.log('nearbyDoctor', nearbyDoctor);
     }
 
     return (
       <View style={styles.container}>
-        <LinearGradient
-            start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}
-            colors={['#23BCBB', '#45E994']}
-            style={styles.linearGradient}>
-        </LinearGradient>
+        
         <SectionList
           showsVerticalScrollIndicator={false}
           onEndReachedThreshold={0.5}
@@ -227,7 +225,7 @@ class HomeMainScreen extends PureComponent {
           ListFooterComponent={() => this.renderFoot()}
           refreshControl={
             <RefreshControl
-            refreshing={this.state.loading}
+            refreshing={this.state.loadingTop}
             onRefresh={this._onRefresh}
             title='拼命加载中...'
           />
@@ -257,9 +255,8 @@ class HomeMainScreen extends PureComponent {
 
 HomeMainScreen.navigationOptions = ({ navigation }) => ({
   headerTitle: (
-    <View style={styles.headerTitle}>
+    <View style={styles.headerTitleText}>
       <Header 
-        headerText="医生列表"
         navigation={navigation}
       />
     </View>

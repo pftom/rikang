@@ -17,7 +17,7 @@ class NearByDoctorSection extends PureComponent {
           <Image source={item.categoryImg} style={styles.categoryImg} />
           <View style={styles.ageBox}>
             <View style={styles.doctorAgeBox}>
-              <Text style={styles.doctorAge}>从医{item.doctorAge}年</Text>
+              <Text style={styles.doctorAge}>从医{item.years}年</Text>
             </View>
           </View>
         </View>

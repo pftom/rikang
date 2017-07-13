@@ -14,6 +14,7 @@ import {
 import {
   getDoctorSelector,
   getDoctorInfoSelector, 
+  getDoctorsSelector,
 } from './doctorSelector';
 
 import {
@@ -31,6 +32,7 @@ export {
   getHomeSelector,
   
   getPostSelector,
+  getDoctorsSelector,
 
   getHospitalsSelector,
   getHospitalSelector,

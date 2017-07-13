@@ -14,19 +14,24 @@ const headerTitleData = [
 ];
 
 
-const handleNearbyDoctor = (data) => {
+const getItem = (item, key) => item.get(key);
+
+const handleNearbyDoctor = (data, horizontal) => {
   let dataSource = [];
 
   data.map((item) => {
+    item = item.toJS();
+    const { id } = item;
     dataSource.push({
-      key: item.get('id'),
-      avatar: item.get('avatar'),
-      name: item.get('name'),
+      ...item,
+      key: id,
       categoryImg: require('../img/eyeDep.png'),
-      categoryTitle: item.get('department'),
-      doctorAge: item.get('years'),
     });
   });
+
+  if (dataSource.length > 10 && horizontal) {
+    return dataSource.slice(0, 10);
+  }
 
   return dataSource;
 }
