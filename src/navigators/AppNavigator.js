@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import { Platform } from 'react-native';
 import { addNavigationHelpers, StackNavigator, TabNavigator } from 'react-navigation';
 
+//import util px2dp for screen adapt
+import px2dp from '../utils/px2dp';
+
+
 //user section screen
 import LoginScreen from '../components/LoginScreen';
 import Register from '../components/Register';
@@ -21,6 +25,7 @@ import NearHospital from '../components/TabOne/views/NearHospital';
 import HospitalDetail from '../components/TabOne/views/HospitalDetail';
 //doctor detail info
 import DoctorDetailInfo from '../components/TabOne/views/DoctorDetailInfo';
+import DoctorList from '../components/TabOne/views/DoctorList';
 
 import ProfileScreen from '../components/ProfileScreen';
 import Practice from '../components/practice';
@@ -60,6 +65,7 @@ export const AppNavigator = StackNavigator({
     NearHospital: { screen: NearHospital },
     HospitalDetail: { screen: HospitalDetail },
     DoctorDetailInfo: { screen: DoctorDetailInfo },
+    DoctorList: { screen: DoctorList },
 
     UserNavigator: { screen: UserNavigator },
 
@@ -71,6 +77,7 @@ export const AppNavigator = StackNavigator({
   {
     navigationOptions: {
       headerLeft: null,
+      headerStyle: Platform.OS === 'ios' ? { height: 66 } : { height: 72 },
     },
     initialRouteName: 'TabBarNavigation',
   },

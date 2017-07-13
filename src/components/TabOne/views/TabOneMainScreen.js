@@ -25,6 +25,9 @@ import { GET_DOCTORS, GET_POSTS } from '../../../constants/'
 //impor style from styles
 import { MainScreenStyle as styles } from '../../styles/';
 
+//import header
+import Header from '../../common/Header';
+
 //import data handle func
 import {
   headerTitleData,
@@ -76,7 +79,7 @@ class HomeMainScreen extends PureComponent {
   renderSectionComponent(item, right) {
     //item represent data should be renderItem
     // right represent show right navigate label
-
+    const { navigation, token } = this.props;
     return (
       <View style={styles.sectionBox}>
         <View style={styles.sectionLeftBox}>
@@ -89,10 +92,12 @@ class HomeMainScreen extends PureComponent {
         </View>
         {
           right && (
-            <View style={styles.sectionRightBox}>
-              <Text style={styles.seeAll}>查看全部</Text>
-              <Image source={require('../img/rightArrow.png')} style={styles.sectionImg} />
-            </View>
+            <TouchableWithoutFeedback onPress={() => { navigation.navigate('DoctorList', { token }) }}>
+              <View style={styles.sectionRightBox}>
+                <Text style={styles.seeAll}>查看全部</Text>
+                <Image source={require('../img/rightArrow.png')} style={styles.sectionImg} />
+              </View>
+            </TouchableWithoutFeedback>
           )
         }
       </View>
@@ -250,9 +255,16 @@ class HomeMainScreen extends PureComponent {
   }
 }
 
-HomeMainScreen.navigationOptions = {
-  header: null,
-};
+HomeMainScreen.navigationOptions = ({ navigation }) => ({
+  headerTitle: (
+    <View style={styles.headerTitle}>
+      <Header 
+        headerText="医生列表"
+        navigation={navigation}
+      />
+    </View>
+  ),
+})
 
 export default connect(
   (state) => getHomeSelector(state),
