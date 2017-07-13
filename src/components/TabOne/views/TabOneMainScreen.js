@@ -47,14 +47,22 @@ class HomeMainScreen extends PureComponent {
       loading: false,
     };
 
-    this.onRefresh = this.onRefresh.bind(this);
+    this._onRefresh = this._onRefresh.bind(this);
   }
 
   componentDidMount() {
 
     const { token, dispatch } = this.props;
-    dispatch({ type: GET_DOCTORS, payload: { token } });
+    dispatch({ type: GET_DOCTORS, payload: { token, loadMore: true } });
     dispatch({ type: GET_POSTS, payload: { token, loadMore: true } });
+
+    this.setState({
+      loading: true,
+    });
+
+    this.mountTimer = setTimeout(() => {
+      this.setState({ loading: false });
+    }, 2000);
   }
 
   componentWillUnmount() {
@@ -110,7 +118,7 @@ class HomeMainScreen extends PureComponent {
     return true;
   }
 
-  onRefresh() {
+  _onRefresh() {
     //judge whether is loading, if it is, wait for loading
     if (this.state.loading) {
       return;
@@ -120,20 +128,20 @@ class HomeMainScreen extends PureComponent {
 
     const { token, dispatch } = this.props;
 
-    dispatch({ type: GET_POSTS, payload: { token, combine: true } })
+    dispatch({ type: GET_POSTS, payload: { token, combine: true } });
+    dispatch({ type: GET_DOCTORS, payload: { token, combine: true } });
 
     this.refreshTimer = setTimeout(() => {
-      this.setState({ loading: false })
-    }, 2000)
+      this.setState({ loading: false });
+    }, 2000);
   }
 
-  onEndReached = () => {
+  _onEndReached = () => {
     //get loading for loading 
-    const { posts } = this.props;
-    const { loading } = this.state;
+    const { posts, isLoadingData } = this.props;
     const next = posts.get('next');
 
-    if (!this.hasMore() || loading) {
+    if (!this.hasMore() || this.state.loading) {
       return;
     }
 
@@ -142,13 +150,14 @@ class HomeMainScreen extends PureComponent {
     const { query } = parse(next);
 
     dispatch({ type: GET_POSTS, payload: { token, loadMore: true, query } })
+    
+
     this.endReachedTimer = setTimeout(() => {
-      this.setState({ loading: false })
-    }, 1000)
+      this.setState({ loading: false });
+    }, 2000);
   }
 
   renderFoot = () => {
-    const { loading } = this.state;
 
     if (!this.hasMore()) {
       return this.renderNoMore();
@@ -156,7 +165,7 @@ class HomeMainScreen extends PureComponent {
 
     const { posts } = this.props;
 
-    if (!posts || !loading) {
+    if (!posts || !this.state.loading) {
       return <View style={styles.loadingMore} />
     }
 
@@ -171,8 +180,6 @@ class HomeMainScreen extends PureComponent {
       healthPost = handleHealthPost(posts.get('results'));
     }
 
-    console.log('loading', this.state.loading);
-
     return (
       <View style={styles.container}>
         <LinearGradient
@@ -182,18 +189,26 @@ class HomeMainScreen extends PureComponent {
         </LinearGradient>
         <SectionList
           showsVerticalScrollIndicator={false}
-          onEndReachedThreshold={10}
-          onEndReached={this.onEndReached}
+          onEndReachedThreshold={0.5}
+          onEndReached={(info) => {
+            //because of bug of the flatlist or sectionlist, will triger twice on scroll to end
+            //so, I add the onEndReachedCalledDuringMomentum for fix this bug
+            if (!this.onEndReachedCalledDuringMomentum) {
+              this._onEndReached();
+              this.onEndReachedCalledDuringMomentum = true;
+            }
+          }}
           automaticallyAdjustContentInsets={false}
           scrollEventThrottle={16}
-          ListFooterComponent={this.renderFoot}
+          ListFooterComponent={() => this.renderFoot()}
           refreshControl={
             <RefreshControl
-              refreshing={this.state.loading}
-              onRefresh={this.onRefresh}
-              title='拼命加载中...'
-            />
+            refreshing={this.state.loading}
+            onRefresh={this._onRefresh}
+            title='拼命加载中...'
+          />
           }
+          onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
           ListHeaderComponent={() => <HeaderSection navigation={navigation} headerTitleData={headerTitleData} />}
           sections={[
             { data: [{ nearbyDoctor, key: 1 }], key: '推荐医生', renderItem: ({ item }) => <NearByDoctorSection navigation={navigation} nearbyDoctor={item.nearbyDoctor} /> },
