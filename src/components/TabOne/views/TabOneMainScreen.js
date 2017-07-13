@@ -45,6 +45,7 @@ class HomeMainScreen extends PureComponent {
 
     this.state = {
       loading: false,
+      loadingTail: false,
     };
 
     this._onRefresh = this._onRefresh.bind(this);
@@ -53,8 +54,9 @@ class HomeMainScreen extends PureComponent {
   componentDidMount() {
 
     const { token, dispatch } = this.props;
-    dispatch({ type: GET_DOCTORS, payload: { token, loadMore: true } });
-    dispatch({ type: GET_POSTS, payload: { token, loadMore: true } });
+    //pull to refresh 
+    dispatch({ type: GET_DOCTORS, payload: { token, refresh: true } });
+    dispatch({ type: GET_POSTS, payload: { token, refresh: true } });
 
     this.setState({
       loading: true,
@@ -128,8 +130,8 @@ class HomeMainScreen extends PureComponent {
 
     const { token, dispatch } = this.props;
 
-    dispatch({ type: GET_POSTS, payload: { token, combine: true } });
-    dispatch({ type: GET_DOCTORS, payload: { token, combine: true } });
+    dispatch({ type: GET_POSTS, payload: { token, refresh: true } });
+    dispatch({ type: GET_DOCTORS, payload: { token, refresh: true } });
 
     this.refreshTimer = setTimeout(() => {
       this.setState({ loading: false });
@@ -141,19 +143,20 @@ class HomeMainScreen extends PureComponent {
     const { posts, isLoadingData } = this.props;
     const next = posts.get('next');
 
-    if (!this.hasMore() || this.state.loading) {
+    if (!this.hasMore() || this.state.loadingTail) {
       return;
     }
 
-    this.setState({ loading: true });
+    this.setState({ loadingTail: true });
     const { dispatch, token } = this.props;
-    const { query } = parse(next);
+    const { query } = parse(next, true);
 
-    dispatch({ type: GET_POSTS, payload: { token, loadMore: true, query } })
+
+    dispatch({ type: GET_POSTS, payload: { token, refresh: false, query } })
     
 
     this.endReachedTimer = setTimeout(() => {
-      this.setState({ loading: false });
+      this.setState({ loadingTail: false });
     }, 2000);
   }
 
@@ -165,11 +168,18 @@ class HomeMainScreen extends PureComponent {
 
     const { posts } = this.props;
 
-    if (!posts || !this.state.loading) {
+    if (!posts || !this.state.loadingTail) {
       return <View style={styles.loadingMore} />
     }
 
-    return <ActivityIndicator style={styles.loadingMore}/>
+    return (
+      <View style={styles.loadingMore}>
+        <ActivityIndicator />
+        <View style={styles.loadingTextBox}>
+          <Text style={styles.loadingText}>加载中...</Text>
+        </View>
+      </View>
+    )
   }
 
   render() {

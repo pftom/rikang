@@ -38,16 +38,13 @@ request.get =  ( url, params, token ) => {
   if (params) {
     url += '?' + queryString.stringify(params);
   }
-
   if (token) {
     options = _.extend(header('GET', token));
   }
 
-  console.log('url', url);
 
   return fetch(url, options)
       .then(response => {
-        console.log('response', response)
         if (response.status !== 200 || !response.ok) {
           throw response.json();
         }
@@ -62,7 +59,7 @@ request.post = ( url, body, token, multiform ) => {
 
   return fetch(url, options)
         .then(response => {
-          console.log(response);
+
           if (![200, 201].includes(response.status) || !response.ok) {
             throw response.json();
           }

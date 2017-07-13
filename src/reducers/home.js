@@ -59,7 +59,7 @@ const home = (state = initialHomeValue, action) => {
     
     case GET_POSTS_SUCCESS:
 
-    const { posts } = action;
+    const { posts } = action.payload;
     return state.merge({
       isLoadingData: false,
       loadingSuccess: true,

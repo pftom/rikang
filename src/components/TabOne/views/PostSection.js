@@ -18,7 +18,7 @@ class PostSection extends PureComponent {
     return (
       <View style={styles.postBox}>
         <View style={styles.postImgBox}>
-          <Image source={{ uri: healthPostItem.img }} style={styles.postImg} />
+          { healthPostItem.img && <Image source={{ uri: healthPostItem.img }} style={styles.postImg} /> }
         </View>
         <View style={styles.postContent}>
           <Text style={styles.postTitle}>{title}</Text>

@@ -32,9 +32,10 @@ function* getSinglePost(payload) {
 //POSTS async actions handle function
 function* getPosts(payload) {
   try {
-    const { token } = payload;
-    const posts = yield call(request.get, base + homeApi.posts, null, token);
-    yield put({ type: GET_POSTS_SUCCESS, posts });
+    const { token, refresh } = payload;
+    const query = (!refresh && payload.query) || null;
+    const posts = yield call(request.get, base + homeApi.posts, query, token);
+    yield put({ type: GET_POSTS_SUCCESS, payload: { posts, refresh } });
   } catch(error) {
     yield put({ type: GET_POSTS_ERROR });
   }
