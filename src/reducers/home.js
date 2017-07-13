@@ -22,6 +22,12 @@ import {
   GET_SINGLE_POST_ERROR,
 } from '../constants/';
 
+//import handle func for computing data
+import {
+  combine,
+  refreshIt,
+} from './utils/'
+
 
 
 //home reducers
@@ -59,11 +65,17 @@ const home = (state = initialHomeValue, action) => {
     
     case GET_POSTS_SUCCESS:
 
-    const { posts } = action.payload;
+    const { posts, refresh } = action.payload;
+    let oldPosts = state.get('posts');
+
+    if (posts) {
+      posts = Immutable.Map(posts);
+    }
+
     return state.merge({
       isLoadingData: false,
       loadingSuccess: true,
-      posts,
+      posts: refresh ? refreshIt(oldPosts, posts) : combine(oldPosts, posts),
     });
 
 
