@@ -14,17 +14,21 @@ const headerTitleData = [
 ];
 
 
-const nearbyDoctor = [];
-for (let i = 0; i < 10; i++) {
-  const nearbyDoctorItem = {
-    avatar: require('../img/testAvatar.png'),
-    name: '谢尔盖',
-    categoryImg: require('../img/eyeDep.png'),
-    categoryTitle: '眼科',
-    doctorAge: 20,
-    key: i,
-};
-  nearbyDoctor.push(nearbyDoctorItem);
+const handleNearbyDoctor = (data) => {
+  let dataSource = [];
+
+  data.map((item) => {
+    dataSource.push({
+      key: item.get('id'),
+      avatar: item.get('avatar'),
+      name: item.get('name'),
+      categoryImg: require('../img/eyeDep.png'),
+      categoryTitle: item.get('department'),
+      doctorAge: item.get('years'),
+    });
+  });
+
+  return dataSource;
 }
 
 
@@ -56,6 +60,6 @@ const handleHealthPost = (data) => {
 
 export {
   headerTitleData,
-  nearbyDoctor,
+  handleNearbyDoctor,
   handleHealthPost,
 }

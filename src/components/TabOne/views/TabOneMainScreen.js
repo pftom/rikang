@@ -28,7 +28,7 @@ import { MainScreenStyle as styles } from '../../styles/';
 //import data handle func
 import {
   headerTitleData,
-  nearbyDoctor,
+  handleNearbyDoctor,
   handleHealthPost,
 } from '../data/TabOneMainScreen_data.js';
 
@@ -141,23 +141,26 @@ class HomeMainScreen extends PureComponent {
   _onEndReached = () => {
     //get loading for loading 
     const { posts, isLoadingData } = this.props;
-    const next = posts.get('next');
 
     if (!this.hasMore() || this.state.loadingTail) {
       return;
     }
 
-    this.setState({ loadingTail: true });
-    const { dispatch, token } = this.props;
-    const { query } = parse(next, true);
+    if(posts) {
+      const next = posts.get('next');
+
+      this.setState({ loadingTail: true });
+      const { dispatch, token } = this.props;
+      const { query } = parse(next, true);
 
 
-    dispatch({ type: GET_POSTS, payload: { token, refresh: false, query } })
-    
+      dispatch({ type: GET_POSTS, payload: { token, refresh: false, query } })
+      
 
-    this.endReachedTimer = setTimeout(() => {
-      this.setState({ loadingTail: false });
-    }, 2000);
+      this.endReachedTimer = setTimeout(() => {
+        this.setState({ loadingTail: false });
+      }, 2000);
+    }
   }
 
   renderFoot = () => {
@@ -188,6 +191,12 @@ class HomeMainScreen extends PureComponent {
     let healthPost = [];
     if (posts) {
       healthPost = handleHealthPost(posts.get('results'));
+    }
+
+    let nearbyDoctor = [];
+    if (doctors) {
+      nearbyDoctor = handleNearbyDoctor(doctors.get('results'));
+      console.log('nearbyDoctor', nearbyDoctor);
     }
 
     return (
@@ -221,7 +230,7 @@ class HomeMainScreen extends PureComponent {
           onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
           ListHeaderComponent={() => <HeaderSection navigation={navigation} headerTitleData={headerTitleData} />}
           sections={[
-            { data: [{ nearbyDoctor, key: 1 }], key: '推荐医生', renderItem: ({ item }) => <NearByDoctorSection navigation={navigation} nearbyDoctor={item.nearbyDoctor} /> },
+            { data: [{ nearbyDoctor, key: '1' }], key: '推荐医生', renderItem: ({ item }) => <NearByDoctorSection navigation={navigation} nearbyDoctor={item.nearbyDoctor} /> },
             { data: healthPost, key: '健康咨询', renderItem: ({ item }) =>  <PostSection navigation={navigation} healthPostItem={item} /> },
           ]}
           renderSectionHeader={({ section }) => {

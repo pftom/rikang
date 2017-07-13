@@ -57,10 +57,16 @@ const home = (state = initialHomeValue, action) => {
     case GET_DOCTORS_SUCCESS:
 
       const { doctors } = action;
+
+      let oldDoctors = state.get('doctors');
+
+    if (doctors) {
+      doctors = Immutable.Map(doctors);
+    }
       return state.merge({
         isLoadingData: false,
         loadingSuccess: true,
-        doctors,
+        doctors: action.refresh ? refreshIt(oldDoctors, doctors) : combine(oldDoctors, doctors),
       });
     
     case GET_POSTS_SUCCESS:

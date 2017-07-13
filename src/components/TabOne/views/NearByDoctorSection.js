@@ -10,7 +10,9 @@ class NearByDoctorSection extends PureComponent {
     return (
       <TouchableOpacity onPress={() => { console.log('hhh') }} key={key}>
         <View style={styles.nearbyDoctorItemBox}>
-          <Image source={item.avatar} style={styles.doctorAvatar} />
+          <View style={styles.doctorAvatarBox}>
+            <Image source={{ uri: item.avatar }} style={styles.doctorAvatar} />
+          </View>
           <Text style={styles.doctorName}>{item.name}</Text>
           <Image source={item.categoryImg} style={styles.categoryImg} />
           <View style={styles.ageBox}>

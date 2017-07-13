@@ -89,18 +89,22 @@ export const MainScreenStyle = StyleSheet.create({
     paddingLeft: px2dp(23),
     paddingRight: px2dp(7),
     backgroundColor: '#F5F6F7',
-    marginBottom: px2dp(15),
+    paddingTop: px2dp(15),
+    alignItems: 'center',
+    borderTopWidth: 0.5,
+    borderTopColor: 'rgba(9, 199, 156, 0.5)',
   },
   sectionLeftBox: {
     width: px2dp(97),
-    height: px2dp(40),
+    height: px2dp(25),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: px2dp(-10),
   },
   sectionGradient: {
     width: px2dp(8),
-    height: px2dp(36),
+    height: px2dp(25),
     borderRadius: 7.5,
   },
   sectionTitle: {
@@ -110,10 +114,11 @@ export const MainScreenStyle = StyleSheet.create({
   },
   sectionRightBox: {
     width: px2dp(82),
-    height: px2dp(40),
+    height: px2dp(25),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: px2dp(-10),
   },
   seeAll: {
     fontFamily: 'PingFangSC-Regular',
@@ -128,8 +133,8 @@ export const MainScreenStyle = StyleSheet.create({
 
   nearbyDoctorBox: {
     marginBottom: px2dp(14),
-    marginTop: (14),
     paddingLeft: px2dp(24),
+    marginTop: px2dp(22),
   },
   nearbyDoctorItemBox: {
     marginRight: px2dp(27),
@@ -138,9 +143,18 @@ export const MainScreenStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  doctorAvatar: {
+  doctorAvatarBox: {
     width: px2dp(60),
     height: px2dp(60),
+    backgroundColor: '#50E3C2',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+  },
+  doctorAvatar: {
+    width: px2dp(57),
+    height: px2dp(57),
+    borderRadius: 28.5,
   },
   doctorName: {
     fontFamily: 'PingFangSC-Regular',
@@ -181,7 +195,8 @@ export const MainScreenStyle = StyleSheet.create({
     height: px2dp(77),
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 12,
+    marginBottom: px2dp(12),
+    marginTop: px2dp(22),
   },
   postImgBox: {
     marginRight: 20,
