@@ -12,6 +12,7 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 
 import LinearGradient from 'react-native-linear-gradient';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
 
 //import selector for computing data
 import { getDoctorSelector } from '../../../selectors/';
@@ -24,6 +25,8 @@ import {
 
   ADD_SINGLE_DOCTOR_FAV,
 } from '../../../constants/';
+
+import AnswerList from './AnswerList';
 
 
 //import styles 
@@ -74,6 +77,10 @@ class DoctorDetail extends PureComponent {
           marginTop: 189,
           height: height - 81,
         }}>
+          <ScrollableTabView page={0}>
+            <AnswerList />
+            <AnswerList />
+          </ScrollableTabView>
         </View>
       </Animated.View>
     )
