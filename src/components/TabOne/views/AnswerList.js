@@ -3,9 +3,16 @@ import {
   ScrollView,
   View,
   Text,
+  Animated,
 } from 'react-native';
 
-const lists = [1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3,];
+//
+import px2dp from '../../../utils/px2dp';
+
+const lists = [];
+for (let i = 0; i < 40; i++) {
+  lists.push(i);
+}
 
 class AnswerList extends PureComponent {
 
@@ -27,10 +34,10 @@ class AnswerList extends PureComponent {
   render() {
 
     let scrollY = this.state.scrollY.interpolate({
-      inputRange: [0, headHeight, headHeight],
-      outputRange: [0, headHeight, headHeight+1]
+      inputRange: [0, 189, 189],
+      outputRange: [0, 189, 189+1]
     })
-    
+
     return (
       <View style={{ flex: 1 }}>
         <ScrollView
@@ -50,3 +57,5 @@ class AnswerList extends PureComponent {
     )
   }
 }
+
+export default AnswerList;

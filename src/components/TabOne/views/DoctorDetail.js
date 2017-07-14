@@ -14,6 +14,9 @@ import { connect } from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 
+//import custom tabbar
+import CustomTabBar from './CustomTabBar';
+
 //import selector for computing data
 import { getDoctorSelector } from '../../../selectors/';
 
@@ -39,6 +42,16 @@ const { width, height } = Dimensions.get('window');
 
 class DoctorDetail extends PureComponent {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      scrollY: 0,
+      activeOpacity: 1,
+      imgOpacity: 0,
+    }
+  }
+
   componentDidMount() {
     const { navigation, dispatch } = this.props;
     const { token, id } = navigation.state.params;
@@ -46,12 +59,20 @@ class DoctorDetail extends PureComponent {
     dispatch({ type: GET_SINGLE_DOCTOR, payload: { token, id }});
     dispatch({ type: GET_SINGLE_DOCTOR_ANSWERS, payload: { token, id }});
     dispatch({ type: GET_SINGLE_DOCTOR_COMMENTS, payload: { token, id }});
+
+    let { scrollY } = this.refs.answerList.state;
+
+    this.setState({
+      activeOpacity: scrollY.interpolate({inputRange: [0, 189],outputRange: [1, 0]}),
+      imgOpacity: scrollY.interpolate({inputRange: [0, 189-10, 189],outputRange: [0, 0, 1]}),
+      scrollY: scrollY.interpolate({inputRange: [0, 189, 189],outputRange: [0, -189, -189]}),
+    })
   }
 
   renderIntroSection = () => {
     return (
       <View style={styles.introBox}>
-        <Animated.View style={styles.introTransferBox}>
+        <Animated.View style={[ styles.introTransferBox, { opacity: this.state.activeOpacity } ]}>
           <Text style={styles.text}>hhhh</Text>
         </Animated.View>
       </View>
@@ -77,9 +98,12 @@ class DoctorDetail extends PureComponent {
           marginTop: 189,
           height: height - 81,
         }}>
-          <ScrollableTabView page={0}>
-            <AnswerList />
-            <AnswerList />
+          <ScrollableTabView 
+            page={0} 
+            renderTabBar={() => <CustomTabBar />}
+          >
+            <AnswerList ref="answerList" tabLabel="回答的问题" />
+            <AnswerList tabLabel="患者的评论" />
           </ScrollableTabView>
         </View>
       </Animated.View>
