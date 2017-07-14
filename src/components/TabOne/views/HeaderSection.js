@@ -6,18 +6,23 @@ import { MainScreenStyle as styles } from '../../styles/TabOneStyle';
 
 const { headerTitleQa, headerTitleDoc, headerTitleHosp } = styles;
 
+//descriminate style
 const headerStyles = [
   headerTitleQa,
   headerTitleDoc,
   headerTitleHosp,
-]
+];
+
+//import jump screen 
+import { jumpScreen } from '../data/'
+
 
 class HeaderSection extends PureComponent {
 
   renderItem(item, key) {
-    const { navigation } = this.props;
+    const { navigation, token } = this.props;
     return (
-      <TouchableOpacity onPress={() => {console.log('hhh')}} key={key}>
+      <TouchableOpacity onPress={() => { navigation.navigate(jumpScreen[item.title], { token }) }} key={key}>
         <View style={styles.headerItemBox}>
           <Image source={item.img} style={styles.headerImg} />
           <Text style={[

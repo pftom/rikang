@@ -32,9 +32,9 @@ import Header from '../../common/Header';
 //import data handle func
 import {
   headerTitleData,
-  handleNearbyDoctor,
+  handleNearby,
   handleHealthPost,
-} from '../data/TabOneMainScreen_data.js';
+} from '../data/';
 
 //import headerTitle component
 import HeaderSection from './HeaderSection';
@@ -202,7 +202,7 @@ class HomeMainScreen extends PureComponent {
     let nearbyDoctor = [];
     if (doctors) {
       //the second params for horizontal show ten item,
-      nearbyDoctor = handleNearbyDoctor(doctors.get('results'), true);
+      nearbyDoctor = handleNearby(doctors.get('results'), true);
       console.log('nearbyDoctor', nearbyDoctor);
     }
 
@@ -231,7 +231,7 @@ class HomeMainScreen extends PureComponent {
           />
           }
           onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
-          ListHeaderComponent={() => <HeaderSection navigation={navigation} headerTitleData={headerTitleData} />}
+          ListHeaderComponent={() => <HeaderSection navigation={navigation} headerTitleData={headerTitleData} token={token} />}
           sections={[
             { data: [{ nearbyDoctor, key: '1' }], key: '推荐医生', renderItem: ({ item }) => <NearByDoctorSection navigation={navigation} nearbyDoctor={item.nearbyDoctor} /> },
             { data: healthPost, key: '健康咨询', renderItem: ({ item }) =>  <PostSection navigation={navigation} healthPostItem={item} /> },

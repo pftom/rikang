@@ -63,7 +63,20 @@ const transferTitle = {
   'C':'主任医师',
 };
 
+const transferHospitalClass = {
+'1A': '一级甲等',
+'1B': '一级乙等',
+'1C': '一级丙等',
+'2A': '二级甲等',
+'2B': '二级乙等',
+'2C': '二级丙等',
+'3A': '三级甲等',
+'3B': '三级乙等',
+'3C': '三级丙等',
+};
+
 export {
   transferDepartment,
   transferTitle,
+  transferHospitalClass,
 }

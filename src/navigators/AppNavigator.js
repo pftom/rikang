@@ -23,6 +23,8 @@ import PostDetail from '../components/TabOne/views/PostDetail';
 import NearHospital from '../components/TabOne/views/NearHospital';
 //single hospital
 import HospitalDetail from '../components/TabOne/views/HospitalDetail';
+import HospitalList from '../components/TabOne/views/HospitalList';
+import HospitalListItem from '../components/TabOne/views/HospitalListItem';
 //doctor detail info
 import DoctorDetailInfo from '../components/TabOne/views/DoctorDetailInfo';
 import DoctorList from '../components/TabOne/views/DoctorList';
@@ -38,6 +40,7 @@ import Practice from '../components/practice';
 */
 import QuestionDetail from '../components/TabTwo/views/QuestionDetail';
 import AnswerDetail from '../components/TabTwo/views/AnswerDetail';
+import PutQuestion from '../components/TabOne/views/PutQuestion';
 
 
 
@@ -60,12 +63,18 @@ export const UserNavigator = StackNavigator({
 
 export const AppNavigator = StackNavigator({
     TabBarNavigation: { screen: TabBarNavigation },
-    DoctorDetail: { screen: DoctorDetail },
+
     PostDetail: { screen: PostDetail },
+
+
     NearHospital: { screen: NearHospital },
     HospitalDetail: { screen: HospitalDetail },
+    HospitalList: { screen: HospitalList },
+    HospitalListItem: { screen: HospitalListItem },
+
     DoctorDetailInfo: { screen: DoctorDetailInfo },
     DoctorList: { screen: DoctorList },
+    DoctorDetail: { screen: DoctorDetail },
 
     UserNavigator: { screen: UserNavigator },
 
@@ -73,6 +82,8 @@ export const AppNavigator = StackNavigator({
 
     QuestionDetail: { screen: QuestionDetail },
     AnswerDetail: { screen: AnswerDetail },
+    PutQuestion: { screen: PutQuestion },
+
   },
   {
     navigationOptions: {

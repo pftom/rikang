@@ -16,16 +16,21 @@ const headerTitleData = [
 
 const getItem = (item, key) => item.get(key);
 
-const handleNearbyDoctor = (data, horizontal) => {
+const handleNearby = (data, horizontal, hospitalId) => {
   let dataSource = [];
 
   data.map((item) => {
     item = item.toJS();
     const { id } = item;
+    let img = {};
+    if (!hospitalId) {
+      img.categoryImg = require('../img/eyeDep.png');
+    }
+
     dataSource.push({
       ...item,
+      ...img,
       key: id,
-      categoryImg: require('../img/eyeDep.png'),
     });
   });
 
@@ -65,6 +70,6 @@ const handleHealthPost = (data) => {
 
 export {
   headerTitleData,
-  handleNearbyDoctor,
+  handleNearby,
   handleHealthPost,
 }

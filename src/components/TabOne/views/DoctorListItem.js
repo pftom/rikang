@@ -17,8 +17,6 @@ class DoctorListItem extends PureComponent {
   
   render() {
     const { navigation, token, item } = this.props;
-    console.log('department', transferDepartment[item.department], item.department);
-    console.log('title', transferTitle[item.title], item.title);
     return (
       <TouchableOpacity onPress={() => { navigation.navigate('DoctorDetail', { id: item.key, token })}}>
         <View style={styles.container}>
@@ -38,7 +36,7 @@ class DoctorListItem extends PureComponent {
 
               <View style={styles.propBox}>
                 <Text style={styles.hospitalName}>{item.hospital_name}</Text>
-                <View style={styles.yearsBox}><Text style={styles.years}>{item.years}</Text></View>
+                <View style={styles.yearsBox}><Text style={styles.years}>从医 {item.years} 年</Text></View>
               </View>
 
               <View style={styles.consultBox}>

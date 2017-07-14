@@ -31,6 +31,7 @@ export const DoctorListStyle = StyleSheet.create({
   },
   leftBox: {
     marginRight: px2dp(21),
+    alignItems: 'center',
   },
   avatarBox: {
     width: px2dp(60),
@@ -74,6 +75,8 @@ export const DoctorListStyle = StyleSheet.create({
     marginTop: px2dp(6),
     marginBottom: px2dp(14),
     flexDirection: 'row',
+    height: px2dp(12),
+    alignItems: 'center',
   },
   hospitalName: {
     fontFamily: 'PingFangSC-Regular',
@@ -82,11 +85,12 @@ export const DoctorListStyle = StyleSheet.create({
     letterSpacing: -0.28,
   },
   yearsBox: {
-    height: 20,
+    height: px2dp(12),
     paddingLeft: px2dp(10),
     marginLeft: px2dp(10),
     borderLeftWidth: 0.5,
-    color: '#9B9B9B',
+    borderLeftColor: '#9B9B9B',
+    justifyContent: 'center',
   },
   years: {
     fontFamily: 'PingFangSC-Regular',
@@ -102,11 +106,18 @@ export const DoctorListStyle = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  consultLeftBox: {
+    flexDirection: 'row',
+    height: px2dp(22),
+    alignItems: 'center',
+  },
   onlineConsult: {
     fontFamily: 'PingFangSC-Regular',
     fontSize: 14,
     color: '#000',
     letterSpacing: -0.28,
+    marginLeft: px2dp(11),
+    marginRight: px2dp(7),
   },
   consultFee: {
     fontFamily: 'PingFangSC-Medium',

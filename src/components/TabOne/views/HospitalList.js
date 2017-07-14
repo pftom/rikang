@@ -13,11 +13,11 @@ import { connect } from 'react-redux';
 
 //import async action constants
 import { 
-  GET_DOCTORS,  
+  GET_HOSPITALS,  
 } from '../../../constants/'
 
 //import selector for computing data
-import { getDoctorsSelector } from '../../../selectors/'
+import { getHospitalsSelector } from '../../../selectors/'
 
 //import header common component
 import Header from '../../common/Header';
@@ -30,10 +30,10 @@ import {
 } from '../data/';
 
 //import render doctor list item
-import DoctorListItem from './DoctorListItem';
+import HospitalListItem from './HospitalListItem';
 
 
-class DoctorList extends PureComponent {
+class HospitalList extends PureComponent {
 
   constructor(props) {
     super(props);
@@ -49,7 +49,7 @@ class DoctorList extends PureComponent {
     //get the token from the navigate
     const { token } = navigation.state.params;
     //pull to refresh 
-    dispatch({ type: GET_DOCTORS, payload: { token, refresh: true } });
+    dispatch({ type: GET_HOSPITALS, payload: { token, refresh: true } });
 
     this.setState({
       loadingTop: true,
@@ -70,11 +70,11 @@ class DoctorList extends PureComponent {
   }
 
   hasMore = () => {
-    const { doctors } = this.props;
+    const { hospitals } = this.props;
 
     //only for doctors exist and then get the next for judge has more
-    if (doctors) {
-      const next = doctors.get('next');
+    if (hospitals) {
+      const next = hospitals.get('next');
       return next !== null;
     }
 
@@ -93,7 +93,7 @@ class DoctorList extends PureComponent {
     const { navigation, dispatch } = this.props;
     const { token } = navigation.state.params;
 
-    dispatch({ type: GET_DOCTORS, payload: { token, refresh: true } });
+    dispatch({ type: GET_HOSPITALS, payload: { token, refresh: true } });
 
     this.refreshTimer = setTimeout(() => {
       this.setState({ loadingTop: false });
@@ -102,14 +102,14 @@ class DoctorList extends PureComponent {
 
   _onEndReached = () => {
     //get loading for loading 
-    const { doctors, isLoadingData } = this.props;
+    const { hospitals, isLoadingData } = this.props;
 
     if (!this.hasMore() || this.state.loadingTail) {
       return;
     }
 
-    if(doctors) {
-      const next = doctors.get('next');
+    if(hospitals) {
+      const next = hospitals.get('next');
 
       this.setState({ loadingTail: true });
       const { navigation, dispatch } = this.props;
@@ -117,7 +117,7 @@ class DoctorList extends PureComponent {
       const { query } = parse(next, true);
 
 
-      dispatch({ type: GET_DOCTORS, payload: { token, refresh: false, query } })
+      dispatch({ type: GET_HOSPITALS, payload: { token, refresh: false, query } })
       
 
       this.endReachedTimer = setTimeout(() => {
@@ -133,9 +133,9 @@ class DoctorList extends PureComponent {
       return this.renderNoMore();
     }
 
-    const { doctors } = this.props;
+    const { hospitals } = this.props;
 
-    if (!doctors || !this.state.loadingTail) {
+    if (!hospitals || !this.state.loadingTail) {
       return <View style={styles.loadingMore} />
     }
 
@@ -151,13 +151,14 @@ class DoctorList extends PureComponent {
 
 
   render() {
-    const { doctors, navigation } = this.props;
+    const { hospitals, navigation } = this.props;
     const { token } = navigation.state.params;
 
-    let nearbyDoctor = [];
-    if (doctors) {
+    let nearbyHospital = [];
+    if (hospitals) {
       //the second params for horizontal(true) show ten item,
-      nearbyDoctor = handleNearby(doctors.get('results'), false);
+      nearbyHospital = handleNearby(hospitals.get('results'), false, true);
+      console.log('nearbyDoctor', nearbyHospital);
     }
 
     return (
@@ -183,18 +184,18 @@ class DoctorList extends PureComponent {
           }
           onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
           ListFooterComponent={this.renderFoot}
-          renderItem={({ item, key }) => <DoctorListItem key={key}  item={item} navigation={navigation} token={token} />}
-          data={nearbyDoctor}
+          renderItem={({ item, key }) => <HospitalListItem key={key}  item={item} navigation={navigation} token={token} />}
+          data={nearbyHospital}
       />
     )
   }
 }
 
-DoctorList.navigationOptions = ({ navigation }) => ({
+HospitalList.navigationOptions = ({ navigation }) => ({
   headerTitle: (
     <View style={styles.headerTitle}>
       <Header 
-        headerText="附近医生"
+        headerText="附近医院"
         logoLeft={require('../../common/img/back.png')}
         navigation={navigation}
       />
@@ -203,5 +204,5 @@ DoctorList.navigationOptions = ({ navigation }) => ({
 })
 
 export default connect(
-  state => getDoctorsSelector(state),
-)(DoctorList);
+  state => getHospitalsSelector(state),
+)(HospitalList);
