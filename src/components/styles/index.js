@@ -6,6 +6,7 @@ import { commonStyle } from './commonStyle';
 import { HospitalListStyle } from './HospitalListStyle'
 import { DoctorDetailStyle } from './DoctorDetailStyle';
 import { AnswerListStyle } from './AnswerListStyle';
+import { CommentListStyle } from './CommentListStyle';
 
 
 export {
@@ -19,4 +20,5 @@ export {
   HospitalListStyle,
 
   AnswerListStyle,
+  CommentListStyle,
 }

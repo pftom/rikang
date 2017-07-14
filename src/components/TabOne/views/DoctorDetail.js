@@ -36,7 +36,9 @@ import {
   ADD_SINGLE_DOCTOR_FAV,
 } from '../../../constants/';
 
+//import list data
 import AnswerList from './AnswerList';
+import CommentList from './CommentList';
 
 
 //import styles 
@@ -68,6 +70,7 @@ class DoctorDetail extends PureComponent {
     dispatch({ type: GET_SINGLE_DOCTOR_COMMENTS, payload: { token, id }});
 
     let { scrollY } = this.refs.answerList.state;
+    let { scrollYComment } = this.refs.commentList.state;
 
     this.setState({
       activeOpacity: scrollY.interpolate({inputRange: [0, 200],outputRange: [1, 0]}),
@@ -174,8 +177,8 @@ class DoctorDetail extends PureComponent {
             page={0} 
             renderTabBar={() => <CustomTabBar />}
           >
-            <AnswerList ref="answerList" tabLabel="回答的问题" name={doctor && doctor.name} />
-            <AnswerList tabLabel="患者评论" />
+            <AnswerList ref="answerList" tabLabel="回答的问题" name={doctor && doctor.get('name')} />
+            <CommentList ref="commentList" tabLabel="患者评论" />
           </ScrollableTabView>
         </View>
       </Animated.View>
