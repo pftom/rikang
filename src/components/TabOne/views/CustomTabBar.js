@@ -69,7 +69,7 @@ const DefaultTabBar = React.createClass({
         width: 75,
         height: 4,
         bottom: 0,
-        marginLeft: 54,
+        marginLeft: 60,
       };
     } else {
       tabUnderlineStyle = {
@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     letterSpacing: -0.4,
     backgroundColor: 'transparent',
+    marginBottom: 3,
   },
   gradient: {
     height: 5,

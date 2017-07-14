@@ -6,6 +6,7 @@ import {
   Animated,
   Platform,
   Dimensions,
+  Image,
 } from 'react-native';
 
 import { NavigationActions } from 'react-navigation';
@@ -19,6 +20,12 @@ import CustomTabBar from './CustomTabBar';
 
 //import selector for computing data
 import { getDoctorSelector } from '../../../selectors/';
+
+//import transfer doctor
+import {
+  transferDepartment,
+  transferTitle,
+} from '../../../utils/transferAbbr';
 
 //import async action constants
 import { 
@@ -63,23 +70,88 @@ class DoctorDetail extends PureComponent {
     let { scrollY } = this.refs.answerList.state;
 
     this.setState({
-      activeOpacity: scrollY.interpolate({inputRange: [0, 189],outputRange: [1, 0]}),
-      imgOpacity: scrollY.interpolate({inputRange: [0, 189-10, 189],outputRange: [0, 0, 1]}),
-      scrollY: scrollY.interpolate({inputRange: [0, 189, 189],outputRange: [0, -189, -189]}),
+      activeOpacity: scrollY.interpolate({inputRange: [0, 200],outputRange: [1, 0]}),
+      imgOpacity: scrollY.interpolate({inputRange: [0, 200-10, 200],outputRange: [0, 0, 1]}),
+      scrollY: scrollY.interpolate({inputRange: [0, 200, 200],outputRange: [0, -200, -200]}),
     })
   }
 
+  renderIntroBottom = (item) => {
+    return (
+      <View style={styles.contentBox}>
+        <Text style={styles.content}>{item.content}</Text>
+        <Text style={styles.title}>{item.title}</Text>
+      </View>
+    )
+  }
+
   renderIntroSection = () => {
+    const { doctor } = this.props;
+
+    let bottomData = [
+      {
+        title: '从医时间',
+        content: doctor.get('years'),
+      },
+      {
+        title: '用户评分',
+        content: doctor.get('ratings'),
+      },
+      {
+        title: '已帮助患者',
+        content: doctor.get('patient_num'),
+      },
+    ];
+
     return (
       <View style={styles.introBox}>
         <Animated.View style={[ styles.introTransferBox, { opacity: this.state.activeOpacity } ]}>
-          <Text style={styles.text}>hhhh</Text>
+
+          <View style={styles.introContainer}>
+              <View style={styles.introTopBox}>
+                <View style={styles.introTopLeftBox}>
+                  <Image source={{ uri: doctor.get('avatar') }} style={styles.avatar} />
+                </View>
+                <View style={styles.introTopRightBox}>
+
+                  <View style={styles.identicalBox}>
+                    <Text style={styles.name}>{doctor.get('name')}</Text>
+                    <Text style={styles.identical}>{transferDepartment[doctor.get('department')]} {transferTitle[doctor.get('title')]}</Text>
+                  </View>
+
+                  <View style={styles.hospitalBox}>
+                    <Text style={styles.hospitalName}>{doctor.get('hospital_name')}</Text>
+                  </View>
+
+                  <View style={styles.goDetailBox}>
+                    <Text style={styles.goDetailText}>查看详细资料</Text>
+                    <Image source={require('../img/go.png')} />
+                  </View>
+                </View>
+             </View>
+
+            <View style={styles.introBottomBox}>
+              {
+                this.renderIntroBottom(bottomData[0])
+              }
+              <View style={styles.border} />
+              {
+                this.renderIntroBottom(bottomData[1])
+              }
+              <View style={styles.border} />
+              {
+                this.renderIntroBottom(bottomData[2])
+              }
+            </View>
+          </View>
+          
         </Animated.View>
       </View>
     )
   }
 
   renderQAList = () => {
+    const { doctor } = this.props;
 
     let style = {
       transform: [{
@@ -95,15 +167,15 @@ class DoctorDetail extends PureComponent {
       <Animated.View style={[ styles.topView, style ]}>
         <View style={{
           width: width,
-          marginTop: 189,
+          marginTop: 200,
           height: height - 81,
         }}>
           <ScrollableTabView 
             page={0} 
             renderTabBar={() => <CustomTabBar />}
           >
-            <AnswerList ref="answerList" tabLabel="回答的问题" />
-            <AnswerList tabLabel="患者的评论" />
+            <AnswerList ref="answerList" tabLabel="回答的问题" name={doctor && doctor.name} />
+            <AnswerList tabLabel="患者评论" />
           </ScrollableTabView>
         </View>
       </Animated.View>
@@ -114,14 +186,14 @@ class DoctorDetail extends PureComponent {
     const { navigation, comments, answers, doctor, dispatch } = this.props;
     const { token, id } = navigation.state.params;
 
-
+    console.log('doctor', doctor && doctor.toJS());
     return (
       <LinearGradient
         start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}
         colors={['#23BCBB', '#45E994']}
         style={styles.gradientBox}>
         <Header logoLeft={true} navigation={navigation} showGradient={false} />
-        {this.renderIntroSection()}
+        { doctor && this.renderIntroSection()}
         {this.renderQAList()}
     </LinearGradient>
     )

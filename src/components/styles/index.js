@@ -5,6 +5,7 @@ import { DoctorListStyle } from './DoctorListStyle';
 import { commonStyle } from './commonStyle';
 import { HospitalListStyle } from './HospitalListStyle'
 import { DoctorDetailStyle } from './DoctorDetailStyle';
+import { AnswerListStyle } from './AnswerListStyle';
 
 
 export {
@@ -16,4 +17,6 @@ export {
   DoctorListStyle,
   DoctorDetailStyle,
   HospitalListStyle,
+
+  AnswerListStyle,
 }
