@@ -43,6 +43,13 @@ export const DoctorDetailStyle = StyleSheet.create({
     fontSize: 30,
   },
 
+  topView: {
+    position: "absolute",
+    top: 81,
+    bottom: 0,
+    left: 0,
+    right: 0
+  },
 
   loadingMore: commonStyle.loadingMore,
   loadingTextBox: commonStyle.loadingTextBox,

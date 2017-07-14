@@ -4,6 +4,8 @@ import {
   Text, 
   View, 
   Animated,
+  Platform,
+  Dimensions,
 } from 'react-native';
 
 import { NavigationActions } from 'react-navigation';
@@ -29,6 +31,8 @@ import { DoctorDetailStyle as styles } from '../../styles/';
 //import header
 import Header from '../../common/Header';
 
+const { width, height } = Dimensions.get('window');
+
 
 class DoctorDetail extends PureComponent {
 
@@ -51,6 +55,30 @@ class DoctorDetail extends PureComponent {
     )
   }
 
+  renderQAList = () => {
+
+    let style = {
+      transform: [{
+        translateY: this.state.scrollY
+      }]
+    }
+
+    if (Platform.OS === 'android') {
+      style.height = height + 80;
+    }
+
+    return (
+      <Animated.View style={[ styles.topView, style ]}>
+        <View style={{
+          width: width,
+          marginTop: 189,
+          height: height - 81,
+        }}>
+        </View>
+      </Animated.View>
+    )
+  }
+
   render() {
     const { navigation, comments, answers, doctor, dispatch } = this.props;
     const { token, id } = navigation.state.params;
@@ -63,6 +91,7 @@ class DoctorDetail extends PureComponent {
         style={styles.gradientBox}>
         <Header logoLeft={true} navigation={navigation} showGradient={false} />
         {this.renderIntroSection()}
+        {this.renderQAList()}
     </LinearGradient>
     )
   }
