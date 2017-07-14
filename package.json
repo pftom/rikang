@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest",
-    "postinstall": "rndebugger-open"
+    "test": "jest"
   },
   "dependencies": {
     "antd-mobile": "1.4.1",

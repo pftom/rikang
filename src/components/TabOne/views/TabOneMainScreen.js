@@ -208,7 +208,10 @@ class HomeMainScreen extends PureComponent {
 
     return (
       <View style={styles.container}>
-        
+        <Header 
+          navigation={navigation}
+          showGradient={true}
+        />
         <SectionList
           showsVerticalScrollIndicator={false}
           onEndReachedThreshold={0.5}
@@ -252,16 +255,6 @@ class HomeMainScreen extends PureComponent {
     )
   }
 }
-
-HomeMainScreen.navigationOptions = ({ navigation }) => ({
-  headerTitle: (
-    <View style={styles.headerTitleText}>
-      <Header 
-        navigation={navigation}
-      />
-    </View>
-  ),
-})
 
 export default connect(
   (state) => getHomeSelector(state),

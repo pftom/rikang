@@ -88,7 +88,10 @@ export const AppNavigator = StackNavigator({
   {
     navigationOptions: {
       headerLeft: null,
-      headerStyle: Platform.OS === 'ios' ? { height: 81 } : { height: 88 },
+      headerStyle: {
+        position: 'absolute',
+        opacity: 0,
+      }
     },
     initialRouteName: 'TabBarNavigation',
   },
