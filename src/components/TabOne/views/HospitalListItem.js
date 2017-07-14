@@ -47,7 +47,8 @@ class HospitalListItem extends PureComponent {
     ];
 
     return (
-      <TouchableOpacity onPress={() => { console.log('hhh') }}>
+
+      <TouchableOpacity onPress={() => { navigation.navigate('HospitalDetail', { token, id: item.id }) }}>
         <View style={styles.container}>
           <View style={styles.nearbyHopBox}>
 

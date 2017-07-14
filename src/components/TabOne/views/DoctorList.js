@@ -60,6 +60,12 @@ class DoctorList extends PureComponent {
     }, 2000);
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.mountTimer);
+    clearTimeout(this.refreshTimer);
+    clearTimeout(this.endReachedTimer);
+  }
+
 
   renderNoMore() {
     return (

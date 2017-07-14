@@ -16,6 +16,11 @@ import {
   ADD_SINGLE_DOCTOR_FAV,
 } from '../../../constants/';
 
+//import styles 
+import { DoctorListStyle as styles } from '../../styles/';
+//import header
+import Header from '../../common/Header';
+
 
 class DoctorDetail extends PureComponent {
 
@@ -45,6 +50,16 @@ class DoctorDetail extends PureComponent {
     )
   }
 }
+
+DoctorDetail.navigationOptions = ({ navigation }) => ({
+  headerTitle: (
+    <View style={styles.headerTitle}>
+      <Header 
+        navigation={navigation}
+      />
+    </View>
+  ),
+})
 
 //之后做answers和comments的展现，以及IM之后的new comment
 

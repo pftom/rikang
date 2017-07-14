@@ -233,7 +233,7 @@ class HomeMainScreen extends PureComponent {
           onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
           ListHeaderComponent={() => <HeaderSection navigation={navigation} headerTitleData={headerTitleData} token={token} />}
           sections={[
-            { data: [{ nearbyDoctor, key: '1' }], key: '推荐医生', renderItem: ({ item }) => <NearByDoctorSection navigation={navigation} nearbyDoctor={item.nearbyDoctor} /> },
+            { data: [{ nearbyDoctor, key: '1' }], key: '推荐医生', renderItem: ({ item }) => <NearByDoctorSection navigation={navigation} nearbyDoctor={item.nearbyDoctor} token={token} /> },
             { data: healthPost, key: '健康咨询', renderItem: ({ item }) =>  <PostSection navigation={navigation} healthPostItem={item} /> },
           ]}
           renderSectionHeader={({ section }) => {

@@ -17,10 +17,10 @@ const Header = (props) => {
         start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}
         colors={['#23BCBB', '#45E994']}
         style={styles.linearGradient}>
-        {!!props.logoLeft && <TouchableOpacity 
+        {props.logoLeft && <TouchableOpacity 
                               onPress={() => props.navigation.goBack()} 
                               style={styles.leftLogoBox}>
-                              <Image source={!!props.logoLeft && props.logoLeft} style={styles.logoLeft}>
+                              <Image source={props.logoLeft && require('./img/back.png')} style={styles.logoLeft}>
                                 <Text style={styles.logoLeftText}></Text>
                               </Image>
                             </TouchableOpacity>}
@@ -44,7 +44,7 @@ const Header = (props) => {
 
 const styles = StyleSheet.create({
   linearGradient: {
-    height: 90,
+    height: 81,
     flexDirection: 'row',
     width: width,
     ...Platform.select({

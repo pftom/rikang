@@ -60,6 +60,11 @@ class HospitalList extends PureComponent {
     }, 2000);
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.mountTimer);
+    clearTimeout(this.refreshTimer);
+    clearTimeout(this.endReachedTimer);
+  }
 
   renderNoMore() {
     return (
@@ -196,7 +201,7 @@ HospitalList.navigationOptions = ({ navigation }) => ({
     <View style={styles.headerTitle}>
       <Header 
         headerText="附近医院"
-        logoLeft={require('../../common/img/back.png')}
+        logoLeft={true}
         navigation={navigation}
       />
     </View>

@@ -143,4 +143,7 @@ export const DoctorListStyle = StyleSheet.create({
   loadingMore: commonStyle.loadingMore,
   loadingTextBox: commonStyle.loadingTextBox,
   loadingText: commonStyle.loadingText,
+
+
+
 }); 

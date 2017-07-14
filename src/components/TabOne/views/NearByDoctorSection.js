@@ -6,9 +6,9 @@ import { MainScreenStyle as styles } from '../../styles/TabOneStyle';
 class NearByDoctorSection extends PureComponent {
 
   renderItem(item, key) {
-    const { navigation } = this.props;
+    const { navigation, token } = this.props;
     return (
-      <TouchableOpacity onPress={() => { console.log('hhh') }} key={key}>
+      <TouchableOpacity onPress={() => { navigation.navigate('DoctorDetail', { token, id: item.id }) }} key={key}>
         <View style={styles.nearbyDoctorItemBox}>
           <View style={styles.doctorAvatarBox}>
             <Image source={{ uri: item.avatar }} style={styles.doctorAvatar} />
