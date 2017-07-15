@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { 
-  TouchableWithoutFeedback, 
+  TouchableOpacity, 
   Text, 
   View, 
   Image,
@@ -14,8 +14,13 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 
+import { transferHospitalClass } from '../../../utils/transferAbbr';
+
 //import custom tabbar
 import CustomTabBar from './CustomTabBar';
+
+//import Header
+import Header from '../../common/Header';
 
 //import selector for computing data
 import { getHospitalSelector } from '../../../selectors/';
@@ -92,37 +97,73 @@ class HospitalDetail extends PureComponent {
       
     this.state = {
       scrollY: 0,
-      activeOpacity: 1,
-      dataSource1: ds.cloneWithRows(lists),
-      dataSource2: ds.cloneWithRows(Commentlists),
+      dataSource1: ds.cloneWithRows([]),
+      dataSource2: ds.cloneWithRows([]),
     }
   }
 
   componentDidMount() {
     const { navigation, dispatch } = this.props;
     const { token, id } = navigation.state.params;
-    console.log('single', token);
+
     dispatch({ type: GET_SINGLE_HOSPITAL, payload: { token, id }});
+    dispatch({ type: GET_SINGLE_HOSPITAL_DOCTORS, payload: { token, id }})
 
 
     this.setState({
-      activeOpacity: this.scrollViewY.interpolate({inputRange: [0, 100, 200],outputRange: [1, 0.3, 0]}),
-      scrollY: this.scrollViewY.interpolate({inputRange: [0, 200, 200],outputRange: [0, -200, -200]}),
+      scrollY: this.scrollViewY.interpolate({inputRange: [0, 139, 139],outputRange: [0, -139, -139]}),
     })
   }
 
 
   renderIntroSection = () => {
     const { hospital } = this.props;
+
+    const rank = transferHospitalClass[hospital.get('rank')];
+
+    let touchItems = [
+      {
+        img: require('../img/phone.png'),
+        content: '电话咨询',
+      },
+      {
+        img: require('../img/location_opacity.png'),
+        content: '查看地图',
+      },
+    ];
+
     return (
-      <View style={styles.introSectionBox}>
-        <View style={{ 
-          height: 20, width: 20,
-          shadowColor: '#BABABA',
-    shadowOffset: { width: 2, height: 3},
-    shadowRadius: 10,
-    shadowOpacity: 1,
-        }}>
+      <Image source={{ uri: hospital.get('photo') }} style={styles.introSectionBox}>
+        <View style={styles.introSectionContainer}>
+          <View style={styles.identicalBox}>
+            <Text style={styles.name}>{hospital.get('name')}</Text>
+            <View style={styles.rankBox}>
+              <Text style={styles.rank}>{rank[0] + rank[2]}</Text>
+            </View>
+          </View>
+            <Text style={styles.location}>{hospital.get('location')}</Text>
+            <View style={styles.touchBox}>
+              {
+                touchItems.map((item, key) => (
+                  <TouchableOpacity key={key} onPress={() => { console.log('hhh' )}}>
+                    <View style={styles.contentBox} >
+                      <Image source={item.img} />
+                      <Text style={styles.content}>{item.content}</Text>
+                    </View>
+                  </TouchableOpacity>
+                ))
+              }
+            </View>
+        </View>
+      </Image>
+    )
+  }
+
+  renderDescription = () => {
+    return (
+      <View style={styles.descriptionContainer}>
+        <View style={styles.descriptionBox}>
+          <Text style={styles.description}>{rowData}</Text>
         </View>
       </View>
     )
@@ -204,6 +245,11 @@ class HospitalDetail extends PureComponent {
     const { hospital, navigation, dispatch } = this.props;
     const { token, id } = navigation.state.params;
 
+    //for header opacity
+    let animatedOpacity = this.scrollViewY.interpolate({
+      inputRange: [0, 60, 139],
+      outputRange: [0, 0.6, 1],
+    });
 
     let scrollY = this.scrollViewY.interpolate({
       inputRange: [-90, -50, 0, 0],
@@ -240,9 +286,10 @@ class HospitalDetail extends PureComponent {
         <Animated.View
           style={[ styles.topView, styles.topView1, style1]}
         >
-          <View style={styles.listBox}>
+          <View style={[ styles.listBox, styles.listBoxx]}>
             <ScrollableTabView
               page={0}
+              style={{ backgroundColor: '#F5F6F7'}}
               renderTabBar={() => <CustomTabBar custom={true} />}
             >
               {
@@ -256,14 +303,14 @@ class HospitalDetail extends PureComponent {
                   <ListView
                       dataSource={item.id === 1 ? this.state.dataSource1 : this.state.dataSource2}
                       enableEmptySections
-                      renderFooter={() => this.renderFoot(item.id)}
-                      onEndReached={() => this._onEndReached(item.id)}
+                      renderFooter={() => this.renderFoot()}
+                      onEndReached={() => this._onEndReached()}
                       showsVerticalScrollIndicator={false}
                       automaticallyAdjustContentInsets={false}
                       onEndReachedThreshold={10}
                       renderRow={(rowData) => {
                         if (item.id === 1) {
-                          return <AnswerListItem item={rowData} key={rowData.id} />
+                          return this.renderDescription();
                         }
                         return <CommentListItem item={rowData} key={rowData.id} />
                       }}
@@ -281,6 +328,17 @@ class HospitalDetail extends PureComponent {
           </ScrollableTabView>
         </View>
         </Animated.View>
+
+
+        <Header 
+          headerText={hospital && hospital.get('name')}
+          logoLeft={true} 
+          shareStar={true}
+          share={true}
+          animatedOpacity={animatedOpacity}
+          navigation={navigation} 
+          showGradient={true} 
+        />
       </View>
     )
   }
