@@ -17,9 +17,6 @@ class AnswerListItem extends PureComponent {
 
   constructor(props) {
     super(props)
-      this.state = {
-        scrollYComment: new Animated.Value(0)
-      }
   }
 
   renderBottomBox = (item) => {
@@ -64,10 +61,6 @@ class AnswerListItem extends PureComponent {
 
   render() {
     const { item, name } = this.props;
-    let scrollYComment = this.state.scrollYComment.interpolate({
-      inputRange: [0, 200, 200],
-      outputRange: [0, 200, 200+1]
-    })
 
     return (
       <View style={styles.container}>

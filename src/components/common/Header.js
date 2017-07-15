@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Alert, Text, StyleSheet, Platform, View, Dimensions, TouchableOpacity } from 'react-native';
+import { Image, Alert, Text, Animated, StyleSheet, Platform, View, Dimensions, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import px2dp from '../../utils/px2dp';
 
@@ -13,7 +13,7 @@ const Header = (props) => {
     }
   }
   return (
-      <View>
+      <View style={styles.container}>
         {
           props.showGradient && (
             <LinearGradient
@@ -44,16 +44,44 @@ const Header = (props) => {
         }
 
         
-      {props.logoLeft && <TouchableOpacity 
+      <View style={styles.leftBox}>
+        {props.logoLeft && <TouchableOpacity 
                               onPress={() => props.navigation.goBack()} 
-                              style={styles.leftLogoBox}>
+                              >
                               <Image source={props.logoLeft && require('./img/back.png')} style={styles.logoLeft} />
                             </TouchableOpacity>}
+        {
+          props.leftImg && (
+            <View style={styles.smallAvatarBox}>
+              <Animated.Image source={{ uri: props.leftImg.get('avatar') }} style={ [ styles.smallAvatar, { opacity: props.imgOpacity }] }/>
+            </View>
+          )
+        }
+      </View>
+
+      <View style={styles.rightBox}>
+        {props.shareHeart && <TouchableOpacity 
+                              onPress={() => { console.log('fav')} } 
+                              >
+                              <Image source={props.shareHeart && require('./img/shareHeart.png')} style={styles.shareHeart} />
+                            </TouchableOpacity>}
+      
+        {props.share && <TouchableOpacity 
+                              onPress={() => { console.log('share')} } 
+                              >
+                              <Image source={props.share && require('./img/share.png')} style={styles.share} />
+                            </TouchableOpacity>}
+      </View>
       </View>
   )
 }
 
 const styles = StyleSheet.create({
+  container: {
+    width: width,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
   linearGradient: {
     height: 81,
     flexDirection: 'row',
@@ -121,13 +149,40 @@ const styles = StyleSheet.create({
       ios: {
         position: 'absolute',
         left: 23,
-        top: 41,
+        top: 40,
       },
       android: {
         marginLeft: 23,
         marginTop: 41,
       }
     })
+  },
+  leftBox: {
+    flexDirection: 'row',
+  },
+  rightBox: {
+    flexDirection: 'row',
+  },
+  share: {
+    marginLeft: px2dp(24),
+    marginRight: px2dp(24),
+    top: 42,
+  },
+  shareHeart: {
+    top: 42,
+  },
+
+  smallAvatarBox: {
+    height: px2dp(42),
+    width: px2dp(42),
+    borderRadius: px2dp(21),
+    marginLeft: 65,
+    marginTop: 30,
+  },
+  smallAvatar: {
+    height: px2dp(42),
+    width: px2dp(42),
+    borderRadius: px2dp(21),
   },
   logoShareBox: {
     left: 222,

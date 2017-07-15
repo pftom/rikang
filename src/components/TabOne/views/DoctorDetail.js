@@ -68,7 +68,34 @@ for (let i = 0; i < 40; i++) {
   });
 };
 
-const items = ["回答的问题", "患者评论"];
+
+const Commentlists = [];
+for (let i = 0; i < 40; i++) {
+  Commentlists.push({
+    "id": 1,
+    "patient": {
+        "avatar": "http://localhost:8000/media/avatars/weappbig.png",
+        "id": 3,
+        "name": "example"
+    },
+    "ratings": 5,
+    "anonymous": false,
+    "body": "good",
+    "created": "2017-07-03"
+  });
+};
+
+//for nav bar bifield
+const items = [
+  {
+    id: 1,
+    content: "回答的问题",
+  },
+  {
+    id: 2,
+    content: "患者评论",
+  },
+];
 
 
 class DoctorDetail extends PureComponent {
@@ -86,7 +113,8 @@ class DoctorDetail extends PureComponent {
       scrollY: 0,
       activeOpacity: 1,
       imgOpacity: 0,
-      dataSource: ds.cloneWithRows(lists),
+      dataSource1: ds.cloneWithRows(lists),
+      dataSource2: ds.cloneWithRows(Commentlists),
     }
   }
 
@@ -100,8 +128,8 @@ class DoctorDetail extends PureComponent {
 
     this.ds
     this.setState({
-      activeOpacity: this.scrollViewY.interpolate({inputRange: [0, 200],outputRange: [1, 0]}),
-      imgOpacity: this.scrollViewY.interpolate({inputRange: [0, 200-10, 200],outputRange: [0, 0, 1]}),
+      activeOpacity: this.scrollViewY.interpolate({inputRange: [0, 100, 200],outputRange: [1, 0.3, 0]}),
+      imgOpacity: this.scrollViewY.interpolate({inputRange: [0, 200-20, 200],outputRange: [0, 0, 1]}),
       scrollY: this.scrollViewY.interpolate({inputRange: [0, 200, 200],outputRange: [0, -200, -200]}),
 
     })
@@ -181,6 +209,79 @@ class DoctorDetail extends PureComponent {
     )
   }
 
+  renderNoMore() {
+    return (
+      <View style={styles.loadingMore}>
+        <Text style={styles.loadingMoreText}>没有更多了...</Text>
+      </View>
+    )
+  }
+
+  hasMore = (id) => {
+    let data = id === 1 ? this.props.answers : this.props.comments;
+
+    //only for posts exist and then get the next for judge has more
+    if (data) {
+      const next = data.get('next');
+      return next !== null;
+    }
+
+    //initial data return true to show blank page
+    return true;
+  }
+
+
+  _onEndReached = (id) => {
+    //get loading for loading 
+    const { isLoadingData } = this.props;
+
+    //use id for discriminate answers and comments
+    let data = id === 1 ? this.props.answers : this.props.comments;
+
+    if (!this.hasMore(id) || this.state.loadingTail) {
+      return;
+    }
+
+    if(data) {
+      const next = data.get('next');
+
+      this.setState({ loadingTail: true });
+      const { dispatch, token } = this.props;
+      const { query } = parse(next, true);
+
+
+      dispatch({ type: id === 1 ? GET_SINGLE_DOCTOR_ANSWERS : GET_SINGLE_DOCTOR_COMMENTS, payload: { token, refresh: false, query } })
+      
+
+      this.endReachedTimer = setTimeout(() => {
+        this.setState({ loadingTail: false });
+      }, 2000);
+    }
+  }
+
+  renderFoot = (id) => {
+    //id for discriminate list kind
+    if (!this.hasMore(id)) {
+      return this.renderNoMore();
+    }
+
+    //use id for discriminate answers and comments
+    let data = id === 1 ? this.props.answers : this.props.comments;
+
+    if (!data || !this.state.loadingTail) {
+      return <View style={styles.loadingMore} />
+    }
+
+    return (
+      <View style={styles.loadingMore}>
+        <ActivityIndicator />
+        <View style={styles.loadingTextBox}>
+          <Text style={styles.loadingText}>加载中...</Text>
+        </View>
+      </View>
+    )
+  }
+
   
 
   render() {
@@ -204,6 +305,7 @@ class DoctorDetail extends PureComponent {
       }]
     }
 
+    //
     if (Platform.OS === 'android') {
       style.height = height + 80;
     }
@@ -214,7 +316,11 @@ class DoctorDetail extends PureComponent {
         start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}
         colors={['#23BCBB', '#45E994']}
         style={styles.gradientBox}>
+
+
         { doctor && this.renderIntroSection() }
+
+
         <Animated.View
           style={[ styles.topView, style1]}
         >
@@ -226,18 +332,25 @@ class DoctorDetail extends PureComponent {
               {
                 items.map((item, key) => (
                   <Animated.View
-                  key={key}
-                  tabLabel={item}
+                  key={item.id}
+                  tabLabel={item.content}
                    style=  {[ styles.listBox1, style2 ]}
               >
                 <View style={ styles.listBox2}>
                   <ListView
-                      dataSource={this.state.dataSource}
+                      dataSource={item.id === 1 ? this.state.dataSource1 : this.state.dataSource2}
                       enableEmptySections
+                      renderFooter={() => this.renderFoot(item.id)}
+                      onEndReached={() => this._onEndReached(item.id)}
                       showsVerticalScrollIndicator={false}
                       automaticallyAdjustContentInsets={false}
                       onEndReachedThreshold={10}
-                      renderRow={(rowData) => <CommentListItem item={rowData} key={rowData.id} name={doctor && doctor.get('name')} />}
+                      renderRow={(rowData) => {
+                        if (item.id === 1) {
+                          return <AnswerListItem item={rowData} key={rowData.id} name={doctor && doctor.get('name')} />
+                        }
+                        return <CommentListItem item={rowData} key={rowData.id} />
+                      }}
                       onScroll={
                       Animated.event(
                         [{nativeEvent: {contentOffset: {y: this.scrollViewY }}}]
@@ -252,7 +365,17 @@ class DoctorDetail extends PureComponent {
           </ScrollableTabView>
         </View>
         </Animated.View>
-        <Header logoLeft={true} navigation={navigation} showGradient={false} />
+
+
+        <Header 
+          logoLeft={true} 
+          shareHeart={true}
+          share={true}
+          imgOpacity={this.state.imgOpacity}
+          leftImg={doctor && doctor}
+          navigation={navigation} 
+          showGradient={false} 
+        />
     </LinearGradient>
     )
   }

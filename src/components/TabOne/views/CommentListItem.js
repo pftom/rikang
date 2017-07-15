@@ -11,15 +11,13 @@ import {
 import px2dp from '../../../utils/px2dp';
 
 //import style
-import { AnswerListStyle as styles } from '../../styles/'
+import { CommentListStyle as styles } from '../../styles/'
 
 class CommentList extends PureComponent {
 
   constructor(props) {
     super(props)
-      this.state = {
-        scrollYComment: new Animated.Value(0)
-      }
+
   }
 
   renderBottomBox = (item) => {
@@ -63,34 +61,46 @@ class CommentList extends PureComponent {
   }
 
   render() {
-    const { item, name } = this.props;
-    let scrollYComment = this.state.scrollYComment.interpolate({
-      inputRange: [0, 200, 200],
-      outputRange: [0, 200, 200+1]
-    })
+
+    const { item } = this.props;
+    let star = [];
+    let unstar = [];
+
+    for (let i = 0; i < item.ratings; i++) {
+      star.push('heart');
+    }
+    for (let i = 0; i < 5 - item.ratings; i++) {
+      unstar.push('entity_heart');
+    }
 
     return (
       <View style={styles.container}>
-        <View style={styles.answerBox}>
-          
-          <Text style={styles.question_title}>{item.question_title}</Text>
-          
-          <Text style={styles.name}>{name}医生的回答</Text>
-          
-          <View style={styles.bottomBox}>
-            {this.renderBottomBox({ 
-              img: require('../img/upvote.png'),
-              text: item.upvotes,
-            })}
-
-            {this.renderBottomBox({ 
-              img: require('../img/comment.png'),
-              text: item.commentsCount,
-            })}
-
-            <View style={styles.spreadBox}>
-              <Image source={require('../img/spread.png')} />
-              <Text style={styles.spread}>展开</Text>
+        <View style={styles.commentBox}>
+          <View style={styles.leftBox}>
+            <Image source={{ uri: item.patient.avatar }} style={styles.avatar} />
+          </View>
+          <View style={styles.rightBox}>
+            <View style={styles.nameBox}>
+              <Text style={styles.name}>{item.patient.name}</Text>
+              <Text style={styles.time}>{item.created}</Text>
+            </View>
+            <View style={styles.starBox}>
+              {
+                star.map((item, key) => (
+                  <Image source={require('../img/entity_heart.png')} key={key}/>
+                ))
+              }
+              {
+                unstar.map((item, key) => (
+                  <Image source={require('../img/heart.png')} key={key} />
+                ))
+              }
+            </View>
+            <View style={styles.contentBox}>
+              <Text style={styles.content}>{item.body}</Text>
+            </View>
+            <View style={styles.shareBox}>
+              <Text style={styles.shareText}>查看TA分享的咨询记录</Text>
             </View>
           </View>
         </View>
