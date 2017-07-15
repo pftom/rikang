@@ -16,6 +16,11 @@ export const DoctorListStyle = StyleSheet.create({
     top: -10
   },
 
+  hospitalContainer: {
+    flex: 1,
+    backgroundColor: '#F5F6F7',
+  },
+
   container: {
     width: width,
     alignItems: 'center',

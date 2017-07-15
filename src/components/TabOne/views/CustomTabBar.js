@@ -50,8 +50,8 @@ const DefaultTabBar = React.createClass({
       accessibilityTraits='button'
       onPress={() => onPressHandler(page)}
     >
-      <View style={[styles.tab ]}>
-        <Text style={styles.text}>
+      <View style={[styles.tab, this.props.custom && styles.customTab ]}>
+        <Text style={this.props.custom ? styles.customText : styles.text}>
           {name}
         </Text>
       </View>
@@ -86,16 +86,28 @@ const DefaultTabBar = React.createClass({
     });
     return (
       <View 
-        style={[styles.tabs, {backgroundColor: this.props.backgroundColor, }, this.props.style, ]}>
+        style={[styles.tabs, this.props.custom && styles.customTabs ]}>
         {this.props.tabs.map((name, page) => {
           const isTabActive = this.props.activeTab === page;
           const renderTab = this.props.renderTab || this.renderTab;
           return renderTab(name, page, isTabActive, this.props.goToPage);
         })}
         <Animated.View style={[tabUnderlineStyle, { left, }, this.props.underlineStyle, ]}>
-          <View
-            style={styles.tabbarUnderLine}
-          />
+          {
+            this.props.custom 
+            ? (
+              <LinearGradient
+                start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}
+                colors={['#23BCBB', '#45E994']}
+                style={styles.tabbarCustom}
+              />
+            )
+            : (
+              <View
+                style={styles.tabbarUnderLine}
+              />
+            )
+          }
         </Animated.View>
       </View>
     );
@@ -111,11 +123,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingTop: 3,
   },
+  customTab: {
+    backgroundColor: '#F5F6F7',
+  },
   tabs: {
     height: 49,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    
+  },
+  customTabs: {
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#E4E4E4',
+    ...Platform.select({
+      ios: {
+      },
+      android: {
+        marginTop: 20.5,
+      }
+    })
   },
   tabbarUnderLine: {
     height: 5,
@@ -124,6 +149,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     marginTop: -6,
   },
+  tabbarCustom: {
+    width: 60,
+    height: 4,
+    borderRadius: 2,
+    marginTop: -4,
+  },
   text: {
     fontFamily: 'PingFangSC-Medium',
     fontSize: 20,
@@ -131,6 +162,11 @@ const styles = StyleSheet.create({
     letterSpacing: -0.4,
     backgroundColor: 'transparent',
     marginBottom: 3,
+  },
+  customText: {
+    fontFamily: 'PingFangSC-Medium',
+    fontSize: 18,
+    color: '#09C79C',
   },
   gradient: {
     height: 5,

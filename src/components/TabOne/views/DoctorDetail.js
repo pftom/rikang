@@ -126,12 +126,10 @@ class DoctorDetail extends PureComponent {
     dispatch({ type: GET_SINGLE_DOCTOR_ANSWERS, payload: { token, id }});
     dispatch({ type: GET_SINGLE_DOCTOR_COMMENTS, payload: { token, id }});
 
-    this.ds
     this.setState({
       activeOpacity: this.scrollViewY.interpolate({inputRange: [0, 100, 200],outputRange: [1, 0.3, 0]}),
       imgOpacity: this.scrollViewY.interpolate({inputRange: [0, 200-20, 200],outputRange: [0, 0, 1]}),
       scrollY: this.scrollViewY.interpolate({inputRange: [0, 200, 200],outputRange: [0, -200, -200]}),
-
     })
   }
 
@@ -333,7 +331,7 @@ class DoctorDetail extends PureComponent {
           <View style={styles.listBox}>
             <ScrollableTabView
               page={0}
-              renderTabBar={() => <CustomTabBar />}
+              renderTabBar={() => <CustomTabBar custom={false} />}
             >
               {
                 items.map((item, key) => (

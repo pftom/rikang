@@ -36,31 +36,11 @@ export const DoctorDetailStyle = StyleSheet.create({
     alignItems: 'center',
   },
 
-  topView: {
-    position: "absolute",
-    top: 190,
-    bottom: 0,
-    left: 0,
-    right: 0
-  },
+  topView: commonStyle.topView,
 
-  listBox: {
-    marginTop: 91,
-    height: px2dp(height + 99),
-    width,
-    
-  },
-  listBox1: {
-    height: px2dp(height - 90 - 39),
-    width,
-    backgroundColor: '#F5F6F7'
-  },
-  listBox2: {
-    height: px2dp(height - 90 - 49),
-    width,
-    marginBottom: 90,
-    backgroundColor: '#F5F6F7',
-  },
+  listBox: commonStyle.listBox,
+  listBox1: commonStyle.listBox1,
+  listBox2: commonStyle.listBox2,
 
   introContainer: {
     width: px2dp(303),

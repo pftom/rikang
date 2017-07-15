@@ -8,6 +8,7 @@ import { DoctorDetailStyle } from './DoctorDetailStyle';
 import { AnswerListStyle } from './AnswerListStyle';
 import { CommentListStyle } from './CommentListStyle';
 import { PostDetailStyle } from './PostDetailStyle';
+import { HospitalDetailStyle } from './HospitalDetailStyle';
 
 
 export {
@@ -18,7 +19,9 @@ export {
   MainScreenStyle,
   DoctorListStyle,
   DoctorDetailStyle,
+
   HospitalListStyle,
+  HospitalDetailStyle,
 
   AnswerListStyle,
   CommentListStyle,

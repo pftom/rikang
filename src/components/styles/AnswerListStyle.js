@@ -17,6 +17,7 @@ export const AnswerListStyle = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 0.5,
     borderBottomColor: '#09C79C',
+    marginTop: 5,
   },
 
   answerBox: {

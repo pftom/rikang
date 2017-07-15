@@ -167,7 +167,7 @@ class DoctorList extends PureComponent {
     }
 
     return (
-      <View>
+      <View style={styles.hospitalContainer}>
         <Header
           headerText="附近医生"
           logoLeft={true}
@@ -176,6 +176,7 @@ class DoctorList extends PureComponent {
           navigation={navigation}
         />
         <FlatList
+            style={styles.hospitalContainer}
             showsVerticalScrollIndicator={false}
             onEndReachedThreshold={0.5}
             onEndReached={(info) => {
