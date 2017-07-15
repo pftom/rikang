@@ -237,7 +237,7 @@ class HomeMainScreen extends PureComponent {
           ListHeaderComponent={() => <HeaderSection navigation={navigation} headerTitleData={headerTitleData} token={token} />}
           sections={[
             { data: [{ nearbyDoctor, key: '1' }], key: '推荐医生', renderItem: ({ item }) => <NearByDoctorSection navigation={navigation} nearbyDoctor={item.nearbyDoctor} token={token} /> },
-            { data: healthPost, key: '健康咨询', renderItem: ({ item }) =>  <PostSection navigation={navigation} healthPostItem={item} /> },
+            { data: healthPost, key: '健康咨询', renderItem: ({ item }) =>  <PostSection navigation={navigation} healthPostItem={item} token={token} /> },
           ]}
           renderSectionHeader={({ section }) => {
             if (section.key === '推荐医生') {

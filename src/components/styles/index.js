@@ -7,6 +7,7 @@ import { HospitalListStyle } from './HospitalListStyle'
 import { DoctorDetailStyle } from './DoctorDetailStyle';
 import { AnswerListStyle } from './AnswerListStyle';
 import { CommentListStyle } from './CommentListStyle';
+import { PostDetailStyle } from './PostDetailStyle';
 
 
 export {
@@ -21,4 +22,5 @@ export {
 
   AnswerListStyle,
   CommentListStyle,
+  PostDetailStyle,
 }

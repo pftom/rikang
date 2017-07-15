@@ -381,6 +381,7 @@ class DoctorDetail extends PureComponent {
           leftImg={doctor && doctor}
           navigation={navigation} 
           showGradient={false} 
+          animatedOpacity={false}
         />
     </LinearGradient>
     )

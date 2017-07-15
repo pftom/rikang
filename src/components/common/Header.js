@@ -6,45 +6,42 @@ import px2dp from '../../utils/px2dp';
 const width = Dimensions.get('window').width;
 
 const Header = (props) => {
+
   let style = null;
   if (Platform.OS === 'android' && !!props.logoLeft)  {
     style = {
       marginLeft: -34,
     }
   }
-  return (
-      <View style={styles.container}>
-        {
-          props.showGradient && (
-            <LinearGradient
-        start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}
-        colors={['#23BCBB', '#45E994']}
-        style={styles.linearGradient}>
-        {props.logoLeft && <TouchableOpacity 
-                              onPress={() => props.navigation.goBack()} 
-                              style={styles.leftLogoBox}>
-                              <Image source={props.logoLeft && require('./img/back.png')} style={styles.logoLeft} />
-                            </TouchableOpacity>}
-        <Text style={[styles.headerText, style]}>{props.headerText}</Text>
-        <TouchableOpacity style={styles.logoBox} onPress={() => Alert.alert('功能即将上线')}>
-          {
-            !!props.logoRight && <Image source={props.logoRight} />
-          }
-          {
-            !!props.logoText &&  <Text style={styles.logoText}>{props.logoText}</Text>
-          }
-        </TouchableOpacity>
-        <View style={styles.logoShareBox}>
-          {
-            !!props.logoShare && <Image source={props.logoShare} /> 
-          }
-        </View>
-    </LinearGradient>
-          )
-        }
 
-        
-      <View style={styles.leftBox}>
+  let headerTextAddStyle = null;
+
+  if (!props.share && !props.shareHeart) {
+    headerTextAddStyle = {
+      left: -20,
+    }
+  }
+
+
+  const rightBox = (
+    <View style={styles.rightBox}>
+      {props.shareHeart && <TouchableOpacity 
+                              onPress={() => { console.log('fav')} } 
+                              >
+                              <Image source={props.shareHeart && require('./img/shareHeart.png')} style={styles.shareHeart} />
+                            </TouchableOpacity>}
+      
+    {props.share && <TouchableOpacity 
+                            onPress={() => { console.log('share')} } 
+                            >
+                            <Image source={props.share && require('./img/share.png')} style={styles.share} />
+                          </TouchableOpacity>}
+    </View>
+  )
+
+
+  const leftBox = (
+    <View style={styles.leftBox}>
         {props.logoLeft && <TouchableOpacity 
                               onPress={() => props.navigation.goBack()} 
                               >
@@ -58,33 +55,64 @@ const Header = (props) => {
           )
         }
       </View>
+  )
 
-      <View style={styles.rightBox}>
-        {props.shareHeart && <TouchableOpacity 
-                              onPress={() => { console.log('fav')} } 
-                              >
-                              <Image source={props.shareHeart && require('./img/shareHeart.png')} style={styles.shareHeart} />
-                            </TouchableOpacity>}
-      
-        {props.share && <TouchableOpacity 
-                              onPress={() => { console.log('share')} } 
-                              >
-                              <Image source={props.share && require('./img/share.png')} style={styles.share} />
-                            </TouchableOpacity>}
-      </View>
+  return (
+      <View style={props.animatedOpacity && styles.containerBox}>
+        <Animated.View style={props.animatedOpacity && [ styles.containerBox, { opacity: props.animatedOpacity } ]}>
+          {
+              props.showGradient && (
+                <LinearGradient
+            start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}
+            colors={['#23BCBB', '#45E994']}
+            style={styles.linearGradient}>
+            {
+              leftBox
+            }
+            <View><Animated.Text style={[styles.headerText, style, headerTextAddStyle, props.animatedOpacity && { opacity: props.animatedOpacity}]}>{props.headerText}</Animated.Text></View>
+            {
+              rightBox
+            }
+        </LinearGradient>
+              )
+        }
+        </Animated.View>
+
+        {
+          (!props.showGradient || props.animatedOpacity) && (
+            <View style={styles.container}>
+              {
+                leftBox
+              }
+              {
+                !props.animatedOpacity && (
+                  <View><Text style={[styles.headerText, style, headerTextAddStyle ]}>{props.headerText}</Text></View>
+                )
+              }
+              {
+                rightBox
+              }
+            </View>
+          )
+        }
       </View>
   )
 }
 
 const styles = StyleSheet.create({
+  containerBox: {
+    position: 'absolute',
+  },
   container: {
     width: width,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    height: 81,
   },
   linearGradient: {
     height: 81,
     flexDirection: 'row',
+    justifyContent: 'space-between',
     width: width,
     ...Platform.select({
       ios: {
@@ -106,7 +134,7 @@ const styles = StyleSheet.create({
     width: 96,
     ...Platform.select({
       ios: {
-        left: 140,
+        left: 26,
         top: 34,
       },
       android: {
@@ -147,18 +175,14 @@ const styles = StyleSheet.create({
   logoLeft: {
     ...Platform.select({
       ios: {
-        position: 'absolute',
-        left: 23,
-        top: 40,
+        marginLeft: 23,
+        marginTop: 40,
       },
       android: {
         marginLeft: 23,
         marginTop: 41,
       }
     })
-  },
-  leftBox: {
-    flexDirection: 'row',
   },
   rightBox: {
     flexDirection: 'row',
