@@ -327,6 +327,7 @@ class DoctorDetail extends PureComponent {
           <View style={styles.listBox}>
             <ScrollableTabView
               page={0}
+              
               renderTabBar={() => <CustomTabBar />}
             >
               {
@@ -379,10 +380,14 @@ class DoctorDetail extends PureComponent {
 
 
         <TouchableOpacity onPress={() => { navigation.navigate('DoctorDetailInfo', { token, id }) }}>
-          <Animated.View style={[ styles.goDetailBox, { opacity: this.state.activeOpacity }]}>
-            <Text style={styles.goDetailText}>查看详细资料</Text>
-            <Image source={require('../img/go.png')} />
-          </Animated.View>
+          {
+            doctor && (
+              <Animated.View style={[ styles.goDetailBox, { opacity: this.state.activeOpacity }]}>
+                <Text style={styles.goDetailText}>查看详细资料</Text>
+                <Image source={require('../img/go.png')} />
+              </Animated.View>
+            )
+          }
         </TouchableOpacity>
 
     </LinearGradient>

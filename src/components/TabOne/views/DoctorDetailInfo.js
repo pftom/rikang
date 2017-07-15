@@ -7,8 +7,19 @@ import { connect } from 'react-redux';
 //import async action constants
 import { GET_SINGLE_DOCTOR_INFO } from '../../../constants/'
 
+import LinearGradient from 'react-native-linear-gradient';
+
 //import selector for computing data
-import { getDoctorInfoSelector } from '../../../selectors/'
+import { getDoctorInfoSelector } from '../../../selectors/';
+
+//import styles 
+import { DoctorDetailStyle as styles } from '../../styles/';
+
+//import Header
+import Header from '../../common/Header';
+
+//import map object
+import { titleMap } from '../data/'
 
 
 class DoctorDetailInfo extends PureComponent {
@@ -20,10 +31,46 @@ class DoctorDetailInfo extends PureComponent {
   }
 
   render() {
-    const { doctorInfo, payload } = this.props;
+    const { doctorInfo, payload, navigation } = this.props;
+    
+    const contentBox = [];
+
+    
+    //judge whether doctor has get 
+    if (doctorInfo) {
+      doctorInfo.map((item, key) => {
+        if (key !== 'doctor') {
+          contentBox.push({
+          title: titleMap[key],
+          content: item,
+        })
+        }
+      });
+    }
+
     return (
       <View>
-        <Text>hhhh</Text>
+        <Header 
+          navigation={navigation}
+          showGradient={true}
+          headerText={'详细资料'}
+          logoLeft={true}
+        />
+
+        {
+         doctorInfo && contentBox.map((item, key) => (
+            <View style={styles.detailInfoContainer} key={key}>
+                <View style={styles.detailInfoBox}>
+                <Text style={styles.titleText}>{item.title}</Text>
+                <LinearGradient
+                    start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}
+                    colors={['#09C79C', '#F5F6F7']}
+                    style={styles.linearGradient} />
+                <Text style={styles.contentText}>{item.content}</Text>
+              </View>
+            </View>
+          ))
+        }
       </View>
     )
   }

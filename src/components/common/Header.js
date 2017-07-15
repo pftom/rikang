@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         left: 140,
-        top: 39,
+        top: 34,
       },
       android: {
         left: px2dp(width / 2 - 63),

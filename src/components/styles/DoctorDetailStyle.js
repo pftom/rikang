@@ -58,7 +58,8 @@ export const DoctorDetailStyle = StyleSheet.create({
   listBox2: {
     height: px2dp(height - 90 - 49),
     width,
-    marginBottom: 90
+    marginBottom: 90,
+    backgroundColor: '#F5F6F7',
   },
 
   introContainer: {
@@ -165,6 +166,35 @@ export const DoctorDetailStyle = StyleSheet.create({
     fontSize: 14,
     color: '#FFF',
   },
+
+  detailInfoContainer: {
+    width: width,
+    alignItems: 'center',
+  },
+
+  detailInfoBox: {
+    width: px2dp(315),
+    marginTop: px2dp(24),
+  },
+  linearGradient: {
+    width: px2dp(315),
+    height: 1,
+    marginBottom: px2dp(10),
+    marginTop: px2dp(10),
+  },
+  titleText: {
+    fontFamily: 'PingFangSC-Medium',
+    fontSize: 18,
+    color: '#000',
+    letterSpacing: -0.36,
+  },
+  contentText: {
+    fontFamily: 'PingFangSC-Light',
+    fontSize: 16,
+    color: '#000',
+    letterSpacing: -0.32,
+  },
+
 
   loadingMore: commonStyle.loadingMore,
   loadingTextBox: commonStyle.loadingTextBox,

@@ -5,6 +5,8 @@ import {
   handleHealthPost,
 } from './TabOneMainScreen_data';
 
+import { titleMap } from './doctorDetailInfo_data';
+
 
 export {
   headerTitleData,
@@ -12,4 +14,5 @@ export {
   handleHealthPost,
 
   jumpScreen,
+  titleMap,
 }
