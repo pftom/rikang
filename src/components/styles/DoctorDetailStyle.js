@@ -123,6 +123,8 @@ export const DoctorDetailStyle = StyleSheet.create({
   },
 
   goDetailBox: {
+    marginLeft: 168,
+    marginTop: px2dp(91),
     flexDirection: 'row',
     height: px2dp(25),
     alignItems: 'center',
@@ -132,6 +134,7 @@ export const DoctorDetailStyle = StyleSheet.create({
     fontSize: 18,
     color: '#FFF',
     marginRight: px2dp(8),
+    backgroundColor: 'transparent',
   },
 
   introBottomBox: {

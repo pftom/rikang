@@ -162,6 +162,10 @@ class DoctorDetail extends PureComponent {
       },
     ];
 
+
+    const { navigation } = this.props;
+    const { token, id } = navigation.state.params;
+
     return (
       <View style={styles.introBox}>
         <Animated.View style={[ styles.introTransferBox, { opacity: this.state.activeOpacity } ]}>
@@ -182,10 +186,6 @@ class DoctorDetail extends PureComponent {
                     <Text style={styles.hospitalName}>{doctor.get('hospital_name')}</Text>
                   </View>
 
-                  <View style={styles.goDetailBox}>
-                    <Text style={styles.goDetailText}>查看详细资料</Text>
-                    <Image source={require('../img/go.png')} />
-                  </View>
                 </View>
              </View>
 
@@ -376,6 +376,15 @@ class DoctorDetail extends PureComponent {
           navigation={navigation} 
           showGradient={false} 
         />
+
+
+        <TouchableOpacity onPress={() => { navigation.navigate('DoctorDetailInfo', { token, id }) }}>
+          <Animated.View style={[ styles.goDetailBox, { opacity: this.state.activeOpacity }]}>
+            <Text style={styles.goDetailText}>查看详细资料</Text>
+            <Image source={require('../img/go.png')} />
+          </Animated.View>
+        </TouchableOpacity>
+
     </LinearGradient>
     )
   }
