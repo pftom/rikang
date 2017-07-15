@@ -186,6 +186,12 @@ class DoctorDetail extends PureComponent {
                     <Text style={styles.hospitalName}>{doctor.get('hospital_name')}</Text>
                   </View>
 
+                  <TouchableOpacity onPress={() => { navigation.navigate('DoctorDetailInfo', { token, id }) }}>
+                    <View style={styles.goDetailBox}>
+                      <Text style={styles.goDetailText}>查看详细资料</Text>
+                      <Image source={require('../img/go.png')} />
+                    </View>
+                  </TouchableOpacity>
                 </View>
              </View>
 
@@ -327,7 +333,6 @@ class DoctorDetail extends PureComponent {
           <View style={styles.listBox}>
             <ScrollableTabView
               page={0}
-              
               renderTabBar={() => <CustomTabBar />}
             >
               {
@@ -377,19 +382,6 @@ class DoctorDetail extends PureComponent {
           navigation={navigation} 
           showGradient={false} 
         />
-
-
-        <TouchableOpacity onPress={() => { navigation.navigate('DoctorDetailInfo', { token, id }) }}>
-          {
-            doctor && (
-              <Animated.View style={[ styles.goDetailBox, { opacity: this.state.activeOpacity }]}>
-                <Text style={styles.goDetailText}>查看详细资料</Text>
-                <Image source={require('../img/go.png')} />
-              </Animated.View>
-            )
-          }
-        </TouchableOpacity>
-
     </LinearGradient>
     )
   }

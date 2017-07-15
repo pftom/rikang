@@ -38,14 +38,14 @@ export const DoctorDetailStyle = StyleSheet.create({
 
   topView: {
     position: "absolute",
-    top: 81,
+    top: 190,
     bottom: 0,
     left: 0,
     right: 0
   },
 
   listBox: {
-    marginTop: 200,
+    marginTop: 91,
     height: px2dp(height + 99),
     width,
     
@@ -124,8 +124,6 @@ export const DoctorDetailStyle = StyleSheet.create({
   },
 
   goDetailBox: {
-    marginLeft: 168,
-    marginTop: px2dp(91),
     flexDirection: 'row',
     height: px2dp(25),
     alignItems: 'center',
