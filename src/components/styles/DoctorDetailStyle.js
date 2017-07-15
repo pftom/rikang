@@ -44,6 +44,23 @@ export const DoctorDetailStyle = StyleSheet.create({
     right: 0
   },
 
+  listBox: {
+    marginTop: 200,
+    height: px2dp(height + 99),
+    width,
+    
+  },
+  listBox1: {
+    height: px2dp(height - 90 - 39),
+    width,
+    backgroundColor: '#F5F6F7'
+  },
+  listBox2: {
+    height: px2dp(height - 90 - 49),
+    width,
+    marginBottom: 90
+  },
+
   introContainer: {
     width: px2dp(303),
   },
