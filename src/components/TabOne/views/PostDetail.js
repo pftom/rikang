@@ -87,7 +87,7 @@ class PostDetail extends PureComponent {
         <Header 
           headerText="文章详情"
           logoLeft={true} 
-          shareHeart={true}
+          shareStar={true}
           share={true}
           animatedOpacity={animatedOpacity}
           navigation={navigation} 

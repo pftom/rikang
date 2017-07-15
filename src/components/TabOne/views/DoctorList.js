@@ -167,46 +167,44 @@ class DoctorList extends PureComponent {
     }
 
     return (
-      <FlatList
-          showsVerticalScrollIndicator={false}
-          onEndReachedThreshold={0.5}
-          onEndReached={(info) => {
-            //because of bug of the flatlist or sectionlist, will triger twice on scroll to end
-            //so, I add the onEndReachedCalledDuringMomentum for fix this bug
-            if (!this.onEndReachedCalledDuringMomentum) {
-              this._onEndReached();
-              this.onEndReachedCalledDuringMomentum = true;
+      <View>
+        <Header
+          headerText="附近医生"
+          logoLeft={true}
+          searchIcon={true}
+          showGradient={true}
+          navigation={navigation}
+        />
+        <FlatList
+            showsVerticalScrollIndicator={false}
+            onEndReachedThreshold={0.5}
+            onEndReached={(info) => {
+              //because of bug of the flatlist or sectionlist, will triger twice on scroll to end
+              //so, I add the onEndReachedCalledDuringMomentum for fix this bug
+              if (!this.onEndReachedCalledDuringMomentum) {
+                this._onEndReached();
+                this.onEndReachedCalledDuringMomentum = true;
+              }
+            }}
+            automaticallyAdjustContentInsets={false}
+            scrollEventThrottle={16}
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.loadingTop}
+                onRefresh={this._onRefresh}
+                title='拼命加载中...'
+              />
             }
-          }}
-          automaticallyAdjustContentInsets={false}
-          scrollEventThrottle={16}
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.loadingTop}
-              onRefresh={this._onRefresh}
-              title='拼命加载中...'
-            />
-          }
-          onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
-          ListFooterComponent={this.renderFoot}
-          renderItem={({ item, key }) => <DoctorListItem key={key}  item={item} navigation={navigation} token={token} />}
-          data={nearbyDoctor}
-      />
+            onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
+            ListFooterComponent={this.renderFoot}
+            renderItem={({ item, key }) => <DoctorListItem key={key}  item={item} navigation={navigation} token={token} />}
+            data={nearbyDoctor}
+        />
+      
+      </View>
     )
   }
 }
-
-DoctorList.navigationOptions = ({ navigation }) => ({
-  headerTitle: (
-    <View style={styles.headerTitle}>
-      <Header 
-        headerText="附近医生"
-        logoLeft={require('../../common/img/back.png')}
-        navigation={navigation}
-      />
-    </View>
-  ),
-})
 
 export default connect(
   state => getDoctorsSelector(state),

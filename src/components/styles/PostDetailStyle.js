@@ -37,4 +37,7 @@ export const PostDetailStyle = StyleSheet.create({
   scrollBox: {
     height: height
   },
+  postBox: {
+    marginBottom: 5,
+  }
 })

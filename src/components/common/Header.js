@@ -16,7 +16,7 @@ const Header = (props) => {
 
   let headerTextAddStyle = null;
 
-  if (!props.share && !props.shareHeart) {
+  if (!(props.share  || props.searchIcon) && !( props.shareHeart || props.shareStar)) {
     headerTextAddStyle = {
       left: -20,
     }
@@ -30,11 +30,22 @@ const Header = (props) => {
                               >
                               <Image source={props.shareHeart && require('./img/shareHeart.png')} style={styles.shareHeart} />
                             </TouchableOpacity>}
+      {props.shareStar && <TouchableOpacity 
+                              onPress={() => { console.log('fav')} } 
+                              >
+                              <Image source={props.shareStar && require('./img/fav.png')} style={styles.shareStar} />
+                            </TouchableOpacity>}
       
     {props.share && <TouchableOpacity 
                             onPress={() => { console.log('share')} } 
                             >
                             <Image source={props.share && require('./img/share.png')} style={styles.share} />
+                          </TouchableOpacity>}
+
+    {props.searchIcon && <TouchableOpacity 
+                            onPress={() => { console.log('share')} } 
+                            >
+                            <Image source={props.searchIcon && require('./img/search.png')} style={ [ styles.share, styles.searchIcon ]} />
                           </TouchableOpacity>}
     </View>
   )
@@ -192,8 +203,14 @@ const styles = StyleSheet.create({
     marginRight: px2dp(24),
     top: 42,
   },
+  searchIcon: {
+    top: 39
+  },
   shareHeart: {
     top: 42,
+  },
+  shareStar: {
+    top: 39,
   },
 
   smallAvatarBox: {
