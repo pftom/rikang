@@ -18,7 +18,7 @@ import { GET_SINGLE_POST } from '../../../constants/';
 //import selector for computing data
 import { getPostSelector } from '../../../selectors/';
 
-import Header from '../../common/Header';
+import { Header } from '../../common/';
 
 //import post style
 import { PostDetailStyle as styles } from '../../styles/'

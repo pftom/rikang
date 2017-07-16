@@ -9,7 +9,7 @@ import { GET_PATIENT_PROFILE, LOGOUT } from '../../../constants/'
 //import selector from select data
 import { getPatientSelector } from '../../../selectors/';
 
-import Header from '../../common/Header';
+import { Header } from '../../common/';
 
 const styles = StyleSheet.create({
   container: {

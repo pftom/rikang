@@ -20,7 +20,7 @@ import {
 import { getHospitalsSelector } from '../../../selectors/'
 
 //import header common component
-import Header from '../../common/Header';
+import { Header } from '../../common/';
 //import stylesheet
 import { DoctorListStyle as styles } from '../../styles/';
 

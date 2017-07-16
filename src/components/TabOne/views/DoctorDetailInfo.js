@@ -16,7 +16,7 @@ import { getDoctorInfoSelector } from '../../../selectors/';
 import { DoctorDetailStyle as styles } from '../../styles/';
 
 //import Header
-import Header from '../../common/Header';
+import { Header } from '../../common/';
 
 //import map object
 import { titleMap } from '../data/'

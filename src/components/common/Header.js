@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     width: px2dp(42),
     borderRadius: px2dp(21),
     marginLeft: 65,
-    marginTop: 30,
+    marginTop: -31,
   },
   smallAvatar: {
     height: px2dp(42),

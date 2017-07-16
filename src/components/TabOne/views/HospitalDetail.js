@@ -20,7 +20,7 @@ import { transferHospitalClass } from '../../../utils/transferAbbr';
 import CustomTabBar from './CustomTabBar';
 
 //import Header
-import Header from '../../common/Header';
+import { Header } from '../../common/';
 
 //import selector for computing data
 import { getHospitalSelector } from '../../../selectors/';

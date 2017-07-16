@@ -48,7 +48,9 @@ import CommentListItem from './CommentListItem';
 //import styles 
 import { DoctorDetailStyle as styles } from '../../styles/';
 //import header
-import Header from '../../common/Header';
+import { Header } from '../../common/';
+//import Bottom buttom
+import { BottomButton } from '../../common/'
 
 const { width, height } = Dimensions.get('window');
 
@@ -381,6 +383,8 @@ class DoctorDetail extends PureComponent {
           showGradient={false} 
           animatedOpacity={false}
         />
+
+        <BottomButton content="向他求助" navigation={navigation} jumpToScreen="ConsultOrder" isPay={false} />
     </LinearGradient>
     )
   }
