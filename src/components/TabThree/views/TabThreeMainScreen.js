@@ -22,13 +22,32 @@ class UserScreen extends PureComponent {
   componentDidMount() {
     const { dispatch, navigation, token } = this.props;
     dispatch({ type: GET_PATIENT_PROFILE, payload: { token } });
-  }
+  } 
 
   render() {
     const { dispatch, patientProfile } = this.props;
+    const ITEMS = [
+      '我的问题',
+      '我的咨询',
+      '我的收藏',
+    ];
+    
     return (
       <View>
-
+        <TabThreeHeaderSection patientProfile={patientProfile} />
+        <ScrollableTabView
+          page={0}
+          style={{ marginTop: 148 }}
+          renderTabBar={() => <CustomTabBar  />}
+        >
+          {
+            ITEMS.map((item, key) => (
+              <View tabLabel={item} key={key}>
+                <Text>{item}</Text>
+              </View>
+            ))
+          }
+        </ScrollableTabView>
       </View>
     )
   }

@@ -30,13 +30,13 @@ class SelectPhoto extends Component {
     super(props);
     
     this.state = {
-      avatarSource: this.props.avatar,
+      avatarSource: null,
     }
 
-    this.selectPhotoTapped = this.selectPhotoTapped.bind(this);
   }
 
-  selectPhotoTapped() {
+  selectPhotoTapped = () => {
+    
     ImagePicker.showImagePicker(options, (response) => {
       console.log('Response = ', response);
 
@@ -72,7 +72,15 @@ class SelectPhoto extends Component {
     return (
       <TouchableOpacity onPress={this.selectPhotoTapped}>
         <View style={styles.avatarBox}>
-          <Image style={styles.avatar} source={{ uri: this.state.avatarSource }} />
+          {
+            this.state.avatarSource
+            ? (
+              <Image style={styles.avatar} source={{ uri: this.state.avatarSource }} />
+            )
+            : (
+              <Text style={styles.avatarText}>换头像</Text>
+            )
+          }
         </View>
       </TouchableOpacity>
     )

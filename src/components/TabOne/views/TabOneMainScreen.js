@@ -11,9 +11,10 @@ import {
   RefreshControl,
 } from 'react-native';
 import { connect } from 'react-redux';
-import LinearGradient from 'react-native-linear-gradient';
 import parse from 'url-parse';
 
+//import list component
+import { UltimateListView } from '../../common/';
 
 //import selector to get selected data
 import { getHomeSelector } from '../../../selectors/';
@@ -42,18 +43,10 @@ import HeaderSection from './HeaderSection';
 import NearByDoctorSection from './NearByDoctorSection';
 //import post section 
 import PostSection from './PostSection';
+//import section component
+import { SectionComponent } from '../../common/';
 
 class HomeMainScreen extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loadingTop: false,
-      loadingTail: false,
-    };
-
-    this._onRefresh = this._onRefresh.bind(this);
-  }
 
   componentDidMount() {
 
@@ -61,150 +54,34 @@ class HomeMainScreen extends PureComponent {
     //pull to refresh 
     dispatch({ type: GET_DOCTORS, payload: { token, refresh: true } });
     dispatch({ type: GET_POSTS, payload: { token, refresh: true } });
-
-    this.setState({
-      loadingTop: true,
-    });
-
-    this.mountTimer = setTimeout(() => {
-      this.setState({ loadingTop: false });
-    }, 2000);
   }
 
-  componentWillUnmount() {
-    clearTimeout(this.mountTimer);
-    clearTimeout(this.refreshTimer);
-    clearTimeout(this.endReachedTimer);
-  }
 
-  renderSectionComponent(item, right) {
-    //item represent data should be renderItem
-    // right represent show right navigate label
-    const { navigation, token } = this.props;
-    return (
-      <View style={styles.sectionBox}>
-        <View style={styles.sectionLeftBox}>
-          <LinearGradient
-            start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}
-            colors={['#23BCBB', '#45E994']}
-            style={styles.sectionGradient}
-          />
-          <Text style={styles.sectionTitle}>{item.key}</Text>
-        </View>
-        {
-          right && (
-            <TouchableOpacity onPress={() => { navigation.navigate('DoctorList', { token }) }}>
-              <View style={styles.sectionRightBox}>
-                <Text style={styles.seeAll}>查看全部</Text>
-                <Image source={require('../img/rightArrow.png')} style={styles.sectionImg} />
-              </View>
-            </TouchableOpacity>
-          )
-        }
-      </View>
-    )
-  }
-
-  renderNoMore() {
-    return (
-      <View style={styles.loadingMore}>
-        <Text style={styles.loadingMoreText}>没有更多了...</Text>
-      </View>
-    )
-  }
-
-  hasMore = () => {
-    const { posts } = this.props;
-
-    //only for posts exist and then get the next for judge has more
-    if (posts) {
-      const next = posts.get('next');
-      return next !== null;
-    }
-
-    //initial data return true to show blank page
-    return true;
-  }
-
-  _onRefresh() {
-    //judge whether is loading, if it is, wait for loading
-    if (this.state.loadingTop) {
-      return;
-    }
-
-    this.setState({ loadingTop: true });
-
-    const { token, dispatch } = this.props;
-
-    dispatch({ type: GET_POSTS, payload: { token, refresh: true } });
-    dispatch({ type: GET_DOCTORS, payload: { token, refresh: true } });
-
-    this.refreshTimer = setTimeout(() => {
-      this.setState({ loadingTop: false });
-    }, 2000);
-  }
-
-  _onEndReached = () => {
-    //get loading for loading 
-    const { posts, isLoadingData } = this.props;
-
-    if (!this.hasMore() || this.state.loadingTail) {
-      return;
-    }
-
-    if(posts) {
-      const next = posts.get('next');
-
-      this.setState({ loadingTail: true });
-      const { dispatch, token } = this.props;
-      const { query } = parse(next, true);
-
-
-      dispatch({ type: GET_POSTS, payload: { token, refresh: false, query } })
-      
-
-      this.endReachedTimer = setTimeout(() => {
-        this.setState({ loadingTail: false });
-      }, 2000);
-    }
-  }
-
-  renderFoot = () => {
-
-    if (!this.hasMore()) {
-      return this.renderNoMore();
-    }
-
-    const { posts } = this.props;
-
-    if (!posts || !this.state.loadingTail) {
-      return <View style={styles.loadingMore} />
-    }
-
-    return (
-      <View style={styles.loadingMore}>
-        <ActivityIndicator />
-        <View style={styles.loadingTextBox}>
-          <Text style={styles.loadingText}>加载中...</Text>
-        </View>
-      </View>
-    )
-  }
 
   render() {
     const { loadingError, isLoadingData, doctors, posts, navigation, token, dispatch } = this.props;
 
+    //handle healthPost data
     let healthPost = [];
     if (posts) {
       healthPost = handleHealthPost(posts.get('results'));
     }
 
+    //handle nearbyDoctor data
     let nearbyDoctor = [];
     if (doctors) {
       //the second params for horizontal show ten item,
       nearbyDoctor = handleNearby(doctors.get('results'), true);
-      console.log('nearbyDoctor', nearbyDoctor);
     }
+
+    //render section data
+    const section = [
+            { data: [{ nearbyDoctor, key: '1' }], key: '推荐医生', spread: true, renderItem: ({ item }) => <NearByDoctorSection navigation={navigation} nearbyDoctor={item.nearbyDoctor} token={token} /> },
+            { data: healthPost, key: '健康咨询', spread: false ,renderItem: ({ item }) =>  <PostSection navigation={navigation} healthPostItem={item} token={token} /> },
+    ];
+
+    //render header component
+    const header = () => <HeaderSection navigation={navigation} headerTitleData={headerTitleData} token={token} />;
 
     return (
       <View style={styles.container}>
@@ -212,44 +89,17 @@ class HomeMainScreen extends PureComponent {
           navigation={navigation}
           showGradient={true}
         />
-        <SectionList
-          showsVerticalScrollIndicator={false}
-          onEndReachedThreshold={0.5}
-          onEndReached={(info) => {
-            //because of bug of the flatlist or sectionlist, will triger twice on scroll to end
-            //so, I add the onEndReachedCalledDuringMomentum for fix this bug
-            if (!this.onEndReachedCalledDuringMomentum) {
-              this._onEndReached();
-              this.onEndReachedCalledDuringMomentum = true;
-            }
-          }}
-          automaticallyAdjustContentInsets={false}
-          scrollEventThrottle={16}
-          ListFooterComponent={() => this.renderFoot()}
-          refreshControl={
-            <RefreshControl
-            refreshing={this.state.loadingTop}
-            onRefresh={this._onRefresh}
-            title='拼命加载中...'
-          />
-          }
-          onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
-          ListHeaderComponent={() => <HeaderSection navigation={navigation} headerTitleData={headerTitleData} token={token} />}
-          sections={[
-            { data: [{ nearbyDoctor, key: '1' }], key: '推荐医生', renderItem: ({ item }) => <NearByDoctorSection navigation={navigation} nearbyDoctor={item.nearbyDoctor} token={token} /> },
-            { data: healthPost, key: '健康咨询', renderItem: ({ item }) =>  <PostSection navigation={navigation} healthPostItem={item} token={token} /> },
-          ]}
-          renderSectionHeader={({ section }) => {
-            if (section.key === '推荐医生') {
-              return this.renderSectionComponent(section, true);
-            }
-
-            if (section.key === '健康咨询') {
-              return this.renderSectionComponent(section, false);
-            }
-
-            return null;
-          }}
+        <UltimateListView
+          header={header}
+          section={section}
+          data={posts}
+          method={GET_POSTS}
+          enableRefresh={true}
+          refreshMethod={[GET_DOCTORS, GET_POSTS]}
+          dispatch={dispatch}
+          token={token}
+          navigation={navigation}
+          jumpToScreen={'DoctorList'}
         />
       </View>
     )
