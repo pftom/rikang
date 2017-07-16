@@ -26,7 +26,15 @@ import {
 } from './doctorSaga'
 
 //patient watch and handle func
-import { watchGetPatientProfile, watchUpdatePatientProfile } from './patientSaga';
+import { 
+  watchGetPatientProfile, 
+  watchUpdatePatientProfile,
+  watchGetPatientFavDoctors,
+  watchGetPatientFavPosts,
+  watchGetPatientQuestions,
+  watchGetPatientServices,
+  watchGetPatientStarredQuestions,
+} from './patientSaga';
 
 //question watch and handle func
 import {
@@ -72,6 +80,11 @@ export default function* rootSaga() {
 
     watchGetPatientProfile(),
     watchUpdatePatientProfile(),
+    watchGetPatientFavDoctors(),
+    watchGetPatientFavPosts(),
+    watchGetPatientQuestions(),
+    watchGetPatientServices(),
+    watchGetPatientStarredQuestions(),
 
     watchGetQuestions(),
     watchCreateSingleQuestion(),

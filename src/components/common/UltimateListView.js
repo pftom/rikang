@@ -33,13 +33,18 @@ class UltimateListView extends PureComponent {
 
   componentDidMount() {
 
-    this.setState({
-      loadingTop: true,
-    });
+    //simplify for simplify component
+    const { simplify } = this.props;
 
-    this.mountTimer = setTimeout(() => {
-      this.setState({ loadingTop: false });
-    }, 2000);
+      if (!simplify) {
+          this.setState({
+            loadingTop: true,
+          });
+
+          this.mountTimer = setTimeout(() => {
+            this.setState({ loadingTop: false });
+          }, 2000);
+      }
   }
 
   componentWillUnmount() {
@@ -90,6 +95,12 @@ class UltimateListView extends PureComponent {
   }
 
   hasMore = (data) => {
+    //simplify for simplify component
+    const { simplify } = this.props;
+
+    if (simplify) {
+      return;
+    }
 
     if (data) {
       const next = data.get('next');
@@ -101,6 +112,12 @@ class UltimateListView extends PureComponent {
   }
 
   _onEndReached = (data, METHOD) => {
+    //simplify for simplify component
+    const { simplify } = this.props;
+
+    if (simplify) {
+      return;
+    }
 
     if (!this.hasMore(data) || this.state.loadingTail) {
       return;
@@ -125,6 +142,13 @@ class UltimateListView extends PureComponent {
 
   renderFoot = (data) => {
 
+    //simplify for simplify component
+    const { simplify } = this.props;
+
+    if (simplify) {
+      return <View style={styles.loadingMore} />;
+    }
+
     if (!this.hasMore(data)) {
       return this.renderNoMore();
     }
@@ -145,7 +169,7 @@ class UltimateListView extends PureComponent {
   }
 
   render() {
-    const { header, section, data, method, enableRefresh, refreshMethod } = this.props;
+    const { header, section, data, method, enableRefresh, refreshMethod, simplify } = this.props;
 
     let refreshComponent = null;
     if (enableRefresh) {

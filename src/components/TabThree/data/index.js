@@ -1,9 +1,11 @@
 import {
   ITEMS,
-  handleQuestions,
+  handleUserData,
+  jumpToScreenLists,
 } from './userData';
 
 export {
   ITEMS,
-  handleQuestions,
+  handleUserData,
+  jumpToScreenLists,
 }

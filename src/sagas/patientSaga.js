@@ -40,21 +40,6 @@ import { base, usersApi } from '../configs/config';
 // import { clearItem, setItem } from '../actions/user';
 
 
-
-function* handleGetSagas({ payload, httpMethod, url, reducerDataIdentifier, successMethod, errorMethod, params }) {
-  try {
-    const { token } = payload;
-
-    const reducerDataIdentifier = yield call(httpMethod, url, params, token);
-
-    yield put({ type: successMethod, ...{ [reducerDataIdentifier]: reducerDataIdentifier } });
-
-  } catch (error) {
-
-    yield put({ type: errorMethod });
-  }
-}
-
 function* getPatientProfile(payload) {
   try {
     const { token } = payload;
@@ -76,47 +61,78 @@ function* updatePatientProfile(payload) {
   } catch(error) {
     yield put({ type: UPDATE_PATIENT_PROFILE_ERROR });
   }
+}
 
-  return handleGetSagas
+//get patient fav posts
+function* getPatientFavPosts(payload) {
+  try {
+    const { token } = payload;
+    const patientFavPosts = yield call(request.get, base + usersApi.patientFavPosts, null, token);
+    yield put({ type: GET_PATIENT_FAV_POSTS_SUCCESS, patientFavPosts });
+  } catch (error) {
+    yield put({ type: GET_PATIENT_FAV_POSTS_ERROR });
+  }
+}
+
+//get patient fav doctors
+function* getPatientFavDoctors(payload) {
+  try {
+    const { token } = payload;
+    const patientFavDoctors = yield call(request.get, base + usersApi.patientFavDoctors, null, token);
+    yield put({ type: GET_PATIENT_FAV_DOCTORS_SUCCESS, patientFavDoctors });
+  } catch (error) {
+    yield put({ type: GET_PATIENT_FAV_DOCTORS_ERROR });
+  }
+}
+
+  //get patient fav doctors
+function* getPatientQuestions(payload) {
+  try {
+    const { token } = payload;
+    const patientQuestions = yield call(request.get, base + usersApi.patientQuestions, null, token);
+    yield put({ type: GET_PATIENT_QUESTIONS_SUCCESS, patientQuestions });
+  } catch (error) {
+    yield put({ type: GET_PATIENT_QUESTIONS_ERROR });
+  }
+}
+
+  //get patient starred questions
+function* getPatientStarredQuestions(payload) {
+  try {
+    const { token } = payload;
+    const patientStarredQuestions = yield call(request.get, base + usersApi.patientStarredQuestions, null, token);
+    yield put({ type: GET_PATIENT_QUESTIONS_SUCCESS, patientStarredQuestions });
+  } catch (error) {
+    yield put({ type: GET_PATIENT_QUESTIONS_ERROR });
+  }
 }
 
 
-//PATIENT async actions handle function
-function* updatePatientProfile(payload) {
+
+  //get patient services
+function* getPatientServices(payload) {
   try {
-    const { token, body } = payload;
-    //the last param supply multipart/form-data support
-    yield call(request.put, base + usersApi.updatePatientProfile, body, token, true);
-    yield put({ type: UPDATE_PATIENT_PROFILE_SUCCESS });
-  } catch(error) {
-    yield put({ type: UPDATE_PATIENT_PROFILE_ERROR });
+    const { token } = payload;
+    const patientServices = yield call(request.get, base + usersApi.patientServices, null, token);
+    yield put({ type: GET_PATIENT_SERVICES_SUCCESS, patientServices });
+  } catch (error) {
+    yield put({ type: GET_PATIENT_SERVICES_ERROR });
   }
 }
 
 
 
 
-//PATIENT async actions watch function
+//patient async actions watch function
 function* watchGetPatientProfile() {
   while (true) {
     const { payload } = yield take(GET_PATIENT_PROFILE);
     // fork return a Task object for cancel later
-    yield call(
-      handleGetSagas,
-      {
-        payload,
-        http.get,
-        base + usersApi.patientProfile,
-        'patientProfile',
-        GET_PATIENT_PROFILE_SUCCESS,
-        GET_PATIENT_PROFILE_ERROR,
-        null,
-      }
-    );
+    yield call(getPatientProfile, payload);
   }
 }
 
-//HOSPITAL async actions watch function
+//patient async actions watch function
 function* watchUpdatePatientProfile() {
   while (true) {
     const { payload } = yield take(UPDATE_PATIENT_PROFILE);
@@ -125,10 +141,61 @@ function* watchUpdatePatientProfile() {
   }
 }
 
+//patient async actions watch function
+function* watchGetPatientFavPosts() {
+  while (true) {
+    const { payload } = yield take(GET_PATIENT_FAV_POSTS);
+    // fork return a Task object for cancel later
+    yield call(getPatientFavPosts, payload);
+  }
+}
+
+//patient async actions watch function
+function* watchGetPatientFavDoctors() {
+  while (true) {
+    const { payload } = yield take(GET_PATIENT_FAV_DOCTORS);
+    // fork return a Task object for cancel later
+    yield call(getPatientFavDoctors, payload);
+  }
+}
+
+//patient async actions watch function
+function* watchGetPatientQuestions() {
+  while (true) {
+    const { payload } = yield take(GET_PATIENT_QUESTIONS);
+    // fork return a Task object for cancel later
+    yield call(getPatientQuestions, payload);
+  }
+}
+
+//patient async actions watch function
+function* watchGetPatientStarredQuestions() {
+  while (true) {
+    const { payload } = yield take(GET_PATIENT_STARRED_QUESTIONS);
+    // fork return a Task object for cancel later
+    yield call(getPatientStarredQuestions, payload);
+  }
+}
+
+//patient async actions watch function
+function* watchGetPatientServices() {
+  while (true) {
+    const { payload } = yield take(GET_PATIENT_SERVICES);
+    // fork return a Task object for cancel later
+    yield call(getPatientServices, payload);
+  }
+}
+
+
 
 
 
 export {
   watchGetPatientProfile,
   watchUpdatePatientProfile,
+  watchGetPatientFavDoctors,
+  watchGetPatientFavPosts,
+  watchGetPatientQuestions,
+  watchGetPatientServices,
+  watchGetPatientStarredQuestions
 }

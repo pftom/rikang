@@ -75,6 +75,7 @@ class HomeMainScreen extends PureComponent {
     }
 
     //render section data
+    // spread for "查看更多"
     const section = [
             { data: [{ nearbyDoctor, key: '1' }], key: '推荐医生', spread: true, renderItem: ({ item }) => <NearByDoctorSection navigation={navigation} nearbyDoctor={item.nearbyDoctor} token={token} /> },
             { data: healthPost, key: '健康咨询', spread: false ,renderItem: ({ item }) =>  <PostSection navigation={navigation} healthPostItem={item} token={token} /> },
