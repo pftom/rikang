@@ -357,8 +357,8 @@ class HospitalDetail extends PureComponent {
         <Header 
           headerText={hospital && hospital.get('name')}
           logoLeft={true} 
-          shareStar={true}
-          share={true}
+          phone={true}
+          navigate={true}
           animatedOpacity={animatedOpacity}
           navigation={navigation} 
           showGradient={true} 

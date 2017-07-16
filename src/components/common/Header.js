@@ -16,7 +16,7 @@ const Header = (props) => {
 
   let headerTextAddStyle = null;
 
-  if (!(props.share  || props.searchIcon) && !( props.shareHeart || props.shareStar)) {
+  if (!(props.share  || props.searchIcon || props.navigate) && !( props.shareHeart || props.shareStar || props.phone)) {
     headerTextAddStyle = {
       left: -20,
     }
@@ -36,16 +36,29 @@ const Header = (props) => {
                               <Image source={props.shareStar && require('./img/fav.png')} style={styles.shareStar} />
                             </TouchableOpacity>}
       
+      {props.phone && <TouchableOpacity 
+                            onPress={() => { console.log('share')} } 
+                            >
+                            <Animated.Image source={props.phone && require('./img/phone.png')} style={[ styles.shareStar, styles.phone, { opacity: props.animatedOpacity }]} />
+                          </TouchableOpacity>}
+      
     {props.share && <TouchableOpacity 
                             onPress={() => { console.log('share')} } 
                             >
-                            <Image source={props.share && require('./img/share.png')} style={styles.share} />
+                            <Image source={props.share && require('./img/share.png')} style={ [ styles.share]} />
                           </TouchableOpacity>}
+    
 
     {props.searchIcon && <TouchableOpacity 
                             onPress={() => { console.log('share')} } 
                             >
                             <Image source={props.searchIcon && require('./img/search.png')} style={ [ styles.share, styles.searchIcon ]} />
+                          </TouchableOpacity>}
+
+    {props.navigate && <TouchableOpacity 
+                            onPress={() => { console.log('share')} } 
+                            >
+                            <Animated.Image source={props.navigate && require('./img/navigate.png')} style={ [ styles.share, styles.navigate, { opacity: props.animatedOpacity }  ]} />
                           </TouchableOpacity>}
     </View>
   )
@@ -206,11 +219,17 @@ const styles = StyleSheet.create({
   searchIcon: {
     top: 39
   },
+  phone: {
+    top: 40,
+  },
   shareHeart: {
     top: 42,
   },
   shareStar: {
     top: 39,
+  },
+  navigate: {
+    top: 40,
   },
 
   smallAvatarBox: {
