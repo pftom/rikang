@@ -9,6 +9,10 @@ import {
   STAR_SINGLE_QUESTION,
   STAR_SINGLE_QUESTION_SUCCESS,
   STAR_SINGLE_QUESTION_ERROR,
+
+  GET_PATIENT_PROFILE,
+  GET_PATIENT_PROFILE_ERROR,
+  GET_PATIENT_PROFILE_SUCCESS,
 } from '../constants/';
 
 
@@ -18,6 +22,7 @@ const initialPatientValue = Map({
   doctorFav: List([]),
   postFav: List([]),
   questionStar: List([]),
+  patientProfile: null,
   isLoadingData: false,
   loadingError: false,
   loadingSuccess: false,
@@ -27,6 +32,7 @@ const fav = (state = initialPatientValue, action) => {
   switch (action.type) {
     case ADD_SINGLE_DOCTOR_FAV:
     case STAR_SINGLE_QUESTION:
+    case GET_PATIENT_PROFILE:
 
       return state.merge({
         isLoadingData: true,
@@ -51,6 +57,16 @@ const fav = (state = initialPatientValue, action) => {
       return state
             .update('questionStar', list => list.unshift(question))
             .merge({
+              isLoadingData: false,
+              loadingSuccess: true,
+            });
+
+    case GET_PATIENT_PROFILE_SUCCESS:
+
+      const { patientProfile } = action;
+
+      return state.merge({
+              patientProfile,
               isLoadingData: false,
               loadingSuccess: true,
             });

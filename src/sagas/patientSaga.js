@@ -22,8 +22,8 @@ import { base, usersApi } from '../configs/config';
 function* getPatientProfile(payload) {
   try {
     const { token } = payload;
-    const patientInfo = yield call(request.get, base + usersApi.patientProfile, null, token);
-    yield put({ type: GET_PATIENT_PROFILE_SUCCESS, patientInfo });
+    const patientProfile = yield call(request.get, base + usersApi.patientProfile, null, token);
+    yield put({ type: GET_PATIENT_PROFILE_SUCCESS, patientProfile });
   } catch (error) {
     yield put({ type: GET_PATIENT_PROFILE_ERROR });
   }

@@ -29,7 +29,7 @@ export const usersApi = {
   updateDoctorProfile: 'users/doctor-profile/',
   doctorInfo: 'users/doctor-info/',
   updateDoctorInfo: 'users/doctor-info/',
-  patientProfile: 'users/patient-profile/',
+  patientProfile: 'users/patient/profile/',
   updatePatientProfile: 'users/patient-profile/',
 };
 
