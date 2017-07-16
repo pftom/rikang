@@ -7,6 +7,8 @@ import {
 
 import { titleMap } from './doctorDetailInfo_data';
 
+import { handleHospitalDoctors } from './hospital_data';
+
 
 export {
   headerTitleData,
@@ -15,4 +17,5 @@ export {
 
   jumpScreen,
   titleMap,
+  handleHospitalDoctors,
 }

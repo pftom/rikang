@@ -16,15 +16,17 @@ export const getHospitalsSelector = createSelector(
 //hospital selector
 const getHospital = (state) => state.getIn(['hospital', 'hospital']);
 
+//hospital all doctors selector
+const getHospitalDoctors = (state) => state.getIn(['hospital', 'hospitalDoctors']);
+
 export const getHospitalSelector = createSelector(
-  [ getHospital ],
-  (hospital) => ({
+  [ getHospital, getHospitalDoctors ],
+  (hospital, hospitalDoctors) => ({
     hospital,
+    hospitalDoctors,
   }),
 );
 
-//hospital all doctors selector
-const getHospitalDoctors = (state) => state.getIn(['hospital', 'hospitalDoctors']);
 
 export const getHospitalDoctorsSelector = createSelector(
   [ getHospitalDoctors ],

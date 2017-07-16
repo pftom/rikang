@@ -35,7 +35,15 @@ import HospitalDoctors from './HospitalDoctors';
 import AnswerListItem from './AnswerListItem';
 import CommentListItem from './CommentListItem';
 
-import { HospitalDetailStyle as styles } from '../../styles/'
+//import style
+import { HospitalDetailStyle as styles } from '../../styles/';
+
+//import doctor list item
+import DoctorListItem from './DoctorListItem';
+
+import {
+  handleNearby,
+} from '../data/'
 
 
 const lists = [];
@@ -89,16 +97,14 @@ class HospitalDetail extends PureComponent {
   constructor(props) {
     super(props);
 
-    let ds = new ListView.DataSource({
+    this.ds = new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2
     })
 
     this.scrollViewY = new Animated.Value(0);
-      
+
     this.state = {
       scrollY: 0,
-      dataSource1: ds.cloneWithRows([]),
-      dataSource2: ds.cloneWithRows([]),
     }
   }
 
@@ -159,7 +165,7 @@ class HospitalDetail extends PureComponent {
     )
   }
 
-  renderDescription = () => {
+  renderDescription = (rowData) => {
     return (
       <View style={styles.descriptionContainer}>
         <View style={styles.descriptionBox}>
@@ -196,7 +202,7 @@ class HospitalDetail extends PureComponent {
     const { isLoadingData } = this.props;
 
     //use id for discriminate answers and comments
-    let hospitalDoctors = this.props;
+    let { hospitalDoctors } = this.props;
 
     if (!this.hasMore() || this.state.loadingTail) {
       return;
@@ -225,7 +231,7 @@ class HospitalDetail extends PureComponent {
     }
 
     //use  for discriminate answers and comments
-    let hospitalDoctors =  this.props;
+    let { hospitalDoctors } =  this.props;
 
     if (!hospitalDoctors || !this.state.loadingTail) {
       return <View style={styles.loadingMore} />
@@ -242,7 +248,7 @@ class HospitalDetail extends PureComponent {
   }
 
   render() {
-    const { hospital, navigation, dispatch } = this.props;
+    const { hospital, navigation, dispatch, hospitalDoctors } = this.props;
     const { token, id } = navigation.state.params;
 
     //for header opacity
@@ -250,6 +256,24 @@ class HospitalDetail extends PureComponent {
       inputRange: [0, 60, 139],
       outputRange: [0, 0.6, 1],
     });
+
+    //handle hospital data, only intro
+    let hospitalIntro = [];
+    if (hospital) {
+      hospitalIntro.push(hospital.get('description'));
+    }
+
+    //handle hospital doctor lists data
+    let hospitalDoctorLists = [];
+    if (hospitalDoctors) {
+      hospitalDoctorLists = handleNearby(hospitalDoctors.get('results'));
+    }
+
+    let dataSource = [
+      this.ds.cloneWithRows(hospitalIntro || []),
+      this.ds.cloneWithRows(hospitalDoctorLists || [])
+    ]
+
 
     let scrollY = this.scrollViewY.interpolate({
       inputRange: [-90, -50, 0, 0],
@@ -301,7 +325,7 @@ class HospitalDetail extends PureComponent {
               >
                 <View style={ styles.listBox2}>
                   <ListView
-                      dataSource={item.id === 1 ? this.state.dataSource1 : this.state.dataSource2}
+                      dataSource={dataSource[key]}
                       enableEmptySections
                       renderFooter={() => this.renderFoot()}
                       onEndReached={() => this._onEndReached()}
@@ -310,9 +334,9 @@ class HospitalDetail extends PureComponent {
                       onEndReachedThreshold={10}
                       renderRow={(rowData) => {
                         if (item.id === 1) {
-                          return this.renderDescription();
+                          return this.renderDescription(rowData);
                         }
-                        return <CommentListItem item={rowData} key={rowData.id} />
+                        return <DoctorListItem item={rowData} token={token} key={rowData.id} navigation={navigation} />
                       }}
                       onScroll={
                       Animated.event(
