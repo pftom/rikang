@@ -24,6 +24,26 @@ export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
 export const CHANGE_PASSWORD_SUCCESS = 'CHANGE_PASSWORD_SUCCESS';
 export const CHANGE_PASSWORD_ERROR = 'CHANGE_PASSWORD_ERROR';
 
+//after show the error toast and then clear it
+export const CLEAR_STATE = 'CLEAR_STATE';
+export const CLEAR = 'CLEAR';
+
+//clear token in the storage
+export const CLEAR_TOKEN = 'CLEAR_TOKEN';
+export const SET_TOKEN = 'SET_TOKEN';
+
+
+/*
+  user data section
+  user data section
+  user data section
+*/
+
+
+
+
+
+
 //patient get profile action constants
 export const GET_PATIENT_PROFILE = 'GET_PATIENT_PROFILE';
 export const GET_PATIENT_PROFILE_SUCCESS = 'GET_PATIENT_PROFILE_SUCCESS';
@@ -34,13 +54,30 @@ export const UPDATE_PATIENT_PROFILE = 'UPDATE_PATIENT_PROFILE';
 export const UPDATE_PATIENT_PROFILE_SUCCESS = 'UPDATE_PATIENT_PROFILE_SUCCESS';
 export const UPDATE_PATIENT_PROFILE_ERROR = 'UPDATE_PATIENT_PROFILE_ERROR';
 
-//after show the error toast and then clear it
-export const CLEAR_STATE = 'CLEAR_STATE';
-export const CLEAR = 'CLEAR';
+//patient question list
+export const GET_PATIENT_QUESTIONS = 'GET_PATIENT_QUESTIONS';
+export const GET_PATIENT_QUESTIONS_SUCCESS = 'GET_PATIENT_QUESTIONS_SUCCESS';
+export const GET_PATIENT_QUESTIONS_ERROR = 'GET_PATIENT_QUESTIONS_ERROR';
 
-//clear token in the storage
-export const CLEAR_TOKEN = 'CLEAR_TOKEN';
-export const SET_TOKEN = 'SET_TOKEN';
+//patient star question list
+export const GET_PATIENT_STARRED_QUESTIONS = 'GET_PATIENT_STARRED_QUESTIONS';
+export const GET_PATIENT_STARRED_QUESTIONS_SUCCESS = 'GET_PATIENT_STARRED_QUESTIONS_SUCCESS';
+export const GET_PATIENT_STARRED_QUESTIONS_ERROR = 'GET_PATIENT_STARRED_QUESTIONS_ERROR';
+
+//patient fav doctor list
+export const GET_PATIENT_FAV_DOCTORS = 'GET_PATIENT_FAV_DOCTORS';
+export const GET_PATIENT_FAV_DOCTORS_SUCCESS = 'GET_PATIENT_FAV_DOCTORS_SUCCESS';
+export const GET_PATIENT_FAV_DOCTORS_ERROR = 'GET_PATIENT_FAV_DOCTORS_ERROR';
+
+//patient fav post list
+export const GET_PATIENT_FAV_POSTS = 'GET_PATIENT_FAV_POSTS';
+export const GET_PATIENT_FAV_POSTS_SUCCESS = 'GET_PATIENT_FAV_POSTS_SUCCESS';
+export const GET_PATIENT_FAV_POSTS_ERROR = 'GET_PATIENT_FAV_POSTS_ERROR';
+
+//patient service list
+export const GET_PATIENT_SERVICES = 'GET_PATIENT_SERVICES';
+export const GET_PATIENT_SERVICES_SUCCESS = 'GET_PATIENT_SERVICES_SUCCESS';
+export const GET_PATIENT_SERVICES_ERROR = 'GET_PATIENT_SERVICES_ERROR';
 
 
 

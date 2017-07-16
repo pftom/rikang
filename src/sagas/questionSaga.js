@@ -94,7 +94,7 @@ function* updateSingleQuestion(payload) {
   try {
     const { token, id, body } = payload;
 
-    const question = yield call(request.put, base + qaSingleApi(id).updateSingleQuestion, token, body);
+    const question = yield call(request.put, base + qaSingleApi(id).updateSingleQuestion, body, token );
 
     yield put({ type: UPDATE_SINGLE_QUESTION_SUCCESS, question });
   } catch (error) {

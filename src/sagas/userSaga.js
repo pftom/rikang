@@ -59,7 +59,7 @@ function* registerAuthorize(payload) {
 function* changePassword(payload) {
   try {
     const { body, token } = payload;
-    yield call(request.put, base + usersApi.changePassword, token, body);
+    yield call(request.put, base + usersApi.changePassword, body, token);
     yield put({ type: CHANGE_PASSWORD_SUCCESS });
   } catch (error) {
     yield put({ type: CHANGE_PASSWORD_ERROR });

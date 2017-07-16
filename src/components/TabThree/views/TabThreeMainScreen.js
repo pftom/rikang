@@ -9,12 +9,18 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 import CustomTabBar from '../../TabOne/views/CustomTabBar';
 
 //import action constants
-import { GET_PATIENT_PROFILE, LOGOUT } from '../../../constants/'
+import { 
+  GET_PATIENT_PROFILE,
+  
+ } from '../../../constants/'
 
 //import selector from select data
 import { getPatientSelector } from '../../../selectors/';
 
 import TabThreeHeaderSection from './TabThreeHeaderSection';
+
+//use fake data
+
 
 
 class UserScreen extends PureComponent {
@@ -26,11 +32,7 @@ class UserScreen extends PureComponent {
 
   render() {
     const { dispatch, patientProfile } = this.props;
-    const ITEMS = [
-      '我的问题',
-      '我的咨询',
-      '我的收藏',
-    ];
+    
     
     return (
       <View>
