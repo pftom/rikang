@@ -314,7 +314,9 @@ class HospitalDetail extends PureComponent {
             <ScrollableTabView
               page={0}
               style={{ backgroundColor: '#F5F6F7'}}
-              renderTabBar={() => <CustomTabBar custom={true} />}
+              renderTabBar={() => <CustomTabBar 
+                                    custom={true}
+                                  />}
             >
               {
                 items.map((item, key) => (

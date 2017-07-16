@@ -38,7 +38,18 @@ class UserScreen extends PureComponent {
         <ScrollableTabView
           page={0}
           style={{ marginTop: 148 }}
-          renderTabBar={() => <CustomTabBar  />}
+          renderTabBar={
+            () => <CustomTabBar 
+                      multiCustom={true} 
+                      underlineStyle={{
+                        marginLeft: 28,
+                      }}
+                      tabTextStyle={{
+                        fontSize: 18,
+
+                      }}
+                  />
+          }
         >
           {
             ITEMS.map((item, key) => (

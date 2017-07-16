@@ -50,8 +50,8 @@ const DefaultTabBar = React.createClass({
       accessibilityTraits='button'
       onPress={() => onPressHandler(page)}
     >
-      <View style={[styles.tab, this.props.custom && styles.customTab ]}>
-        <Text style={this.props.custom ? styles.customText : styles.text}>
+      <View style={[styles.tab, this.props.custom && styles.customTab, this.props.multiCustom && styles.multiCustom ]}>
+        <Text style={[ this.props.custom ? styles.customText : styles.text, this.props.tabTextStyle ]}>
           {name}
         </Text>
       </View>
@@ -104,7 +104,7 @@ const DefaultTabBar = React.createClass({
             )
             : (
               <View
-                style={styles.tabbarUnderLine}
+                style={[ styles.tabbarUnderLine ]}
               />
             )
           }
