@@ -5,6 +5,7 @@ import BottomButton from './BottomButton';
 import Header from './Header';
 import SectionComponent from './SectionComponent';
 import UltimateListView from './UltimateListView';
+import UltimateFlatList from './UltimateFlatList';
 
 export {
   HintMessage,
@@ -14,4 +15,5 @@ export {
   Header,
   SectionComponent,
   UltimateListView,
+  UltimateFlatList,
 }

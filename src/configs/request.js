@@ -38,6 +38,7 @@ request.get =  ( url, params, token ) => {
   if (params) {
     url += '?' + queryString.stringify(params);
   }
+  console.log('url', url);
   if (token) {
     options = _.extend(header('GET', token));
   }

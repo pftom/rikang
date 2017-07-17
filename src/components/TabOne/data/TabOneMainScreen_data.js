@@ -55,10 +55,14 @@ const handleTime = (time) => {
 //handle immutable data to plain object
 const handleHealthPost = (data) => {
   let dataSource = [];
- 
+  
   data.map((item) => {
+
     dataSource.push({
       key: item.get('id'),
+      id: item.get('id'),
+      photo: item.get('photo'),
+      title: item.get('title'),
       time: handleTime(item.get('created')),
     });
   })

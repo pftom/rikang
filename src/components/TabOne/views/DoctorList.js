@@ -24,6 +24,9 @@ import { Header } from '../../common/';
 //import stylesheet
 import { DoctorListStyle as styles } from '../../styles/';
 
+//import common list
+import { UltimateFlatList } from '../../common/'
+
 //import data handle func
 import {
   handleNearby,
@@ -175,31 +178,19 @@ class DoctorList extends PureComponent {
           showGradient={true}
           navigation={navigation}
         />
-        <FlatList
-            style={styles.hospitalContainer}
-            showsVerticalScrollIndicator={false}
-            onEndReachedThreshold={0.5}
-            onEndReached={(info) => {
-              //because of bug of the flatlist or sectionlist, will triger twice on scroll to end
-              //so, I add the onEndReachedCalledDuringMomentum for fix this bug
-              if (!this.onEndReachedCalledDuringMomentum) {
-                this._onEndReached();
-                this.onEndReachedCalledDuringMomentum = true;
-              }
+        <UltimateFlatList
+            listStyle={{
+              flex: 1,
+              backgroundColor: '#F5F6F7',
             }}
-            automaticallyAdjustContentInsets={false}
-            scrollEventThrottle={16}
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.loadingTop}
-                onRefresh={this._onRefresh}
-                title='拼命加载中...'
-              />
-            }
-            onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
-            ListFooterComponent={this.renderFoot}
-            renderItem={({ item, key }) => <DoctorListItem key={key}  item={item} navigation={navigation} token={token} />}
-            data={nearbyDoctor}
+            listData={nearbyDoctor}
+            method={GET_DOCTORS}
+            data={doctors}
+            enableRefresh={true}
+            refreshMethod={[ GET_DOCTORS ]}
+            dispatch={this.props.dispatch}
+            token={token}
+            renderItem={(item) => <DoctorListItem token={token} navigation={navigation} item={item} />}
         />
       
       </View>

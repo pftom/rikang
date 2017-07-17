@@ -26,7 +26,7 @@ import {
 import {
   combine,
   refreshIt,
-} from './utils/'
+} from './utils/';
 
 
 

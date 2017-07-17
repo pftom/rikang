@@ -9,6 +9,7 @@ class PostSection extends PureComponent {
 
   render() {
     const { healthPostItem, navigation, token } = this.props;
+    console.log('healthPostItem', healthPostItem)
     let { title } = healthPostItem;
     if (title && title.length >= 30) {
       title = title.slice(0, 30);
@@ -19,7 +20,7 @@ class PostSection extends PureComponent {
       <TouchableOpacity onPress={() => { navigation.navigate('PostDetail', { token, id: healthPostItem.key })}}>
         <View style={styles.postBox}>
           <View style={styles.postImgBox}>
-            { healthPostItem.img && <Image source={{ uri: healthPostItem.photo }} style={styles.postImg} /> }
+            { healthPostItem.photo && <Image source={{ uri: healthPostItem.photo }} style={styles.postImg} /> }
           </View>
           <View style={styles.postContent}>
             <Text style={styles.postTitle}>{title}</Text>

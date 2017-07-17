@@ -43,7 +43,7 @@ class DoctorListItem extends PureComponent {
                 <View style={styles.consultLeftBox}>
                   <Image source={require('../img/consult.png')} style={styles.consultImg} />
                   <Text style={styles.onlineConsult}>在线咨询</Text>
-                  <Text style={styles.consultFee}>￥50</Text>
+                  <Text style={styles.consultFee}>{item.consult_price}</Text>
                 </View>
                 <View style={styles.consultRightBox}>
                   <Text style={styles.payedNum}>1001 人付款</Text>

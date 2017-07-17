@@ -4,15 +4,19 @@ import {
   Text, 
   View, 
   Image,
-  ListView,
+  FlatList,
   Animated,
   Platform,
   StatusBar,
+  ActivityIndicator,
+  RefreshControl,
 } from 'react-native';
 
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
+
+import parse from 'url-parse';
 
 import { transferHospitalClass } from '../../../utils/transferAbbr';
 
@@ -31,9 +35,6 @@ import { GET_SINGLE_HOSPITAL, GET_SINGLE_HOSPITAL_DOCTORS } from '../../../const
 //import Hospital Doctor lists
 import HospitalDoctors from './HospitalDoctors';
 
-//import list data
-import AnswerListItem from './AnswerListItem';
-import CommentListItem from './CommentListItem';
 
 //import style
 import { HospitalDetailStyle as styles } from '../../styles/';
@@ -41,43 +42,11 @@ import { HospitalDetailStyle as styles } from '../../styles/';
 //import doctor list item
 import DoctorListItem from './DoctorListItem';
 
+
 import {
   handleNearby,
 } from '../data/'
 
-
-const lists = [];
-for (let i = 0; i < 40; i++) {
-  lists.push({
-    "id": 1,
-    "question": 1,
-    "question_title": "为什么每次我进行撞墙练习后都会头痛",
-    "diagnosis": "疾病预测",
-    "prescription": "药物选择",
-    "advice": "指导建议",
-    "course": "推荐疗程",
-    "picked": false,
-    "upvotes": 3,
-    "commentsCount": 4,
-  });
-};
-
-
-const Commentlists = [];
-for (let i = 0; i < 40; i++) {
-  Commentlists.push({
-    "id": 1,
-    "patient": {
-        "avatar": "http://localhost:8000/media/avatars/weappbig.png",
-        "id": 3,
-        "name": "example"
-    },
-    "ratings": 5,
-    "anonymous": false,
-    "body": "good",
-    "created": "2017-07-03"
-  });
-};
 
 //for nav bar bifield
 const items = [
@@ -97,9 +66,6 @@ class HospitalDetail extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.ds = new ListView.DataSource({
-        rowHasChanged: (r1, r2) => r1 !== r2
-    })
 
     this.scrollViewY = new Animated.Value(0);
 
@@ -113,7 +79,7 @@ class HospitalDetail extends PureComponent {
     const { token, id } = navigation.state.params;
 
     dispatch({ type: GET_SINGLE_HOSPITAL, payload: { token, id }});
-    dispatch({ type: GET_SINGLE_HOSPITAL_DOCTORS, payload: { token, id }})
+    dispatch({ type: GET_SINGLE_HOSPITAL_DOCTORS, payload: { token, id, refresh: true }})
 
 
     this.setState({
@@ -169,7 +135,7 @@ class HospitalDetail extends PureComponent {
     return (
       <View style={styles.descriptionContainer}>
         <View style={styles.descriptionBox}>
-          <Text style={styles.description}>{rowData}</Text>
+          <Text style={styles.description}>{rowData.description}</Text>
         </View>
       </View>
     )
@@ -203,6 +169,7 @@ class HospitalDetail extends PureComponent {
 
     //use id for discriminate answers and comments
     let { hospitalDoctors } = this.props;
+    console.log('hospitalDcotors', hospitalDoctors);
 
     if (!this.hasMore() || this.state.loadingTail) {
       return;
@@ -212,11 +179,13 @@ class HospitalDetail extends PureComponent {
       const next = hospitalDoctors.get('next');
 
       this.setState({ loadingTail: true });
-      const { dispatch, token } = this.props;
+      const { navigation, dispatch } = this.props;
+      const { token, id } = navigation.state.params;
+
       const { query } = parse(next, true);
 
 
-      dispatch({ type: GET_SINGLE_HOSPITAL_DOCTORS, payload: { token, refresh: false, query } })
+      dispatch({ type: GET_SINGLE_HOSPITAL_DOCTORS, payload: { token, refresh: false, query, id } })
       
 
       this.endReachedTimer = setTimeout(() => {
@@ -260,7 +229,10 @@ class HospitalDetail extends PureComponent {
     //handle hospital data, only intro
     let hospitalIntro = [];
     if (hospital) {
-      hospitalIntro.push(hospital.get('description'));
+      hospitalIntro.push({
+        key: 1,
+        description: hospital.get('description'),
+      });
     }
 
     //handle hospital doctor lists data
@@ -269,9 +241,11 @@ class HospitalDetail extends PureComponent {
       hospitalDoctorLists = handleNearby(hospitalDoctors.get('results'));
     }
 
+    console.log('hospitalDoctorLists', hospitalDoctorLists)
+
     let dataSource = [
-      this.ds.cloneWithRows(hospitalIntro || []),
-      this.ds.cloneWithRows(hospitalDoctorLists || [])
+      hospitalIntro,
+      hospitalDoctorLists,
     ]
 
 
@@ -312,33 +286,43 @@ class HospitalDetail extends PureComponent {
         >
           <View style={[ styles.listBox, styles.listBoxx]}>
             <ScrollableTabView
-              page={0}
               style={{ backgroundColor: '#F5F6F7'}}
               renderTabBar={() => <CustomTabBar 
                                     custom={true}
                                   />}
             >
               {
-                items.map((item, key) => (
+                items.map((row, key) => (
                   <Animated.View
-                  key={item.id}
-                  tabLabel={item.content}
+                  key={row.id}
+                  tabLabel={row.content}
                    style=  {[ styles.listBox1, style2 ]}
               >
                 <View style={ styles.listBox2}>
-                  <ListView
-                      dataSource={dataSource[key]}
+                  <FlatList
+                      data={dataSource[key]}
                       enableEmptySections
-                      renderFooter={() => this.renderFoot()}
-                      onEndReached={() => this._onEndReached()}
+                      ListFooterComponent={() => this.renderFoot()}
+                      onEndReached={() => {
+                          //because of bug of the flatlist or sectionlist, will triger twice on scroll to end
+                          //so, I add the onEndReachedCalledDuringMomentum for fix this bug
+                          if (!this.onEndReachedCalledDuringMomentum) {
+                            this._onEndReached();
+                            this.onEndReachedCalledDuringMomentum = true;
+                          }
+                        }
+                      }
+                      
                       showsVerticalScrollIndicator={false}
                       automaticallyAdjustContentInsets={false}
                       onEndReachedThreshold={10}
-                      renderRow={(rowData) => {
-                        if (item.id === 1) {
-                          return this.renderDescription(rowData);
+                      onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
+                      renderItem={({ item, index }) => {
+                        console.log('rowData', item)
+                        if (row.id === 1) {
+                          return this.renderDescription(item);
                         }
-                        return <DoctorListItem item={rowData} token={token} key={rowData.id} navigation={navigation} />
+                        return <DoctorListItem item={item} token={token} key={item.id} navigation={navigation} />
                       }}
                       onScroll={
                       Animated.event(

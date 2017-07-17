@@ -26,6 +26,11 @@ const initialHospitalValue = Immutable.Map({
   loadingSuccess: false,
 });
 
+import {
+  combine,
+  refreshIt,
+} from './utils/';
+
 const hospitalValue = (state = initialHospitalValue, action) => {
     switch (action.type) {
       case GET_HOSPITALS:
@@ -59,10 +64,16 @@ const hospitalValue = (state = initialHospitalValue, action) => {
       case GET_SINGLE_HOSPITAL_DOCTORS_SUCCESS:
 
       const { hospitalDoctors } = action;
+
+      let oldHospitalDoctors = state.get('hospitalDoctors');
+      if(hospitalDoctors) {
+        hospitalDoctors = Immutable.Map(hospitalDoctors) ;
+      }
+
       return state.merge({
         isLoadingData: false,
         loadingSuccess: true,
-        hospitalDoctors,
+        hospitalDoctors: action.refresh ?  refreshIt(oldHospitalDoctors, hospitalDoctors) : combine(oldHospitalDoctors, hospitalDoctors),
       });
         
 

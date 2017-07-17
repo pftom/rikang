@@ -47,9 +47,10 @@ function* getHospitals(payload) {
 
 function* getSingleHospitalDoctors(payload) {
   try {
-    const { token, id } = payload;
-    const hospitalDoctors = yield call(request.get, base + homeSingleApi(id).singleHospitalDoctors, null, token);
-    yield put({ type: GET_SINGLE_HOSPITAL_DOCTORS_SUCCESS, hospitalDoctors });
+    const { token, id, refresh } = payload;
+    const query = (!refresh && payload.query) || null;
+    const hospitalDoctors = yield call(request.get, base + homeSingleApi(id).singleHospitalDoctors, query, token);
+    yield put({ type: GET_SINGLE_HOSPITAL_DOCTORS_SUCCESS, hospitalDoctors, refresh });
   } catch(error) {
     yield put({ type: GET_SINGLE_HOSPITAL_DOCTORS_ERROR });
   }

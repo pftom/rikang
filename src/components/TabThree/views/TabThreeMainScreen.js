@@ -57,7 +57,7 @@ class UserScreen extends PureComponent {
 
     const { dispatch, navigation, token } = this.props;
 
-    // dispatch({ type: GET_PATIENT_PROFILE, payload: { token } });
+    dispatch({ type: GET_PATIENT_PROFILE, payload: { token } });
     // dispatch({ type: GET_PATIENT_FAV_DOCTORS, payload: { token} });
     // dispatch({ type: GET_PATIENT_FAV_POSTS, payload: { token, refresh: true } });
     // dispatch({ type: GET_PATIENT_QUESTIONS, payload: { token } });
@@ -73,7 +73,7 @@ class UserScreen extends PureComponent {
     let patientFavPostsData = {
       data: [
         {
-          "created": "2017-07-11",
+            "created": "2017-07-11",
             "id": 1,
             "photo": "https://facebook.github.io/react/img/logo_og.png",
             "title": "5个大招让你旅途中也能睡个好觉",
@@ -238,6 +238,9 @@ class UserScreen extends PureComponent {
             ))
           }
         </ScrollableTabView>
+        <TouchableOpacity onPress={() => { dispatch({ type: 'LOGOUT' })}}>
+          <Text style={{ position: 'absolute', top: 20, fontSize: 40, }}>Logout</Text>
+        </TouchableOpacity>
       </View>
     )
   }

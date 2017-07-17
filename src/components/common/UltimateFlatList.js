@@ -6,7 +6,7 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
   Image,
-  SectionList,
+  FlatList,
   ActivityIndicator,
   RefreshControl,
 } from 'react-native';
@@ -17,10 +17,8 @@ import parse from 'url-parse';
 import { MainScreenStyle as styles } from '../styles/';
 
 
-//import section component
-import SectionComponent from './SectionComponent';
 
-class UltimateListView extends PureComponent {
+class UltimateFlatList extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -72,21 +70,6 @@ class UltimateListView extends PureComponent {
     }, 2000);
   }
 
-  renderSectionComponent(item, spread, seeMore) {
-    //item represent data should be renderItem
-    // right represent show right navigate label
-    const { navigation, token, jumpToScreen, sectionNoBorder } = this.props;
-    const data = {
-      item,
-      token,
-      spread,
-      navigation,
-      jumpToScreen,
-      sectionNoBorder,
-      seeMore,
-    }
-    return <SectionComponent {...data} />
-  }
 
   renderNoMore() {
     return (
@@ -173,7 +156,7 @@ class UltimateListView extends PureComponent {
   }
 
   render() {
-    const { header, section, data, method, enableRefresh, refreshMethod, simplify } = this.props;
+    const { header, data, method, enableRefresh, refreshMethod, simplify } = this.props;
 
     let refreshComponent = null;
     if (enableRefresh) {
@@ -187,7 +170,7 @@ class UltimateListView extends PureComponent {
     }
 
     return (
-      <SectionList
+      <FlatList
           showsVerticalScrollIndicator={false}
           onEndReachedThreshold={0.5}
           onEndReached={(info) => {
@@ -200,16 +183,17 @@ class UltimateListView extends PureComponent {
           }}
           automaticallyAdjustContentInsets={false}
           scrollEventThrottle={16}
+          style={this.props.listStyle}
           ListFooterComponent={() => this.renderFoot(data)}
           refreshControl={refreshComponent}
           onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
+          renderItem={({ item, index }) => this.props.renderItem(item)}
+          data={this.props.listData}
           ListHeaderComponent={header}
-          sections={section}
           enableEmptySections
-          renderSectionHeader={({ section }) => this.renderSectionComponent(section, section.spread, section.seeMore)}
         />
     )
   }
 }
 
-export default UltimateListView;
+export default UltimateFlatList;
