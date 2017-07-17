@@ -4,7 +4,7 @@ import {
   View, 
   Text, 
   TouchableOpacity,
-  
+
  } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -17,24 +17,55 @@ import { getQaSelector } from '../../../selectors/'
 //import header
 import Header from '../../common/Header';
 
+import QuestionListItem from './QuestionListItem';
+
+//import list
+import UltimateFlatList from '../../common/UltimateFlatList';
+
 //import styles
-import { QaMainScreenStyle as styles } from '../styles/'
+import { QaMainScreenStyle as styles } from '../styles/';
+
+import {
+  handleQuestions,
+} from '../data/'
 
 class QaScreen extends PureComponent {
 
   componentDidMount() {
     const { navigation, dispatch, token } = this.props;
 
-    // dispatch({ type: GET_QUESTIONS, payload: { token }});
+    dispatch({ type: GET_QUESTIONS, payload: { token }});
   }
 
   render() {
     const { questions, navigation, token } = this.props;
+
+    let questionList = [];
+    if (questions) {
+      //the second params for horizontal(true) show ten item,
+      questionList = handleQuestions(questions.get('results'));
+    }
+
     return (
       <View style={styles.container}>
         <Header 
           navigation={navigation}
           showGradient={true}
+        />
+
+        <UltimateFlatList
+         listStyle={{
+              flex: 1,
+              backgroundColor: '#F5F6F7',
+          }}
+          listData={questionList}
+          method={GET_QUESTIONS}
+          data={questions}
+          enableRefresh={true}
+          refreshMethod={[ GET_QUESTIONS ]}
+          dispatch={this.props.dispatch}
+          token={token}
+          renderItem={(item) => <QuestionListItem token={token} navigation={navigation} item={item} />}
         />
       </View>
     )

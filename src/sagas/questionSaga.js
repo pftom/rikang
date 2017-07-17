@@ -43,11 +43,12 @@ import { base, qaApi, qaSingleApi } from '../configs/config';
 //get the questions list
 function* getQuestions(payload) {
   try {
-    const { token } = payload;
+    const { token, refresh } = payload;
+    const query = (!refresh && payload.query) || null;
 
-    const questions = yield call(request.get, base + qaApi.questions, null, token);
+    const questions = yield call(request.get, base + qaApi.questions, query, token);
 
-    yield put({ type: GET_QUESTIONS_SUCCESS, questions });
+    yield put({ type: GET_QUESTIONS_SUCCESS, questions, refresh });
   } catch (error) {
     yield put({ type: GET_QUESTIONS_ERROR });
   }

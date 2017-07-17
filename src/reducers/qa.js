@@ -16,6 +16,12 @@ import {
 
 } from '../constants/';
 
+//import handle data func
+import {
+  combine,
+  refreshIt,
+} from './utils/';
+
 
 //qa reducers
 const initialQaValue = Map({
@@ -41,22 +47,20 @@ const qa = (state = initialQaValue, action) => {
     
     case GET_QUESTIONS_SUCCESS:
 
-      const { questions } = action;
-      
-      if (!state.get('questions')) {
-        return state.merge({
-          questions,
-        });
+
+    const { questions, refresh } = action.payload;
+
+      let oldQuestions = state.get('questions');
+
+      if (questions) {
+        questions = Immutable.Map(questions);
       }
 
-      let oldQuestions = state.getIn(['questions', 'results']);
-      return state
-            .merge({
-              isLoadingData: false,
-              loadingSuccess: true,
-              questions,
-            })
-            .updateIn(['questions', 'results'], list => list.concat(oldQuestions));
+      return state.merge({
+        isLoadingData: false,
+        loadingSuccess: true,
+        questions: refresh ? refreshIt(oldQuestions, questions) : combine(oldQuestions, questions),
+      });
 
       
     case GET_SINGLE_QUESTION_SUCCESS:
