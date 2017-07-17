@@ -44,6 +44,11 @@ import {
   jumpToScreenLists,
 } from '../data/'
 
+import {
+  handleNearby,
+  handleHealthPost,
+} from '../../TabOne/data/TabOneMainScreen_data.js'
+
 
 
 class UserScreen extends PureComponent {
@@ -52,11 +57,11 @@ class UserScreen extends PureComponent {
 
     const { dispatch, navigation, token } = this.props;
 
-    dispatch({ type: GET_PATIENT_PROFILE, payload: { token } });
-    dispatch({ type: GET_PATIENT_FAV_DOCTORS, payload: { token} });
-    dispatch({ type: GET_PATIENT_FAV_POSTS, payload: { token, refresh: true } });
-    dispatch({ type: GET_PATIENT_QUESTIONS, payload: { token } });
-    dispatch({ type: GET_PATIENT_STARRED_QUESTIONS, payload: { token } });
+    // dispatch({ type: GET_PATIENT_PROFILE, payload: { token } });
+    // dispatch({ type: GET_PATIENT_FAV_DOCTORS, payload: { token} });
+    // dispatch({ type: GET_PATIENT_FAV_POSTS, payload: { token, refresh: true } });
+    // dispatch({ type: GET_PATIENT_QUESTIONS, payload: { token } });
+    // dispatch({ type: GET_PATIENT_STARRED_QUESTIONS, payload: { token } });
     // dispatch({ type: GET_PATIENT_SERVICES, payload: { token } });
   } 
 
@@ -66,53 +71,93 @@ class UserScreen extends PureComponent {
 
     //获取对应列表的数据
     let patientFavPostsData = {
-      data: [],
+      data: [
+        {
+          "created": "2017-07-11",
+            "id": 1,
+            "photo": "https://facebook.github.io/react/img/logo_og.png",
+            "title": "5个大招让你旅途中也能睡个好觉",
+            "key": 1,
+        }
+      ],
       count: 0,
     };
     if (patientFavPosts) {
-      patientFavPostsData = handleUserData(patientFavPosts.get('results'), true);
+      patientFavPostsData = handleHealthPost(patientFavPosts.get('results'));
     }
 
     let patientFavDoctorsData = {
       data: [
         {
-          "avatar": "http://hostname.com/media/avatars/example.jpg",
+          "avatar": "https://facebook.github.io/react/img/logo_og.png",
           "id": 1,
+          "name": "tomhuang",
           "key": 1,
-          "name": "tomhuang"
         },
         {
-        "avatar": "http://hostname.com/media/avatars/example.jpg",
+        "avatar": "https://facebook.github.io/react/img/logo_og.png",
         "id": 1,
-        "name": "tomhuang"
+        "name": "tomhuang",
+        "key": 2,
     }
       ],
       count: 0,
     };
     if (patientFavDoctors) {
-      patientFavDoctorsData = handleUserData(patientFavDoctors, true);
+      patientFavDoctorsData = handleNearby(patientFavDoctors, true);
     }
 
     let patientUnsolvedQuestionsData = {
-      data: [],
+      data: [
+        {
+          "answer_num": 1,
+          "body": "test",
+          "created": "2017-07-05T14:30:45.918995",
+          "department": "GYN",
+          "id": 1,
+          "solved": false,
+          "stars": 3,
+          "title": "test",
+          "key": 1,
+        }
+      ],
       count: 0,
     };
     let patientSolvedQuestionsData = {
-      data: [],
+      data: [
+        {
+          "answer_num": 0,
+          "body": "test",
+          "created": "2017-07-11T19:36:31.608072",
+          "department": "NEO",
+          "id": 2,
+          "solved": true,
+          "stars": 1,
+          "title": "test2",
+          "key": 1,
+        }
+      ],
       count: 0,
     };
     if (patientQuestions) {
-      patientUnsolvedQuestionsData = handleUserData(patientQuestions, true, 'questions', 'unsolved');
+      patientUnsolvedQuestionsData = handleUserData(patientQuestions, 'questions', 'unsolved');
       // the second params for handle  solved status question
-      patientSolvedQuestionsData = handleUserData(patientQuestions, true, 'questions', 'solved');
+      patientSolvedQuestionsData = handleUserData(patientQuestions, 'questions', 'solved');
     }
 
     let patientStarredQuestionsData = {
-      data: [],
+      data: [
+        {
+            "id": 1,
+            "title": "最近两天疤痕周围突然很痒，请问我这是怎么了？",
+            "answer_num": 10,
+            "key": 1,
+        },
+      ],
       count: 0,
     }
     if (patientStarredQuestions) {
-      patientStarredQuestionsData = handleUserData(patientStarredQuestions, true);
+      patientStarredQuestionsData = handleUserData(patientStarredQuestions);
     }
 
     let patientUnderWayServicesData = {
@@ -129,22 +174,22 @@ class UserScreen extends PureComponent {
     };
     //service for later handle
     // if (patientServices) {
-    //   patientUnderWayServicesData = handleUserData(patientServices.get('results'), true, 'services', 'underway');
-    //   patientPaidServicesData = handleUserData(patientServices.get('results'), true, 'services', 'paid')
-    //   patientFinishedServicesData = handleUserData(patientServices.get('results'), true, 'services', 'finished');
+    //   patientUnderWayServicesData = handleUserData(patientServices.get('results'), 'services', 'underway');
+    //   patientPaidServicesData = handleUserData(patientServices.get('results'), 'services', 'paid')
+    //   patientFinishedServicesData = handleUserData(patientServices.get('results'), 'services', 'finished');
     // }
 
 
     const SectionLists = [
       [
-        { data: patientUnsolvedQuestionsData.data, key: `未解决（${patientUnsolvedQuestionsData.count}）`, spread: true, renderItem: ({ item }) => <ProblemItem navigation={navigation} item={item} token={token} /> },
-        { data: patientStarredQuestionsData.data, key: `关注的问题（${patientStarredQuestionsData.count}）`, spread: true, renderItem: ({ item }) => <ProblemItem navigation={navigation} item={item} token={token} /> },
-        { data: patientSolvedQuestionsData.data, key: `已解决（${patientStarredQuestionsData.count}）`, spread: true, renderItem: ({ item }) => <ProblemItem navigation={navigation} item={item} token={token} /> },
+        { data: patientUnsolvedQuestionsData.data, key: `未解决（${patientUnsolvedQuestionsData.count}）`, seeMore: true, renderItem: ({ item }) => <ProblemItem navigation={navigation} item={item} token={token} /> },
+        { data: patientStarredQuestionsData.data, key: `关注的问题（${patientStarredQuestionsData.count}）`, seeMore: true, renderItem: ({ item }) => <ProblemItem navigation={navigation} item={item} token={token} /> },
+        { data: patientSolvedQuestionsData.data, key: `已解决（${patientStarredQuestionsData.count}）`, seeMore: true, renderItem: ({ item }) => <ProblemItem navigation={navigation} item={item} token={token} /> },
       ],
       [
-        { data: patientUnderWayServicesData.data, key: `进行中（${patientUnderWayServicesData.count}）`, spread: true, renderItem: ({ item }) => <ServiceItem navigation={navigation} item={item} token={token} /> },
-        { data: patientPaidServicesData.data, key: `等待接受预约（${patientPaidServicesData.count}）`, spread: true, renderItem: ({ item }) => <PaidServiceItem navigation={navigation} item={item} token={token} /> },
-        { data: patientFinishedServicesData.data, key: `已完成（${patientFinishedServicesData.count}）`, spread: true, renderItem: ({ item }) => <ServiceItem navigation={navigation} item={item} token={token} /> },
+        { data: patientUnderWayServicesData.data, key: `进行中（${patientUnderWayServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <ServiceItem navigation={navigation} item={item} token={token} /> },
+        { data: patientPaidServicesData.data, key: `等待接受预约（${patientPaidServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <PaidServiceItem navigation={navigation} item={item} token={token} /> },
+        { data: patientFinishedServicesData.data, key: `已完成（${patientFinishedServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <ServiceItem navigation={navigation} item={item} token={token} /> },
       ],
       [
         { data: [{ favDoctors: patientFavDoctorsData.data, key: '1' }], key: `收藏的医生（${patientFavDoctorsData.count}）`, spread: true, renderItem: ({ item }) => <NearByDoctorSection navigation={navigation} nearbyDoctor={item.favDoctors} token={token} /> },
@@ -154,7 +199,7 @@ class UserScreen extends PureComponent {
     
     
     return (
-      <View>
+      <View style={{ flex: 1, backgroundColor: '#F5F6F7'}}>
         {
           <TabThreeHeaderSection patientProfile={patientProfile} />
         }
@@ -180,7 +225,10 @@ class UserScreen extends PureComponent {
                 key={key}
                 tabLabel={item}
                 section={SectionLists[key]}
-                simplify={true}
+                simplify={key !== 2 && true}
+                data={patientFavPosts}
+                method={GET_PATIENT_FAV_POSTS}
+                sectionNoBorder={true}
                 enableRefresh={false}
                 dispatch={dispatch}
                 token={token}

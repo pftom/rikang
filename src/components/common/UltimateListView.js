@@ -72,16 +72,18 @@ class UltimateListView extends PureComponent {
     }, 2000);
   }
 
-  renderSectionComponent(item, spread) {
+  renderSectionComponent(item, spread, seeMore) {
     //item represent data should be renderItem
     // right represent show right navigate label
-    const { navigation, token, jumpToScreen } = this.props;
+    const { navigation, token, jumpToScreen, sectionNoBorder } = this.props;
     const data = {
       item,
       token,
       spread,
       navigation,
       jumpToScreen,
+      sectionNoBorder,
+      seeMore,
     }
     return <SectionComponent {...data} />
   }
@@ -118,6 +120,8 @@ class UltimateListView extends PureComponent {
     if (simplify) {
       return;
     }
+    
+    console.log('hhhhhhh', simplify);
 
     if (!this.hasMore(data) || this.state.loadingTail) {
       return;
@@ -201,13 +205,7 @@ class UltimateListView extends PureComponent {
           onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
           ListHeaderComponent={header}
           sections={section}
-          renderSectionHeader={({ section }) => {
-            if (section.spread) {
-              return this.renderSectionComponent(section, true);
-            }
-
-            return this.renderSectionComponent(section, false);
-          }}
+          renderSectionHeader={({ section }) => this.renderSectionComponent(section, section.spread, section.seeMore)}
         />
     )
   }

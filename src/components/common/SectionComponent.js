@@ -9,10 +9,10 @@ import LinearGradient from 'react-native-linear-gradient';
 class SectionComponent extends PureComponent {
 
   render() {
-    const { token, item, spread, navigation, jumpToScreen } = this.props;
+    const { token, item, spread, seeMore, navigation, jumpToScreen, sectionNoBorder } = this.props;
 
     return (
-      <View style={styles.sectionBox}>
+      <View style={ [ styles.sectionBox, sectionNoBorder && { borderTopWidth: 0 }]}>
         <View style={styles.sectionLeftBox}>
           <LinearGradient
             start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}

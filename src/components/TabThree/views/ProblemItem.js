@@ -12,14 +12,14 @@ class ProblemItem extends PureComponent {
       <TouchableOpacity onPress={() => { console.log('hhh') }}>
         <View style={styles.problemContainer}>
           <View style={styles.problemBox}>
+            <Text style={styles.title}>{"               " + item.title}</Text>
             {
-              item.get('answer_num') && (
+              item && (
                 <View style={styles.answerCountBox}>
-                  <Text style={styles.answerCount}>{item.get('answer_num')}个新回答</Text>
+                  <Text style={styles.answerCount}>{item.answer_num}个新回答</Text>
                 </View>
               )
             }
-            <Text style={styles.title}>{item.get('title')}</Text>
           </View>
         </View>
       </TouchableOpacity>

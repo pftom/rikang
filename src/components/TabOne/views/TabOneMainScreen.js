@@ -94,6 +94,7 @@ class HomeMainScreen extends PureComponent {
           header={header}
           section={section}
           data={posts}
+          sectionNoBorder={false}
           method={GET_POSTS}
           enableRefresh={true}
           refreshMethod={[GET_DOCTORS, GET_POSTS]}

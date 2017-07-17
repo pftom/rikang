@@ -19,7 +19,7 @@ class PostSection extends PureComponent {
       <TouchableOpacity onPress={() => { navigation.navigate('PostDetail', { token, id: healthPostItem.key })}}>
         <View style={styles.postBox}>
           <View style={styles.postImgBox}>
-            { healthPostItem.img && <Image source={{ uri: healthPostItem.img }} style={styles.postImg} /> }
+            { healthPostItem.img && <Image source={{ uri: healthPostItem.photo }} style={styles.postImg} /> }
           </View>
           <View style={styles.postContent}>
             <Text style={styles.postTitle}>{title}</Text>

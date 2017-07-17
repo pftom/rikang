@@ -12,21 +12,27 @@ const { width, height } = Dimensions.get('window');
 export const  ProblemStyle = StyleSheet.create({
   problemContainer: {
     width: width,
-    height: px2dp(77),
     alignItems: 'center',
-    justifyContent: 'center',
   },
   problemBox: {
     width: px2dp(325),
     flexDirection: 'row',
+    marginTop: px2dp(10),
+    paddingBottom: px2dp(12),
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#DCDCDC',
   },
   answerCountBox: {
-    width: px2dp(83),
-    height: px2dp(24),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#50E3C2',
     borderRadius: 5,
+    paddingTop: 2,
+    paddingBottom: 2,
+    paddingLeft: 6,
+    paddingRight: 6,
+    position: 'absolute',
+
   },
   answerCount: {
     fontFamily: 'PingFangSC-Medium',
@@ -34,8 +40,9 @@ export const  ProblemStyle = StyleSheet.create({
     color: '#FFF',
   },
   title: {
-    fontFamily: 'PingFangSC-Medium',
+    fontFamily: 'PingFangSC-Light',
     fontSize: 18,
-    color: '#50E3C2',
+    color: '#000000',
+    backgroundColor: 'transparent',
   },
 })

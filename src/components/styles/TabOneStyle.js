@@ -90,10 +90,8 @@ export const MainScreenStyle = StyleSheet.create({
     borderTopColor: 'rgba(9, 199, 156, 0.5)',
   },
   sectionLeftBox: {
-    width: px2dp(97),
     height: px2dp(25),
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: px2dp(-10),
   },
@@ -106,6 +104,7 @@ export const MainScreenStyle = StyleSheet.create({
     fontFamily: 'PingFangSC-Medium',
     fontSize: px2dp(18),
     color: '#09C79C',
+    marginLeft: px2dp(16),
   },
   sectionRightBox: {
     width: px2dp(82),

@@ -21,7 +21,7 @@ const MAP_PAID_STATUS ={
 };
 
 
-const handleUserData = (data, cut, kind, status) => {
+const handleUserData = (data, kind, status) => {
   let dataSource = [];
 
   data.map((item) => {
@@ -56,14 +56,6 @@ const handleUserData = (data, cut, kind, status) => {
           key: id,
         });
     });
-
-  if (dataSource.length > 2 && cut) {
-    return {
-      data: dataSource.slice(0, 2),
-      count: dataSource.length,
-    };
-  }
-
   return {
     data: dataSource,
     count: dataSource.length,
