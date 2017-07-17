@@ -37,9 +37,11 @@ function* getSingleHospital(payload) {
 //HOSPITAL async actions handle function
 function* getHospitals(payload) {
   try {
-    const { token } = payload;
-    const hospitals = yield call(request.get, base + homeApi.hospitals, null, token);
-    yield put({ type: GET_HOSPITALS_SUCCESS, hospitals });
+    const { token, refresh } = payload;
+    const query = (!refresh && payload.query) || null;
+
+    const hospitals = yield call(request.get, base + homeApi.hospitals, query, token);
+    yield put({ type: GET_HOSPITALS_SUCCESS, hospitals, refresh });
   } catch(error) {
     yield put({ type: GET_HOSPITALS_ERROR });
   }

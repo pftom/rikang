@@ -46,10 +46,16 @@ const hospitalValue = (state = initialHospitalValue, action) => {
       case GET_HOSPITALS_SUCCESS:
 
         const { hospitals } = action;
+
+        let oldHospitals = state.get('hospitals');
+        if(hospitals) {
+          hospitals = Immutable.Map(hospitals) ;
+        }
+        console.log('hospitals', hospitals, action.refresh);
         return state.merge({
           isLoadingData: false,
           loadingSuccess: true,
-          hospitals,
+          hospitals: action.refresh ?  refreshIt(oldHospitals, hospitals) : combine(oldHospitals, hospitals),
         });
       
       case GET_SINGLE_HOSPITAL_SUCCESS:

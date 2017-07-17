@@ -32,6 +32,9 @@ import {
 //import render doctor list item
 import HospitalListItem from './HospitalListItem';
 
+//import list item
+import UltimateFlatList from '../../common/UltimateFlatList';
+
 
 class HospitalList extends PureComponent {
 
@@ -50,110 +53,7 @@ class HospitalList extends PureComponent {
     const { token } = navigation.state.params;
     //pull to refresh 
     dispatch({ type: GET_HOSPITALS, payload: { token, refresh: true } });
-
-    this.setState({
-      loadingTop: true,
-    });
-
-    this.mountTimer = setTimeout(() => {
-      this.setState({ loadingTop: false });
-    }, 2000);
   }
-
-  componentWillUnmount() {
-    clearTimeout(this.mountTimer);
-    clearTimeout(this.refreshTimer);
-    clearTimeout(this.endReachedTimer);
-  }
-
-  renderNoMore() {
-    return (
-      <View style={styles.loadingMore}>
-        <Text style={styles.loadingMoreText}>没有更多了...</Text>
-      </View>
-    )
-  }
-
-  hasMore = () => {
-    const { hospitals } = this.props;
-
-    //only for doctors exist and then get the next for judge has more
-    if (hospitals) {
-      const next = hospitals.get('next');
-      return next !== null;
-    }
-
-    //initial data return true to show blank page
-    return true;
-  }
-
-  _onRefresh = () => {
-    //judge whether is loading, if it is, wait for loading
-    if (this.state.loadingTop) {
-      return;
-    }
-
-    this.setState({ loadingTop: true });
-
-    const { navigation, dispatch } = this.props;
-    const { token } = navigation.state.params;
-
-    dispatch({ type: GET_HOSPITALS, payload: { token, refresh: true } });
-
-    this.refreshTimer = setTimeout(() => {
-      this.setState({ loadingTop: false });
-    }, 2000);
-  }
-
-  _onEndReached = () => {
-    //get loading for loading 
-    const { hospitals, isLoadingData } = this.props;
-
-    if (!this.hasMore() || this.state.loadingTail) {
-      return;
-    }
-
-    if(hospitals) {
-      const next = hospitals.get('next');
-
-      this.setState({ loadingTail: true });
-      const { navigation, dispatch } = this.props;
-      const { token } = navigation.state.params;
-      const { query } = parse(next, true);
-
-
-      dispatch({ type: GET_HOSPITALS, payload: { token, refresh: false, query } })
-      
-
-      this.endReachedTimer = setTimeout(() => {
-        this.setState({ loadingTail: false });
-      }, 2000);
-    }
-  }
-
-
-  renderFoot = () => {
-
-    if (!this.hasMore()) {
-      return this.renderNoMore();
-    }
-
-    const { hospitals } = this.props;
-
-    if (!hospitals || !this.state.loadingTail) {
-      return <View style={styles.loadingMore} />
-    }
-
-    return (
-      <View style={styles.loadingMore}>
-        <ActivityIndicator />
-        <View style={styles.loadingTextBox}>
-          <Text style={styles.loadingText}>加载中...</Text>
-        </View>
-      </View>
-    )
-  }
-
 
   render() {
     const { hospitals, navigation } = this.props;
@@ -163,7 +63,6 @@ class HospitalList extends PureComponent {
     if (hospitals) {
       //the second params for horizontal(true) show ten item,
       nearbyHospital = handleNearby(hospitals.get('results'), false, true);
-      console.log('nearbyDoctor', nearbyHospital);
     }
 
     return (
@@ -174,31 +73,19 @@ class HospitalList extends PureComponent {
           showGradient={true}
           navigation={navigation}
         />
-        <FlatList
-            showsVerticalScrollIndicator={false}
-            onEndReachedThreshold={0.5}
-            style={styles.hospitalContainer}
-            onEndReached={(info) => {
-              //because of bug of the flatlist or sectionlist, will triger twice on scroll to end
-              //so, I add the onEndReachedCalledDuringMomentum for fix this bug
-              if (!this.onEndReachedCalledDuringMomentum) {
-                this._onEndReached();
-                this.onEndReachedCalledDuringMomentum = true;
-              }
-            }}
-            automaticallyAdjustContentInsets={false}
-            scrollEventThrottle={16}
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.loadingTop}
-                onRefresh={this._onRefresh}
-                title='拼命加载中...'
-              />
-            }
-            onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
-            ListFooterComponent={this.renderFoot}
-            renderItem={({ item, key }) => <HospitalListItem key={key}  item={item} navigation={navigation} token={token} />}
-            data={nearbyHospital}
+        <UltimateFlatList
+            listStyle={{
+              flex: 1,
+              backgroundColor: '#F5F6F7',
+            }}
+            renderItem={(item) => <HospitalListItem  item={item} navigation={navigation} token={token} />}
+            listData={nearbyHospital}
+            method={GET_HOSPITALS}
+            data={hospitals}
+            enableRefresh={true}
+            refreshMethod={[ GET_HOSPITALS ]}
+            dispatch={this.props.dispatch}
+            token={token}
         />
       </View>
     )
