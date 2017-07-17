@@ -7,6 +7,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 
 import CustomTabBar from '../../TabOne/views/CustomTabBar';
+import UltimateListView from '../../common/UltimateListView';
 
 //import fav doc
 import NearByDoctorSection from '../../TabOne/views/NearByDoctorSection';
@@ -52,16 +53,18 @@ class UserScreen extends PureComponent {
     const { dispatch, navigation, token } = this.props;
 
     dispatch({ type: GET_PATIENT_PROFILE, payload: { token } });
-    dispatch({ type: GET_PATIENT_FAV_DOCTORS, payload: { token } });
-    dispatch({ type: GET_PATIENT_FAV_POSTS, payload: { token } });
+    dispatch({ type: GET_PATIENT_FAV_DOCTORS, payload: { token} });
+    dispatch({ type: GET_PATIENT_FAV_POSTS, payload: { token, refresh: true } });
     dispatch({ type: GET_PATIENT_QUESTIONS, payload: { token } });
     dispatch({ type: GET_PATIENT_STARRED_QUESTIONS, payload: { token } });
-    dispatch({ type: GET_PATIENT_SERVICES, payload: { token } });
+    // dispatch({ type: GET_PATIENT_SERVICES, payload: { token } });
   } 
 
   render() {
     const { dispatch, navigation, token,  patientProfile, patientFavPosts, patientFavDoctors, patientQuestions, patientStarredQuestions, patientServices  } = this.props;
 
+
+    //获取对应列表的数据
     let patientFavPostsData = {
       data: [],
       count: 0,
@@ -71,11 +74,23 @@ class UserScreen extends PureComponent {
     }
 
     let patientFavDoctorsData = {
-      data: [],
+      data: [
+        {
+          "avatar": "http://hostname.com/media/avatars/example.jpg",
+          "id": 1,
+          "key": 1,
+          "name": "tomhuang"
+        },
+        {
+        "avatar": "http://hostname.com/media/avatars/example.jpg",
+        "id": 1,
+        "name": "tomhuang"
+    }
+      ],
       count: 0,
     };
     if (patientFavDoctors) {
-      patientFavDoctorsData = handleUserData(patientFavDoctors.get('results'), true);
+      patientFavDoctorsData = handleUserData(patientFavDoctors, true);
     }
 
     let patientUnsolvedQuestionsData = {
@@ -87,9 +102,9 @@ class UserScreen extends PureComponent {
       count: 0,
     };
     if (patientQuestions) {
-      patientUnsolvedQuestionsData = handleUserData(patientQuestions.get('results'), true, 'questions', 'unsolved');
+      patientUnsolvedQuestionsData = handleUserData(patientQuestions, true, 'questions', 'unsolved');
       // the second params for handle  solved status question
-      patientSolvedQuestionsData = handleUserData(patientQuestions.get('results'), true, 'questions', 'solved');
+      patientSolvedQuestionsData = handleUserData(patientQuestions, true, 'questions', 'solved');
     }
 
     let patientStarredQuestionsData = {
@@ -97,7 +112,7 @@ class UserScreen extends PureComponent {
       count: 0,
     }
     if (patientStarredQuestions) {
-      patientStarredQuestionsData = handleUserData(patientStarredQuestions.get('results'), true);
+      patientStarredQuestionsData = handleUserData(patientStarredQuestions, true);
     }
 
     let patientUnderWayServicesData = {
@@ -112,11 +127,13 @@ class UserScreen extends PureComponent {
       data: [],
       count: 0,
     };
-    if (patientServices) {
-      patientUnderWayServicesData = handleUserData(patientServices.get('results'), true, 'services', 'underway');
-      patientPaidServicesData = handleUserData(patientServices.get('results'), true, 'services', 'paid')
-      patientFinishedServicesData = handleUserData(patientServices.get('results'), true, 'services', 'finished');
-    }
+    //service for later handle
+    // if (patientServices) {
+    //   patientUnderWayServicesData = handleUserData(patientServices.get('results'), true, 'services', 'underway');
+    //   patientPaidServicesData = handleUserData(patientServices.get('results'), true, 'services', 'paid')
+    //   patientFinishedServicesData = handleUserData(patientServices.get('results'), true, 'services', 'finished');
+    // }
+
 
     const SectionLists = [
       [
@@ -138,7 +155,9 @@ class UserScreen extends PureComponent {
     
     return (
       <View>
-        <TabThreeHeaderSection patientProfile={patientProfile} />
+        {
+          <TabThreeHeaderSection patientProfile={patientProfile} />
+        }
         <ScrollableTabView
           page={0}
           style={{ marginTop: 148 }}
@@ -159,6 +178,7 @@ class UserScreen extends PureComponent {
             ITEMS.map((item, key) => (
               <UltimateListView
                 key={key}
+                tabLabel={item}
                 section={SectionLists[key]}
                 simplify={true}
                 enableRefresh={false}

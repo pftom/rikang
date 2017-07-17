@@ -66,9 +66,9 @@ function* updatePatientProfile(payload) {
 //get patient fav posts
 function* getPatientFavPosts(payload) {
   try {
-    const { token } = payload;
+    const { token, refresh } = payload;
     const patientFavPosts = yield call(request.get, base + usersApi.patientFavPosts, null, token);
-    yield put({ type: GET_PATIENT_FAV_POSTS_SUCCESS, patientFavPosts });
+    yield put({ type: GET_PATIENT_FAV_POSTS_SUCCESS, patientFavPosts, refresh });
   } catch (error) {
     yield put({ type: GET_PATIENT_FAV_POSTS_ERROR });
   }

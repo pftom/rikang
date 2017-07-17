@@ -109,15 +109,10 @@ const patient = (state = initialPatientValue, action) => {
     case GET_PATIENT_FAV_DOCTORS_SUCCESS:
 
       const { patientFavDoctors } = action;
-
-      let oldPatientFavDoctors = state.get('patientFavDoctors');
-
-      if (patientFavDoctors) {
-        patientFavDoctors = Immutable.Map(patientFavDoctors);
-      }
+      console.log('patientFavDoctors', patientFavDoctors);
 
       return state.merge({
-              patientFavDoctors: action.refresh ? refreshIt(oldPatientFavDoctors, patientFavDoctors) : combine(oldPatientFavDoctors, patientFavDoctors),
+              patientFavDoctors,
               isLoadingData: false,
               loadingSuccess: true,
             });
@@ -125,11 +120,12 @@ const patient = (state = initialPatientValue, action) => {
     case GET_PATIENT_FAV_POSTS_SUCCESS:
 
       const { patientFavPosts } = action;
+      console.log('patientFavPosts', patientFavPosts);
 
       let oldPatientFavPosts = state.get('patientFavPosts');
 
       if (patientFavPosts) {
-        patientFavPosts = Immutable.Map(patientFavPosts);
+        patientFavPosts = Map(patientFavPosts);
       }
 
       return state.merge({
@@ -141,15 +137,10 @@ const patient = (state = initialPatientValue, action) => {
     case GET_PATIENT_QUESTIONS_SUCCESS:
 
       const { patientQuestions } = action;
-
-      let oldPatientQuestions = state.get('patientQuestions');
-
-      if (patientQuestions) {
-        patientQuestions = Immutable.Map(patientQuestions);
-      }
+      console.log('patientQuestions', patientQuestions);
 
       return state.merge({
-              patientQuestions: action.refresh ? refreshIt(oldPatientQuestions, patientQuestions) : combine(oldPatientQuestions, patientQuestions),
+              patientQuestions,
               isLoadingData: false,
               loadingSuccess: true,
             });
@@ -157,15 +148,10 @@ const patient = (state = initialPatientValue, action) => {
     case GET_PATIENT_STARRED_QUESTIONS_SUCCESS:
 
       const { patientStarredQuestions } = action;
-
-      let oldPatientStarredQuestions = state.get('patientStarredQuestions');
-
-      if (patientStarredQuestions) {
-        patientStarredQuestions = Immutable.Map(patientStarredQuestions);
-      }
+      console.log('patientStarredQuestions', patientStarredQuestions);
 
       return state.merge({
-              patientStarredQuestions: action.refresh ? refreshIt(oldPatientStarredQuestions, patientStarredQuestions) : combine(oldPatientStarredQuestions, patientStarredQuestions),
+              patientStarredQuestions,
               isLoadingData: false,
               loadingSuccess: true,
             });
@@ -173,15 +159,10 @@ const patient = (state = initialPatientValue, action) => {
     case GET_PATIENT_SERVICES_SUCCESS:
 
       const { patientServices } = action;
-
-      let oldPatientServices = state.get('patientServices');
-
-      if (patientServices) {
-        patientServices = Immutable.Map(patientServices);
-      }
+      console.log('patientServices', patientServices);
 
       return state.merge({
-              patientServices: action.refresh ? refreshIt(oldPatientServices, patientServices) : combine(oldPatientServices, patientServices),
+              patientServices,
               isLoadingData: false,
               loadingSuccess: true,
             });

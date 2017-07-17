@@ -58,10 +58,16 @@ const handleUserData = (data, cut, kind, status) => {
     });
 
   if (dataSource.length > 2 && cut) {
-    return dataSource.slice(0, 2);
+    return {
+      data: dataSource.slice(0, 2),
+      count: dataSource.length,
+    };
   }
 
-  return dataSource;
+  return {
+    data: dataSource,
+    count: dataSource.length,
+  };
 };
 
 export {

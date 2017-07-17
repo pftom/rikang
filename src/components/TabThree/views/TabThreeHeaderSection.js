@@ -31,7 +31,7 @@ class TabThreeHeaderSection extends PureComponent {
                   <SelectPhoto />
                 </View>
                 <View style={styles.rightBox}>
-                  <Text style={styles.name}>hhhh</Text>
+                  <Text style={styles.name}>{patientProfile.get('name')}</Text>
                   <View style={styles.infoBox}>
                     <Text style={styles.info}>个人信息</Text>
                     <Image source={require('../img/rightArrow.png')} />

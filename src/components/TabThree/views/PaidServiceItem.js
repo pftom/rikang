@@ -3,7 +3,7 @@ import { TouchableOpacity, Text, View, Image } from 'react-native';
 
 import { ServiceStyle as styles } from '../styles/';
 
-class ServiceItem extends PureComponent {
+class PaidServiceItem extends PureComponent {
 
   render() {
     const { item, navigation } = this.props;
@@ -36,4 +36,4 @@ class ServiceItem extends PureComponent {
 
 */
 
-export default ServiceItem;
+export default PaidServiceItem;
