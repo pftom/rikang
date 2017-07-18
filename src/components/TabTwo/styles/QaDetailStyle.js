@@ -24,6 +24,17 @@ export const QaDetailStyle = StyleSheet.create({
     backgroundColor: '#ECECEC',
   },  
 
+  imgBox: {
+    width: px2dp(323),
+    marginLeft: px2dp(26),
+    marginTop: px2dp(10),
+  },
+  photo: {
+    width: 80,
+    height: 66,
+    marginRight: px2dp(5),
+  },
+
   topBox: {
     marginTop: px2dp(25),
     width: px2dp(323),

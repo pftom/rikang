@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
-import { TouchableOpacity, Text, View, } from 'react-native';
+import { TouchableOpacity, Text, View, ScrollView, Image } from 'react-native';
 
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
+import PhotoBrowser from 'react-native-photo-browser';
 
 //import async action constants
 import { 
@@ -39,6 +40,21 @@ import { UltimateFlatList } from '../../common/';
 
 //import item
 import QaAnswerListItem from './QaAnswerListItem';
+
+const EXMAPLES = [
+  {
+    photo: 'https://facebook.github.io/react/img/logo_og.png'
+  },
+  {
+    photo: 'https://facebook.github.io/react/img/logo_og.png'
+  },
+  {
+    photo: 'https://facebook.github.io/react/img/logo_og.png'
+  },
+  {
+    photo: 'https://facebook.github.io/react/img/logo_og.png'
+  },
+];
 
 class QuestionDetail extends PureComponent {
 
@@ -79,6 +95,21 @@ class QuestionDetail extends PureComponent {
             </View>
             <View style={styles.body}>
               <Text style={styles.content}>{question.get('body')}</Text>
+            </View>
+            
+            <View style={styles.imgBox}>
+              <ScrollView
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              >
+                {
+                  EXMAPLES.map((item, key) => (
+                    <TouchableOpacity key={key} onPress={() => navigation.navigate('ImageView', { media: EXMAPLES })}>
+                      <Image source={{ uri: item.photo }} style={styles.photo} />
+                    </TouchableOpacity>
+                  ))
+                }
+              </ScrollView>
             </View>
             <View style={styles.tagContainer}>
               <TagBox star={true} item={handleQuestion(question)} btnText={"关注"} />
