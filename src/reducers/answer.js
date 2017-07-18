@@ -8,7 +8,11 @@ import {
 
 } from '../constants/';
 
-
+//import handle func for computing data
+import {
+  combine,
+  refreshIt,
+} from './utils/';
 
 //home reducers
 const initialAnswerValue = Map({
@@ -31,11 +35,17 @@ const answer = (state = initialAnswerValue, action) => {
     case GET_SINGLE_QUESTION_ALL_ANSWERS_SUCCESS:
 
       const { answers } = action;
+
+      let oldAnswers = state.get('answers');
+
+      if (answers) {
+        answers = Immutable.Map(answers);
+      }
       return state
             .merge({
               isLoadingData: false,
               loadingSuccess: true,
-              answers,
+              answers: action.refresh ? refreshIt(oldAnswers, answers) : combine(oldAnswers, answers),
             })
 
 

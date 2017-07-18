@@ -21,23 +21,25 @@ class TagBox extends PureComponent {
     //get judge condition
     const { star } = this.props;
     return (
-      <View style={styles.tagBox}>
-        <View style={styles.leftBox}>
-          <Text style={styles.starsAndAnswer}>{item.stars} 人关注</Text>
-          <View style={styles.dot}></View>
-          <Text style={styles.starsAndAnswer}>{item.answer_num} 条回答</Text>
-        </View>
-        <View style={styles.rightBox}>
-          <TouchableHighlight onPress={() => {console.log('h')}} style={styles.btnContainer}>
-            {
-              star && (
-                <View style={styles.starBtn}>
-                  <Image source={require('./img/plus.png')} />
-                  <Text style={styles.starText}>关注</Text>
-                </View>
-              )
-            }
-          </TouchableHighlight>
+      <View style={styles.tagContainer}>  
+        <View style={styles.tagBox}>
+          <View style={styles.leftBox}>
+            <Text style={styles.starsAndAnswer}>{item.stars} 人关注</Text>
+            <View style={styles.dot}></View>
+            <Text style={styles.starsAndAnswer}>{item.answer_num} 条回答</Text>
+          </View>
+          <View style={styles.rightBox}>
+            <TouchableHighlight onPress={() => {console.log('h')}} style={styles.btnContainer}>
+              {
+                star && (
+                  <View style={styles.starBtn}>
+                    <Image source={require('./img/plus.png')} />
+                    <Text style={styles.starText}>关注</Text>
+                  </View>
+                )
+              }
+            </TouchableHighlight>
+          </View>
         </View>
       </View>
     )

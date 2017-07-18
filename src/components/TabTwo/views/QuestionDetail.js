@@ -24,7 +24,18 @@ import { getSingleQaSelector } from '../../../selectors/';
 
 import { Header } from '../../common/';
 
+//import tag box
+import { TagBox } from '../../common/';
 
+//import handle func
+import { handleQuestion, handleAnswers } from '../data/';
+
+//import style
+import { QaDetailStyle as styles } from '../styles/';
+
+
+//import list
+import { UltimateFlatList } from '../../common/';
 
 class QuestionDetail extends PureComponent {
 
@@ -41,36 +52,53 @@ class QuestionDetail extends PureComponent {
     const { question, AllImg, dispatch, navigation, answers } = this.props;
     const { token, id } = navigation.state.params;
 
+    let answerList = [];
+    if (answers) {
+      answerList = handleAnswers(answers);
+    }
+
     const solvedFlag = question && question.has('solved') && question.get('solved');
 
     return (
-      <View>
+      <View style={styles.container}>
         <Header
           logoLeft={true}
           headerText={"问题详情"}
+          navigation={navigation}
           showGradient={true}
         />
 
         {
           question && (
             <View style={styles.questionContainer}>
-              <View style={styles.questionBox}>
-                <View style={styles.topBox}>
-                  <Text>{question.get('title')}</Text>  
-                  {
-                    solvedFlag && (
-                      <Text style={styles.solved}>（已解决）</Text>
-                    )
-                  }
+              <View style={styles.topBox}>
+                  <Text style={styles.title}>
+                    {question.get('title')}
+                    {
+                      solvedFlag && (
+                        <Text style={styles.solved}>（已解决）</Text>
+                      )
+                    }
+                  </Text>  
+                  
                 </View>
                 <View style={styles.body}>
                   <Text style={styles.content}>{question.get('body')}</Text>
                 </View>
-                <View style={styles.bottomBox}>
-                  
-                </View>
-              </View>
+                <TagBox star={true} item={handleQuestion(question)} />
             </View>
+          )
+        }
+
+        {
+          answers && (
+            <UltimateFlatList
+              listStyle={{
+                flex: 1,
+                backgroundColor: '#F5F6F7',
+              }}
+
+            />
           )
         }
       </View>

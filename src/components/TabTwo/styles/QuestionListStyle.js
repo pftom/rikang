@@ -34,7 +34,9 @@ export const QuestionListStyle = StyleSheet.create({
     fontSize: 18,
     color: '#000000',
   },
-
+  tagContainer: {
+    width: px2dp(324),
+  },
   tagBox: {
     marginTop: px2dp(16),
     flexDirection: 'row',
