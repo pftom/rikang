@@ -77,6 +77,7 @@ class DoctorList extends PureComponent {
             refreshMethod={[ GET_DOCTORS ]}
             dispatch={this.props.dispatch}
             token={token}
+            footText={"到底了哦"}
             renderItem={(item) => <DoctorListItem token={token} navigation={navigation} item={item} />}
         />
       

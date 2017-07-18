@@ -83,6 +83,7 @@ class HospitalList extends PureComponent {
             method={GET_HOSPITALS}
             data={hospitals}
             enableRefresh={true}
+            footText={"到底了哦"}
             refreshMethod={[ GET_HOSPITALS ]}
             dispatch={this.props.dispatch}
             token={token}

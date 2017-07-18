@@ -100,6 +100,7 @@ class HomeMainScreen extends PureComponent {
           refreshMethod={[GET_DOCTORS, GET_POSTS]}
           dispatch={dispatch}
           token={token}
+          footText={"没有更多啦..."}
           navigation={navigation}
           jumpToScreen={'DoctorList'}
         />

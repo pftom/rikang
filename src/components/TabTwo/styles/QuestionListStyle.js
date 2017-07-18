@@ -88,10 +88,12 @@ export const QuestionListStyle = StyleSheet.create({
     borderRadius: 8,
   },
   starText: {
-    marginLeft: px2dp(9),
     fontFamily: 'PingFangSC-Regular',
     fontSize: 14,
     color: '#FFFFFF',
     letterSpacing: -0.28,
+  },
+  img: {
+    marginRight: px2dp(9)
   }
 })

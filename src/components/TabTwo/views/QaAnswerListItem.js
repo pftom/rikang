@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { TouchableOpacity, Text, View, Image } from 'react-native';
+import { TouchableOpacity, Text, View, Image, TouchableWithoutFeedback } from 'react-native';
 
 
 //import tag box
@@ -13,6 +13,14 @@ import {
 import { QaAnswerListStyle as styles } from '../styles/'
 
 class QaAnswerListItem extends PureComponent {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      spread: true,
+    }
+  }
 
   renderItem = (item, key) => {
 
@@ -60,7 +68,7 @@ class QaAnswerListItem extends PureComponent {
         <View style={styles.answerBox}>
           <View style={styles.answerHead}>
             <View style={styles.doctorAvatarBox}>
-              <Image source={{ uri: item.avatar }} style={styles.doctorAvatar} />
+              <Image source={{ uri: item.owner.avatar }} style={styles.doctorAvatar} />
             </View>
             <View style={styles.idBox}>
               <Text style={styles.name}>{item.owner.name}</Text>
@@ -68,14 +76,29 @@ class QaAnswerListItem extends PureComponent {
                 {item.owner.hospital_name}{transferDepartment[item.owner.department]}{transferTitle[item.owner.title]}
               </Text>
             </View>
-            <View style={styles.spreadBox}>
-                <Image source={require('../../TabOne/img/spread.png')} />
-                <Text style={styles.spread}>展开</Text>
-            </View>
+            <TouchableWithoutFeedback onPress={() => { this.setState({ spread: !this.state.spread })}}>
+              {
+                this.state.spread
+                ? (
+                  <View style={styles.spreadBox}>
+                      <Image source={require('../../TabOne/img/spread.png')} />
+                      <Text style={styles.spread}>展开</Text>
+                  </View>
+                )
+                : (
+                  <View style={styles.spreadBox}>
+                      <Image source={require('../../common/img/up.png')} />
+                      <Text style={styles.spread}>收起</Text>
+                  </View>
+                )
+              }
+            </TouchableWithoutFeedback>
           </View>
           <View style={styles.answerMid}>
             {
-              midBoxData.map((item, key) => this.renderItem(item, key))
+              !this.state.spread && (
+                midBoxData.map((item, key) => this.renderItem(item, key))
+              )
             }
           </View>
           <View style={styles.tagContainer}>

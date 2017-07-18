@@ -39,7 +39,7 @@ class TagBox extends PureComponent {
           {
             (help || comment) && (
               <View style={styles.leftBox}>
-                <Image souce={require('../TabOne/img/comment.png')} />
+                <Image source={require('../TabOne/img/upvote.png')} />
                 <Text style={styles.upvote}>{item.upvotes}</Text>
               </View>
             )
@@ -47,8 +47,8 @@ class TagBox extends PureComponent {
 
           {
             help && (
-              <View style={styles.midBox}>
-                <Image souce={require('../TabOne/img/upvote.png')} />
+              <View style={styles.leftBox}>
+                <Image source={require('../TabOne/img/comment.png')} />
                 <Text style={styles.upvote}>9</Text>
               </View>
             )
@@ -60,7 +60,7 @@ class TagBox extends PureComponent {
               <View style={styles.starBtn}>
                 {
                   (star || comment) && (
-                    <Image source={mapImg} />
+                    <Image source={mapImg} style={styles.img} />
                   )
                 }
                 <Text style={styles.starText}>{btnText}</Text>

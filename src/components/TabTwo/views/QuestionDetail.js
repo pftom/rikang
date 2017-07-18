@@ -101,15 +101,16 @@ class QuestionDetail extends PureComponent {
           answers && (
             <UltimateFlatList
               listStyle={{
-                flex: 1,
-                backgroundColor: '#F5F6F7',
-            }}
+                  flex: 1,
+                  backgroundColor: '#F5F6F7',
+              }}
               header={header}
               listData={answerList}
               method={GET_SINGLE_QUESTION_ALL_ANSWERS}
               data={answers}
               dispatch={this.props.dispatch}
               token={token}
+              footText={"啊哦！还没有回答哦"}
               renderItem={(item) => <QaAnswerListItem token={token} navigation={navigation} item={item} />}
             />
           )

@@ -71,10 +71,10 @@ class UltimateFlatList extends PureComponent {
   }
 
 
-  renderNoMore() {
+  renderNoMore = () => {
     return (
       <View style={styles.loadingMore}>
-        <Text style={styles.loadingMoreText}>没有更多了...</Text>
+        <Text style={styles.loadingMoreText}>{this.props.footText}</Text>
       </View>
     )
   }

@@ -62,6 +62,7 @@ class QaScreen extends PureComponent {
           refreshMethod={[ GET_QUESTIONS ]}
           dispatch={this.props.dispatch}
           token={token}
+          footText={"到底了哦..."}
           renderItem={(item) => <QuestionListItem token={token} navigation={navigation} item={item} />}
         />
         <SelectBox 

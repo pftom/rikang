@@ -88,6 +88,9 @@ export const QaAnswerListStyle = StyleSheet.create({
     alignItems: 'center',
     marginRight: 40,
   },  
+  rightBox: {
+    width: px2dp(221),
+  },
   title: {
     fontFamily: 'PingFangSC-Light',
     fontSize: 12,

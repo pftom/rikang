@@ -16,7 +16,6 @@ export const QaDetailStyle = StyleSheet.create({
   },  
   questionContainer: {
     width: width,
-    alignItems: 'center',
     backgroundColor: '#F5F6F7',
   },
   graySpace: {
@@ -29,7 +28,7 @@ export const QaDetailStyle = StyleSheet.create({
     marginTop: px2dp(25),
     width: px2dp(323),
     flexDirection: 'row',
-    justifyContent: 'center',
+    marginLeft: px2dp(26),
   },
   title: {
     fontFamily: 'PingFangSC-Medium',
@@ -45,8 +44,8 @@ export const QaDetailStyle = StyleSheet.create({
   },
   body: {
     width: px2dp(324),
-    alignItems: 'center',
     marginTop: px2dp(15),
+    marginLeft: px2dp(26),
   },
   content: {
     fontFamily: 'PingFangSC-Light',
@@ -56,5 +55,6 @@ export const QaDetailStyle = StyleSheet.create({
   },  
   tagContainer: {
     width: px2dp(324),
+    marginLeft: px2dp(26),
   },
 })
