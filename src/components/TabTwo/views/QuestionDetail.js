@@ -20,7 +20,10 @@ import {
 } from '../../../constants/'
 
 //import selector for computing data
-import { getSingleQaSelector } from '../../../selectors/'
+import { getSingleQaSelector } from '../../../selectors/';
+
+import { Header } from '../../common/';
+
 
 
 class QuestionDetail extends PureComponent {
@@ -37,15 +40,39 @@ class QuestionDetail extends PureComponent {
   render() {
     const { question, AllImg, dispatch, navigation, answers } = this.props;
     const { token, id } = navigation.state.params;
+
+    const solvedFlag = question && question.has('solved') && question.get('solved');
+
     return (
       <View>
-        <Text>{question && question.get('title')}</Text>
-        <TouchableOpacity onPress={() => { dispatch({ type: STAR_SINGLE_QUESTION, payload: { token, id, question }})}}>
-          <Text>关注</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => { navigation.navigate('AnswerDetail', { token, id })}}>
-          <Text>获取单个回答</Text>
-        </TouchableOpacity>
+        <Header
+          logoLeft={true}
+          headerText={"问题详情"}
+          showGradient={true}
+        />
+
+        {
+          question && (
+            <View style={styles.questionContainer}>
+              <View style={styles.questionBox}>
+                <View style={styles.topBox}>
+                  <Text>{question.get('title')}</Text>  
+                  {
+                    solvedFlag && (
+                      <Text style={styles.solved}>（已解决）</Text>
+                    )
+                  }
+                </View>
+                <View style={styles.body}>
+                  <Text style={styles.content}>{question.get('body')}</Text>
+                </View>
+                <View style={styles.bottomBox}>
+                  
+                </View>
+              </View>
+            </View>
+          )
+        }
       </View>
     )
   }
