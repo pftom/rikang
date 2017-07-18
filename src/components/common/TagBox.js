@@ -19,29 +19,55 @@ class TagBox extends PureComponent {
     const { navigation, token, item } = this.props;
 
     //get judge condition
-    const { star } = this.props;
+    const { star, help, comment, btnText } = this.props;
+
+    const mapImg = star ? require('./img/plus.png') : require('./img/leftArrow.png');
+
     return (
-      <View style={styles.tagContainer}>  
-        <View style={styles.tagBox}>
-          <View style={styles.leftBox}>
-            <Text style={styles.starsAndAnswer}>{item.stars} 人关注</Text>
-            <View style={styles.dot}></View>
-            <Text style={styles.starsAndAnswer}>{item.answer_num} 条回答</Text>
-          </View>
+      <View style={styles.tagBox}>
+          {
+            star && (
+              <View style={styles.leftBox}>
+                <Text style={styles.starsAndAnswer}>{item.stars} 人关注</Text>
+                <View style={styles.dot}></View>
+                <Text style={styles.starsAndAnswer}>{item.answer_num} 条回答</Text>
+              </View>
+            )
+          }
+
+
+          {
+            (help || comment) && (
+              <View style={styles.leftBox}>
+                <Image souce={require('../TabOne/img/comment.png')} />
+                <Text style={styles.upvote}>{item.upvotes}</Text>
+              </View>
+            )
+          }
+
+          {
+            help && (
+              <View style={styles.midBox}>
+                <Image souce={require('../TabOne/img/upvote.png')} />
+                <Text style={styles.upvote}>9</Text>
+              </View>
+            )
+          }
+
+
           <View style={styles.rightBox}>
             <TouchableHighlight onPress={() => {console.log('h')}} style={styles.btnContainer}>
-              {
-                star && (
-                  <View style={styles.starBtn}>
-                    <Image source={require('./img/plus.png')} />
-                    <Text style={styles.starText}>关注</Text>
-                  </View>
-                )
-              }
+              <View style={styles.starBtn}>
+                {
+                  (star || comment) && (
+                    <Image source={mapImg} />
+                  )
+                }
+                <Text style={styles.starText}>{btnText}</Text>
+              </View>
             </TouchableHighlight>
           </View>
         </View>
-      </View>
     )
   }
 }

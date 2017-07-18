@@ -37,6 +37,9 @@ import { QaDetailStyle as styles } from '../styles/';
 //import list
 import { UltimateFlatList } from '../../common/';
 
+//import item
+import QaAnswerListItem from './QaAnswerListItem';
+
 class QuestionDetail extends PureComponent {
 
   componentDidMount() {
@@ -45,7 +48,7 @@ class QuestionDetail extends PureComponent {
 
     dispatch({ type: GET_SINGLE_QUESTION, payload: { token, id }});
     dispatch({ type: GET_SINGLE_QUESTION_ALL_IMG, payload: { token, id }});
-    dispatch({ type: GET_SINGLE_QUESTION_ALL_ANSWERS, payload: { token, id }});
+    dispatch({ type: GET_SINGLE_QUESTION_ALL_ANSWERS, payload: { token, id, refresh: true }});
   }
 
   render() {
@@ -54,10 +57,36 @@ class QuestionDetail extends PureComponent {
 
     let answerList = [];
     if (answers) {
-      answerList = handleAnswers(answers);
+      answerList = handleAnswers(answers.get('results'));
     }
 
     const solvedFlag = question && question.has('solved') && question.get('solved');
+
+    let header = null;
+    if (question) {
+      header = () => (
+        <View style={styles.questionContainer}>
+          <View style={styles.topBox}>
+              <Text style={styles.title}>
+                {question.get('title')}
+                {
+                  solvedFlag && (
+                    <Text style={styles.solved}>（已解决）</Text>
+                  )
+                }
+              </Text>  
+              
+            </View>
+            <View style={styles.body}>
+              <Text style={styles.content}>{question.get('body')}</Text>
+            </View>
+            <View style={styles.tagContainer}>
+              <TagBox star={true} item={handleQuestion(question)} btnText={"关注"} />
+            </View>
+            <View style={styles.graySpace}/>
+        </View>
+      );
+    }
 
     return (
       <View style={styles.container}>
@@ -69,35 +98,19 @@ class QuestionDetail extends PureComponent {
         />
 
         {
-          question && (
-            <View style={styles.questionContainer}>
-              <View style={styles.topBox}>
-                  <Text style={styles.title}>
-                    {question.get('title')}
-                    {
-                      solvedFlag && (
-                        <Text style={styles.solved}>（已解决）</Text>
-                      )
-                    }
-                  </Text>  
-                  
-                </View>
-                <View style={styles.body}>
-                  <Text style={styles.content}>{question.get('body')}</Text>
-                </View>
-                <TagBox star={true} item={handleQuestion(question)} />
-            </View>
-          )
-        }
-
-        {
           answers && (
             <UltimateFlatList
               listStyle={{
                 flex: 1,
                 backgroundColor: '#F5F6F7',
-              }}
-
+            }}
+              header={header}
+              listData={answerList}
+              method={GET_SINGLE_QUESTION_ALL_ANSWERS}
+              data={answers}
+              dispatch={this.props.dispatch}
+              token={token}
+              renderItem={(item) => <QaAnswerListItem token={token} navigation={navigation} item={item} />}
             />
           )
         }

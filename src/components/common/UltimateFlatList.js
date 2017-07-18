@@ -189,7 +189,7 @@ class UltimateFlatList extends PureComponent {
           onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
           renderItem={({ item, index }) => this.props.renderItem(item)}
           data={this.props.listData}
-          ListHeaderComponent={header}
+          ListHeaderComponent={this.props.header}
           enableEmptySections
           initialNumToRender={5}
           removeClippedSubviews={false}

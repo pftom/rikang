@@ -49,6 +49,13 @@ export const QuestionListStyle = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  upvote: {
+    fontFamily: 'PingFangSC-Light',
+    fontSize: 16,
+    color: '#000',
+    letterSpacing: -0.32,
+    marginLeft: px2dp(10),
+  },
   starsAndAnswer: {
     fontFamily: 'PingFangSC-Light',
     fontSize: 18,

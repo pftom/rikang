@@ -1,13 +1,30 @@
 const handleAnswers = (data) => {
   let dataSource= [];
 
-  data.map((value, key) => {
-    console.log('value', value);
-    console.log('key', key);
-  })
+  //handle immutable data for optimization 
+  data.map(item => {
+    let data = {
+      owner: {
 
-  return data;
+      }
+    };
+    item.mapEntries(([key, value]) => {
+      if (key === 'owner') {
+        value.mapEntries(([key, value]) => {
+          data['owner'][key] = value;
+        })
+      } else {
+        data[key] = value;
+      }
+   })
+   data['key'] = item.get('id');
+   dataSource.push(data);
+  })
+  return dataSource;
 };
+
+
+
 
 export {
   handleAnswers,

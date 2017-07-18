@@ -19,6 +19,11 @@ export const QaDetailStyle = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5F6F7',
   },
+  graySpace: {
+    width: width,
+    height: px2dp(9),
+    backgroundColor: '#ECECEC',
+  },  
 
   topBox: {
     marginTop: px2dp(25),
@@ -49,4 +54,7 @@ export const QaDetailStyle = StyleSheet.create({
     color: '#000',
     letterSpacing: -0.32,
   },  
+  tagContainer: {
+    width: px2dp(324),
+  },
 })

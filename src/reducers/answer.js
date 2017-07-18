@@ -39,7 +39,7 @@ const answer = (state = initialAnswerValue, action) => {
       let oldAnswers = state.get('answers');
 
       if (answers) {
-        answers = Immutable.Map(answers);
+        answers = Map(answers);
       }
       return state
             .merge({
