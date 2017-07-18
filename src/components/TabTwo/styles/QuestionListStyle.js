@@ -13,6 +13,16 @@ export const QuestionListStyle = StyleSheet.create({
   container: {
     width: width,
     alignItems: 'center',
+    flex: 1,
+    backgroundColor: '#F5F6F7',
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#09C79C',
+  },
+  touchBox: {
+    width: width,
+    flex: 1,
+    
+    alignItems: 'center',
   },
 
   QuestionBox: {
@@ -34,7 +44,8 @@ export const QuestionListStyle = StyleSheet.create({
 
   leftBox: {
     height: px2dp(25),
-    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   starsAndAnswer: {
     fontFamily: 'PingFangSC-Light',
@@ -59,7 +70,7 @@ export const QuestionListStyle = StyleSheet.create({
     backgroundColor: '#09C79C',
     borderRadius: 8,
   },
-  btnComtainer: {
+  btnContainer: {
     width: px2dp(74),
     height: px2dp(30),
     justifyContent: 'center',

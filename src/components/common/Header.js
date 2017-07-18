@@ -65,7 +65,7 @@ const Header = (props) => {
 
 
   const leftBox = (
-    <View style={styles.leftBox}>
+    <View style={[ styles.leftBox ]}>
         {props.logoLeft && <TouchableOpacity 
                               onPress={() => props.navigation.goBack()} 
                               >
@@ -82,7 +82,7 @@ const Header = (props) => {
   )
 
   return (
-      <View style={props.animatedOpacity && styles.containerBox}>
+      <View style={[ props.animatedOpacity && styles.containerBox, props.headerStyle ]}>
         <Animated.View style={props.animatedOpacity && [ styles.containerBox, { opacity: props.animatedOpacity } ]}>
           {
               props.showGradient && (

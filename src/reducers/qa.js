@@ -48,12 +48,12 @@ const qa = (state = initialQaValue, action) => {
     case GET_QUESTIONS_SUCCESS:
 
 
-    const { questions, refresh } = action.payload;
+    const { questions, refresh } = action;
 
       let oldQuestions = state.get('questions');
 
       if (questions) {
-        questions = Immutable.Map(questions);
+        questions = Map(questions);
       }
 
       return state.merge({

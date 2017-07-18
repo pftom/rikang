@@ -191,6 +191,8 @@ class UltimateFlatList extends PureComponent {
           data={this.props.listData}
           ListHeaderComponent={header}
           enableEmptySections
+          initialNumToRender={5}
+          removeClippedSubviews={false}
         />
     )
   }

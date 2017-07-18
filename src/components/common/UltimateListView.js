@@ -206,6 +206,8 @@ class UltimateListView extends PureComponent {
           ListHeaderComponent={header}
           sections={section}
           enableEmptySections
+          initialNumToRender={5}
+          removeClippedSubviews={false}
           renderSectionHeader={({ section }) => this.renderSectionComponent(section, section.spread, section.seeMore)}
         />
     )

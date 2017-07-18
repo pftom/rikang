@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { TextInput, View, Text, TouchableHighlight } from 'react-native';
+import { TextInput, View, Text, TouchableWithoutFeedback } from 'react-native';
 
 import { BottomButtonStyle as styles } from '../styles/';
 
@@ -9,11 +9,11 @@ class BottomButton extends PureComponent {
 
     return (
       <View style={styles.BottomBox}>
-        <TouchableHighlight onPress={() => { navigation.navigate(jumpToScreen)}} style={styles.buttonContainer}>
+        <TouchableWithoutFeedback onPress={() => { navigation.navigate(jumpToScreen)}} style={styles.buttonContainer}>
           <View style={styles.buttonBox}>
             <Text style={styles.content}>{content}</Text>
           </View>
-        </TouchableHighlight>
+        </TouchableWithoutFeedback>
       </View>
     )
   }

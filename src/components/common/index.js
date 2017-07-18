@@ -6,6 +6,7 @@ import Header from './Header';
 import SectionComponent from './SectionComponent';
 import UltimateListView from './UltimateListView';
 import UltimateFlatList from './UltimateFlatList';
+import SelectBox from './SelectBox';
 
 export {
   HintMessage,
@@ -16,4 +17,5 @@ export {
   SectionComponent,
   UltimateListView,
   UltimateFlatList,
+  SelectBox,
 }

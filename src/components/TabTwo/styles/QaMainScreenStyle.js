@@ -10,5 +10,7 @@ const { width, height } = Dimensions.get('window');
 
 //single input style
 export const QaMainScreenStyle = StyleSheet.create({
-
+  container: {
+    flex: 1,
+  }
 })

@@ -302,6 +302,7 @@ class HospitalDetail extends PureComponent {
                   <FlatList
                       data={dataSource[key]}
                       enableEmptySections
+                      removeClippedSubviews={false}
                       ListFooterComponent={() => this.renderFoot()}
                       onEndReached={() => {
                           //because of bug of the flatlist or sectionlist, will triger twice on scroll to end

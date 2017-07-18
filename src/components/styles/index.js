@@ -10,6 +10,7 @@ import { CommentListStyle } from './CommentListStyle';
 import { PostDetailStyle } from './PostDetailStyle';
 import { HospitalDetailStyle } from './HospitalDetailStyle';
 import { BottomButtonStyle } from './BottomButtonStyle';
+import { SelectBoxStyle } from './SelectBoxStyle';
 
 
 export {
@@ -28,4 +29,5 @@ export {
   AnswerListStyle,
   CommentListStyle,
   PostDetailStyle,
+  SelectBoxStyle,
 }

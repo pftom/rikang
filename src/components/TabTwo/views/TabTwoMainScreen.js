@@ -14,13 +14,14 @@ import { GET_QUESTIONS } from '../../../constants/'
 import { getQaSelector } from '../../../selectors/'
 
 
+
 //import header
 import Header from '../../common/Header';
 
 import QuestionListItem from './QuestionListItem';
 
 //import list
-import UltimateFlatList from '../../common/UltimateFlatList';
+import { UltimateFlatList, SelectBox } from '../../common/';
 
 //import styles
 import { QaMainScreenStyle as styles } from '../styles/';
@@ -34,7 +35,7 @@ class QaScreen extends PureComponent {
   componentDidMount() {
     const { navigation, dispatch, token } = this.props;
 
-    dispatch({ type: GET_QUESTIONS, payload: { token }});
+    dispatch({ type: GET_QUESTIONS, payload: { token, refresh: true }});
   }
 
   render() {
@@ -48,15 +49,11 @@ class QaScreen extends PureComponent {
 
     return (
       <View style={styles.container}>
-        <Header 
-          navigation={navigation}
-          showGradient={true}
-        />
-
         <UltimateFlatList
          listStyle={{
               flex: 1,
               backgroundColor: '#F5F6F7',
+              marginTop: 81 + 49
           }}
           listData={questionList}
           method={GET_QUESTIONS}
@@ -67,6 +64,27 @@ class QaScreen extends PureComponent {
           token={token}
           renderItem={(item) => <QuestionListItem token={token} navigation={navigation} item={item} />}
         />
+        <SelectBox 
+          titleLeft={"全部科室"}
+          titleRight={"默认排序"}
+          selectStyle={{
+            position: 'absolute',
+            top: 81,
+            left: 0,
+            right: 0,
+          }}
+        />
+        <Header 
+          navigation={navigation}
+          showGradient={true}
+          headerStyle={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+          }}
+        />
+        
       </View>
     )
   }
