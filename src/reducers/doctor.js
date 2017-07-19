@@ -15,6 +15,10 @@ import {
   GET_SINGLE_DOCTOR_COMMENTS_ERROR,
 } from '../constants/';
 
+import {
+  combine,
+  refreshIt,
+} from './utils/';
 
 
 //home reducers
@@ -50,22 +54,34 @@ const doctor = (state = initialDoctorValue, action) => {
     
     case GET_SINGLE_DOCTOR_ANSWERS_SUCCESS:
 
-    const { answers } = action;
-    return state.merge({
-      isLoadingData: false,
-      loadingSuccess: true,
-      answers,
-    });
+      const { answers } = action;
+
+      let oldAnswers = state.get('answers');
+
+      if (answers) {
+        answers = Immutable.Map(answers);
+      }
+      return state.merge({
+        isLoadingData: false,
+        loadingSuccess: true,
+        answers: action.refresh ? refreshIt(oldAnswers, answers) : combine(oldAnswers, answers),
+      });
 
 
     case GET_SINGLE_DOCTOR_COMMENTS_SUCCESS:
 
-        const { comments } = action;
-        return state.merge({
-          isLoadingData: false,
-          loadingSuccess: true,
-          comments
-        });
+      const { comments } = action;
+
+      let oldComments = state.get('comments');
+
+      if (comments) {
+        comments = Immutable.Map(comments);
+      }
+      return state.merge({
+        isLoadingData: false,
+        loadingSuccess: true,
+        comments: action.refresh ? refreshIt(oldComments, comments) : combine(oldComments, comments),
+      });
       
       
 

@@ -22,7 +22,7 @@ export const AnswerListStyle = StyleSheet.create({
 
   answerBox: {
     width: px2dp(325),
-    marginTop: px2dp(21),
+    marginTop: px2dp(7),
   },
 
   question_title: {
@@ -34,8 +34,8 @@ export const AnswerListStyle = StyleSheet.create({
     fontFamily: 'PingFangSC-Regular',
     fontSize: 18,
     color: '#000',
-    marginTop: px2dp(9),
-    marginBottom: px2dp(15),
+    marginTop: px2dp(5),
+    marginBottom: px2dp(10),
   },
   bottomBox: {
     width: px2dp(325),
@@ -46,7 +46,7 @@ export const AnswerListStyle = StyleSheet.create({
     flexDirection: 'row',
     height: px2dp(24),
     alignItems: 'center',
-    marginBottom: px2dp(17),
+    marginBottom: px2dp(7),
   },
   iconText: {
     marginLeft: 10,

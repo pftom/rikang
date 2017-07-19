@@ -5,6 +5,7 @@ import {
   Text,
   Animated,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 
 //
@@ -28,39 +29,11 @@ class AnswerListItem extends PureComponent {
     )
   }
 
-  renderList = () => {
-    const { name } = this.props;
-    return lists.map((item, key) => (
-      <View style={styles.container} key={key}>
-        <View style={styles.answerBox}>
-          
-          <Text style={styles.question_title}>{item.question_title}</Text>
-          
-          <Text style={styles.name}>{name}医生的回答</Text>
-          
-          <View style={styles.bottomBox}>
-            {this.renderBottomBox({ 
-              img: require('../img/upvote.png'),
-              text: item.upvotes,
-            })}
-
-            {this.renderBottomBox({ 
-              img: require('../img/comment.png'),
-              text: item.commentsCount,
-            })}
-
-            <View style={styles.spreadBox}>
-              <Image source={require('../img/spread.png')} />
-              <Text style={styles.spread}>展开</Text>
-            </View>
-          </View>
-        </View>
-      </View>
-    ))
-  }
+  
 
   render() {
-    const { item, name } = this.props;
+    const { item, name, navigation, token } = this.props;
+    console.log('item', item);
 
     return (
       <View style={styles.container}>
@@ -82,8 +55,10 @@ class AnswerListItem extends PureComponent {
             })}
 
             <View style={styles.spreadBox}>
-              <Image source={require('../img/spread.png')} />
-              <Text style={styles.spread}>展开</Text>
+              <TouchableOpacity onPress={() => { navigation.navigate('QuestionDetail', { token, id: item.question })}}>
+                <Image source={require('../img/spread.png')} />
+                <Text style={styles.spread}>展开</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>

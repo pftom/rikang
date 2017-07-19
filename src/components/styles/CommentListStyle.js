@@ -21,7 +21,7 @@ export const CommentListStyle = StyleSheet.create({
   commentBox: {
     width: px2dp(328),
     flexDirection: 'row',
-    marginTop: 28,
+    marginTop: 7,
   },
   leftBox: {
     height: px2dp(52),
@@ -60,8 +60,8 @@ export const CommentListStyle = StyleSheet.create({
     flexDirection: 'row',
     width: px2dp(150),
     justifyContent: 'space-between',
-    marginTop: px2dp(10),
-    marginBottom: px2dp(10),
+    marginTop: px2dp(7),
+    marginBottom: px2dp(7),
   },
 
   contentBox: {
@@ -75,9 +75,9 @@ export const CommentListStyle = StyleSheet.create({
   },
 
   shareBox: {
-    marginTop: px2dp(9),
+    marginTop: px2dp(6),
     height: px2dp(30),
-    marginBottom: px2dp(18),
+    marginBottom: px2dp(7),
     width: px2dp(250),
     borderRadius: 8,
     borderWidth: 1,

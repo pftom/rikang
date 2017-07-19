@@ -9,7 +9,7 @@ class PostSection extends PureComponent {
 
   render() {
     const { healthPostItem, navigation, token } = this.props;
-    console.log('healthPostItem', healthPostItem)
+    
     let { title } = healthPostItem;
     if (title && title.length >= 30) {
       title = title.slice(0, 30);

@@ -54,6 +54,11 @@ import { BottomButton } from '../../common/'
 
 const { width, height } = Dimensions.get('window');
 
+//import handle data
+import {
+  handleAnswers,
+} from '../../TabTwo/data/'
+
 const lists = [];
 for (let i = 0; i < 40; i++) {
   lists.push({
@@ -105,7 +110,7 @@ class DoctorDetail extends PureComponent {
   constructor(props) {
     super(props);
 
-    let ds = new ListView.DataSource({
+    this.ds = new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2
     })
 
@@ -115,8 +120,6 @@ class DoctorDetail extends PureComponent {
       scrollY: 0,
       activeOpacity: 1,
       imgOpacity: 0,
-      dataSource1: ds.cloneWithRows(lists),
-      dataSource2: ds.cloneWithRows(Commentlists),
     }
   }
 
@@ -125,8 +128,8 @@ class DoctorDetail extends PureComponent {
     const { token, id } = navigation.state.params;
     
     dispatch({ type: GET_SINGLE_DOCTOR, payload: { token, id }});
-    dispatch({ type: GET_SINGLE_DOCTOR_ANSWERS, payload: { token, id }});
-    dispatch({ type: GET_SINGLE_DOCTOR_COMMENTS, payload: { token, id }});
+    dispatch({ type: GET_SINGLE_DOCTOR_ANSWERS, payload: { token, id, refresh: true }});
+    dispatch({ type: GET_SINGLE_DOCTOR_COMMENTS, payload: { token, id, refresh: true }});
 
     this.setState({
       activeOpacity: this.scrollViewY.interpolate({inputRange: [0, 100, 200],outputRange: [1, 0.3, 0]}),
@@ -252,11 +255,12 @@ class DoctorDetail extends PureComponent {
       const next = data.get('next');
 
       this.setState({ loadingTail: true });
-      const { dispatch, token } = this.props;
+      const { navigation, dispatch } = this.props;
+      const { token, id } = navigation.state.params;
       const { query } = parse(next, true);
 
 
-      dispatch({ type: id === 1 ? GET_SINGLE_DOCTOR_ANSWERS : GET_SINGLE_DOCTOR_COMMENTS, payload: { token, refresh: false, query } })
+      dispatch({ type: id === 1 ? GET_SINGLE_DOCTOR_ANSWERS : GET_SINGLE_DOCTOR_COMMENTS, payload: { token, id, refresh: false, query } })
       
 
       this.endReachedTimer = setTimeout(() => {
@@ -297,7 +301,7 @@ class DoctorDetail extends PureComponent {
     let scrollY = this.scrollViewY.interpolate({
       inputRange: [-90, -50, 0, 0],
       outputRange: [-90, -50, 0, 0],
-    })
+    });
 
     let style1 = {
       transform: [
@@ -310,6 +314,20 @@ class DoctorDetail extends PureComponent {
         translateY: scrollY,
       }]
     }
+
+    let answerList = [];
+    if (answers) {
+      answerList = handleAnswers(answers.get('results'));
+    }
+
+    answerList = this.ds.cloneWithRows(answerList);
+
+    let commentList = [];
+    if (comments) {
+      commentList = handleAnswers(comments.get('results'));
+    }
+
+    commentList = this.ds.cloneWithRows(commentList);
 
     //
     if (Platform.OS === 'android') {
@@ -342,9 +360,9 @@ class DoctorDetail extends PureComponent {
                   tabLabel={item.content}
                    style=  {[ styles.listBox1, style2 ]}
               >
-                <View style={ styles.listBox2}>
+                <View style={[ styles.listBox2 ]}>
                   <ListView
-                      dataSource={item.id === 1 ? this.state.dataSource1 : this.state.dataSource2}
+                      dataSource={item.id === 1 ? answerList : commentList}
                       enableEmptySections
                       renderFooter={() => this.renderFoot(item.id)}
                       onEndReached={() => this._onEndReached(item.id)}
@@ -353,7 +371,7 @@ class DoctorDetail extends PureComponent {
                       onEndReachedThreshold={10}
                       renderRow={(rowData) => {
                         if (item.id === 1) {
-                          return <AnswerListItem item={rowData} key={rowData.id} name={doctor && doctor.get('name')} />
+                          return <AnswerListItem token={token} navigation={navigation} item={rowData} key={rowData.id} name={doctor && doctor.get('name')} />
                         }
                         return <CommentListItem item={rowData} key={rowData.id} />
                       }}

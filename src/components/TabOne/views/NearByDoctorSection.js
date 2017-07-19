@@ -27,7 +27,7 @@ class NearByDoctorSection extends PureComponent {
 
   render() {
     const { nearbyDoctor } = this.props;
-    console.log('nearbyDoctor', nearbyDoctor)
+    
     return (
       <ScrollView 
         horizontal={true}

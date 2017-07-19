@@ -71,11 +71,12 @@ function* getSingleDoctorInfo(payload) {
 //get single doctor all answers
 function* getSingleDoctorAnswers(payload) {
   try {
-    const { id, token } = payload;
+    const { token, refresh, id } = payload;
+    const query = (!refresh && payload.query) || null;
     //emit http get, fetch single doctor info
-    const answers = yield call(request.get, base + homeSingleApi(id).singleDoctorAnswers, null, token);
+    const answers = yield call(request.get, base + homeSingleApi(id).singleDoctorAnswers, query, token);
     //get doctor answers success 
-    yield put({ type: GET_SINGLE_DOCTOR_ANSWERS_SUCCESS, answers });
+    yield put({ type: GET_SINGLE_DOCTOR_ANSWERS_SUCCESS, answers, refresh });
   } catch (error) {
     //get answers info error
     yield put({ type: GET_SINGLE_DOCTOR_ANSWERS_ERROR });
@@ -97,11 +98,12 @@ function* addSingleDoctorFav(payload) {
 
 function* getSingleDoctorComments(payload) {
   try {
-    const { id, token } = payload;
+    const { token, refresh, id } = payload;
+    const query = (!refresh && payload.query) || null;
     //emit http get, fetch single doctor comment
-    const comments = yield call(request.get, base + homeSingleApi(id).singleDoctorComments, null, token);
+    const comments = yield call(request.get, base + homeSingleApi(id).singleDoctorComments, query, token);
     //get doctor comments success 
-    yield put({ type: GET_SINGLE_DOCTOR_COMMENTS_SUCCESS, comments });
+    yield put({ type: GET_SINGLE_DOCTOR_COMMENTS_SUCCESS, comments, refresh });
   } catch (error) {
     //get comments error
     yield put({ type: GET_SINGLE_DOCTOR_COMMENTS_ERROR });

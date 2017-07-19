@@ -70,8 +70,6 @@ class CommentList extends PureComponent {
             listData={commentList}
             method={GET_SINGLE_ANSWER_ALL_COMMENTS}
             data={singleAnswerAllComments}
-            enableRefresh={true}
-            refreshMethod={[ GET_SINGLE_ANSWER_ALL_COMMENTS ]}
             dispatch={this.props.dispatch}
             token={token}
             footText={ commentList.length > 0 ? "到底了哦..." : "还没有评论哦..."}
