@@ -82,9 +82,7 @@ function* addImgForQuestion(payload) {
 function* getSingleQuestion(payload) {
   try {
     const { token, id } = payload;
-
     const question = yield call(request.get, base + qaSingleApi(id).singleQuestion, null, token);
-
     yield put({ type: GET_SINGLE_QUESTION_SUCCESS, question });
   } catch (error) {
     yield put({ type: GET_SINGLE_QUESTION_ERROR });
@@ -156,7 +154,7 @@ function* watchAddSingleQuestionImg() {
 function* watchGetSingleQuestion() {
   while (true) {
     const { payload } = yield take(GET_SINGLE_QUESTION);
-
+    console.log('payload', payload);
     yield call(getSingleQuestion, payload);
   }
 }
@@ -172,7 +170,6 @@ function* watchUpdateSingleQuestion() {
 function* watchGetSingleQuestionAllImg() {
   while (true) {
     const { payload } = yield take(GET_SINGLE_QUESTION_ALL_IMG);
-
     yield call(getSingleQuestionAllImg, payload);
   }
 }

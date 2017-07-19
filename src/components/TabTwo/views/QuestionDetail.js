@@ -112,7 +112,13 @@ class QuestionDetail extends PureComponent {
               </ScrollView>
             </View>
             <View style={styles.tagContainer}>
-              <TagBox star={true} item={handleQuestion(question)} btnText={"关注"} />
+              <TagBox 
+                star={true} 
+                item={handleQuestion(question)} 
+                btnText={"关注"} 
+                navigation={navigation}
+                token={token}
+              />
             </View>
             <View style={styles.graySpace}/>
         </View>

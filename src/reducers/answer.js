@@ -6,6 +6,10 @@ import {
   GET_SINGLE_QUESTION_ALL_ANSWERS_SUCCESS,
   GET_SINGLE_QUESTION_ALL_ANSWERS_ERROR,
 
+  GET_SINGLE_ANSWER_ALL_COMMENTS,
+  GET_SINGLE_ANSWER_ALL_COMMENTS_SUCCESS,
+  GET_SINGLE_ANSWER_ALL_COMMENTS_ERROR,
+
 } from '../constants/';
 
 //import handle func for computing data
@@ -17,6 +21,7 @@ import {
 //home reducers
 const initialAnswerValue = Map({
   answers: null,
+  singleAnswerAllComments: null,
   isLoadingData: false,
   loadingError: false,
   loadingSuccess: false,
@@ -25,6 +30,7 @@ const initialAnswerValue = Map({
 const answer = (state = initialAnswerValue, action) => {
   switch (action.type) {
     case GET_SINGLE_QUESTION_ALL_ANSWERS:
+    case GET_SINGLE_ANSWER_ALL_COMMENTS:
 
       return state.merge({
         isLoadingData: true,
@@ -49,8 +55,25 @@ const answer = (state = initialAnswerValue, action) => {
             })
 
 
+    case GET_SINGLE_ANSWER_ALL_COMMENTS_SUCCESS:
+
+      const { singleAnswerAllComments } = action;
+
+      let oldSingleAnswerAllComments = state.get('singleAnswerAllComments');
+
+      if (singleAnswerAllComments) {
+        singleAnswerAllComments = Map(singleAnswerAllComments);
+      }
+      return state
+            .merge({
+              isLoadingData: false,
+              loadingSuccess: true,
+              singleAnswerAllComments: action.refresh ? refreshIt(oldSingleAnswerAllComments, singleAnswerAllComments) : combine(oldSingleAnswerAllComments, singleAnswerAllComments),
+            })
+
 
     case GET_SINGLE_QUESTION_ALL_ANSWERS_ERROR:
+    case GET_SINGLE_ANSWER_ALL_COMMENTS_ERROR:
 
       return state.merge({
         isLoadingData: false,

@@ -42,6 +42,7 @@ import QuestionDetail from '../components/TabTwo/views/QuestionDetail';
 import AnswerDetail from '../components/TabTwo/views/AnswerDetail';
 import PutQuestion from '../components/TabOne/views/PutQuestion';
 import ImageView from '../components/TabTwo/views/ImageView';
+import CommentList from '../components/TabTwo/views/CommentList';
 
 
 
@@ -85,6 +86,7 @@ export const AppNavigator = StackNavigator({
     AnswerDetail: { screen: AnswerDetail },
     PutQuestion: { screen: PutQuestion },
     ImageView: { screen: ImageView },
+    CommentList: { screen: CommentList },
 
   },
   {

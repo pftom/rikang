@@ -23,8 +23,9 @@ class AnswerDetail extends PureComponent {
   }
 
   render() {
-    // const { question, AllImg, dispatch, navigation, answers } = this.props;
-    // const { token, id } = navigation.state.params;
+    const { dispatch, navigation } = this.props;
+    const { token, id } = navigation.state.params;
+    console.log('token', token, id);
     return (
       <View>
         <Text>hhh</Text>

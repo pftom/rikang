@@ -1,4 +1,4 @@
-const handleAnswers = (data) => {
+const handleComment = (data) => {
   let dataSource= [];
 
   //handle immutable data for optimization 
@@ -20,7 +20,6 @@ const handleAnswers = (data) => {
    data['key'] = item.get('id');
    dataSource.push(data);
   })
-  console.log('dataSource', dataSource);
   return dataSource;
 };
 
@@ -28,5 +27,5 @@ const handleAnswers = (data) => {
 
 
 export {
-  handleAnswers,
+  handleComment,
 }

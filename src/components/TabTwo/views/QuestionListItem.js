@@ -26,7 +26,13 @@ class QuestionListItem extends PureComponent {
             <View style={styles.QuestionBox}>
               <Text style={styles.title}>{item.title}</Text>
               <View style={styles.tagContainer}>
-                <TagBox star={true} item={item} btnText={"关注"}/>
+                <TagBox 
+                  star={true} 
+                  item={item} 
+                  btnText={"关注"}
+                  navigation={navigation}
+                  token={token}
+                />
               </View>
             </View>
         </View>

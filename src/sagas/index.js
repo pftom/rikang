@@ -53,7 +53,7 @@ import {
   watchCreateSingleQuestionAnswer,
   watchGetSingleQuestionAnswer,
   watchUpvoteSingleQuestionAnswer,
-  watchGetQuestionAllComments,
+  watchGetAnswerAllComments,
   watchCreateSingleQuestionAnswerComment,
 } from './answerSaga';
 
@@ -99,7 +99,7 @@ export default function* rootSaga() {
     watchCreateSingleQuestionAnswer(),
     watchGetSingleQuestionAnswer(),
     watchUpvoteSingleQuestionAnswer(),
-    watchGetQuestionAllComments(),
+    watchGetAnswerAllComments(),
     watchCreateSingleQuestionAnswerComment(),
   ]);
 }

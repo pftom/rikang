@@ -26,6 +26,10 @@ import {
   getSingleQaSelector,
 } from './qaSelector';
 
+import {
+  getAnswerCommentSelector,
+} from './answerSelector.js';
+
 export {
   getInputInitial,
 
@@ -45,4 +49,6 @@ export {
 
   getQaSelector,
   getSingleQaSelector,
+
+  getAnswerCommentSelector,
 }

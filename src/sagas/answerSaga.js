@@ -19,9 +19,9 @@ import {
   UPVOTE_SINGLE_QUESTION_ANSWER_SUCCESS,
   UPVOTE_SINGLE_QUESTION_ANSWER_ERROR,
 
-  GET_SINGLE_QUESTION_ALL_COMMENTS,
-  GET_SINGLE_QUESTION_ALL_COMMENTS_SUCCESS,
-  GET_SINGLE_QUESTION_ALL_COMMENTS_ERROR,
+  GET_SINGLE_ANSWER_ALL_COMMENTS,
+  GET_SINGLE_ANSWER_ALL_COMMENTS_SUCCESS,
+  GET_SINGLE_ANSWER_ALL_COMMENTS_ERROR,
 
   CREATE_SINGLE_QUESTION_ANSWER_COMMENT,
   CREATE_SINGLE_QUESTION_ANSWER_COMMENT_SUCCESS,
@@ -83,11 +83,13 @@ function* upvoteSingleAnswer(payload) {
 
 function* getSingleAnswerAllComments(payload) {
   try {
-    const { id, token } = payload;
-    const singleAnswerAllComments = yield call(request.get, base + qaSingleApi(id).singleAnswerAllComments, null, token);
-    yield put({ type: GET_SINGLE_QUESTION_ALL_COMMENTS_SUCCESS, singleAnswerAllComments });
+    const { token, refresh, id } = payload;
+    const query = (!refresh && payload.query) || null;
+    //emit http get, fetch  doctors 
+    const singleAnswerAllComments = yield call(request.get, base + qaSingleApi(id).singleAnswerAllComments, query, token);
+    yield put({ type: GET_SINGLE_ANSWER_ALL_COMMENTS_SUCCESS, singleAnswerAllComments, refresh });
   } catch (error) {
-    yield put({ type: GET_SINGLE_QUESTION_ALL_COMMENTS_ERROR });
+    yield put({ type: GET_SINGLE_ANSWER_ALL_COMMENTS_ERROR });
   }
 }
 
@@ -136,9 +138,9 @@ function* watchUpvoteSingleQuestionAnswer() {
   }
 }
 
-function* watchGetQuestionAllComments() {
+function* watchGetAnswerAllComments() {
   while (true) {
-    const { payload } = yield take(GET_SINGLE_QUESTION_ALL_COMMENTS);
+    const { payload } = yield take(GET_SINGLE_ANSWER_ALL_COMMENTS);
     // fork return a Task object for cancel later
     yield call(getSingleAnswerAllComments, payload);
   }
@@ -160,6 +162,6 @@ export {
   watchCreateSingleQuestionAnswer,
   watchGetSingleQuestionAnswer,
   watchUpvoteSingleQuestionAnswer,
-  watchGetQuestionAllComments,
+  watchGetAnswerAllComments,
   watchCreateSingleQuestionAnswerComment,
 }

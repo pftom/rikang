@@ -3,7 +3,7 @@ import {
   View,
   Text,
   Image,
-  TouchableWithoutFeedback,
+  TouchableOpacity,
   TouchableHighlight,
 } from 'react-native';
 
@@ -47,10 +47,12 @@ class TagBox extends PureComponent {
 
           {
             help && (
-              <View style={styles.leftBox}>
-                <Image source={require('../TabOne/img/comment.png')} />
-                <Text style={styles.upvote}>9</Text>
-              </View>
+              <TouchableOpacity onPress={() => { navigation.navigate('CommentList', { token, id: item.id }) }}>
+                <View style={styles.leftBox}>
+                  <Image source={require('../TabOne/img/comment.png')} />
+                  <Text style={styles.upvote}>9</Text>
+                </View>
+              </TouchableOpacity>
             )
           }
 

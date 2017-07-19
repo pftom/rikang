@@ -38,7 +38,7 @@ class QaAnswerListItem extends PureComponent {
   }
 
   render() {
-    const { item } = this.props;
+    const { item, navigation, token } = this.props;
     //answer listitem data
     const midBoxData = [
       {
@@ -102,7 +102,13 @@ class QaAnswerListItem extends PureComponent {
             }
           </View>
           <View style={styles.tagContainer}>
-            <TagBox help={true} item={item} btnText={"向TA求助"} />
+            <TagBox 
+              help={true} 
+              item={item} 
+              btnText={"向TA求助"} 
+              navigation={navigation}
+              token={token}
+            />
           </View>
         </View>
       </View>

@@ -93,7 +93,7 @@ const Header = (props) => {
             {
               leftBox
             }
-            <View><Animated.Text style={[styles.headerText, style, headerTextAddStyle, props.animatedOpacity && { opacity: props.animatedOpacity}]}>{props.headerText}</Animated.Text></View>
+            <View><Animated.Text style={[styles.headerText, props.headerTextStyle, style, headerTextAddStyle, props.animatedOpacity && { opacity: props.animatedOpacity}]}>{props.headerText}</Animated.Text></View>
             {
               rightBox
             }
@@ -156,6 +156,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#FFF',
     width: 96,
+    textAlign: 'center',
     ...Platform.select({
       ios: {
         left: 26,
