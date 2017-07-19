@@ -1,5 +1,5 @@
 import { delay } from 'redux-saga';
-import { put, take, call } from 'redux-saga/effects';
+import { put, take, call, fork, cancel } from 'redux-saga/effects';
 
 //import DOCTORS action constans
 import { 
@@ -22,6 +22,10 @@ import {
   ADD_SINGLE_DOCTOR_FAV,
   ADD_SINGLE_DOCTOR_FAV_SUCCESS,
   ADD_SINGLE_DOCTOR_FAV_ERROR,
+
+  CANCEL_SINGLE_DOCTOR_FAV,
+  CANCEL_SINGLE_DOCTOR_FAV_SUCCESS,
+  CANCEL_SINGLE_DOCTOR_FAV_ERROR,
 
   GET_SINGLE_DOCTOR_COMMENTS,
   GET_SINGLE_DOCTOR_COMMENTS_SUCCESS,
@@ -83,6 +87,7 @@ function* getSingleDoctorAnswers(payload) {
   }
 }
 
+//add doctor fav
 function* addSingleDoctorFav(payload) {
   try {
     const { id, token, doctor } = payload;
@@ -93,6 +98,20 @@ function* addSingleDoctorFav(payload) {
   } catch (error) {
     //get fav info error
     yield put({ type: ADD_SINGLE_DOCTOR_FAV_ERROR });
+  }
+}
+
+//cancel doctor fav
+function* cancelSingleDoctorFav(payload) {
+  try {
+    const { id, token } = payload;
+    //emit http get, cancel single doctor fav
+    // yield call(request.get, base + homeSingleApi(id).addSingleDoctorFav, null, token);
+    //get doctor fav success 
+    yield put({ type: CANCEL_SINGLE_DOCTOR_FAV_SUCCESS, id });
+  } catch (error) {
+    //get fav info error
+    yield put({ type: CANCEL_SINGLE_DOCTOR_FAV_ERROR });
   }
 }
 
@@ -189,7 +208,14 @@ function* watchAddDoctorFav() {
     //listen on ADD_SINGLE_DOCTOR_FAV
     const { payload } = yield take(ADD_SINGLE_DOCTOR_FAV);
     //invoke addSingleDoctorFav generator function
-    yield call(addSingleDoctorFav, payload);
+    const task = yield fork(addSingleDoctorFav, payload);
+    
+    //wait for cancel fav
+    const action = yield take(CANCEL_SINGLE_DOCTOR_FAV);
+    //if meet CANCEL action
+    yield cancel(task);
+
+    yield call(cancelSingleDoctorFav, action.payload);
   }
 }
 

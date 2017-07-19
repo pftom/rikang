@@ -1,10 +1,15 @@
 import { List, Map } from 'immutable';
+import { REHYDRATE } from 'redux-persist-immutable/constants';
 
 //import action constants
 import { 
   ADD_SINGLE_DOCTOR_FAV,
   ADD_SINGLE_DOCTOR_FAV_SUCCESS,
   ADD_SINGLE_DOCTOR_FAV_ERROR,
+
+  CANCEL_SINGLE_DOCTOR_FAV,
+  CANCEL_SINGLE_DOCTOR_FAV_SUCCESS,
+  CANCEL_SINGLE_DOCTOR_FAV_ERROR,
 
   STAR_SINGLE_QUESTION,
   STAR_SINGLE_QUESTION_SUCCESS,
@@ -44,23 +49,42 @@ import {
 //home reducers
 const initialPatientValue = Map({
   doctorFav: List([]),
+  patientFetchFavDoctors: null,
+
   postFav: List([]),
-  questionStar: List([]),
+  patientFetchFavPosts: null,
+
   patientProfile: null,
-  patientFavPosts: null,
-  patientFavDoctors: null,
-  patientQuestions: null,
-  patientStarredQuestions: null,
-  patientServices: null,
+  
+  
+  patientQuestions: List([]),
+  patientFetchQuestions: null,
+
+  patientStarredQuestions: List([]),
+  patientFetchStarredQuestions: null,
+
+  patientServices: List([]),
+  patientFetchServices: null,
+
   isLoadingData: false,
   loadingError: false,
   loadingSuccess: false,
 });
 
+
+//need to be REHYDRATE data in patient
+const DATA = [
+  'doctorFav',
+  'postFav',
+  'patientQuestions',
+  'patientStarredQuestions',
+  'patientServices',
+];
+
 const patient = (state = initialPatientValue, action) => {
   switch (action.type) {
     case ADD_SINGLE_DOCTOR_FAV:
-    case STAR_SINGLE_QUESTION:
+    case CANCEL_SINGLE_DOCTOR_FAV:
     case GET_PATIENT_PROFILE:
     case GET_PATIENT_FAV_DOCTORS:
     case GET_PATIENT_FAV_POSTS:
@@ -84,13 +108,13 @@ const patient = (state = initialPatientValue, action) => {
               isLoadingData: false,
               loadingSuccess: true,
             });
-      
-    case STAR_SINGLE_QUESTION_SUCCESS:
 
-      const { question } = action;
+    case CANCEL_SINGLE_DOCTOR_FAV_SUCCESS:
+
+      const { id } = action;
 
       return state
-            .update('questionStar', list => list.unshift(question))
+            .update('doctorFav', list => list.filter(doctor => doctor.get('id') !== id))
             .merge({
               isLoadingData: false,
               loadingSuccess: true,
@@ -167,8 +191,33 @@ const patient = (state = initialPatientValue, action) => {
               loadingSuccess: true,
             });
 
+    case REHYDRATE: 
+
+      const { auth, patient } = action.payload;
+      const token = auth && auth.has('token') && auth.get('token');
+
+
+      if (token) {
+        const data = {};
+        console.log('patient', patient.toJS());
+        patient.mapEntries(([key, value]) => {
+          if (DATA.includes(key)) {
+            data[key] = (value && value.keys().length > 0 && value ) || List([]);
+          }
+        });
+        console.log('state', state.toJS());
+
+        let newState = state.merge({
+          doctorFav: List([]),
+        });
+
+        console.log('newState', newState.toJS());
+        return newState;
+      }
+
+      return state;
+
     case ADD_SINGLE_DOCTOR_FAV_ERROR:
-    case STAR_SINGLE_QUESTION_ERROR:
     case GET_PATIENT_FAV_DOCTORS_ERROR:
     case GET_PATIENT_FAV_POSTS_ERROR:
     case GET_PATIENT_QUESTIONS_ERROR:

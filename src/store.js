@@ -46,7 +46,7 @@ const store = createStore(
 
 
 //persist the store for offline persist 
-export const persistor = persistStore(store, { storage: AsyncStorage, whitelist: ['auth'] }, (err, state) => {
+export const persistor = persistStore(store, { storage: AsyncStorage, whitelist: ['auth', 'patient'] }, (err, state) => {
   console.log('persistStore', state);
 });
 

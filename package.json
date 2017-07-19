@@ -10,7 +10,7 @@
     "antd-mobile": "1.4.1",
     "aurora-imui-react-native": "0.4.3",
     "babel-preset-expo": "^2.0.0",
-    "immutable": "3.8.1",
+    "immutable": "3.7.6",
     "isomorphic-fetch": "2.2.1",
     "leancloud-realtime": "3.5.2",
     "leancloud-realtime-plugin-typed-messages": "2.0.0",

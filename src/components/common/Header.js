@@ -1,126 +1,177 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { Image, Alert, Text, Animated, StyleSheet, Platform, View, Dimensions, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import px2dp from '../../utils/px2dp';
+import { Toast } from 'antd-mobile';
 
 const width = Dimensions.get('window').width;
 
-const Header = (props) => {
+class Header extends PureComponent {
 
-  let style = null;
-  if (Platform.OS === 'android' && !!props.logoLeft)  {
-    style = {
-      marginLeft: -34,
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      faved: false,
+      starred: false,
     }
   }
 
-  let headerTextAddStyle = null;
+  componentDidMount() {
+    const { whetherFaved } = this.props;
 
-  if (!(props.share  || props.searchIcon || props.navigate) && !( props.shareHeart || props.shareStar || props.phone)) {
-    headerTextAddStyle = {
-      left: -20,
+    this.setState({
+      faved: whetherFaved,
+    });
+  }
+
+  successToast() {
+    Toast.success('收藏成功', 1);
+  }
+
+  showToast() {
+    Toast.info('已取消收藏', 1);
+  }
+
+  handleFav = () => {
+    if (this.state.faved) {
+      this.showToast();
+      this.setState({
+        faved: false,
+      })
+      this.props.handleCancelFav();
+    } else {
+      this.successToast();
+      this.setState({
+        faved: true,
+      })
+      this.props.handleAddFav();
     }
   }
 
+  handleStar = () => {
 
-  const rightBox = (
-    <View style={styles.rightBox}>
-      {props.shareHeart && <TouchableOpacity 
-                              onPress={() => { console.log('fav')} } 
+  }
+
+
+  render() {
+    const props = this.props;
+    let style = null;
+    if (Platform.OS === 'android' && !!props.logoLeft)  {
+      style = {
+        marginLeft: -34,
+      }
+    }
+
+    let headerTextAddStyle = null;
+
+    if (!(props.share  || props.searchIcon || props.navigate) && !( props.shareHeart || props.shareStar || props.phone)) {
+      headerTextAddStyle = {
+        left: -20,
+      }
+    }
+
+
+    const rightBox = (
+      <View style={styles.rightBox}>
+        {props.shareHeart && <TouchableOpacity 
+                                onPress={() => { this.handleFav() } } 
+                                >
+                                <Image source={props.shareHeart && ( this.state.faved ? require('./img/faved.png') : require('./img/shareHeart.png'))} style={styles.shareHeart} />
+                              </TouchableOpacity>}
+        {props.shareStar && <TouchableOpacity 
+                                onPress={() => { console.log('fav')} } 
+                                >
+                                <Image source={props.shareStar && require('./img/fav.png')} style={styles.shareStar} />
+                              </TouchableOpacity>}
+        
+        {props.phone && <TouchableOpacity 
+                              onPress={() => { console.log('share')} } 
                               >
-                              <Image source={props.shareHeart && require('./img/shareHeart.png')} style={styles.shareHeart} />
+                              <Animated.Image source={props.phone && require('./img/phone.png')} style={[ styles.shareStar, styles.phone, { opacity: props.animatedOpacity }]} />
                             </TouchableOpacity>}
-      {props.shareStar && <TouchableOpacity 
-                              onPress={() => { console.log('fav')} } 
+        
+      {props.share && <TouchableOpacity 
+                              onPress={() => { console.log('share')} } 
                               >
-                              <Image source={props.shareStar && require('./img/fav.png')} style={styles.shareStar} />
+                              <Image source={props.share && require('./img/share.png')} style={ [ styles.share]} />
                             </TouchableOpacity>}
       
-      {props.phone && <TouchableOpacity 
-                            onPress={() => { console.log('share')} } 
-                            >
-                            <Animated.Image source={props.phone && require('./img/phone.png')} style={[ styles.shareStar, styles.phone, { opacity: props.animatedOpacity }]} />
-                          </TouchableOpacity>}
-      
-    {props.share && <TouchableOpacity 
-                            onPress={() => { console.log('share')} } 
-                            >
-                            <Image source={props.share && require('./img/share.png')} style={ [ styles.share]} />
-                          </TouchableOpacity>}
-    
 
-    {props.searchIcon && <TouchableOpacity 
-                            onPress={() => { console.log('share')} } 
-                            >
-                            <Image source={props.searchIcon && require('./img/search.png')} style={ [ styles.share, styles.searchIcon ]} />
-                          </TouchableOpacity>}
-
-    {props.navigate && <TouchableOpacity 
-                            onPress={() => { console.log('share')} } 
-                            >
-                            <Animated.Image source={props.navigate && require('./img/navigate.png')} style={ [ styles.share, styles.navigate, { opacity: props.animatedOpacity }  ]} />
-                          </TouchableOpacity>}
-    </View>
-  )
-
-
-  const leftBox = (
-    <View style={[ styles.leftBox ]}>
-        {props.logoLeft && <TouchableOpacity 
-                              onPress={() => props.navigation.goBack()} 
+      {props.searchIcon && <TouchableOpacity 
+                              onPress={() => { console.log('share')} } 
                               >
-                              <Image source={props.logoLeft && require('./img/back.png')} style={styles.logoLeft} />
+                              <Image source={props.searchIcon && require('./img/search.png')} style={ [ styles.share, styles.searchIcon ]} />
                             </TouchableOpacity>}
-        {
-          props.leftImg && (
-            <View style={styles.smallAvatarBox}>
-              <Animated.Image source={{ uri: props.leftImg.get('avatar') }} style={ [ styles.smallAvatar, { opacity: props.imgOpacity }] }/>
-            </View>
-          )
-        }
+
+      {props.navigate && <TouchableOpacity 
+                              onPress={() => { console.log('share')} } 
+                              >
+                              <Animated.Image source={props.navigate && require('./img/navigate.png')} style={ [ styles.share, styles.navigate, { opacity: props.animatedOpacity }  ]} />
+                            </TouchableOpacity>}
       </View>
-  )
+    )
 
-  return (
-      <View style={[ props.animatedOpacity && styles.containerBox, props.headerStyle ]}>
-        <Animated.View style={props.animatedOpacity && [ styles.containerBox, { opacity: props.animatedOpacity } ]}>
+
+    const leftBox = (
+      <View style={[ styles.leftBox ]}>
+          {props.logoLeft && <TouchableOpacity 
+                                onPress={() => { this.props.navigation.goBack() }} 
+                                >
+                                <Image source={props.logoLeft && require('./img/back.png')} style={styles.logoLeft} />
+                              </TouchableOpacity>}
           {
-              props.showGradient && (
-                <LinearGradient
-            start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}
-            colors={['#23BCBB', '#45E994']}
-            style={styles.linearGradient}>
-            {
-              leftBox
-            }
-            <View><Animated.Text style={[styles.headerText, props.headerTextStyle, style, headerTextAddStyle, props.animatedOpacity && { opacity: props.animatedOpacity}]}>{props.headerText}</Animated.Text></View>
-            {
-              rightBox
-            }
-        </LinearGradient>
-              )
-        }
-        </Animated.View>
+            props.leftImg && (
+              <View style={styles.smallAvatarBox}>
+                <Animated.Image source={{ uri: props.leftImg.get('avatar') }} style={ [ styles.smallAvatar, { opacity: props.imgOpacity }] }/>
+              </View>
+            )
+          }
+        </View>
+    )
 
-        {
-          (!props.showGradient || props.animatedOpacity) && (
-            <View style={styles.container}>
+    return (
+        <View style={[ props.animatedOpacity && styles.containerBox, props.headerStyle ]}>
+          <Animated.View style={props.animatedOpacity && [ styles.containerBox, { opacity: props.animatedOpacity } ]}>
+            {
+                props.showGradient && (
+                  <LinearGradient
+              start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}
+              colors={['#23BCBB', '#45E994']}
+              style={styles.linearGradient}>
               {
                 leftBox
               }
-              {
-                !props.animatedOpacity && (
-                  <View><Text style={[styles.headerText, style, headerTextAddStyle ]}>{props.headerText}</Text></View>
-                )
-              }
+              <View><Animated.Text style={[styles.headerText, props.headerTextStyle, style, headerTextAddStyle, props.animatedOpacity && { opacity: props.animatedOpacity}]}>{props.headerText}</Animated.Text></View>
               {
                 rightBox
               }
-            </View>
-          )
-        }
-      </View>
-  )
+          </LinearGradient>
+                )
+          }
+          </Animated.View>
+
+          {
+            (!props.showGradient || props.animatedOpacity) && (
+              <View style={styles.container}>
+                {
+                  leftBox
+                }
+                {
+                  !props.animatedOpacity && (
+                    <View><Text style={[styles.headerText, style, headerTextAddStyle ]}>{props.headerText}</Text></View>
+                  )
+                }
+                {
+                  rightBox
+                }
+              </View>
+            )
+          }
+        </View>
+    )
+  }
+  
 }
 
 const styles = StyleSheet.create({

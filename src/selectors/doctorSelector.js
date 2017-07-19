@@ -8,13 +8,15 @@ import { getDoctors } from './TabOneMainSelector';
 const getDoctor = (state) => state.getIn(['home', 'doctor']);
 const getDoctorAnswers = (state) => state.getIn(['doctor', 'answers']);
 const getDoctorComments = (state) => state.getIn(['doctor', 'comments']);
+const getFavDoctors = (state) => state.getIn(['patient', 'doctorFav']);
 
 export const getDoctorSelector = createSelector(
-  [ getDoctor, getDoctorAnswers, getDoctorComments ],
-  (doctor, answers, comments) => ({
+  [ getDoctor, getDoctorAnswers, getDoctorComments, getFavDoctors ],
+  (doctor, answers, comments, doctorFav) => ({
     doctor,
     answers,
     comments,
+    doctorFav,
   }),
 );
 

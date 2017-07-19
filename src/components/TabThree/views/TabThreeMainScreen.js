@@ -58,11 +58,11 @@ class UserScreen extends PureComponent {
     const { dispatch, navigation, token } = this.props;
 
     dispatch({ type: GET_PATIENT_PROFILE, payload: { token } });
-    // dispatch({ type: GET_PATIENT_FAV_DOCTORS, payload: { token} });
-    // dispatch({ type: GET_PATIENT_FAV_POSTS, payload: { token, refresh: true } });
-    // dispatch({ type: GET_PATIENT_QUESTIONS, payload: { token } });
-    // dispatch({ type: GET_PATIENT_STARRED_QUESTIONS, payload: { token } });
-    // dispatch({ type: GET_PATIENT_SERVICES, payload: { token } });
+    dispatch({ type: GET_PATIENT_FAV_DOCTORS, payload: { token} });
+    dispatch({ type: GET_PATIENT_FAV_POSTS, payload: { token, refresh: true } });
+    dispatch({ type: GET_PATIENT_QUESTIONS, payload: { token } });
+    dispatch({ type: GET_PATIENT_STARRED_QUESTIONS, payload: { token } });
+    dispatch({ type: GET_PATIENT_SERVICES, payload: { token } });
   } 
 
   render() {

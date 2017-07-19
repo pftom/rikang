@@ -13,6 +13,7 @@ import {
   GET_SINGLE_DOCTOR_COMMENTS,
   GET_SINGLE_DOCTOR_COMMENTS_SUCCESS,
   GET_SINGLE_DOCTOR_COMMENTS_ERROR,
+
 } from '../constants/';
 
 import {
@@ -82,6 +83,8 @@ const doctor = (state = initialDoctorValue, action) => {
         loadingSuccess: true,
         comments: action.refresh ? refreshIt(oldComments, comments) : combine(oldComments, comments),
       });
+
+    
       
       
 

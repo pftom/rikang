@@ -38,6 +38,7 @@ import {
   GET_SINGLE_DOCTOR_COMMENTS,
 
   ADD_SINGLE_DOCTOR_FAV,
+  CANCEL_SINGLE_DOCTOR_FAV,
 } from '../../../constants/';
 
 //import list data
@@ -295,8 +296,17 @@ class DoctorDetail extends PureComponent {
   
 
   render() {
-    const { navigation, comments, answers, doctor, dispatch } = this.props;
+    const { navigation, comments, answers, doctor, dispatch, doctorFav } = this.props;
     const { token, id } = navigation.state.params;
+
+    let whetherFaved = false;
+
+    //whether have fav this doctor
+    doctorFav.map(doctor => {
+      if (doctor.get('id') === id) {
+        whetherFaved = true;
+      }
+    })
 
     let scrollY = this.scrollViewY.interpolate({
       inputRange: [-90, -50, 0, 0],
@@ -334,7 +344,6 @@ class DoctorDetail extends PureComponent {
       style.height = height + 80;
     }
 
-    console.log('doctor', doctor && doctor.toJS());
     return (
       <LinearGradient
         start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}
@@ -400,6 +409,9 @@ class DoctorDetail extends PureComponent {
           navigation={navigation} 
           showGradient={false} 
           animatedOpacity={false}
+          whetherFaved={whetherFaved}
+          handleCancelFav={() => { doctor && dispatch({ type: CANCEL_SINGLE_DOCTOR_FAV, payload: { token, id } } ) } }
+          handleAddFav={() => { doctor && dispatch({ type: ADD_SINGLE_DOCTOR_FAV, payload: { token, id, doctor } } ) } }
         />
 
         <BottomButton content="向他求助" navigation={navigation} jumpToScreen="ConsultOrder" isPay={false} />
