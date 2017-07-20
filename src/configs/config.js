@@ -11,6 +11,7 @@ export const homeApi = {
 export const homeSingleApi = (id) => ({
   singlePost: `home/posts/${id}/`,
   singleHospital: `home/hospitals/${id}/`,
+  addSinglePostFav: `home/posts/${id}/fav`,
   singleHospitalDoctors: `home/hospitals/${id}/doctors/`,
   singleDoctor: `home/doctors/${id}/`,
   singleDoctorInfo: `home/doctors/${id}/info/`,

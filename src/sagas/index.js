@@ -4,7 +4,12 @@ import { all } from 'redux-saga/effects';
 import { loginFlow, registerFlow, changePasswordFlow, clearFlow } from './userSaga';
 
 //import posts sagas
-import { watchGetPost, watchGetPosts } from './postSaga';
+import { 
+  watchGetPost, 
+  watchGetPosts,
+  watchAddPostFav,
+  watchCancelPostFav,
+} from './postSaga';
 
 //import hospitals sagas
 import { 
@@ -23,6 +28,7 @@ import {
   watchDoctorComments,
   watchDoctorAnswers,
   watchAddDoctorFav,
+  watchCancelDoctorFav,
 } from './doctorSaga'
 
 //patient watch and handle func
@@ -66,6 +72,8 @@ export default function* rootSaga() {
 
     watchGetPost(),
     watchGetPosts(),
+    watchAddPostFav(),
+    watchCancelPostFav(),
 
     watchGetHospital(),
     watchGetHospitals(),
@@ -77,6 +85,7 @@ export default function* rootSaga() {
     watchDoctorComments(),
     watchDoctorAnswers(),
     watchAddDoctorFav(),
+    watchCancelDoctorFav(),
 
     watchGetPatientProfile(),
     watchUpdatePatientProfile(),

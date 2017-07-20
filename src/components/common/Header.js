@@ -49,10 +49,6 @@ class Header extends PureComponent {
     }
   }
 
-  handleStar = () => {
-
-  }
-
 
   render() {
     const props = this.props;
@@ -80,9 +76,9 @@ class Header extends PureComponent {
                                 <Image source={props.shareHeart && ( this.state.faved ? require('./img/faved.png') : require('./img/shareHeart.png'))} style={styles.shareHeart} />
                               </TouchableOpacity>}
         {props.shareStar && <TouchableOpacity 
-                                onPress={() => { console.log('fav')} } 
+                                onPress={() => { this.handleFav() } } 
                                 >
-                                <Image source={props.shareStar && require('./img/fav.png')} style={styles.shareStar} />
+                                <Image source={props.shareStar && ( this.state.faved ? require('./img/starred.png') : require('./img/fav.png') ) } style={styles.shareStar} />
                               </TouchableOpacity>}
         
         {props.phone && <TouchableOpacity 

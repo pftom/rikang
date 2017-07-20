@@ -11,6 +11,14 @@ import {
   CANCEL_SINGLE_DOCTOR_FAV_SUCCESS,
   CANCEL_SINGLE_DOCTOR_FAV_ERROR,
 
+  ADD_SINGLE_POST_FAV,
+  ADD_SINGLE_POST_FAV_SUCCESS,
+  ADD_SINGLE_POST_FAV_ERROR,
+
+  CANCEL_SINGLE_POST_FAV,
+  CANCEL_SINGLE_POST_FAV_SUCCESS,
+  CANCEL_SINGLE_POST_FAV_ERROR,
+
   STAR_SINGLE_QUESTION,
   STAR_SINGLE_QUESTION_SUCCESS,
   STAR_SINGLE_QUESTION_ERROR,
@@ -48,7 +56,9 @@ import {
 
 //home reducers
 const initialPatientValue = Map({
-  doctorFav: List([]),
+  doctorFav: List([
+    1,
+  ]),
   patientFetchFavDoctors: null,
 
   postFav: List([]),
@@ -85,6 +95,8 @@ const patient = (state = initialPatientValue, action) => {
   switch (action.type) {
     case ADD_SINGLE_DOCTOR_FAV:
     case CANCEL_SINGLE_DOCTOR_FAV:
+    case ADD_SINGLE_POST_FAV:
+    case CANCEL_SINGLE_POST_FAV:
     case GET_PATIENT_PROFILE:
     case GET_PATIENT_FAV_DOCTORS:
     case GET_PATIENT_FAV_POSTS:
@@ -101,6 +113,7 @@ const patient = (state = initialPatientValue, action) => {
     
     case ADD_SINGLE_DOCTOR_FAV_SUCCESS:
 
+      //add doctor to fav list
       const { doctor } = action;
       return state
             .update('doctorFav', list => list.unshift(doctor))
@@ -111,10 +124,30 @@ const patient = (state = initialPatientValue, action) => {
 
     case CANCEL_SINGLE_DOCTOR_FAV_SUCCESS:
 
-      const { id } = action;
-
+    //delete the post by id
       return state
-            .update('doctorFav', list => list.filter(doctor => doctor.get('id') !== id))
+            .update('doctorFav', list => list.filter(doctor => doctor.get('id') !== action.id))
+            .merge({
+              isLoadingData: false,
+              loadingSuccess: true,
+            });
+
+    case ADD_SINGLE_POST_FAV_SUCCESS:
+
+    //add post to fav list
+      const { post } = action;
+      return state
+            .update('postFav', list => list.unshift(post))
+            .merge({
+              isLoadingData: false,
+              loadingSuccess: true,
+            });
+
+    case CANCEL_SINGLE_POST_FAV_SUCCESS:
+
+      //delete the post by id
+      return state
+            .update('postFav', list => list.filter(post => post.get('id') !== action.id))
             .merge({
               isLoadingData: false,
               loadingSuccess: true,
@@ -202,14 +235,13 @@ const patient = (state = initialPatientValue, action) => {
         console.log('patient', patient.toJS());
         patient.mapEntries(([key, value]) => {
           if (DATA.includes(key)) {
-            data[key] = (value && value.keys().length > 0 && value ) || List([]);
+
+            data[key] = (value && value.keySeq().count() > 0 && value.toList() ) || List([]);
           }
         });
-        console.log('state', state.toJS());
+        console.log('state', data);
 
-        let newState = state.merge({
-          doctorFav: List([]),
-        });
+        let newState = state.merge(data);
 
         console.log('newState', newState.toJS());
         return newState;
@@ -218,6 +250,9 @@ const patient = (state = initialPatientValue, action) => {
       return state;
 
     case ADD_SINGLE_DOCTOR_FAV_ERROR:
+    case CANCEL_SINGLE_DOCTOR_FAV_ERROR:
+    case ADD_SINGLE_POST_FAV_ERROR:
+    case CANCEL_SINGLE_POST_FAV_ERROR:
     case GET_PATIENT_FAV_DOCTORS_ERROR:
     case GET_PATIENT_FAV_POSTS_ERROR:
     case GET_PATIENT_QUESTIONS_ERROR:

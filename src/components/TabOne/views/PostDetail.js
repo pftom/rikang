@@ -13,7 +13,11 @@ import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 
 //import async action constants
-import { GET_SINGLE_POST } from '../../../constants/';
+import { 
+  GET_SINGLE_POST,
+  ADD_SINGLE_POST_FAV,
+  CANCEL_SINGLE_POST_FAV,
+} from '../../../constants/';
 
 //import selector for computing data
 import { getPostSelector } from '../../../selectors/';
@@ -45,9 +49,17 @@ class PostDetail extends PureComponent {
   }
 
   render() {
-    const { post, navigation } = this.props;
+    const { post, navigation, postFav, dispatch } = this.props;
+    const { token, id } = navigation.state.params;
 
-    console.log('post', post && post.toJS());
+    let whetherFaved = false;
+
+    //whether have fav this doctor
+    postFav.map(post => {
+      if (post.get('id') === id) {
+        whetherFaved = true;
+      }
+    })
 
     let animatedOpacity = this.state.scrollY.interpolate({
       inputRange: [0, 60, 100],
@@ -92,6 +104,9 @@ class PostDetail extends PureComponent {
           animatedOpacity={animatedOpacity}
           navigation={navigation} 
           showGradient={true} 
+          whetherFaved={whetherFaved}
+          handleCancelFav={() => { post && dispatch({ type: CANCEL_SINGLE_POST_FAV, payload: { token, id } } ) } }
+          handleAddFav={() => { post && dispatch({ type: ADD_SINGLE_POST_FAV, payload: { token, id, post } } ) } }
         />
       </View>
     )

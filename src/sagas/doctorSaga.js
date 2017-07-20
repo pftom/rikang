@@ -214,8 +214,20 @@ function* watchAddDoctorFav() {
     const action = yield take(CANCEL_SINGLE_DOCTOR_FAV);
     //if meet CANCEL action
     yield cancel(task);
+  }
+}
 
-    yield call(cancelSingleDoctorFav, action.payload);
+//watch add doctor fav
+function* watchCancelDoctorFav() {
+  while (true) {
+    
+    //wait for cancel fav
+    const { payload } = yield take(CANCEL_SINGLE_DOCTOR_FAV);
+    
+   const task = yield fork(cancelSingleDoctorFav, payload);
+   const action = yield take(ADD_SINGLE_DOCTOR_FAV);
+
+   yield cancel(task);
   }
 }
 
@@ -250,4 +262,5 @@ export {
   watchDoctorComments,
   watchDoctorAnswers,
   watchAddDoctorFav,
+  watchCancelDoctorFav,
 }

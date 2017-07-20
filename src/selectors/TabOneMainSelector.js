@@ -23,10 +23,12 @@ export const getHomeSelector = createSelector(
 
 //post selector
 const getPost = (state) => state.getIn(['home', 'post']);
+const getPostFav = (state) => state.getIn(['patient', 'postFav']);
 
 export const getPostSelector = createSelector(
-  [ getPost ],
-  (post) => ({
+  [ getPost, getPostFav ],
+  (post, postFav) => ({
     post,
+    postFav,
   }),
 );
