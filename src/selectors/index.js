@@ -24,6 +24,7 @@ import {
 import {
   getQaSelector,
   getSingleQaSelector,
+  getQuestionFavSelector,
 } from './qaSelector';
 
 import {
@@ -49,6 +50,7 @@ export {
 
   getQaSelector,
   getSingleQaSelector,
+  getQuestionFavSelector,
 
   getAnswerCommentSelector,
 }

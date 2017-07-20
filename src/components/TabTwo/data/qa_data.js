@@ -14,8 +14,11 @@ const handleQuestions = (data) => {
   let dataSource = [];
 
   data.map((item) => {
-
-    dataSource.push(handleQuestion(item));
+    dataSource.push({
+      item: handleQuestion(item),
+      question: item,
+      key: item.get('id'),
+    });
   });
 
   return dataSource;

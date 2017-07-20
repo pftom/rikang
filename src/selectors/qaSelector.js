@@ -25,3 +25,12 @@ export const getSingleQaSelector = createSelector(
     answers
   }),
 );
+
+const getQuestionFav = (state) => state.getIn(['patient', 'questionFav']);
+
+export const getQuestionFavSelector = createSelector(
+  [ getQuestionFav ],
+  (questionFav) => ({
+    questionFav,
+  }),
+);

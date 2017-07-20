@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
+import { Toast } from 'antd-mobile';
 
 
 //import style
@@ -14,6 +15,63 @@ import { QuestionListStyle as styles } from '../TabTwo/styles/';
 
 
 class TagBox extends PureComponent {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      starred: false,
+    }
+  }
+
+  componentDidMount() {
+    const { whetherStarred } = this.props;
+
+    //update star status
+    this.setState({
+        starred: whetherStarred,
+    });
+  }
+
+  successToast() {
+    Toast.success('关注成功', 1);
+  }
+
+  showToast() {
+    Toast.info('已取消关注', 1);
+  }
+
+  handleStar = () => {
+    if (this.state.starred) {
+      this.showToast();
+      this.setState({
+        starred: false,
+      })
+      this.props.handleCancelStar();
+    } else {
+      this.successToast();
+      this.setState({
+        starred: true,
+      })
+      this.props.handleAddStar();
+    }
+  }
+
+  handleTouch = () => {
+    const { star, help, comment, navigation, token, item } = this.props
+
+    if (star) {
+      this.handleStar();
+    }
+
+    if (help) {
+      navigation.navigate('DoctorDetail', { token, id: item.id });
+    }
+
+    if (comment) {
+      console.log('hhh');
+    }
+  }
   
   render() {
     const { navigation, token, item } = this.props;
@@ -22,6 +80,14 @@ class TagBox extends PureComponent {
     const { star, help, comment, btnText } = this.props;
 
     const mapImg = star ? require('./img/plus.png') : require('./img/leftArrow.png');
+
+    let renderText = null;
+    
+    if (this.state.starred && star) {
+      renderText = '已关注';
+    } else {
+      renderText = btnText;
+    }
 
     return (
       <View style={styles.tagBox}>
@@ -37,15 +103,6 @@ class TagBox extends PureComponent {
 
 
           {
-            (help || comment) && (
-              <View style={styles.leftBox}>
-                <Image source={require('../TabOne/img/upvote.png')} />
-                <Text style={styles.upvote}>{item.upvotes}</Text>
-              </View>
-            )
-          }
-
-          {
             help && (
               <TouchableOpacity onPress={() => { navigation.navigate('CommentList', { token, id: item.id }) }}>
                 <View style={styles.leftBox}>
@@ -58,14 +115,14 @@ class TagBox extends PureComponent {
 
 
           <View style={styles.rightBox}>
-            <TouchableHighlight onPress={() => {console.log('h')}} style={styles.btnContainer}>
-              <View style={styles.starBtn}>
+            <TouchableHighlight onPress={() => { this.handleTouch() }} style={styles.btnContainer}>
+              <View style={[ styles.starBtn, this.state.starred && styles.starredBtn ]}>
                 {
-                  (star || comment) && (
+                  ((star || comment) && !this.state.starred) && (
                     <Image source={mapImg} style={styles.img} />
                   )
                 }
-                <Text style={styles.starText}>{btnText}</Text>
+                <Text style={styles.starText}>{renderText}</Text>
               </View>
             </TouchableHighlight>
           </View>

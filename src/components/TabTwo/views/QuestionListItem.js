@@ -7,6 +7,9 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
+import { connect } from 'react-redux';
+//import selector for questionFav data
+import { getQuestionFavSelector } from '../../../selectors/';
 
 
 //import style
@@ -15,11 +18,26 @@ import { QuestionListStyle as styles } from '../styles/';
 //import tag box
 import { TagBox } from '../../common/';
 
+//import action constants
+import {
+  STAR_SINGLE_QUESTION,
+  CANCEL_STAR_SINGLE_QUESTION,
+} from '../../../constants/';
 
 class QuestionListItem extends PureComponent {
   
   render() {
-    const { navigation, token, item } = this.props;
+    const { navigation, token, item, dispatch, question, questionFav } = this.props;
+
+    let whetherStarred = false;
+
+    //whether have fav this doctor
+    questionFav.map(question => {
+      if (question.get('id') === item.id) {
+        whetherStarred = true;
+      }
+    })
+
     return (
       <TouchableWithoutFeedback onPress={() => { navigation.navigate('QuestionDetail', { id: item.key, token })}} style={styles.touchBox}>
         <View style={styles.container}>
@@ -32,6 +50,9 @@ class QuestionListItem extends PureComponent {
                   btnText={"关注"}
                   navigation={navigation}
                   token={token}
+                  whetherStarred={whetherStarred}
+                  handleCancelStar={() => { dispatch({ type: CANCEL_STAR_SINGLE_QUESTION, payload: { token, id: item.id } }) }}
+                  handleAddStar={() => { dispatch({ type: STAR_SINGLE_QUESTION, payload: { token, id: item.id, question } }) }}
                 />
               </View>
             </View>
@@ -41,4 +62,6 @@ class QuestionListItem extends PureComponent {
   }
 }
 
-export default QuestionListItem;
+export default connect(
+  state => getQuestionFavSelector(state),
+)(QuestionListItem);

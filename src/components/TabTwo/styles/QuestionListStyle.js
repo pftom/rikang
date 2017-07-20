@@ -79,6 +79,10 @@ export const QuestionListStyle = StyleSheet.create({
     backgroundColor: '#09C79C',
     borderRadius: 8,
   },
+
+  starredBtn: {
+    backgroundColor: '#CCC',
+  },
   btnContainer: {
     width: px2dp(74),
     height: px2dp(30),

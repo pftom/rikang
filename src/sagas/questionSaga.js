@@ -1,5 +1,5 @@
 import { delay } from 'redux-saga';
-import { put, take, call } from 'redux-saga/effects';
+import { put, take, call, fork, cancel } from 'redux-saga/effects';
 
 //import HOSPITAL action constans
 import { 
@@ -30,6 +30,10 @@ import {
   STAR_SINGLE_QUESTION,
   STAR_SINGLE_QUESTION_SUCCESS,
   STAR_SINGLE_QUESTION_ERROR,
+
+  CANCEL_STAR_SINGLE_QUESTION,
+  CANCEL_STAR_SINGLE_QUESTION_SUCCESS,
+  CANCEL_STAR_SINGLE_QUESTION_ERROR,
 } from '../constants/';
 
 //import request api
@@ -125,6 +129,20 @@ function* starSingleQuestion(payload) {
   }
 }
 
+//cancel doctor fav
+function* cancelStartSingleQuestion(payload) {
+  try {
+    const { id, token } = payload;
+    //emit http get, cancel single doctor fav
+    // yield call(request.get, base + homeSingleApi(id).addSingleDoctorFav, null, token);
+    //get doctor fav success 
+    yield put({ type: CANCEL_STAR_SINGLE_QUESTION_SUCCESS, id });
+  } catch (error) {
+    //get fav info error
+    yield put({ type: CANCEL_STAR_SINGLE_QUESTION_ERROR });
+  }
+}
+
 
 //HOSPITAL async actions handle function
 function* watchGetQuestions() {
@@ -178,7 +196,27 @@ function* watchStarSingleQuestion() {
   while (true) {
     const { payload } = yield take(STAR_SINGLE_QUESTION);
 
-    yield call(starSingleQuestion, payload);
+    const task = yield fork(starSingleQuestion, payload);
+
+    //wait for cancel fav
+    const action = yield take(CANCEL_STAR_SINGLE_QUESTION);
+    //if meet CANCEL action
+    yield cancel(task);
+  }
+}
+
+
+//watch add doctor fav
+function* watchCancelStarSingleQuestion() {
+  while (true) {
+    
+    //wait for cancel fav
+    const { payload } = yield take(CANCEL_STAR_SINGLE_QUESTION);
+    
+   const task = yield fork(cancelStartSingleQuestion, payload);
+   const action = yield take(STAR_SINGLE_QUESTION);
+
+   yield cancel(task);
   }
 }
 
@@ -194,4 +232,5 @@ export {
   watchUpdateSingleQuestion,
   watchGetSingleQuestionAllImg,
   watchStarSingleQuestion,
+  watchCancelStarSingleQuestion,
 }

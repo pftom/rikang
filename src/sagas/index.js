@@ -51,6 +51,7 @@ import {
   watchUpdateSingleQuestion,
   watchGetSingleQuestionAllImg,
   watchStarSingleQuestion,
+  watchCancelStarSingleQuestion,
 } from './questionSaga'
 
 //answers watch and handle func
@@ -102,6 +103,7 @@ export default function* rootSaga() {
     watchUpdateSingleQuestion(),
     watchGetSingleQuestionAllImg(),
     watchStarSingleQuestion(),
+    watchCancelStarSingleQuestion(),
 
 
     watchGetSingleQuestionAllAnswers(),

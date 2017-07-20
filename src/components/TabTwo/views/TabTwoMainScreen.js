@@ -39,12 +39,13 @@ class QaScreen extends PureComponent {
   }
 
   render() {
-    const { questions, navigation, token } = this.props;
+    const { questions, navigation, token, dispatch } = this.props;
 
     let questionList = [];
     if (questions) {
       //the second params for horizontal(true) show ten item,
       questionList = handleQuestions(questions.get('results'));
+      console.log('questionList', questionList);
     }
 
     return (
@@ -63,7 +64,7 @@ class QaScreen extends PureComponent {
           dispatch={this.props.dispatch}
           token={token}
           footText={"到底了哦..."}
-          renderItem={(item) => <QuestionListItem token={token} navigation={navigation} item={item} />}
+          renderItem={(item) => <QuestionListItem token={token} dispatch={dispatch} navigation={navigation} item={item.item} question={item.question} />}
         />
         <SelectBox 
           titleLeft={"全部科室"}

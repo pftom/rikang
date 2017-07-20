@@ -23,6 +23,10 @@ import {
   STAR_SINGLE_QUESTION_SUCCESS,
   STAR_SINGLE_QUESTION_ERROR,
 
+  CANCEL_STAR_SINGLE_QUESTION,
+  CANCEL_STAR_SINGLE_QUESTION_SUCCESS,
+  CANCEL_STAR_SINGLE_QUESTION_ERROR,
+
   GET_PATIENT_PROFILE,
   GET_PATIENT_PROFILE_ERROR,
   GET_PATIENT_PROFILE_SUCCESS,
@@ -59,22 +63,22 @@ const initialPatientValue = Map({
   doctorFav: List([
     1,
   ]),
-  patientFetchFavDoctors: null,
+  patientDoctors: null,
 
   postFav: List([]),
-  patientFetchFavPosts: null,
+  patientPosts: null,
 
   patientProfile: null,
   
   
-  patientQuestions: List([]),
-  patientFetchQuestions: null,
+  questionFav: List([]),
+  patientQuestions: null,
 
-  patientStarredQuestions: List([]),
-  patientFetchStarredQuestions: null,
+  questionStarredFav: List([]),
+  patientStarredQuestions: null,
 
-  patientServices: List([]),
-  patientFetchServices: null,
+  servicesFav: List([]),
+  patientServices: null,
 
   isLoadingData: false,
   loadingError: false,
@@ -86,9 +90,9 @@ const initialPatientValue = Map({
 const DATA = [
   'doctorFav',
   'postFav',
-  'patientQuestions',
-  'patientStarredQuestions',
-  'patientServices',
+  'questionFav',
+  'questionStarredFav',
+  'servicesFav',
 ];
 
 const patient = (state = initialPatientValue, action) => {
@@ -97,6 +101,8 @@ const patient = (state = initialPatientValue, action) => {
     case CANCEL_SINGLE_DOCTOR_FAV:
     case ADD_SINGLE_POST_FAV:
     case CANCEL_SINGLE_POST_FAV:
+    case STAR_SINGLE_QUESTION:
+    case CANCEL_STAR_SINGLE_QUESTION:
     case GET_PATIENT_PROFILE:
     case GET_PATIENT_FAV_DOCTORS:
     case GET_PATIENT_FAV_POSTS:
@@ -148,6 +154,27 @@ const patient = (state = initialPatientValue, action) => {
       //delete the post by id
       return state
             .update('postFav', list => list.filter(post => post.get('id') !== action.id))
+            .merge({
+              isLoadingData: false,
+              loadingSuccess: true,
+            });
+
+    case STAR_SINGLE_QUESTION_SUCCESS:
+
+    //add post to fav list
+      const { question } = action;
+      return state
+            .update('questionFav', list => list.unshift(question))
+            .merge({
+              isLoadingData: false,
+              loadingSuccess: true,
+            });
+
+    case CANCEL_STAR_SINGLE_QUESTION_SUCCESS:
+
+      //delete the question by id
+      return state
+            .update('questionFav', list => list.filter(question => question.get('id') !== action.id))
             .merge({
               isLoadingData: false,
               loadingSuccess: true,
@@ -253,6 +280,8 @@ const patient = (state = initialPatientValue, action) => {
     case CANCEL_SINGLE_DOCTOR_FAV_ERROR:
     case ADD_SINGLE_POST_FAV_ERROR:
     case CANCEL_SINGLE_POST_FAV_ERROR:
+    case STAR_SINGLE_QUESTION_ERROR:
+    case CANCEL_STAR_SINGLE_QUESTION_ERROR:
     case GET_PATIENT_FAV_DOCTORS_ERROR:
     case GET_PATIENT_FAV_POSTS_ERROR:
     case GET_PATIENT_QUESTIONS_ERROR:
