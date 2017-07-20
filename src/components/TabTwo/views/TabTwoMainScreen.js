@@ -39,7 +39,7 @@ class QaScreen extends PureComponent {
   }
 
   render() {
-    const { questions, navigation, token, dispatch } = this.props;
+    const { questions, navigation, token, dispatch, questionFav } = this.props;
 
     let questionList = [];
     if (questions) {
@@ -64,7 +64,7 @@ class QaScreen extends PureComponent {
           dispatch={this.props.dispatch}
           token={token}
           footText={"到底了哦..."}
-          renderItem={(item) => <QuestionListItem token={token} dispatch={dispatch} navigation={navigation} item={item.item} question={item.question} />}
+          renderItem={(item) => <QuestionListItem questionFav={questionFav} token={token} dispatch={dispatch} navigation={navigation} item={item.item} question={item.question} />}
         />
         <SelectBox 
           titleLeft={"全部科室"}
@@ -97,5 +97,5 @@ QaScreen.navigationOptions = {
 };
 
 export default connect(
-  state => getQaSelector(state),
+  (state, ownProps) =>  getQaSelector(state)
 )(QaScreen);

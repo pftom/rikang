@@ -12,12 +12,15 @@ import {
   GET_SINGLE_QUESTION_ALL_IMG,
 
   STAR_SINGLE_QUESTION,
+  CANCEL_STAR_SINGLE_QUESTION,
 
   GET_SINGLE_QUESTION_ALL_ANSWERS,
 
   GET_SINGLE_QUESTION_ANSWER,
   GET_SINGLE_QUESTION_ANSWER_SUCCESS,
   GET_SINGLE_QUESTION_ALL_IMG_ERROR,
+
+
 } from '../../../constants/'
 
 //import selector for computing data
@@ -68,13 +71,22 @@ class QuestionDetail extends PureComponent {
   }
 
   render() {
-    const { question, AllImg, dispatch, navigation, answers } = this.props;
+    const { question, AllImg, dispatch, navigation, answers, questionFav } = this.props;
     const { token, id } = navigation.state.params;
 
     let answerList = [];
     if (answers) {
       answerList = handleAnswers(answers.get('results'));
     }
+
+    let whetherStarred = false;
+
+    //whether have fav this doctor
+    questionFav.map(question => {
+      if (question.get('id') === id) {
+        whetherStarred = true;
+      }
+    })
 
     const solvedFlag = question && question.has('solved') && question.get('solved');
 
@@ -118,6 +130,9 @@ class QuestionDetail extends PureComponent {
                 btnText={"关注"} 
                 navigation={navigation}
                 token={token}
+                whetherStarred={whetherStarred}
+                handleCancelStar={() => { dispatch({ type: CANCEL_STAR_SINGLE_QUESTION, payload: { token, id } }) }}
+                handleAddStar={() => { dispatch({ type: STAR_SINGLE_QUESTION, payload: { token, id, question } }) }}
               />
             </View>
             <View style={styles.graySpace}/>

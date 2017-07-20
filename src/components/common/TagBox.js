@@ -33,6 +33,14 @@ class TagBox extends PureComponent {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.whetherStarred !== this.props.whetherStarred) {
+      this.setState({
+        starred: nextProps.whetherStarred,
+      })
+    }
+  }
+
   successToast() {
     Toast.success('关注成功', 1);
   }
@@ -90,7 +98,7 @@ class TagBox extends PureComponent {
     }
 
     return (
-      <View style={styles.tagBox}>
+      <View style={[ styles.tagBox, comment && styles.commentBox]}>
           {
             star && (
               <View style={styles.leftBox}>
@@ -105,7 +113,7 @@ class TagBox extends PureComponent {
           {
             help && (
               <TouchableOpacity onPress={() => { navigation.navigate('CommentList', { token, id: item.id }) }}>
-                <View style={styles.leftBox}>
+                <View style={[ styles.leftBox]}>
                   <Image source={require('../TabOne/img/comment.png')} />
                   <Text style={styles.upvote}>9</Text>
                 </View>

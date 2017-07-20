@@ -4,12 +4,14 @@ import { createSelector } from 'reselect';
 import { getToken } from './commonSelector';
 
 const getQuestions = (state) => state.getIn(['qa', 'questions']);
+const getQuestionFav = (state) => state.getIn(['patient', 'questionFav']);
 
 export const getQaSelector = createSelector(
-  [ getToken, getQuestions ],
-  (token, questions) => ({
+  [ getToken, getQuestions, getQuestionFav ],
+  (token, questions, questionFav) => ({
     token,
     questions,
+    questionFav,
   }),
 );
 
@@ -18,15 +20,16 @@ const getQuestionAllImg = (state) => state.getIn(['qa', 'AllImg']);
 const getAnswers = (state) => state.getIn(['answer', 'answers']);
 
 export const getSingleQaSelector = createSelector(
-  [ getQuestion, getQuestionAllImg, getAnswers ],
-  (question, AllImg, answers) => ({
+  [ getQuestion, getQuestionAllImg, getAnswers, getQuestionFav ],
+  (question, AllImg, answers, questionFav) => ({
     question,
     AllImg,
-    answers
+    answers,
+    questionFav,
   }),
 );
 
-const getQuestionFav = (state) => state.getIn(['patient', 'questionFav']);
+
 
 export const getQuestionFavSelector = createSelector(
   [ getQuestionFav ],

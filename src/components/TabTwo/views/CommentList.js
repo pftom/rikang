@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { TouchableOpacity, Text, View, } from 'react-native';
+import { TouchableOpacity, Text, View, TextInput, KeyboardAvoidingView } from 'react-native';
 
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -75,6 +75,23 @@ class CommentList extends PureComponent {
             footText={ commentList.length > 0 ? "到底了哦..." : "还没有评论哦..."}
             renderItem={(item) => <CommentListItem item={item} navigation={navigation} token={token} />}
         />
+
+        <KeyboardAvoidingView behavior="position" style={{alignSelf: 'stretch'}}>
+          <View style={styles.textContainer}>
+            <View>
+              <TextInput
+              multiline={true}
+              style={styles.textInput}
+              numberOfLines = {1}
+              placeholder="输入你的评论"
+              placeholderTextColor="#B6B6B6"
+            />
+            </View>
+            <TouchableOpacity onPress={() => { console.log('hhh') }}>
+              <Text style={styles.btnText}>发布</Text>
+            </TouchableOpacity>
+          </View>
+        </KeyboardAvoidingView>
       </View>
     )
   }

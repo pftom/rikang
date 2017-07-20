@@ -42,7 +42,13 @@ export const QuestionListStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: px2dp(20),
-  },  
+  }, 
+  commentBox: {
+    justifyContent: 'flex-end',
+  },
+  helpLeft: {
+    marginLeft: 100,
+  },
 
   leftBox: {
     height: px2dp(25),

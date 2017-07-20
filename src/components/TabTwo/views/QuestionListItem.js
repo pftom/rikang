@@ -28,7 +28,6 @@ class QuestionListItem extends PureComponent {
   
   render() {
     const { navigation, token, item, dispatch, question, questionFav } = this.props;
-
     let whetherStarred = false;
 
     //whether have fav this doctor
@@ -62,6 +61,4 @@ class QuestionListItem extends PureComponent {
   }
 }
 
-export default connect(
-  state => getQuestionFavSelector(state),
-)(QuestionListItem);
+export default QuestionListItem;
