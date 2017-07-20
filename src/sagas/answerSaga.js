@@ -26,6 +26,9 @@ import {
   CREATE_SINGLE_QUESTION_ANSWER_COMMENT,
   CREATE_SINGLE_QUESTION_ANSWER_COMMENT_SUCCESS,
   CREATE_SINGLE_QUESTION_ANSWER_COMMENT_ERROR,
+
+  CLEAR_COMMENT,
+  CLEAR_COMMENT_STATE,
 } from '../constants/';
 
 //import request api
@@ -96,7 +99,7 @@ function* getSingleAnswerAllComments(payload) {
 function* createSingleAnswerComment(payload) {
   try {
     const { id, token, body } = payload;
-    yield call(request.post, base + qaSingleApi(id).createSingleAnswerComment, body, token);
+    yield call(request.post, base + qaSingleApi(id).addSingleAnswerComments, body, token);
     yield put({ type: CREATE_SINGLE_QUESTION_ANSWER_COMMENT_SUCCESS });
   } catch (error) {
     yield put({ type: CREATE_SINGLE_QUESTION_ANSWER_COMMENT_ERROR });
@@ -154,6 +157,14 @@ function* watchCreateSingleQuestionAnswerComment() {
   }
 }
 
+function* watchClearCommentState() {
+  while (true) {
+     yield take(CLEAR_COMMENT);
+    yield delay(1000);
+    yield put({ type: CLEAR_COMMENT_STATE });
+  }
+}
+
 
 
 
@@ -164,4 +175,5 @@ export {
   watchUpvoteSingleQuestionAnswer,
   watchGetAnswerAllComments,
   watchCreateSingleQuestionAnswerComment,
+  watchClearCommentState,
 }

@@ -1,15 +1,20 @@
 import React, { PureComponent } from 'react';
-import { TouchableOpacity, Text, View, TextInput, KeyboardAvoidingView } from 'react-native';
+import { TouchableOpacity, Keyboard, Text, View, TextInput, KeyboardAvoidingView } from 'react-native';
 
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 
+//import toast
+import {
+  Toast,
+} from 'antd-mobile';
+
 //import async action constants
 import { 
   GET_SINGLE_ANSWER_ALL_COMMENTS,  
-  GET_SINGLE_ANSWER_ALL_COMMENTS_SUCCESS,
-  GET_SINGLE_ANSWER_ALL_COMMENTS_ERROR,
 
+  CREATE_SINGLE_QUESTION_ANSWER_COMMENT,
+  CLEAR_COMMENT,
 } from '../../../constants/'
 
 //import selector for computing data
@@ -34,6 +39,16 @@ import CommentListItem from './CommentListItem';
 
 class CommentList extends PureComponent {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      text: '',
+      reply_to: null,
+      reply_text: null,
+    }
+  }
+
   componentDidMount() {
     const { navigation, dispatch } = this.props;
     //get the token from the navigate
@@ -42,10 +57,76 @@ class CommentList extends PureComponent {
     dispatch({ type: GET_SINGLE_ANSWER_ALL_COMMENTS, payload: { token, id, refresh: true } });
   }
 
-  render() {
-    const { dispatch, navigation, singleAnswerAllComments } = this.props;
+  componentWillReceiveProps(nextProps) {
+    const { commentSuccess, isCommenting, commentError } = nextProps;
+    if (commentError) {
+      this.failToast('评论失败');
+    }
+
+    if (isCommenting) {
+      this.loadingToast();
+    }
+
+    if(commentSuccess) {
+      this.successToast('评论成功');
+    }
+  }
+
+  successToast(msg) {
+    Toast.success(msg, 1);
+  }
+
+  failToast(msg) {
+    this.props.dispatch({ type: CLEAR_COMMENT });
+    Toast.fail(msg, 1);
+  }
+
+  loadingToast() {
+    Toast.loading('评论中...', 1);
+  }
+
+
+  handleAnswerSubmit = (body) => {
+    const { navigation, dispatch } = this.props;
+    //get the token from the navigate
     const { token, id } = navigation.state.params;
 
+    let reply = {};
+    if (this.state.reply_to) {
+      if (body.startsWith(this.state.reply_text)) {
+        reply = {
+          reply_to: this.state.reply_to,
+        }
+      }
+    }
+
+    dispatch({
+      type: CREATE_SINGLE_QUESTION_ANSWER_COMMENT,
+      payload: {
+        body: {
+          answer: id,
+          body: body,
+          ...reply,
+        },
+        token,
+        id,
+      }
+    })
+  }
+
+  handleAnswerBtn = (item) => {
+    this.setState({
+      reply_to: item.id,
+      text: `@${item.replier_name} `,
+      reply_text: `@${item.replier_name}`,
+    });
+    this.refs.textInput.focus();
+  }
+
+  render() {
+    const { dispatch, navigation, singleAnswerAllComments, commentListSeq } = this.props;
+    const { token, id } = navigation.state.params;
+    console.log('state', commentListSeq && commentListSeq);
 
     let commentList = [];
     if (singleAnswerAllComments) {
@@ -72,22 +153,26 @@ class CommentList extends PureComponent {
             data={singleAnswerAllComments}
             dispatch={this.props.dispatch}
             token={token}
+            id={id}
             footText={ commentList.length > 0 ? "到底了哦..." : "还没有评论哦..."}
-            renderItem={(item) => <CommentListItem item={item} navigation={navigation} token={token} />}
+            renderItem={(item) => <CommentListItem handleAnswerBtn={this.handleAnswerBtn} item={item} navigation={navigation} token={token} />}
         />
 
         <KeyboardAvoidingView behavior="position" style={{alignSelf: 'stretch'}}>
           <View style={styles.textContainer}>
             <View>
               <TextInput
-              multiline={true}
-              style={styles.textInput}
-              numberOfLines = {1}
-              placeholder="输入你的评论"
-              placeholderTextColor="#B6B6B6"
-            />
+                ref="textInput"
+                multiline={true}
+                style={styles.textInput}
+                numberOfLines = {1}
+                placeholder={this.state.reply_text || "输入你的评论"}
+                onChangeText={(text) => this.setState({ text })}
+                placeholderTextColor="#B6B6B6"
+                value={this.state.text}
+              />
             </View>
-            <TouchableOpacity onPress={() => { console.log('hhh') }}>
+            <TouchableOpacity onPress={() => { this.handleAnswerSubmit(this.state.text)  }}>
               <Text style={styles.btnText}>发布</Text>
             </TouchableOpacity>
           </View>

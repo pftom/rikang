@@ -62,6 +62,7 @@ import {
   watchUpvoteSingleQuestionAnswer,
   watchGetAnswerAllComments,
   watchCreateSingleQuestionAnswerComment,
+  watchClearCommentState,
 } from './answerSaga';
 
 export default function* rootSaga() {
@@ -112,5 +113,6 @@ export default function* rootSaga() {
     watchUpvoteSingleQuestionAnswer(),
     watchGetAnswerAllComments(),
     watchCreateSingleQuestionAnswerComment(),
+    watchClearCommentState(),
   ]);
 }

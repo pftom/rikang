@@ -66,7 +66,7 @@ class TagBox extends PureComponent {
   }
 
   handleTouch = () => {
-    const { star, help, comment, navigation, token, item } = this.props
+    const { star, help, comment, navigation, token, item } = this.props;
 
     if (star) {
       this.handleStar();
@@ -77,7 +77,7 @@ class TagBox extends PureComponent {
     }
 
     if (comment) {
-      console.log('hhh');
+      this.props.handleAnswerBtn(item);
     }
   }
   
@@ -115,7 +115,7 @@ class TagBox extends PureComponent {
               <TouchableOpacity onPress={() => { navigation.navigate('CommentList', { token, id: item.id }) }}>
                 <View style={[ styles.leftBox]}>
                   <Image source={require('../TabOne/img/comment.png')} />
-                  <Text style={styles.upvote}>9</Text>
+                  <Text style={styles.upvote}>{item.comment_num}</Text>
                 </View>
               </TouchableOpacity>
             )

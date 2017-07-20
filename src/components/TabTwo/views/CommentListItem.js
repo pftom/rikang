@@ -32,7 +32,8 @@ class CommentListItem extends PureComponent {
               <TagBox 
                 comment={true} 
                 item={item} 
-                btnText={"回复"} 
+                btnText={"回复"}
+                handleAnswerBtn={this.props.handleAnswerBtn}
                 navigation={navigation}
                 token={token}
               />

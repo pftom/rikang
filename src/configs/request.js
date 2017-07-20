@@ -38,8 +38,7 @@ request.get =  ( url, params, token ) => {
   if (params) {
     url += '?' + queryString.stringify(params);
   }
-  console.log('hhhhh')
-  console.log('url', url);
+
   if (token) {
     options = _.extend(header('GET', token));
   }
@@ -58,6 +57,8 @@ request.post = ( url, body, token, multiform ) => {
   let options = _.extend(header('POST', token, multiform), {
     body: JSON.stringify(body),
   });
+
+  console.log('options', options);
 
   return fetch(url, options)
         .then(response => {

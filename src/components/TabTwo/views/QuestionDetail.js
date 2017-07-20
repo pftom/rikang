@@ -162,6 +162,7 @@ class QuestionDetail extends PureComponent {
               data={answers}
               dispatch={this.props.dispatch}
               token={token}
+              id={id}
               footText={"啊哦！还没有回答哦"}
               renderItem={(item) => <QaAnswerListItem token={token} navigation={navigation} item={item} />}
             />

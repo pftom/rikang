@@ -10,6 +10,11 @@ import {
   GET_SINGLE_ANSWER_ALL_COMMENTS_SUCCESS,
   GET_SINGLE_ANSWER_ALL_COMMENTS_ERROR,
 
+  CREATE_SINGLE_QUESTION_ANSWER_COMMENT,
+  CREATE_SINGLE_QUESTION_ANSWER_COMMENT_SUCCESS,
+  CREATE_SINGLE_QUESTION_ANSWER_COMMENT_ERROR,
+
+  CLEAR_COMMENT_STATE,
 } from '../constants/';
 
 //import handle func for computing data
@@ -25,6 +30,10 @@ const initialAnswerValue = Map({
   isLoadingData: false,
   loadingError: false,
   loadingSuccess: false,
+  commentListSeq: List([]),
+  isCommenting: false,
+  commentSuccess: false,
+  commentError: false,
 });
 
 const answer = (state = initialAnswerValue, action) => {
@@ -37,6 +46,34 @@ const answer = (state = initialAnswerValue, action) => {
         loadingError: false,
         loadingSuccess: false,
       });
+    
+    case CREATE_SINGLE_QUESTION_ANSWER_COMMENT:
+
+      return state.merge({
+        isCommenting: true,
+        commentSuccess: false,
+        commentError: false,
+      });
+
+    case CREATE_SINGLE_QUESTION_ANSWER_COMMENT_ERROR:
+
+
+      return state.merge({
+        isCommenting: false,
+        commentError: true,
+        commentSuccess: false,
+      });
+
+    case CREATE_SINGLE_QUESTION_ANSWER_COMMENT_SUCCESS:
+
+      const { comment } = action;
+
+      return state.update('commentListSeq', list => list.unshift(comment))
+                  .merge({
+                    isCommenting: false,
+                    commentError: false,
+                    commentSuccess: true,
+                  })
     
     case GET_SINGLE_QUESTION_ALL_ANSWERS_SUCCESS:
 
@@ -63,13 +100,27 @@ const answer = (state = initialAnswerValue, action) => {
 
       if (singleAnswerAllComments) {
         singleAnswerAllComments = Map(singleAnswerAllComments);
+
       }
+
+      const tempSingleAnswerAllComments = action.refresh ? refreshIt(oldSingleAnswerAllComments, singleAnswerAllComments) : combine(oldSingleAnswerAllComments, singleAnswerAllComments);
+
       return state
             .merge({
               isLoadingData: false,
               loadingSuccess: true,
-              singleAnswerAllComments: action.refresh ? refreshIt(oldSingleAnswerAllComments, singleAnswerAllComments) : combine(oldSingleAnswerAllComments, singleAnswerAllComments),
+              singleAnswerAllComments: tempSingleAnswerAllComments,
+              commentListSeq: tempSingleAnswerAllComments.results,
             })
+
+    case CLEAR_COMMENT_STATE:
+
+      return state
+            .merge({
+              commentError: false,
+              commentSuccess: false,
+              isCommenting: false,
+            });
 
 
     case GET_SINGLE_QUESTION_ALL_ANSWERS_ERROR:

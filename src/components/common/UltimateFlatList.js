@@ -59,10 +59,10 @@ class UltimateFlatList extends PureComponent {
 
     this.setState({ loadingTop: true });
 
-    const { token, dispatch } = this.props;
+    const { token, dispatch, id } = this.props;
 
     REFRESH_METHOD.map((item, key) => {
-      dispatch({ type: item, payload: { token, refresh: true } });
+      dispatch({ type: item, payload: { token, id, refresh: true } });
     })
 
     this.refreshTimer = setTimeout(() => {
@@ -114,11 +114,11 @@ class UltimateFlatList extends PureComponent {
       const next = data.get('next');
 
       this.setState({ loadingTail: true });
-      const { dispatch, token } = this.props;
+      const { dispatch, token, id } = this.props;
       const { query } = parse(next, true);
 
 
-      dispatch({ type: METHOD, payload: { token, refresh: false, query } })
+      dispatch({ type: METHOD, payload: { token, id, refresh: false, query } })
       
 
       this.endReachedTimer = setTimeout(() => {
