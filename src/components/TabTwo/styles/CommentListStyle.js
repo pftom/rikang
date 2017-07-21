@@ -99,8 +99,11 @@ export const CommentListStyle = StyleSheet.create({
   body: {
     fontFamily: 'PingFangSC-Regular',
     fontSize: 16,
-    color: '#09C79C',
+    color: '#000',
     letterSpacing: -0.32,
+  },
+  atBody: {
+    color: '#09C79C',
   },
   bottomBox: {
     width: px2dp(287),

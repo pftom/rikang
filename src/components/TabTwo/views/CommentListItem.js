@@ -4,12 +4,22 @@ import { TouchableOpacity, Text, View, Image, } from 'react-native';
 
 import { CommentListStyle as styles } from '../styles/';
 
+import {
+  handleAnswers,
+  getBeRepliedName,
+} from '../data/';
+
+
 import { TagBox } from '../../common/'
 
 
 class CommentListItem extends PureComponent {
   render() {
-    const { item, navigation, token } = this.props;
+    const { item, navigation, token, commentListSeq } = this.props;
+    let name = null;
+    if (item.reply_to) {
+      name = getBeRepliedName(commentListSeq, item.reply_to);
+    }
     return (
       <View style={styles.itemContainer}>
         <View style={styles.itemBox}>
@@ -26,7 +36,12 @@ class CommentListItem extends PureComponent {
               <Text style={styles.time}>{item.created}</Text>
             </View>
             <View style={styles.midBox}>
-              <Text style={styles.body}>{item.body}</Text>
+              <Text style={styles.body}>
+                <Text style={styles.atBody}>
+                  { name && `@${name} ` }
+                </Text>
+                {item.body}
+              </Text>
             </View>
             <View style={styles.bottomBox}>
               <TagBox 

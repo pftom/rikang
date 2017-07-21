@@ -66,14 +66,13 @@ const answer = (state = initialAnswerValue, action) => {
 
     case CREATE_SINGLE_QUESTION_ANSWER_COMMENT_SUCCESS:
 
-      const { comment } = action;
 
-      return state.update('commentListSeq', list => list.unshift(comment))
-                  .merge({
-                    isCommenting: false,
-                    commentError: false,
-                    commentSuccess: true,
-                  })
+      return state
+          .merge({
+            isCommenting: false,
+            commentError: false,
+            commentSuccess: true,
+          })
     
     case GET_SINGLE_QUESTION_ALL_ANSWERS_SUCCESS:
 

@@ -163,7 +163,7 @@ class QuestionDetail extends PureComponent {
               dispatch={this.props.dispatch}
               token={token}
               id={id}
-              footText={"啊哦！还没有回答哦"}
+              footText={ answerList.length ? "到底了哦..." : "啊哦！还没有回答哦"}
               renderItem={(item) => <QaAnswerListItem token={token} navigation={navigation} item={item} />}
             />
           )

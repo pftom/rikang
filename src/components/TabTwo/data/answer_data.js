@@ -25,8 +25,33 @@ const handleAnswers = (data) => {
 };
 
 
+const getLatestId = (list) => {
+  let id = 1;
+  list.map(item => {
+    if (item.get('id') > id) {
+      id = item.get('id');
+    }
+  })
+
+  return id;
+}
+
+const getBeRepliedName = (list, reply_to) => {
+  let name = null;
+
+  list.map(item => {
+    if (item.get('id') === reply_to) {
+      name = item.get('replier_name');
+    }
+  })
+
+  return name;
+}
+
 
 
 export {
   handleAnswers,
+  getLatestId,
+  getBeRepliedName,
 }

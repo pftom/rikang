@@ -3,6 +3,8 @@ import { TouchableOpacity, Keyboard, Text, View, TextInput, KeyboardAvoidingView
 
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
+import moment from 'moment';
+
 
 //import toast
 import {
@@ -31,6 +33,7 @@ import { UltimateFlatList } from '../../common/';
 //import data handle func
 import {
   handleAnswers,
+  getLatestId,
 } from '../data/';
 
 //import comments list item
@@ -73,6 +76,7 @@ class CommentList extends PureComponent {
   }
 
   successToast(msg) {
+    this.props.dispatch({ type: CLEAR_COMMENT });
     Toast.success(msg, 1);
   }
 
@@ -97,6 +101,8 @@ class CommentList extends PureComponent {
         reply = {
           reply_to: this.state.reply_to,
         }
+        
+        body = body.slice(this.state.reply_text.length);
       }
     }
 
@@ -112,6 +118,12 @@ class CommentList extends PureComponent {
         id,
       }
     })
+
+    //after submit dismiss the Keyboard
+    Keyboard.dismiss();
+    this.setState({
+      text: '',
+    })
   }
 
   handleAnswerBtn = (item) => {
@@ -126,11 +138,10 @@ class CommentList extends PureComponent {
   render() {
     const { dispatch, navigation, singleAnswerAllComments, commentListSeq } = this.props;
     const { token, id } = navigation.state.params;
-    console.log('state', commentListSeq && commentListSeq);
 
     let commentList = [];
     if (singleAnswerAllComments) {
-      commentList = handleAnswers(singleAnswerAllComments.get('results'));
+      commentList = handleAnswers(commentListSeq);
     }
 
 
@@ -155,7 +166,7 @@ class CommentList extends PureComponent {
             token={token}
             id={id}
             footText={ commentList.length > 0 ? "到底了哦..." : "还没有评论哦..."}
-            renderItem={(item) => <CommentListItem handleAnswerBtn={this.handleAnswerBtn} item={item} navigation={navigation} token={token} />}
+            renderItem={(item) => <CommentListItem commentListSeq={commentListSeq} handleAnswerBtn={this.handleAnswerBtn} item={item} navigation={navigation} token={token} />}
         />
 
         <KeyboardAvoidingView behavior="position" style={{alignSelf: 'stretch'}}>

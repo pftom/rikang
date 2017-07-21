@@ -100,7 +100,11 @@ function* createSingleAnswerComment(payload) {
   try {
     const { id, token, body } = payload;
     yield call(request.post, base + qaSingleApi(id).addSingleAnswerComments, body, token);
+    //make a delay for js thread debounce
+    yield delay(500);
     yield put({ type: CREATE_SINGLE_QUESTION_ANSWER_COMMENT_SUCCESS });
+    yield delay(500);
+    yield put({ type: GET_SINGLE_ANSWER_ALL_COMMENTS, payload: { token, id, refresh: true }})
   } catch (error) {
     yield put({ type: CREATE_SINGLE_QUESTION_ANSWER_COMMENT_ERROR });
   }

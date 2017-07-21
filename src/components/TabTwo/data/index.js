@@ -5,10 +5,14 @@ import {
 
 import {
   handleAnswers,
+  getLatestId,
+  getBeRepliedName,
 } from './answer_data.js';
 
 export {
   handleQuestions,
   handleQuestion,
   handleAnswers,
+  getLatestId,
+  getBeRepliedName,
 }
