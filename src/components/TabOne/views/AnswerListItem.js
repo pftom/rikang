@@ -44,10 +44,6 @@ class AnswerListItem extends PureComponent {
           <Text style={styles.name}>{name}医生的回答</Text>
           
           <View style={styles.bottomBox}>
-            {this.renderBottomBox({ 
-              img: require('../img/upvote.png'),
-              text: item.upvotes,
-            })}
 
             {this.renderBottomBox({ 
               img: require('../img/comment.png'),
