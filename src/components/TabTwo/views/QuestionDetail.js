@@ -3,7 +3,6 @@ import { TouchableOpacity, Text, View, ScrollView, Image } from 'react-native';
 
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
-import PhotoBrowser from 'react-native-photo-browser';
 
 //import async action constants
 import { 

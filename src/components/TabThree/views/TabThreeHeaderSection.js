@@ -28,7 +28,7 @@ class TabThreeHeaderSection extends PureComponent {
               </View>
               <View style={styles.bottomBox}>
                 <View style={styles.leftBox}>
-                  <SelectPhoto />
+                  <SelectPhoto personInfo={true} />
                 </View>
                 <View style={styles.rightBox}>
                   <Text style={styles.name}>{patientProfile.get('name')}</Text>

@@ -3,8 +3,8 @@ import {
   StyleSheet, 
   View, 
   Text, 
-  TouchableOpacity,
-
+  TouchableHighlight,
+  Image,
  } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -86,6 +86,17 @@ class QaScreen extends PureComponent {
             right: 0,
           }}
         />
+
+        <View style={styles.putQuestionContainer}>  
+            <View style={styles.putQuestionBox}>
+              <TouchableHighlight style={styles.putQuestionTouch} onPress={() => { navigation.navigate('PutQuestion', { token, dispatch }) }}>
+                <View style={styles.putQuestionInlineBox}>
+                  <Image source={require('../img/putQuestion.png')} />
+                  <Text style={styles.putQuestionText}>我要提问</Text>
+                </View>
+              </TouchableHighlight>
+            </View>
+        </View>
         
       </View>
     )

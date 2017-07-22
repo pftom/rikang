@@ -64,24 +64,40 @@ class SelectPhoto extends Component {
         this.setState({
           avatarSource: response.uri,
         });
+
+        this.props.handleAddPic(response.uri);
       }
     });
   }
 
   render() {
+    const { personInfo, addPhoto } = this.props;
+
     return (
-      <TouchableOpacity onPress={this.selectPhotoTapped}>
-        <View style={styles.avatarBox}>
+      <TouchableOpacity onPress={this.selectPhotoTapped} style={ addPhoto && styles.addPhotoContainer}>
           {
-            this.state.avatarSource
-            ? (
-              <Image style={styles.avatar} source={{ uri: this.state.avatarSource }} />
-            )
-            : (
-              <Text style={styles.avatarText}>换头像</Text>
+            personInfo && (
+              <View style={styles.avatarBox}>
+              {
+                this.state.avatarSource
+                  ? (
+                    <Image style={styles.avatar} source={{ uri: this.state.avatarSource }} />
+                  )
+                  : (
+                    <Text style={styles.avatarText}>换头像</Text>
+                  )
+              }
+            </View>
+                )
+              }
+          {
+            addPhoto && (
+              <View style={styles.addPhotoBox}>
+                <Image source={require('../../TabOne/img/add.png')} />
+                <Text style={styles.addPhotoText}>添加照片</Text>
+              </View>
             )
           }
-        </View>
       </TouchableOpacity>
     )
   }

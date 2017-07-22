@@ -11,6 +11,7 @@ import { PostDetailStyle } from './PostDetailStyle';
 import { HospitalDetailStyle } from './HospitalDetailStyle';
 import { BottomButtonStyle } from './BottomButtonStyle';
 import { SelectBoxStyle } from './SelectBoxStyle';
+import { PutQuestionStyle } from './PutQuestionStyle';
 
 
 export {
@@ -30,4 +31,6 @@ export {
   CommentListStyle,
   PostDetailStyle,
   SelectBoxStyle,
+
+  PutQuestionStyle,
 }

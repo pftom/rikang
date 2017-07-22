@@ -29,4 +29,22 @@ export const SelectPhotoStyle = StyleSheet.create({
     color: '#000',
     backgroundColor: 'transparent',
   },
+  addPhotoContainer: {
+    height: px2dp(86),
+    width: px2dp(86),
+  },
+  addPhotoBox: {
+    borderWidth: 1,
+    borderColor: '#DADADA',
+    height: px2dp(86),
+    width: px2dp(86),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  addPhotoText: {
+    fontFamily: 'PingFangSC-Light',
+    fontSize: 14,
+    color: '#D4D4D4',
+    marginTop: px2dp(10),
+  },
 })
