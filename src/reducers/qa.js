@@ -14,6 +14,9 @@ import {
   GET_SINGLE_QUESTION_ALL_IMG_SUCCESS,
   GET_SINGLE_QUESTION_ALL_IMG_ERROR,
 
+  STAR_SINGLE_QUESTION_SUCCESS,
+  CANCEL_STAR_SINGLE_QUESTION_SUCCESS,
+
 } from '../constants/';
 
 //import handle data func
@@ -61,6 +64,29 @@ const qa = (state = initialQaValue, action) => {
         loadingSuccess: true,
         questions: refresh ? refreshIt(oldQuestions, questions) : combine(oldQuestions, questions),
       });
+
+    case STAR_SINGLE_QUESTION_SUCCESS:
+
+
+      return state.updateIn(['questions', 'results'], list => {
+        return list.map(item => {
+          if (item.get('id') === action.id) {
+            return item.update('stars', stars => stars + 1);
+          }
+          return item;
+        })
+      })
+
+    case CANCEL_STAR_SINGLE_QUESTION_SUCCESS:
+
+      return state.updateIn(['questions', 'results'], list => {
+        return list.map(item => {
+          if (item.get('id') === action.id) {
+            return item.update('stars', stars => stars - 1);
+          }
+          return item;
+        })
+      })
 
       
     case GET_SINGLE_QUESTION_SUCCESS:

@@ -120,10 +120,10 @@ function* getSingleQuestionAllImg(payload) {
 function* starSingleQuestion(payload) {
   try {
     const { token, id, question } = payload;
-
+    console.log('url', base + qaSingleApi(id).singleQuestionStar);
     yield call(request.get, base + qaSingleApi(id).singleQuestionStar, null, token);
 
-    yield put({ type: STAR_SINGLE_QUESTION_SUCCESS, question });
+    yield put({ type: STAR_SINGLE_QUESTION_SUCCESS, question, id });
   } catch (error) {
     yield put({ type: STAR_SINGLE_QUESTION_ERROR });
   }
