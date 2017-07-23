@@ -97,8 +97,8 @@ class PutQuestion extends PureComponent {
   }
 
   render() {
-    const { navigation } = this.props;
-    const { token, dispatch } = navigation.state.params;
+    const { navigation, dispatch } = this.props;
+    const { token } = navigation.state.params;
 
     const data = [
       {

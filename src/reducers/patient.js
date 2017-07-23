@@ -65,9 +65,7 @@ import {
 
 //home reducers
 const initialPatientValue = Map({
-  doctorFav: List([
-    1,
-  ]),
+  doctorFav: List([]),
   patientDoctors: null,
 
   postFav: List([]),
@@ -231,7 +229,10 @@ const patient = (state = initialPatientValue, action) => {
     case CREATE_SINGLE_QUESTION_SUCCESS:
 
     return state
-          .update('questionFav', list => list.unshift(action.question));
+          .update('questionFav', list => list.unshift(Map(action.question)))
+          .merge({
+            isLoadingData: false,
+          })
 
     case DELETE_SINGLE_QUESTION_SUCCESS:
 
@@ -324,7 +325,6 @@ const patient = (state = initialPatientValue, action) => {
             data[key] = (value && value.keySeq().count() > 0 && value.toList().filter(item => item !== null) ) || List([]);
           }
         });
-        console.log('state', data);
 
         let newState = state.merge(data);
 

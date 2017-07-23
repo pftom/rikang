@@ -14,15 +14,17 @@ import {
 } from './TabOneMainSelector.js';
 
 const getQuestions = (state) => state.getIn(['qa', 'questions']);
-const getQuestionFav = (state) => state.getIn(['patient', 'questionFav']);
+const getQuestionStarredFav = (state) => state.getIn(['patient', 'questionStarredFav']);
 
 export const getQaSelector = createSelector(
-  [ getToken, getQuestions, getQuestionFav ],
-  (token, questions, questionFav) => ({
-    token,
-    questions,
-    questionFav,
-  }),
+  [ getToken, getQuestions, getQuestionStarredFav ],
+  (token, questions, questionStarredFav) => {
+      return {
+      token,
+      questions,
+      questionStarredFav,
+    }
+  }
 );
 
 const getQuestion = (state) => state.getIn(['qa', 'question']);
@@ -30,21 +32,21 @@ const getQuestionAllImg = (state) => state.getIn(['qa', 'AllImg']);
 const getAnswers = (state) => state.getIn(['answer', 'answers']);
 
 export const getSingleQaSelector = createSelector(
-  [ getQuestion, getQuestionAllImg, getAnswers, getQuestionFav ],
-  (question, AllImg, answers, questionFav) => ({
+  [ getQuestion, getQuestionAllImg, getAnswers, getQuestionStarredFav ],
+  (question, AllImg, answers, questionStarredFav) => ({
     question,
     AllImg,
     answers,
-    questionFav,
+    questionStarredFav,
   }),
 );
 
 
 
 export const getQuestionFavSelector = createSelector(
-  [ getQuestionFav ],
-  (questionFav) => ({
-    questionFav,
+  [ getQuestionStarredFav ],
+  (questionStarredFav) => ({
+    questionStarredFav,
   }),
 );
 

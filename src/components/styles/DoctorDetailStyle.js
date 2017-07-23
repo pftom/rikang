@@ -48,7 +48,7 @@ export const DoctorDetailStyle = StyleSheet.create({
 
   introTopBox: {
     flexDirection: 'row',
-    width: px2dp(303),
+    width: px2dp(330),
     justifyContent: 'space-between',
   },
 
@@ -93,6 +93,7 @@ export const DoctorDetailStyle = StyleSheet.create({
     alignItems: 'center',
     marginTop: px2dp(10),
     marginBottom: px2dp(13),
+    width: px2dp(180)
   },
 
   hospitalName: {

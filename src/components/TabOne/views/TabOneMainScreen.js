@@ -82,12 +82,13 @@ class HomeMainScreen extends PureComponent {
     ];
 
     //render header component
-    const header = () => <HeaderSection navigation={navigation} headerTitleData={headerTitleData} token={token} />;
+    const header = () => <HeaderSection dispatch={dispatch} navigation={navigation} headerTitleData={headerTitleData} token={token} />;
 
     return (
       <View style={styles.container}>
         <Header 
           navigation={navigation}
+          headerText="日康之家"
           showGradient={true}
         />
         <UltimateListView

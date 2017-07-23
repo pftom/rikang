@@ -30,11 +30,11 @@ import {
 class QuestionListItem extends PureComponent {
   
   render() {
-    const { navigation, token, item, dispatch, question, questionFav } = this.props;
+    const { navigation, token, item, dispatch, question, questionStarredFav } = this.props;
     let whetherStarred = false;
 
     //whether have fav this doctor
-    questionFav.map(question => {
+    questionStarredFav.map(question => {
       if (question && question.get('id') === item.id) {
         whetherStarred = true;
       }

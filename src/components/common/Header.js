@@ -117,7 +117,7 @@ class Header extends PureComponent {
 
     if (!(props.share  || props.searchIcon || props.navigate) && !( props.shareHeart || props.shareStar || props.phone)) {
       headerTextAddStyle = {
-        left: -20,
+        left: -5,
       }
     }
 

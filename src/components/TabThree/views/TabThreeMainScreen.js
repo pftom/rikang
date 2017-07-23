@@ -239,7 +239,7 @@ class UserScreen extends PureComponent {
           }
         </ScrollableTabView>
         <TouchableOpacity onPress={() => { dispatch({ type: 'LOGOUT' })}}>
-          <Text style={{ position: 'absolute', top: 20, fontSize: 40, }}>Logout</Text>
+          <Text style={{ position: 'absolute', top: 100, left: 100, fontSize: 40, }}>Logout</Text>
         </TouchableOpacity>
       </View>
     )

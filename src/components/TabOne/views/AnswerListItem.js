@@ -47,7 +47,7 @@ class AnswerListItem extends PureComponent {
 
             {this.renderBottomBox({ 
               img: require('../img/comment.png'),
-              text: item.commentsCount,
+              text: item.comment_num,
             })}
 
             <View style={styles.spreadBox}>

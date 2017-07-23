@@ -70,7 +70,7 @@ class QuestionDetail extends PureComponent {
   }
 
   render() {
-    const { question, AllImg, dispatch, navigation, answers, questionFav } = this.props;
+    const { question, AllImg, dispatch, navigation, answers, questionStarredFav } = this.props;
     const { token, id } = navigation.state.params;
 
     let answerList = [];
@@ -81,7 +81,7 @@ class QuestionDetail extends PureComponent {
     let whetherStarred = false;
 
     //whether have fav this doctor
-    questionFav.map(question => {
+    questionStarredFav.map(question => {
       if (question && question.get('id') === id) {
         whetherStarred = true;
       }

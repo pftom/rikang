@@ -95,7 +95,7 @@ class PutQuestionDetail extends PureComponent {
     const resetAction = NavigationActions.reset({
       index: 0,
       actions: [
-        NavigationActions.navigate({ routeName: 'QaScreen' })
+        NavigationActions.navigate({ routeName: 'TabBarNavigation' }),
       ]
     });
 
