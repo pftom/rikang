@@ -1,5 +1,5 @@
 import { delay } from 'redux-saga';
-import { put, take, call, fork, cancel } from 'redux-saga/effects';
+import { put, take, call, fork, cancel, } from 'redux-saga/effects';
 
 //import HOSPITAL action constans
 import { 
@@ -64,6 +64,15 @@ function* createSingleQuestion(payload) {
   try {
     const { token, body, imgs } = payload;
     const question = yield call(request.post, base + qaApi.addQuestion, body, token);
+    const { id } = question;
+    for (let i = 0; i < imgs.length; i++) {
+      //创建表单数据，image要是一个文件，文件要标明编码类型 type: 
+      let data = new FormData();
+      data.append('question', id);
+      data.append('image', { uri: imgs[i].photo, type: 'multipart/form-data', name: 'image.jpg'} );
+      yield put({ type: ADD_SINGLE_QUESTION_IMG, payload: { token, id, body: data }});
+      yield delay(200);
+    }
     yield put({ type: CREATE_SINGLE_QUESTION_SUCCESS, question });
   } catch (error) {
     yield put({ type: CREATE_SINGLE_QUESTION_ERROR });
@@ -78,7 +87,7 @@ function* addImgForQuestion(payload) {
     const questionImg = yield call(request.post, base + qaSingleApi(id).addQuestionImg, body, token, true);
     yield put({ type: ADD_SINGLE_QUESTION_IMG_SUCCESS, questionImg });
   } catch (error) {
-    yield put({ type: ADD_SINGLE_QUESTION_IMG_ERROR });
+    yield put({ type: ADD_SINGLE_QUESTION_IMG_ERROR, error });
   }
 }
 

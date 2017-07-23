@@ -61,11 +61,14 @@ class SelectPhoto extends Component {
         // let source = { uri: response.uri };
         // You can also display the image using data:
         // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+        // console.log('uri', source);
         this.setState({
           avatarSource: response.uri,
         });
 
-        this.props.handleAddPic(response.uri);
+        const { handleAddPic } = this.props;
+
+        handleAddPic && handleAddPic(response.uri, 'data:image/jpeg;base64,' + response.data);
       }
     });
   }

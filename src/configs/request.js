@@ -16,17 +16,24 @@ const header = (METHOD, token, multiform) => {
   // supply some form data submit use multipart/form-data
   if (multiform) {
     multiForm = {
-      'Content-Type': 'multipart/form-data',
+      'Content-Type': 'multipart/form-data;',
     }
+  }
+
+  let contentType = {};
+  if (!multiform) {
+    contentType = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
   }
 
   return ({
     method: METHOD,
     headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
       ...auth,
       ...multiForm,
+      ...contentType,
     }
   })
 }
@@ -54,8 +61,14 @@ request.get =  ( url, params, token ) => {
 }
 
 request.post = ( url, body, token, multiform ) => {
+  let data = null;
+  if (multiform) {
+    data = body;
+  } else {
+    data = JSON.stringify(body);
+  }
   let options = _.extend(header('POST', token, multiform), {
-    body: JSON.stringify(body),
+    body: data
   });
 
   console.log('options', options, url);

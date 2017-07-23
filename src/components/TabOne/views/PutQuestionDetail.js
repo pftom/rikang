@@ -23,30 +23,6 @@ import SelectPhoto from '../../TabThree/common/SelectPhoto';
 import PhotoBrowser from 'react-native-photo-browser';
 
 
-const department = [
-  [ 
-    {
-      label: '2013',
-      value: '2013',
-    },
-    {
-      label: '2014',
-      value: '2014',
-    },
-  ],
-  [
-    {
-      label: '春',
-      value: '春',
-    },
-    {
-      label: '秋',
-      value: '秋',
-    }
-  ]
-]
-
-
 
 class PutQuestionDetail extends PureComponent {
 
@@ -66,11 +42,12 @@ class PutQuestionDetail extends PureComponent {
     // dispatch({ type: GET_SINGLE_POST, payload: { token, id }});
   }
 
-  handleAddPic = (img) => {
+  handleAddPic = (img, uri) => {
     let { imgs } = this.state;
     
     let newImgs = imgs.concat({
       photo: img,
+      uri: uri,
     });
 
     console.log('img', newImgs);
