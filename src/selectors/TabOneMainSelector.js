@@ -24,11 +24,25 @@ export const getHomeSelector = createSelector(
 //post selector
 const getPost = (state) => state.getIn(['home', 'post']);
 const getPostFav = (state) => state.getIn(['patient', 'postFav']);
+const getIsFaving = (state) => state.getIn(['patient', 'isStarSingleQuestion']);
+const getFavSuccess = (state) => state.getIn(['patient', 'starSingleQuestionSuccess']);
+const getFavError = (state) => state.getIn(['patient', 'starSingleQuestionError']);
+
+const getIsCancelFaving = (state) => state.getIn(['patient', 'isCancelStarSingleQuestion']);
+const getCancelFavSuccess = (state) => state.getIn(['patient', 'cancelStarSingleQuestionSuccess']);
+const getCancelFavError = (state) => state.getIn(['patient', 'cancelStarSingleQuestionError']);
+
 
 export const getPostSelector = createSelector(
-  [ getPost, getPostFav ],
-  (post, postFav) => ({
+  [ getPost, getPostFav, getIsFaving, getFavSuccess, getFavError, getIsCancelFaving, getCancelFavSuccess, getCancelFavError ],
+  (post, postFav, isStarSingleQuestion, starSingleQuestionSuccess, starSingleQuestionError, isCancelStarSingleQuestion, cancelStarSingleQuestionSuccess, cancelStarSingleQuestionError) => ({
     post,
     postFav,
+    isStarSingleQuestion,
+    starSingleQuestionSuccess,
+    starSingleQuestionError,
+    isCancelStarSingleQuestion,
+    cancelStarSingleQuestionSuccess,
+    cancelStarSingleQuestionError,
   }),
 );

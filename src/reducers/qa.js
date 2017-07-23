@@ -17,6 +17,10 @@ import {
   STAR_SINGLE_QUESTION_SUCCESS,
   CANCEL_STAR_SINGLE_QUESTION_SUCCESS,
 
+  CREATE_SINGLE_QUESTION,
+  CREATE_SINGLE_QUESTION_SUCCESS,
+  CREATE_SINGLE_QUESTION_ERROR,
+
 } from '../constants/';
 
 //import handle data func
@@ -34,6 +38,9 @@ const initialQaValue = Map({
   isLoadingData: false,
   loadingError: false,
   loadingSuccess: false,
+  isAddQuestion: false,
+  addQuestionSuccess: false,
+  addQuestionError: false,
 });
 
 const qa = (state = initialQaValue, action) => {
@@ -46,6 +53,30 @@ const qa = (state = initialQaValue, action) => {
         isLoadingData: true,
         loadingError: false,
         loadingSuccess: false,
+      });
+
+    case CREATE_SINGLE_QUESTION:
+
+      return state.merge({
+        isAddQuestion: true,
+        addQuestionSuccess: false,
+        addQuestionError: false,
+      })
+
+    case CREATE_SINGLE_QUESTION_SUCCESS:
+
+      return state.merge({
+        isAddQuestion: false,
+        addQuestionSuccess: true,
+        addQuestionError: false,
+      });
+
+    case CREATE_SINGLE_QUESTION_ERROR:
+
+      return state.merge({
+        isAddQuestion: false,
+        addQuestionSuccess: false,
+        addQuestionError: true,
       });
     
     case GET_QUESTIONS_SUCCESS:

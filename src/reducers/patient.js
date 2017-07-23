@@ -7,6 +7,9 @@ import {
   ADD_SINGLE_DOCTOR_FAV_SUCCESS,
   ADD_SINGLE_DOCTOR_FAV_ERROR,
 
+  CREATE_SINGLE_QUESTION_SUCCESS,
+  DELETE_SINGLE_QUESTION_SUCCESS,
+
   CANCEL_SINGLE_DOCTOR_FAV,
   CANCEL_SINGLE_DOCTOR_FAV_SUCCESS,
   CANCEL_SINGLE_DOCTOR_FAV_ERROR,
@@ -50,6 +53,8 @@ import {
   GET_PATIENT_STARRED_QUESTIONS,
   GET_PATIENT_STARRED_QUESTIONS_SUCCESS,
   GET_PATIENT_STARRED_QUESTIONS_ERROR,
+
+  CLEAR_FAV_STATE,
 } from '../constants/';
 
 //import util for update data
@@ -83,6 +88,14 @@ const initialPatientValue = Map({
   isLoadingData: false,
   loadingError: false,
   loadingSuccess: false,
+
+  isStarSingleQuestion: false,
+  starSingleQuestionSuccess: false,
+  starSingleQuestionError: false,
+
+  isCancelStarSingleQuestion: false,
+  cancelStarSingleQuestionSuccess: false,
+  cancelStarSingleQuestionError: false,
 });
 
 
@@ -97,12 +110,6 @@ const DATA = [
 
 const patient = (state = initialPatientValue, action) => {
   switch (action.type) {
-    case ADD_SINGLE_DOCTOR_FAV:
-    case CANCEL_SINGLE_DOCTOR_FAV:
-    case ADD_SINGLE_POST_FAV:
-    case CANCEL_SINGLE_POST_FAV:
-    case STAR_SINGLE_QUESTION:
-    case CANCEL_STAR_SINGLE_QUESTION:
     case GET_PATIENT_PROFILE:
     case GET_PATIENT_FAV_DOCTORS:
     case GET_PATIENT_FAV_POSTS:
@@ -116,6 +123,26 @@ const patient = (state = initialPatientValue, action) => {
         loadingError: false,
         loadingSuccess: false,
       });
+
+    case STAR_SINGLE_QUESTION:
+    case ADD_SINGLE_DOCTOR_FAV:
+    case ADD_SINGLE_POST_FAV:
+
+      return state.merge({
+        isStarSingleQuestion: true,
+        starSingleQuestionSuccess: false,
+        starSingleQuestionError: false,
+      });
+
+    case CANCEL_STAR_SINGLE_QUESTION:
+    case CANCEL_SINGLE_DOCTOR_FAV:
+    case CANCEL_SINGLE_POST_FAV:
+
+      return state.merge({
+        isCancelStarSingleQuestion: true,
+        cancelStarSingleQuestionSuccess: false,
+        cancelStarSingleQuestionError: false,
+      })
     
     case ADD_SINGLE_DOCTOR_FAV_SUCCESS:
 
@@ -124,8 +151,8 @@ const patient = (state = initialPatientValue, action) => {
       return state
             .update('doctorFav', list => list.unshift(doctor))
             .merge({
-              isLoadingData: false,
-              loadingSuccess: true,
+              isStarSingleQuestion: false,
+              starSingleQuestionSuccess: true,
             });
 
     case CANCEL_SINGLE_DOCTOR_FAV_SUCCESS:
@@ -134,8 +161,8 @@ const patient = (state = initialPatientValue, action) => {
       return state
             .update('doctorFav', list => list.filter(doctor => doctor.get('id') !== action.id))
             .merge({
-              isLoadingData: false,
-              loadingSuccess: true,
+              isCancelStarSingleQuestion: false,
+              cancelStarSingleQuestionSuccess: true,
             });
 
     case ADD_SINGLE_POST_FAV_SUCCESS:
@@ -145,8 +172,8 @@ const patient = (state = initialPatientValue, action) => {
       return state
             .update('postFav', list => list.unshift(post))
             .merge({
-              isLoadingData: false,
-              loadingSuccess: true,
+              isStarSingleQuestion: false,
+              starSingleQuestionSuccess: true,
             });
 
     case CANCEL_SINGLE_POST_FAV_SUCCESS:
@@ -155,8 +182,8 @@ const patient = (state = initialPatientValue, action) => {
       return state
             .update('postFav', list => list.filter(post => post.get('id') !== action.id))
             .merge({
-              isLoadingData: false,
-              loadingSuccess: true,
+              isCancelStarSingleQuestion: false,
+              cancelStarSingleQuestionSuccess: true,
             });
 
     case STAR_SINGLE_QUESTION_SUCCESS:
@@ -164,21 +191,52 @@ const patient = (state = initialPatientValue, action) => {
     //add post to fav list
       const { question } = action;
       return state
-            .update('questionFav', list => list.unshift(question))
+            .update('questionStarredFav', list => list.unshift(question))
             .merge({
-              isLoadingData: false,
-              loadingSuccess: true,
+              isStarSingleQuestion: false,
+              starSingleQuestionSuccess: true,
             });
 
     case CANCEL_STAR_SINGLE_QUESTION_SUCCESS:
 
       //delete the question by id
       return state
-            .update('questionFav', list => list.filter(question => question.get('id') !== action.id))
+            .update('questionStarredFav', list => list.filter(question => question.get('id') !== action.id))
             .merge({
-              isLoadingData: false,
-              loadingSuccess: true,
+              isCancelStarSingleQuestion: false,
+              cancelStarSingleQuestionSuccess: true,
             });
+
+    case STAR_SINGLE_QUESTION_ERROR:
+    
+    case ADD_SINGLE_DOCTOR_FAV_ERROR:
+    
+    case ADD_SINGLE_POST_FAV_ERROR:
+    
+
+      return state.merge({
+        isStarSingleQuestion: false,
+        starSingleQuestionError: true,
+      });
+
+    case CANCEL_STAR_SINGLE_QUESTION_ERROR:
+    case CANCEL_SINGLE_DOCTOR_FAV_ERROR:
+    case CANCEL_SINGLE_POST_FAV_ERROR:
+
+      return state.merge({
+        isCancelStarSingleQuestion: false,
+        cancelStarSingleQuestionError: true,
+      })
+
+    case CREATE_SINGLE_QUESTION_SUCCESS:
+
+    return state
+          .update('questionFav', list => list.unshift(action.question));
+
+    case DELETE_SINGLE_QUESTION_SUCCESS:
+
+    return state
+          .update('questionFav', list => list.filter(question => question && question.get('id') !== action.id ));
 
     case GET_PATIENT_PROFILE_SUCCESS:
 
@@ -263,7 +321,7 @@ const patient = (state = initialPatientValue, action) => {
         patient.mapEntries(([key, value]) => {
           if (DATA.includes(key)) {
 
-            data[key] = (value && value.keySeq().count() > 0 && value.toList() ) || List([]);
+            data[key] = (value && value.keySeq().count() > 0 && value.toList().filter(item => item !== null) ) || List([]);
           }
         });
         console.log('state', data);
@@ -276,12 +334,18 @@ const patient = (state = initialPatientValue, action) => {
 
       return state;
 
-    case ADD_SINGLE_DOCTOR_FAV_ERROR:
-    case CANCEL_SINGLE_DOCTOR_FAV_ERROR:
-    case ADD_SINGLE_POST_FAV_ERROR:
-    case CANCEL_SINGLE_POST_FAV_ERROR:
-    case STAR_SINGLE_QUESTION_ERROR:
-    case CANCEL_STAR_SINGLE_QUESTION_ERROR:
+    case CLEAR_FAV_STATE: 
+
+      return state.merge({
+        isStarSingleQuestion: false,
+        starSingleQuestionSuccess: false,
+        starSingleQuestionError: false,
+
+        isCancelStarSingleQuestion: false,
+        cancelStarSingleQuestionSuccess: false,
+        cancelStarSingleQuestionError: false,
+      })
+    
     case GET_PATIENT_FAV_DOCTORS_ERROR:
     case GET_PATIENT_FAV_POSTS_ERROR:
     case GET_PATIENT_QUESTIONS_ERROR:

@@ -4,7 +4,9 @@ import LinearGradient from 'react-native-linear-gradient';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 
-import { Picker } from 'antd-mobile';
+
+
+import { Picker, Toast } from 'antd-mobile';
 
 //import async action constants
 import { 
@@ -15,7 +17,7 @@ import {
 } from '../../../constants/'
 
 //import selector for computing data
-import { getPostSelector } from '../../../selectors/'
+import { getQuestionStatusSelector } from '../../../selectors/'
 
 import { PutQuestionStyle as styles } from '../../styles/';
 
@@ -70,6 +72,45 @@ class PutQuestionDetail extends PureComponent {
     dispatch({ type: CREATE_SINGLE_QUESTION, payload: { token, body, imgs }});
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { navigation } = this.props;
+    const { isAddQuestion, addQuestionSuccess, addQuestionError } = nextProps;
+
+    if (isAddQuestion) {
+      this.loadingToast();
+    }
+
+    if(addQuestionSuccess) {
+      this.successToast(navigation);
+    }
+
+    if(addQuestionError) {
+      this.failToast('发布失败');
+    }
+  }
+
+  successToast(navigation) {
+    Toast.success('发布成功', 1);
+    
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'QaScreen' })
+      ]
+    });
+
+    navigation.dispatch(resetAction);
+  }
+
+  failToast(msg) {
+    this.props.dispatch({ type: CLEAR });
+    Toast.fail(msg, 1);
+  }
+
+  loadingToast() {
+    Toast.loading('发布中...', 1);
+  }
+
   render() {
     const { navigation } = this.props;
     const { token, title, department, dispatch } = navigation.state.params;
@@ -117,5 +158,5 @@ class PutQuestionDetail extends PureComponent {
 }
 
 export default connect(
-  state => getPostSelector(state),
+  state => getQuestionStatusSelector(state),
 )(PutQuestionDetail);

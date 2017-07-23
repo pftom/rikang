@@ -82,7 +82,7 @@ class QuestionDetail extends PureComponent {
 
     //whether have fav this doctor
     questionFav.map(question => {
-      if (question.get('id') === id) {
+      if (question && question.get('id') === id) {
         whetherStarred = true;
       }
     })

@@ -32,7 +32,7 @@ class QuestionListItem extends PureComponent {
 
     //whether have fav this doctor
     questionFav.map(question => {
-      if (question.get('id') === item.id) {
+      if (question && question.get('id') === item.id) {
         whetherStarred = true;
       }
     })

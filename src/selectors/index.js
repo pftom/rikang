@@ -31,6 +31,10 @@ import {
   getAnswerCommentSelector,
 } from './answerSelector.js';
 
+import {
+  getQuestionStatusSelector,
+} from './PutQuestionSelector.js';
+
 export {
   getInputInitial,
 
@@ -53,4 +57,5 @@ export {
   getQuestionFavSelector,
 
   getAnswerCommentSelector,
+  getQuestionStatusSelector,
 }

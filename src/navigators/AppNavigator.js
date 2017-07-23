@@ -17,6 +17,7 @@ import Register from '../components/Register';
  * home section screen
 */
 import TabBarNavigation from './TabBarNavigation';
+import QaScreen from '../components/TabTwo/views/TabTwoMainScreen';
 import DoctorDetail from '../components/TabOne/views/DoctorDetail';
 import PostDetail from '../components/TabOne/views/PostDetail';
 //nearby hospital
@@ -66,6 +67,7 @@ export const UserNavigator = StackNavigator({
 
 export const AppNavigator = StackNavigator({
     TabBarNavigation: { screen: TabBarNavigation },
+    QaScreen: { screen: QaScreen },
 
     PostDetail: { screen: PostDetail },
 

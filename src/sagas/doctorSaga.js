@@ -106,7 +106,7 @@ function* cancelSingleDoctorFav(payload) {
   try {
     const { id, token } = payload;
     //emit http get, cancel single doctor fav
-    // yield call(request.get, base + homeSingleApi(id).addSingleDoctorFav, null, token);
+    yield call(request.get, base + homeSingleApi(id).cancelSingleDoctorFav, null, token);
     //get doctor fav success 
     yield put({ type: CANCEL_SINGLE_DOCTOR_FAV_SUCCESS, id });
   } catch (error) {

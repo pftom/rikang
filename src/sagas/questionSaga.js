@@ -139,11 +139,11 @@ function* starSingleQuestion(payload) {
 }
 
 //cancel doctor fav
-function* cancelStartSingleQuestion(payload) {
+function* cancelStarSingleQuestion(payload) {
   try {
     const { id, token } = payload;
     //emit http get, cancel single doctor fav
-    // yield call(request.get, base + homeSingleApi(id).addSingleDoctorFav, null, token);
+    yield call(request.get, base + qaSingleApi(id).cancelsingleQuestionStar, null, token);
     //get doctor fav success 
     yield put({ type: CANCEL_STAR_SINGLE_QUESTION_SUCCESS, id });
   } catch (error) {
@@ -222,7 +222,7 @@ function* watchCancelStarSingleQuestion() {
     //wait for cancel fav
     const { payload } = yield take(CANCEL_STAR_SINGLE_QUESTION);
     
-   const task = yield fork(cancelStartSingleQuestion, payload);
+   const task = yield fork(cancelStarSingleQuestion, payload);
    const action = yield take(STAR_SINGLE_QUESTION);
 
    yield cancel(task);

@@ -52,6 +52,25 @@ class PostDetail extends PureComponent {
     const { post, navigation, postFav, dispatch } = this.props;
     const { token, id } = navigation.state.params;
 
+    const { 
+      isStarSingleQuestion, 
+      starSingleQuestionSuccess, 
+      starSingleQuestionError,
+      isCancelStarSingleQuestion,
+      cancelStarSingleQuestionSuccess,
+      cancelStarSingleQuestionError,
+     } = this.props;
+
+
+    let httpStatus = {
+      isStarSingleQuestion,
+      starSingleQuestionSuccess,
+      starSingleQuestionError,
+      isCancelStarSingleQuestion,
+      cancelStarSingleQuestionSuccess,
+      cancelStarSingleQuestionError,
+    }
+
     let whetherFaved = false;
 
     //whether have fav this doctor
@@ -102,8 +121,10 @@ class PostDetail extends PureComponent {
           shareStar={true}
           share={true}
           animatedOpacity={animatedOpacity}
-          navigation={navigation} 
+          navigation={navigation}
+          httpStatus={httpStatus}
           showGradient={true} 
+          dispatch={dispatch}
           whetherFaved={whetherFaved}
           handleCancelFav={() => { post && dispatch({ type: CANCEL_SINGLE_POST_FAV, payload: { token, id } } ) } }
           handleAddFav={() => { post && dispatch({ type: ADD_SINGLE_POST_FAV, payload: { token, id, post } } ) } }

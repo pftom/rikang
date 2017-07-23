@@ -4,6 +4,9 @@ import LinearGradient from 'react-native-linear-gradient';
 import px2dp from '../../utils/px2dp';
 import { Toast } from 'antd-mobile';
 
+//import constant
+import { CLEAR, CLEAR_FAV_STATE } from '../../constants/'
+
 const width = Dimensions.get('window').width;
 
 class Header extends PureComponent {
@@ -25,32 +28,83 @@ class Header extends PureComponent {
     });
   }
 
-  successToast() {
-    Toast.success('收藏成功', 1);
+  successToast(msg) {
+    const { dispatch } = this.props;
+    this.setState({
+      faved: !this.state.faved,
+    });
+
+    dispatch({ type: CLEAR_FAV_STATE });
+    Toast.success(msg, 1);
   }
 
-  showToast() {
-    Toast.info('已取消收藏', 1);
+  // showToast() {
+  //   const { dispatch } = this.props;
+  //   this.setState({
+  //     faved: false,
+  //   });
+
+  //   dispatch({ type: CLEAR_FAV_STATE });
+  //   Toast.info('已取消收藏', 1);
+  // }
+
+  loadingToast(msg) {
+    Toast.loading(msg, 1);
+  }
+
+  failToast(msg) {
+    const { dispatch } = this.props;
+    dispatch({ type: CLEAR_FAV_STATE });
+    Toast.fail(msg, 1);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { httpStatus } = nextProps;
+    console.log('httpStatus', httpStatus);
+      if(httpStatus) {
+        const { 
+        isStarSingleQuestion, 
+        starSingleQuestionSuccess, 
+        starSingleQuestionError,
+
+        isCancelStarSingleQuestion,
+        cancelStarSingleQuestionSuccess,
+        cancelStarSingleQuestionError,
+      } = httpStatus;
+      if (isStarSingleQuestion || isCancelStarSingleQuestion) {
+        if (isStarSingleQuestion) {
+          this.loadingToast('收藏中...');
+        } else {
+          this.loadingToast('取消收藏中...');
+        }
+      }
+
+      if (starSingleQuestionSuccess || cancelStarSingleQuestionSuccess) {
+        if (starSingleQuestionSuccess) {
+          this.successToast('收藏成功');
+        } else {
+          this.successToast('已取消收藏');
+        }
+      }
+
+      if (starSingleQuestionError || cancelStarSingleQuestionError) {
+        this.failToast('收藏失败');
+      }
+    }
+
   }
 
   handleFav = () => {
     if (this.state.faved) {
-      this.showToast();
-      this.setState({
-        faved: false,
-      })
       this.props.handleCancelFav();
     } else {
-      this.successToast();
-      this.setState({
-        faved: true,
-      })
       this.props.handleAddFav();
     }
   }
 
 
   render() {
+    console.log('state', this.state);
     const props = this.props;
     let style = null;
     if (Platform.OS === 'android' && !!props.logoLeft)  {

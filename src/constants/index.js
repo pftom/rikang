@@ -26,6 +26,7 @@ export const CHANGE_PASSWORD_ERROR = 'CHANGE_PASSWORD_ERROR';
 
 //after show the error toast and then clear it
 export const CLEAR_STATE = 'CLEAR_STATE';
+export const CLEAR_FAV_STATE = 'CLEAR_FAV_STATE';
 export const CLEAR = 'CLEAR';
 
 //clear token in the storage
@@ -252,8 +253,15 @@ export const CREATE_SINGLE_QUESTION = 'CREATE_SINGLE_QUESTION';
 export const CREATE_SINGLE_QUESTION_SUCCESS = 'CREATE_SINGLE_QUESTION_SUCCESS';
 export const CREATE_SINGLE_QUESTION_ERROR = 'CREATE_SINGLE_QUESTION_ERROR';
 
+//delete question action constants
+export const DELETE_SINGLE_QUESTION = 'DELETE_SINGLE_QUESTION';
+export const DELETE_SINGLE_QUESTION_SUCCESS = 'DELETE_SINGLE_QUESTION_SUCCESS';
+export const DELETE_SINGLE_QUESTION_ERROR = 'DELETE_SINGLE_QUESTION_ERROR';
+
 //add  question img action constants
 export const ADD_SINGLE_QUESTION_IMG = 'ADD_SINGLE_QUESTION_IMG';
 export const ADD_SINGLE_QUESTION_IMG_SUCCESS = 'ADD_SINGLE_QUESTION_IMG_SUCCESS';
 export const ADD_SINGLE_QUESTION_IMG_ERROR = 'ADD_SINGLE_QUESTION_IMG_ERROR';
 
+//for question create success jump
+export const JUMP_TO_QA = 'JUMP_TO_QA';
