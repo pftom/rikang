@@ -61,103 +61,56 @@ class UserScreen extends PureComponent {
     dispatch({ type: GET_PATIENT_FAV_DOCTORS, payload: { token} });
     dispatch({ type: GET_PATIENT_FAV_POSTS, payload: { token, refresh: true } });
     dispatch({ type: GET_PATIENT_QUESTIONS, payload: { token } });
-    dispatch({ type: GET_PATIENT_STARRED_QUESTIONS, payload: { token } });
-    dispatch({ type: GET_PATIENT_SERVICES, payload: { token } });
+    // dispatch({ type: GET_PATIENT_STARRED_QUESTIONS, payload: { token } });
+    // dispatch({ type: GET_PATIENT_SERVICES, payload: { token } });
   } 
 
   render() {
-    const { dispatch, navigation, token,  patientProfile, patientFavPosts, patientFavDoctors, patientQuestions, patientStarredQuestions, patientServices  } = this.props;
+    const { dispatch, navigation, token,  patientProfile  } = this.props;
+    //get faved data
+    const { postFav, doctorFav, questionFav, questionStarredFav, servicesFav } = this.props;
+    //get fetch data
+    const { postFetch } = this.props;
 
-
-    //获取对应列表的数据
+    //get post data
+    // if not fetch or lose network, use 
     let patientFavPostsData = {
-      data: [
-        {
-            "created": "2017-07-11",
-            "id": 1,
-            "photo": "https://facebook.github.io/react/img/logo_og.png",
-            "title": "5个大招让你旅途中也能睡个好觉",
-            "key": 1,
-        }
-      ],
+      data: [],
       count: 0,
     };
-    if (patientFavPosts) {
-      patientFavPostsData = handleHealthPost(patientFavPosts.get('results'));
+    if (postFav.size > 0) {
+      patientFavPostsData = handleHealthPost(postFav, true);
     }
 
     let patientFavDoctorsData = {
-      data: [
-        {
-          "avatar": "https://facebook.github.io/react/img/logo_og.png",
-          "id": 1,
-          "name": "tomhuang",
-          "key": 1,
-        },
-        {
-        "avatar": "https://facebook.github.io/react/img/logo_og.png",
-        "id": 1,
-        "name": "tomhuang",
-        "key": 2,
-    }
-      ],
+      data: [],
       count: 0,
     };
-    if (patientFavDoctors) {
-      patientFavDoctorsData = handleNearby(patientFavDoctors, true);
+    if (doctorFav.size > 0) {
+      patientFavDoctorsData = handleNearby(doctorFav, false, true);
     }
 
     let patientUnsolvedQuestionsData = {
-      data: [
-        {
-          "answer_num": 1,
-          "body": "test",
-          "created": "2017-07-05T14:30:45.918995",
-          "department": "GYN",
-          "id": 1,
-          "solved": false,
-          "stars": 3,
-          "title": "test",
-          "key": 1,
-        }
-      ],
+      data: [],
       count: 0,
     };
     let patientSolvedQuestionsData = {
-      data: [
-        {
-          "answer_num": 0,
-          "body": "test",
-          "created": "2017-07-11T19:36:31.608072",
-          "department": "NEO",
-          "id": 2,
-          "solved": true,
-          "stars": 1,
-          "title": "test2",
-          "key": 1,
-        }
-      ],
+      data: [],
       count: 0,
     };
-    if (patientQuestions) {
-      patientUnsolvedQuestionsData = handleUserData(patientQuestions, 'questions', 'unsolved');
+    if (questionFav.size > 0) {
+      patientUnsolvedQuestionsData = handleUserData(questionFav, 'questions', 'unsolved');
       // the second params for handle  solved status question
-      patientSolvedQuestionsData = handleUserData(patientQuestions, 'questions', 'solved');
+      patientSolvedQuestionsData = handleUserData(questionFav, 'questions', 'solved');
+      console.log('patientSolvedQuestionsData', patientSolvedQuestionsData);
     }
 
     let patientStarredQuestionsData = {
-      data: [
-        {
-            "id": 1,
-            "title": "最近两天疤痕周围突然很痒，请问我这是怎么了？",
-            "answer_num": 10,
-            "key": 1,
-        },
-      ],
+      data: [],
       count: 0,
     }
-    if (patientStarredQuestions) {
-      patientStarredQuestionsData = handleUserData(patientStarredQuestions);
+    if (questionStarredFav.size > 0) {
+      patientStarredQuestionsData = handleUserData(questionStarredFav);
     }
 
     let patientUnderWayServicesData = {
@@ -184,7 +137,7 @@ class UserScreen extends PureComponent {
       [
         { data: patientUnsolvedQuestionsData.data, key: `未解决（${patientUnsolvedQuestionsData.count}）`, seeMore: true, renderItem: ({ item }) => <ProblemItem navigation={navigation} item={item} token={token} /> },
         { data: patientStarredQuestionsData.data, key: `关注的问题（${patientStarredQuestionsData.count}）`, seeMore: true, renderItem: ({ item }) => <ProblemItem navigation={navigation} item={item} token={token} /> },
-        { data: patientSolvedQuestionsData.data, key: `已解决（${patientStarredQuestionsData.count}）`, seeMore: true, renderItem: ({ item }) => <ProblemItem navigation={navigation} item={item} token={token} /> },
+        { data: patientSolvedQuestionsData.data, key: `已解决（${patientSolvedQuestionsData.count}）`, seeMore: true, renderItem: ({ item }) => <ProblemItem navigation={navigation} item={item} token={token} /> },
       ],
       [
         { data: patientUnderWayServicesData.data, key: `进行中（${patientUnderWayServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <ServiceItem navigation={navigation} item={item} token={token} /> },
@@ -226,7 +179,7 @@ class UserScreen extends PureComponent {
                 tabLabel={item}
                 section={SectionLists[key]}
                 simplify={key !== 2 && true}
-                data={patientFavPosts}
+                data={postFetch}
                 method={GET_PATIENT_FAV_POSTS}
                 sectionNoBorder={true}
                 enableRefresh={false}

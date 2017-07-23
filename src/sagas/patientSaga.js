@@ -101,9 +101,9 @@ function* getPatientStarredQuestions(payload) {
   try {
     const { token } = payload;
     const patientStarredQuestions = yield call(request.get, base + usersApi.patientStarredQuestions, null, token);
-    yield put({ type: GET_PATIENT_QUESTIONS_SUCCESS, patientStarredQuestions });
+    yield put({ type: GET_PATIENT_STARRED_QUESTIONS_SUCCESS, patientStarredQuestions });
   } catch (error) {
-    yield put({ type: GET_PATIENT_QUESTIONS_ERROR });
+    yield put({ type: GET_PATIENT_STARRED_QUESTIONS_ERROR });
   }
 }
 

@@ -66,22 +66,19 @@ import {
 //home reducers
 const initialPatientValue = Map({
   doctorFav: List([]),
-  patientDoctors: null,
 
   postFav: List([]),
-  patientPosts: null,
+  postFetch: null,
+
 
   patientProfile: null,
   
   
   questionFav: List([]),
-  patientQuestions: null,
 
   questionStarredFav: List([]),
-  patientStarredQuestions: null,
 
   servicesFav: List([]),
-  patientServices: null,
 
   isLoadingData: false,
   loadingError: false,
@@ -252,10 +249,9 @@ const patient = (state = initialPatientValue, action) => {
     case GET_PATIENT_FAV_DOCTORS_SUCCESS:
 
       const { patientFavDoctors } = action;
-      console.log('patientFavDoctors', patientFavDoctors);
 
       return state.merge({
-              patientFavDoctors,
+              doctorFav: patientFavDoctors,
               isLoadingData: false,
               loadingSuccess: true,
             });
@@ -263,7 +259,6 @@ const patient = (state = initialPatientValue, action) => {
     case GET_PATIENT_FAV_POSTS_SUCCESS:
 
       const { patientFavPosts } = action;
-      console.log('patientFavPosts', patientFavPosts);
 
       let oldPatientFavPosts = state.get('patientFavPosts');
 
@@ -271,8 +266,11 @@ const patient = (state = initialPatientValue, action) => {
         patientFavPosts = Map(patientFavPosts);
       }
 
+      const tempFavPosts = action.refresh ? refreshIt(oldPatientFavPosts, patientFavPosts) : combine(oldPatientFavPosts, patientFavPosts);
+
       return state.merge({
-              patientFavPosts: action.refresh ? refreshIt(oldPatientFavPosts, patientFavPosts) : combine(oldPatientFavPosts, patientFavPosts),
+              postFetch: tempFavPosts,
+              postFav: tempFavPosts.results,
               isLoadingData: false,
               loadingSuccess: true,
             });
@@ -280,10 +278,9 @@ const patient = (state = initialPatientValue, action) => {
     case GET_PATIENT_QUESTIONS_SUCCESS:
 
       const { patientQuestions } = action;
-      console.log('patientQuestions', patientQuestions);
 
       return state.merge({
-              patientQuestions,
+              questionFav: patientQuestions,
               isLoadingData: false,
               loadingSuccess: true,
             });
@@ -291,10 +288,9 @@ const patient = (state = initialPatientValue, action) => {
     case GET_PATIENT_STARRED_QUESTIONS_SUCCESS:
 
       const { patientStarredQuestions } = action;
-      console.log('patientStarredQuestions', patientStarredQuestions);
 
       return state.merge({
-              patientStarredQuestions,
+              questionStarredFav: patientStarredQuestions,
               isLoadingData: false,
               loadingSuccess: true,
             });
@@ -302,10 +298,9 @@ const patient = (state = initialPatientValue, action) => {
     case GET_PATIENT_SERVICES_SUCCESS:
 
       const { patientServices } = action;
-      console.log('patientServices', patientServices);
 
       return state.merge({
-              patientServices,
+              servicesFav: patientServices,
               isLoadingData: false,
               loadingSuccess: true,
             });

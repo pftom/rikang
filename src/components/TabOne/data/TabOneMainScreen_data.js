@@ -16,26 +16,34 @@ const headerTitleData = [
 
 const getItem = (item, key) => item.get(key);
 
-const handleNearby = (data, horizontal, hospitalId) => {
+const handleNearby = (data, horizontal, calCount) => {
   let dataSource = [];
 
   data.map((item) => {
     item = item.toJS();
     const { id } = item;
-    let img = {};
-    if (!hospitalId) {
-      img.categoryImg = require('../img/eyeDep.png');
-    }
 
     dataSource.push({
       ...item,
-      ...img,
       key: id,
     });
   });
 
   if (dataSource.length > 10 && horizontal) {
+    if (calCount) {
+      return {
+        data: dataSource.slice(0, 10),
+        count: dataSource.length,
+      }
+    }
     return dataSource.slice(0, 10);
+  }
+
+  if (calCount) {
+    return {
+      data: dataSource,
+      count: dataSource.length,
+    }
   }
 
   return dataSource;
@@ -53,7 +61,7 @@ const handleTime = (time) => {
 }
 
 //handle immutable data to plain object
-const handleHealthPost = (data) => {
+const handleHealthPost = (data, calCount) => {
   let dataSource = [];
   
   data.map((item) => {
@@ -66,6 +74,13 @@ const handleHealthPost = (data) => {
       time: handleTime(item.get('created')),
     });
   })
+
+  if (calCount) {
+    return {
+      data: dataSource,
+      count: dataSource.length,
+    }
+  }
 
   return dataSource;
 }

@@ -6,10 +6,10 @@ import { ProblemStyle as styles } from '../styles/'
 class ProblemItem extends PureComponent {
 
   render() {
-    const { item, navigation } = this.props;
+    const { item, navigation, token } = this.props;
 
     return (
-      <TouchableOpacity onPress={() => { console.log('hhh') }}>
+      <TouchableOpacity onPress={() => { navigation.navigate('QuestionDetail', { id: item.id, token }) }}>
         <View style={styles.problemContainer}>
           <View style={styles.problemBox}>
             <Text style={styles.title}>{"               " + item.title}</Text>
