@@ -1,5 +1,5 @@
 const transferDepartment = {
-  'AND': '男科',
+ 'AND': '男科',
  'ANE': '麻醉科',
  'ANO': '肛肠科',
  'BUR': '烧伤科',
@@ -56,6 +56,12 @@ const transferDepartment = {
  'URO': '泌尿外科'
 };
 
+const opppsiteDepartment = {};
+const iter = Object.keys(transferDepartment);
+for (let i = 0; i < iter.length; i++) {
+  opppsiteDepartment[transferDepartment[iter[i]]] = iter[i];
+}
+
 const transferTitle = {
   'R':'住院医师',
   'A':'主治医师',
@@ -79,4 +85,6 @@ export {
   transferDepartment,
   transferTitle,
   transferHospitalClass,
+
+  opppsiteDepartment,
 }

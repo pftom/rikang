@@ -108,5 +108,5 @@ QaScreen.navigationOptions = {
 };
 
 export default connect(
-  (state, ownProps) =>  getQaSelector(state)
+  (state) =>  getQaSelector(state)
 )(QaScreen);

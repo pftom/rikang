@@ -14,29 +14,20 @@ import { getPostSelector } from '../../../selectors/'
 
 import { PutQuestionStyle as styles } from '../../styles/';
 
+//import opposit department
+import { opppsiteDepartment } from '../../../utils/transferAbbr';
 
-const department = [
-  [ 
-    {
-      label: '2013',
-      value: '2013',
-    },
-    {
-      label: '2014',
-      value: '2014',
-    },
-  ],
-  [
-    {
-      label: '春',
-      value: '春',
-    },
-    {
-      label: '秋',
-      value: '秋',
-    }
-  ]
-]
+
+import { selectDep } from '../data/';
+
+const CustomChildren = props => (
+  <TouchableOpacity onPress={props.onClick}>
+    <View style={styles.selectBox}>
+      <Text style={styles.department}>{props.department || '任何科室'}</Text>
+      <Image source={require('../img/triangle.png')} />
+    </View>
+  </TouchableOpacity>
+)
 
 
 class PutQuestion extends PureComponent {
@@ -46,7 +37,7 @@ class PutQuestion extends PureComponent {
 
     this.state = {
       text: '',
-      sValue: ['2013', '春'],
+      pickerValue: [],
     };
   }
 
@@ -58,6 +49,8 @@ class PutQuestion extends PureComponent {
   }
 
   renderInputBox = (item, key) => {
+    const { pickerValue } = this.state;
+
     const { navigation } = this.props;
     return (
       <View style={styles.itemBox} key={key}>
@@ -86,12 +79,15 @@ class PutQuestion extends PureComponent {
               />
               )
               : (
-                <TouchableOpacity>
-                  <View style={styles.selectBox}>
-                    <Text style={styles.department}>任何科室</Text>
-                    <Image source={require('../img/triangle.png')} />
-                  </View>
-                </TouchableOpacity>
+                <Picker
+                  data={selectDep}
+                  title="选择科室"
+                  cols={2}
+                  value={this.state.pickerValue}
+                  onChange={v => this.setState({ pickerValue: v })}
+                >
+                  <CustomChildren department={pickerValue.length && pickerValue[1]} />
+                </Picker>
               )
             }
           </View>
@@ -102,6 +98,7 @@ class PutQuestion extends PureComponent {
 
   render() {
     const { navigation } = this.props;
+    const { token, dispatch } = navigation.state.params;
 
     const data = [
       {
@@ -128,7 +125,7 @@ class PutQuestion extends PureComponent {
           }
         </View>
         <View style={styles.nextBox}>
-          <TouchableOpacity onPress={() => { navigation.navigate('PutQuestionDetail', { value: this.state.text }) }}>
+          <TouchableOpacity onPress={() => { navigation.navigate('PutQuestionDetail', { token, dispatch, title: this.state.text, department: opppsiteDepartment[this.state.pickerValue[1]] }) }}>
             <Image source={require('../img/next.png')} />
           </TouchableOpacity>
         </View>

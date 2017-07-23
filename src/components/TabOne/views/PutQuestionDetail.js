@@ -7,7 +7,12 @@ import { connect } from 'react-redux';
 import { Picker } from 'antd-mobile';
 
 //import async action constants
-import { GET_SINGLE_POST } from '../../../constants/'
+import { 
+  GET_SINGLE_POST,
+  CREATE_SINGLE_QUESTION,
+
+  ADD_SINGLE_QUESTION_IMG,
+} from '../../../constants/'
 
 //import selector for computing data
 import { getPostSelector } from '../../../selectors/'
@@ -42,20 +47,6 @@ const department = [
 ]
 
 
-const EXMAPLES = [
-  {
-    photo: 'https://facebook.github.io/react/img/logo_og.png'
-  },
-  {
-    photo: 'https://facebook.github.io/react/img/logo_og.png'
-  },
-  {
-    photo: 'https://facebook.github.io/react/img/logo_og.png'
-  },
-  {
-    photo: 'https://facebook.github.io/react/img/logo_og.png'
-  },
-];
 
 class PutQuestionDetail extends PureComponent {
 
@@ -89,11 +80,25 @@ class PutQuestionDetail extends PureComponent {
   }
 
   
+  handleSubmitQuestion = () => {
+    const { navigation } = this.props;
+    const { token, title, department, dispatch } = navigation.state.params;
+    const { text, imgs } = this.state;
+    const body = {
+      body: text,
+      title,
+      department,
+    };
 
+    dispatch({ type: CREATE_SINGLE_QUESTION, payload: { token, body, imgs }});
+  }
 
   render() {
     const { navigation } = this.props;
-    console.log('imgs', this.state.imgs);
+    const { token, title, department, dispatch } = navigation.state.params;
+    const { imgs } = this.state;
+
+    console.log('props', this.props);
 
     return (
       <View style={styles.container}>
@@ -101,8 +106,8 @@ class PutQuestionDetail extends PureComponent {
           <TouchableOpacity onPress={() => { navigation.goBack() }}>
             <Image source={require('../img/close.png')} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => { console.log('ggg') }}>
-            <Image source={require('../img/submit.png')} />
+          <TouchableOpacity onPress={() => { this.handleSubmitQuestion() }}>
+            <Image source={require('../img/submit.png')} style={styles.subText} />
           </TouchableOpacity>
         </View>
         <Text style={styles.titleText}>症状描述</Text>
@@ -119,15 +124,15 @@ class PutQuestionDetail extends PureComponent {
         />
         </View>
 
-        <ScrollView contentContainerStyle={styles.selectImgBox}>  
+        <ScrollView contentContainerStyle={[ styles.selectImgBox, imgs.length === 0 && styles.selectExtra ]}>  
           {
-            this.state.imgs.map((item, key) => (
+            imgs.map((item, key) => (
                 <TouchableOpacity key={key} onPress={() => { navigation.navigate('ImageView', { media: this.state.imgs }) }}>
                   <Image source={{ uri: item.photo }} style={styles.img} />
                 </TouchableOpacity>
             ))
           }
-          <SelectPhoto addPhoto={true} handleAddPic={this.handleAddPic} />
+          <View style={styles.selectPhotoBox}><SelectPhoto addPhoto={true} handleAddPic={this.handleAddPic} /></View>
         </ScrollView>
       </View>
     )

@@ -21,10 +21,14 @@ export const PutQuestionStyle = StyleSheet.create({
 
   imgBox: {
     width: width - px2dp(31) * 2,
-    height: px2dp(24),
+    height: px2dp(41),
     marginTop: px2dp(43),
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  subText: {
+    marginTop: -10,
+    marginRight: -5
   },
 
   titleText: {
@@ -68,9 +72,12 @@ export const PutQuestionStyle = StyleSheet.create({
   selectBox: {
     flexDirection: 'row',
     width: px2dp(101),
-    justifyContent: 'space-between',
     height:px2dp(25),
     alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  selectExtra: {
+    justifyContent: 'center',
   },
 
   department: {
@@ -102,8 +109,7 @@ export const PutQuestionStyle = StyleSheet.create({
     width: width - px2dp(30) * 2,
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    
+    flexWrap: 'wrap',
   },
   selectView: {
     backgroundColor: '#F5F6F7',
@@ -113,7 +119,8 @@ export const PutQuestionStyle = StyleSheet.create({
   img: {
     height: px2dp(86),
     width: px2dp(86),
-    marginRight: px2dp(23),
-  }
+    marginRight: px2dp(15),
+    marginBottom: px2dp(10),
+  },
 
 });

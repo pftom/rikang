@@ -9,6 +9,8 @@ import { titleMap } from './doctorDetailInfo_data';
 
 import { handleHospitalDoctors } from './hospital_data';
 
+import { selectDep } from './selectDep';
+
 
 export {
   headerTitleData,
@@ -18,4 +20,6 @@ export {
   jumpScreen,
   titleMap,
   handleHospitalDoctors,
+
+  selectDep,
 }

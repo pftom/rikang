@@ -62,7 +62,7 @@ function* getQuestions(payload) {
 //create a new question
 function* createSingleQuestion(payload) {
   try {
-    const { token, body } = payload;
+    const { token, body, imgs } = payload;
     const question = yield call(request.post, base + qaApi.addQuestion, body, token);
     yield put({ type: CREATE_SINGLE_QUESTION_SUCCESS, question });
   } catch (error) {

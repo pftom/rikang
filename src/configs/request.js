@@ -58,7 +58,7 @@ request.post = ( url, body, token, multiform ) => {
     body: JSON.stringify(body),
   });
 
-  console.log('options', options);
+  console.log('options', options, url);
 
   return fetch(url, options)
         .then(response => {

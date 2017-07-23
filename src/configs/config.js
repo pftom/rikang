@@ -41,7 +41,7 @@ export const usersApi = {
 
 export const qaApi = {
   questions: 'qa/questions/',
-  addQuestion: 'qa/questions/new/',
+  addQuestion: 'qa/questions/new',
 };
 
 export const qaSingleApi = (id) => ({
