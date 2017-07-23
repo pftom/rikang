@@ -306,7 +306,26 @@ class DoctorDetail extends PureComponent {
       if (doctor.get('id') === id) {
         whetherFaved = true;
       }
-    })
+    });
+
+    const { 
+      isStarSingleQuestion, 
+      starSingleQuestionSuccess, 
+      starSingleQuestionError,
+      isCancelStarSingleQuestion,
+      cancelStarSingleQuestionSuccess,
+      cancelStarSingleQuestionError,
+     } = this.props;
+
+
+    let httpStatus = {
+      isStarSingleQuestion,
+      starSingleQuestionSuccess,
+      starSingleQuestionError,
+      isCancelStarSingleQuestion,
+      cancelStarSingleQuestionSuccess,
+      cancelStarSingleQuestionError,
+    }
 
     let scrollY = this.scrollViewY.interpolate({
       inputRange: [-90, -50, 0, 0],
@@ -408,7 +427,9 @@ class DoctorDetail extends PureComponent {
           leftImg={doctor && doctor}
           navigation={navigation} 
           showGradient={false} 
+          httpStatus={httpStatus}
           animatedOpacity={false}
+          dispatch={dispatch}
           whetherFaved={whetherFaved}
           handleCancelFav={() => { doctor && dispatch({ type: CANCEL_SINGLE_DOCTOR_FAV, payload: { token, id } } ) } }
           handleAddFav={() => { doctor && dispatch({ type: ADD_SINGLE_DOCTOR_FAV, payload: { token, id, doctor } } ) } }

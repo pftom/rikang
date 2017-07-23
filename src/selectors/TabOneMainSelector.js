@@ -24,6 +24,7 @@ export const getHomeSelector = createSelector(
 //post selector
 const getPost = (state) => state.getIn(['home', 'post']);
 const getPostFav = (state) => state.getIn(['patient', 'postFav']);
+
 const getIsFaving = (state) => state.getIn(['patient', 'isStarSingleQuestion']);
 const getFavSuccess = (state) => state.getIn(['patient', 'starSingleQuestionSuccess']);
 const getFavError = (state) => state.getIn(['patient', 'starSingleQuestionError']);
@@ -46,3 +47,12 @@ export const getPostSelector = createSelector(
     cancelStarSingleQuestionError,
   }),
 );
+
+export {
+  getIsFaving,
+  getFavSuccess,
+  getFavError,
+  getIsCancelFaving,
+  getCancelFavSuccess,
+  getCancelFavError,
+}

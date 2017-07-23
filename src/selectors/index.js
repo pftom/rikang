@@ -3,6 +3,7 @@ import { getInputInitial } from './inputSelector';
 import { 
   getHomeSelector, 
   getPostSelector,
+
 } from './TabOneMainSelector';
 
 import {
@@ -25,6 +26,7 @@ import {
   getQaSelector,
   getSingleQaSelector,
   getQuestionFavSelector,
+  getQuestionListSelector,
 } from './qaSelector';
 
 import {
@@ -55,7 +57,9 @@ export {
   getQaSelector,
   getSingleQaSelector,
   getQuestionFavSelector,
+  getQuestionListSelector,
 
   getAnswerCommentSelector,
   getQuestionStatusSelector,
+
 }

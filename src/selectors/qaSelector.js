@@ -3,6 +3,16 @@ import { createSelector } from 'reselect';
 //import get token common select
 import { getToken } from './commonSelector';
 
+import {
+  getIsFaving,
+  getFavSuccess,
+  getFavError,
+
+  getIsCancelFaving,
+  getCancelFavSuccess,
+  getCancelFavError,
+} from './TabOneMainSelector.js';
+
 const getQuestions = (state) => state.getIn(['qa', 'questions']);
 const getQuestionFav = (state) => state.getIn(['patient', 'questionFav']);
 
@@ -37,3 +47,15 @@ export const getQuestionFavSelector = createSelector(
     questionFav,
   }),
 );
+
+export const getQuestionListSelector = createSelector(
+  [ getIsFaving, getFavSuccess, getFavError, getIsCancelFaving, getCancelFavSuccess, getCancelFavError ],
+  (isStarSingleQuestion, starSingleQuestionSuccess, starSingleQuestionError, isCancelStarSingleQuestion, cancelStarSingleQuestionSuccess, cancelStarSingleQuestionError) => ({
+    isStarSingleQuestion,
+    starSingleQuestionSuccess,
+    starSingleQuestionError,
+    isCancelStarSingleQuestion,
+    cancelStarSingleQuestionSuccess,
+    cancelStarSingleQuestionError,
+  })
+)

@@ -9,6 +9,9 @@ import {
 
 import { Toast } from 'antd-mobile';
 
+//import constants
+import { CLEAR_FAV_STATE } from '../../constants/'
+
 
 //import style
 import { QuestionListStyle as styles } from '../TabTwo/styles/';
@@ -41,26 +44,75 @@ class TagBox extends PureComponent {
     }
   }
 
-  successToast() {
-    Toast.success('关注成功', 1);
+  successToast(msg) {
+    const { dispatch } = this.props;
+    this.setState({
+      starred: !this.state.starred,
+    });
+
+    dispatch({ type: CLEAR_FAV_STATE });
+    Toast.success(msg, 1);
   }
 
-  showToast() {
-    Toast.info('已取消关注', 1);
+  // showToast() {
+  //   const { dispatch } = this.props;
+  //   this.setState({
+  //     faved: false,
+  //   });
+
+  //   dispatch({ type: CLEAR_FAV_STATE });
+  //   Toast.info('已取消收藏', 1);
+  // }
+
+  loadingToast(msg) {
+    Toast.loading(msg, 1);
+  }
+
+  failToast(msg) {
+    const { dispatch } = this.props;
+    dispatch({ type: CLEAR_FAV_STATE });
+    Toast.fail(msg, 1);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { httpStatus } = nextProps;
+      if(httpStatus) {
+        const { 
+        isStarSingleQuestion, 
+        starSingleQuestionSuccess, 
+        starSingleQuestionError,
+
+        isCancelStarSingleQuestion,
+        cancelStarSingleQuestionSuccess,
+        cancelStarSingleQuestionError,
+      } = httpStatus;
+      if (isStarSingleQuestion || isCancelStarSingleQuestion) {
+        if (isStarSingleQuestion) {
+          this.loadingToast('收藏中...');
+        } else {
+          this.loadingToast('取消收藏中...');
+        }
+      }
+
+      if (starSingleQuestionSuccess || cancelStarSingleQuestionSuccess) {
+        if (starSingleQuestionSuccess) {
+          this.successToast('收藏成功');
+        } else {
+          this.successToast('已取消收藏');
+        }
+      }
+
+      if (starSingleQuestionError || cancelStarSingleQuestionError) {
+        this.failToast('收藏失败');
+      }
+    }
+
   }
 
   handleStar = () => {
     if (this.state.starred) {
-      this.showToast();
-      this.setState({
-        starred: false,
-      })
       this.props.handleCancelStar();
     } else {
-      this.successToast();
-      this.setState({
-        starred: true,
-      })
       this.props.handleAddStar();
     }
   }

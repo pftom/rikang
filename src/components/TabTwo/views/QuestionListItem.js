@@ -15,6 +15,9 @@ import { getQuestionFavSelector } from '../../../selectors/';
 //import style
 import { QuestionListStyle as styles } from '../styles/';
 
+//import selector
+import { getQuestionListSelector } from '../../../selectors/';
+
 //import tag box
 import { TagBox } from '../../common/';
 
@@ -35,7 +38,26 @@ class QuestionListItem extends PureComponent {
       if (question && question.get('id') === item.id) {
         whetherStarred = true;
       }
-    })
+    });
+
+    const { 
+      isStarSingleQuestion, 
+      starSingleQuestionSuccess, 
+      starSingleQuestionError,
+      isCancelStarSingleQuestion,
+      cancelStarSingleQuestionSuccess,
+      cancelStarSingleQuestionError,
+     } = this.props;
+
+
+    let httpStatus = {
+      isStarSingleQuestion,
+      starSingleQuestionSuccess,
+      starSingleQuestionError,
+      isCancelStarSingleQuestion,
+      cancelStarSingleQuestionSuccess,
+      cancelStarSingleQuestionError,
+    };
 
     return (
       <TouchableWithoutFeedback onPress={() => { navigation.navigate('QuestionDetail', { id: item.key, token })}} style={styles.touchBox}>
@@ -49,6 +71,8 @@ class QuestionListItem extends PureComponent {
                   btnText={"关注"}
                   navigation={navigation}
                   token={token}
+                  httpStatus={httpStatus}
+                  dispatch={dispatch}
                   whetherStarred={whetherStarred}
                   handleCancelStar={() => { dispatch({ type: CANCEL_STAR_SINGLE_QUESTION, payload: { token, id: item.id } }) }}
                   handleAddStar={() => { dispatch({ type: STAR_SINGLE_QUESTION, payload: { token, id: item.id, question } }) }}
@@ -61,4 +85,6 @@ class QuestionListItem extends PureComponent {
   }
 }
 
-export default QuestionListItem;
+export default connect(
+  state => getQuestionListSelector(state),
+)(QuestionListItem);
