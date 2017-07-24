@@ -89,13 +89,17 @@ class FormInput extends Component {
 
   render() {
     const {  handleSubmit, toast, initialValues, pristine, load, submitting, error, kind, reset } = this.props;
-    console.log('toast', toast);
+    let item = {
+      icon: require('./img/verify_phone.png'),
+      title: '手机号码',
+    }
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={this.jump}>
           <Text>{kind === REGISTER ? '返回' : '新用户注册'}</Text>
         </TouchableOpacity>
         <Field 
+          item
           name="username" 
           component={RenderInput}
           kind="username" 
@@ -103,6 +107,7 @@ class FormInput extends Component {
           onSubmit={() => this.passwd.focus()}
           label="在此输入您的手机号码" />
         <Field 
+          item
           passwdRef={pd => this.passwd = pd}
           name="password" 
           component={RenderInput} 

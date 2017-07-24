@@ -11,6 +11,7 @@ import px2dp from '../utils/px2dp';
 import LoginScreen from '../components/LoginScreen';
 import Register from '../components/Register';
 import PatientPersonInfo from '../components/TabThree/views/PatientPersonInfo';
+import Setting from '../components/TabThree/views/Setting';
 
 /*
  *
@@ -86,6 +87,7 @@ export const AppNavigator = StackNavigator({
 
     Profile: { screen: ProfileScreen },
     PatientPersonInfo: { screen: PatientPersonInfo },
+    Setting: { screen: Setting },
 
     QuestionDetail: { screen: QuestionDetail },
     PutQuestionDetail: { screen: PutQuestionDetail },

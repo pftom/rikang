@@ -24,7 +24,9 @@ class TabThreeHeaderSection extends PureComponent {
           patientProfile && (
             <View>
               <View style={styles.topBox}>
-              <Image source={require('../img/setting.png')} style={styles.setting} />
+                <TouchableOpacity onPress={() => { navigation.navigate('Setting', { patientProfile, token, dispatch })}}>
+                  <Image source={require('../img/setting.png')} style={styles.setting} />
+                </TouchableOpacity>
               </View>
               <View style={styles.bottomBox}>
                 <View style={styles.leftBox}>
