@@ -30,7 +30,22 @@ import { opppsiteDepartment } from '../../../utils/transferAbbr';
 
 import {
   handleQuestions,
-} from '../data/'
+} from '../data/';
+
+const sortData = [
+  {
+    label: '默认排序',
+    value: '默认排序',
+  },
+  {
+    label: '关注数最多',
+    value: '关注数最多',
+  },
+  {
+    label: '回答数最多',
+    value: '回答数最多'
+  }
+];
 
 class QaScreen extends PureComponent {
 
@@ -38,8 +53,8 @@ class QaScreen extends PureComponent {
     super(props);
 
     this.state = {
-      sort: '',
-      dep: '',
+      sort: '默认排序',
+      dep: '全部科室',
     }
   }
 
@@ -98,6 +113,7 @@ class QaScreen extends PureComponent {
             left: 0,
             right: 0,
           }}
+          sortData={sortData}
           handleSelectDep={this.handleSelectDep}
           handleSelectSort={this.handleSelectSort}
         />

@@ -19,15 +19,20 @@ const handleQuestions = (data, dep, sort) => {
   let dataSource = [];
 
   let sortedData = [];
-  let kind = sortMap[sort];
+  let kind = 'default';
+
+  if (sort) {
+    kind = sortMap[sort]
+  }
+
   switch(kind) {
     case 'default':
       sortedData = data;
       break;
     default:
       sortedData = data.sort((item1, item2) => {
-        if (item1.get(kind) < item2.get(kind)) { return -1; }
-        if (item1.get(kind) > item2.get(kind)) { return 1; }
+        if (item1.get(kind) < item2.get(kind)) { return 1; }
+        if (item1.get(kind) > item2.get(kind)) { return -1; }
         if (item1.get(kind) === item2.get(kind)) { return 0; }
       });
   }

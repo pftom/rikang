@@ -8,21 +8,6 @@ import { Picker } from 'antd-mobile';
 
 import { selectDep } from '../TabOne/data/';
 
-const sortData = [
-  {
-    label: '默认排序',
-    value: '默认排序',
-  },
-  {
-    label: '关注数最多',
-    value: '关注数最多',
-  },
-  {
-    label: '回答数最多',
-    value: '回答数最多'
-  }
-];
-
 const RenderLeft = props => (
   <TouchableOpacity onPress={props.onClick}>
     <View style={[ styles.box]}>
@@ -69,7 +54,6 @@ class SelectBox extends PureComponent {
   } 
 
   render() {
-    const { titleLeft, titleRight } = this.props;
 
     return (
       <View style={[ styles.container, this.props.selectStyle ]}>
@@ -84,7 +68,7 @@ class SelectBox extends PureComponent {
         </Picker>
 
         <Picker
-          data={sortData}
+          data={this.props.sortData}
           title="选择排序方式"
           cols={1}
           value={this.state.sortValue}

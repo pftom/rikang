@@ -46,7 +46,7 @@ class DoctorListItem extends PureComponent {
                   <Text style={styles.consultFee}>{item.consult_price}</Text>
                 </View>
                 <View style={styles.consultRightBox}>
-                  <Text style={styles.payedNum}>1001 人付款</Text>
+                  <Text style={styles.payedNum}>{item.order_num} 人付款</Text>
                 </View>
               </View>
 
