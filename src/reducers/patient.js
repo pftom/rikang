@@ -34,6 +34,12 @@ import {
   GET_PATIENT_PROFILE_ERROR,
   GET_PATIENT_PROFILE_SUCCESS,
 
+  UPDATE_PATIENT_PROFILE,
+  UPDATE_PATIENT_PROFILE_SUCCESS,
+  UPDATE_PATIENT_PROFILE_ERROR,
+
+  CLEAR_SUBMIT_STATE,
+
   GET_PATIENT_FAV_DOCTORS,
   GET_PATIENT_FAV_DOCTORS_SUCCESS,
   GET_PATIENT_FAV_DOCTORS_ERROR,
@@ -91,6 +97,10 @@ const initialPatientValue = Map({
   isCancelStarSingleQuestion: false,
   cancelStarSingleQuestionSuccess: false,
   cancelStarSingleQuestionError: false,
+
+  isSubmitProfile: false,
+  submitProfileError: false,
+  submitProfileSuccess: false,
 });
 
 
@@ -138,6 +148,35 @@ const patient = (state = initialPatientValue, action) => {
         cancelStarSingleQuestionSuccess: false,
         cancelStarSingleQuestionError: false,
       })
+
+    case UPDATE_PATIENT_PROFILE:
+
+      return state.merge({
+        isSubmitProfile: true,
+        submitProfileError: false,
+        submitProfileSuccess: false,
+      });
+
+    case UPDATE_PATIENT_PROFILE_SUCCESS:
+
+      const { body } = action;
+      
+
+      return state.merge({
+        isSubmitProfile: false,
+        submitProfileSuccess: true,
+        patientProfile: {
+          ...body,
+          id: state.getIn(['patientProfile', 'id']),
+        }
+      });
+
+    case UPDATE_PATIENT_PROFILE_ERROR:
+
+      return state.merge({
+        isSubmitProfile: false,
+        submitProfileError: true,
+      });
     
     case ADD_SINGLE_DOCTOR_FAV_SUCCESS:
 
@@ -339,6 +378,14 @@ const patient = (state = initialPatientValue, action) => {
         isCancelStarSingleQuestion: false,
         cancelStarSingleQuestionSuccess: false,
         cancelStarSingleQuestionError: false,
+      });
+
+    case CLEAR_SUBMIT_STATE:
+
+      return state.merge({
+        isSubmitProfile: false,
+        submitProfileError: false,
+        submitProfileSuccess: false,
       })
     
     case GET_PATIENT_FAV_DOCTORS_ERROR:

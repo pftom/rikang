@@ -3,6 +3,8 @@ import {
   headerTitleData,
   handleNearby,
   handleHealthPost,
+
+  handleHospitals,
 } from './TabOneMainScreen_data';
 
 import { titleMap } from './doctorDetailInfo_data';
@@ -22,4 +24,5 @@ export {
   handleHospitalDoctors,
 
   selectDep,
+  handleHospitals,
 }

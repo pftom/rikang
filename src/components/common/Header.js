@@ -5,7 +5,7 @@ import px2dp from '../../utils/px2dp';
 import { Toast } from 'antd-mobile';
 
 //import constant
-import { CLEAR, CLEAR_FAV_STATE } from '../../constants/'
+import { CLEAR, CLEAR_FAV_STATE, CLEAR_SUBMIT_STATE } from '../../constants/'
 
 const width = Dimensions.get('window').width;
 
@@ -28,11 +28,16 @@ class Header extends PureComponent {
     });
   }
 
-  successToast(msg) {
-    const { dispatch } = this.props;
+  successToast(msg, settingSubmit, isSubmit) {
+    const { dispatch, navigation } = this.props;
     this.setState({
       faved: !this.state.faved,
     });
+
+    if (settingSubmit && isSubmit) {
+      navigation.goBack();
+      dispatch({ type: CLEAR_SUBMIT_STATE });
+    }
 
     dispatch({ type: CLEAR_FAV_STATE });
     Toast.success(msg, 1);
@@ -52,14 +57,18 @@ class Header extends PureComponent {
     Toast.loading(msg, 1);
   }
 
-  failToast(msg) {
-    const { dispatch } = this.props;
+  failToast(msg, settingSubmit, isSubmit) {
+    const { dispatch, navigation } = this.props;
     dispatch({ type: CLEAR_FAV_STATE });
+    if(settingSubmit && isSubmit) {
+      navigation.goBack();
+      dispatch({ type: CLEAR_SUBMIT_STATE });
+    }
     Toast.fail(msg, 1);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { httpStatus } = nextProps;
+    const { httpStatus, submitProfileError, submitProfileSuccess } = nextProps;
     console.log('httpStatus', httpStatus);
       if(httpStatus) {
         const { 
@@ -92,6 +101,14 @@ class Header extends PureComponent {
       }
     }
 
+    //handle profile submit
+    if (submitProfileError) {
+      this.failToast('网络无连接', true, true);
+    }
+
+    if (submitProfileSuccess) {
+      this.successToast('设置成功', true, true)
+    }
   }
 
   handleFav = () => {
@@ -102,6 +119,15 @@ class Header extends PureComponent {
     }
   }
 
+  handleGoBack = () => {
+    const { navigation, settingSubmit } = this.props;
+
+    if (settingSubmit) {
+      this.props.handleSubmitProfile();
+    } else {
+      navigation.goBack();
+    }
+  }
 
   render() {
     console.log('state', this.state);
@@ -166,7 +192,7 @@ class Header extends PureComponent {
     const leftBox = (
       <View style={[ styles.leftBox ]}>
           {props.logoLeft && <TouchableOpacity 
-                                onPress={() => { this.props.navigation.goBack() }} 
+                                onPress={() => { this.handleGoBack() }} 
                                 >
                                 <Image source={props.logoLeft && require('./img/back.png')} style={styles.logoLeft} />
                               </TouchableOpacity>}

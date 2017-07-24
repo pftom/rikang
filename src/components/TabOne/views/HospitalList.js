@@ -26,7 +26,7 @@ import { DoctorListStyle as styles } from '../../styles/';
 
 //import data handle func
 import {
-  handleNearby,
+  handleHospitals,
 } from '../data/';
 
 //import render doctor list item
@@ -62,7 +62,7 @@ class HospitalList extends PureComponent {
     let nearbyHospital = [];
     if (hospitals) {
       //the second params for horizontal(true) show ten item,
-      nearbyHospital = handleNearby(hospitals.get('results'), false, true);
+      nearbyHospital = handleHospitals(hospitals.get('results'));
     }
 
 
@@ -76,18 +76,18 @@ class HospitalList extends PureComponent {
         />
         <UltimateFlatList
             listStyle={{
-              flex: 1,
-              backgroundColor: '#F5F6F7',
-            }}
-            renderItem={(item) => <HospitalListItem  item={item} navigation={navigation} token={token} />}
+              flex: 1,
+              backgroundColor: '#F5F6F7',
+            }}
             listData={nearbyHospital}
             method={GET_HOSPITALS}
             data={hospitals}
             enableRefresh={true}
-            footText={"到底了哦"}
-            refreshMethod={[ GET_HOSPITALS ]}
+            refreshMethod={[ GET_HOSPITALS ]}
             dispatch={this.props.dispatch}
             token={token}
+            footText={"到底了哦"}
+            renderItem={(item) => <HospitalListItem token={token} navigation={navigation} item={item} />}
         />
       </View>
     )

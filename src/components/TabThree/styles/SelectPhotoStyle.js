@@ -47,4 +47,15 @@ export const SelectPhotoStyle = StyleSheet.create({
     color: '#D4D4D4',
     marginTop: px2dp(10),
   },
+
+  settingBox: {
+    height: px2dp(40),
+    width: px2dp(40),
+    borderRadius: px2dp(20),
+  },
+  settingAvatar: {
+    height: px2dp(40),
+    width: px2dp(40),
+    borderRadius: px2dp(20),
+  }
 })

@@ -21,6 +21,7 @@
     "moment": "2.18.1",
     "pingpp-react-native": "1.0.0",
     "query-string": "4.3.4",
+    "rc-form": "1.4.3",
     "react": "16.0.0-alpha.6",
     "react-native": "0.44.2",
     "react-native-circular-progress": "0.0.8",

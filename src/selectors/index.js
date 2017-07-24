@@ -20,6 +20,7 @@ import {
 
 import {
   getPatientSelector,
+  getPatientProfileSelector,
 } from './userSelector';
 
 import {
@@ -53,6 +54,7 @@ export {
   getDoctorInfoSelector,
 
   getPatientSelector,
+  getPatientProfileSelector,
 
   getQaSelector,
   getSingleQaSelector,

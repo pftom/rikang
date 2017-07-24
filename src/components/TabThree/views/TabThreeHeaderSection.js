@@ -28,11 +28,11 @@ class TabThreeHeaderSection extends PureComponent {
               </View>
               <View style={styles.bottomBox}>
                 <View style={styles.leftBox}>
-                  <SelectPhoto personInfo={true} />
+                  <SelectPhoto personInfo={true} avatar={patientProfile && patientProfile.get('avatar') || null} />
                 </View>
                 <View style={styles.rightBox}>
                   <Text style={styles.name}>{patientProfile.get('name')}</Text>
-                  <TouchableOpacity onPress={() => { navigation.navigate('PatientPersonInfo', { token, navigation, dispatch })}}>
+                  <TouchableOpacity onPress={() => { navigation.navigate('PatientPersonInfo', { token, patientProfile, dispatch })}}>
                     <View style={styles.infoBox}>
                       <Text style={styles.info}>个人信息</Text>
                       <Image source={require('../img/rightArrow.png')} />

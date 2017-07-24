@@ -134,8 +134,32 @@ const handleHealthPost = (data, calCount) => {
   return dataSource;
 }
 
+
+const handleHospital = (item) => ({
+  key: item.get('id'),
+  id: item.get('id'),
+  location: item.get('location'),
+  name: item.get('name'),
+  photo: item.get('photo'),
+  rank: item.get('rank'),
+  doctor_num: item.get('doctor_num'),
+})
+
+const handleHospitals = (data) => {
+  let dataSource = [];
+
+  data.map(item => {
+    dataSource.push(
+      handleHospital(item),
+    );
+  });
+
+  return dataSource;
+}
+
 export {
   headerTitleData,
   handleNearby,
   handleHealthPost,
+  handleHospitals,
 }

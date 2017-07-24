@@ -55,9 +55,20 @@ function* getPatientProfile(payload) {
 function* updatePatientProfile(payload) {
   try {
     const { token, body } = payload;
+
+    const { name, avatar, age, sex, medical_history } = body;
+    let data = new FormData();
+    let keys = Object.keys(body);
+    for (let i = 0; i < keys.length; i++) {
+      if (keys[i] === 'avatar') {
+        data.append('avatar', { uri: avatar, type: 'multipart/form-data', name: 'image.jpg'})
+      } else {
+        data.append(keys[i], body[keys[i]]);
+      }
+    }
     //the last param supply multipart/form-data support
-    yield call(request.put, base + usersApi.updatePatientProfile, body, token, true);
-    yield put({ type: UPDATE_PATIENT_PROFILE_SUCCESS });
+    yield call(request.put, base + usersApi.updatePatientProfile, data, token, true);
+    yield put({ type: UPDATE_PATIENT_PROFILE_SUCCESS, body });
   } catch(error) {
     yield put({ type: UPDATE_PATIENT_PROFILE_ERROR });
   }

@@ -28,3 +28,16 @@ export const getPatientSelector = createSelector(
     postFetch,
   }),
 );
+
+const getUpdatePatientProfileSuccess = (state) => state.getIn(['patient', 'submitProfileSuccess']);
+const getUpdatePatientProfileError = (state) => state.getIn(['patient', 'submitProfileError']);
+
+
+export const getPatientProfileSelector = createSelector(
+  [ getPatientProfile, getUpdatePatientProfileSuccess, getUpdatePatientProfileError ],
+  (patientProfile, submitProfileSuccess, submitProfileError) => ({
+    patientProfile,
+    submitProfileSuccess,
+    submitProfileError,
+  }),
+);
