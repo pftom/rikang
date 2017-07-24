@@ -9,11 +9,31 @@ const handleQuestion = (item) => ({
   body: item.get('body'),
 });
 
+const sortMap = {
+  '默认排序': 'default',
+  '关注数最多': 'stars',
+  '回答数最多': 'solved',
+};
 
-const handleQuestions = (data) => {
+const handleQuestions = (data, dep, sort) => {
   let dataSource = [];
 
-  data.map((item) => {
+  let sortedData = [];
+  let kind = sortMap[sort];
+  switch(kind) {
+    case 'default':
+      sortedData = data;
+      break;
+    default:
+      sortedData = data.sort((item1, item2) => {
+        if (item1.get(kind) < item2.get(kind)) { return -1; }
+        if (item1.get(kind) > item2.get(kind)) { return 1; }
+        if (item1.get(kind) === item2.get(kind)) { return 0; }
+      });
+  }
+
+  sortedData.map((item) => {
+    if (dep && item.get('department') !== dep) { return; }
     dataSource.push({
       item: handleQuestion(item),
       question: item,

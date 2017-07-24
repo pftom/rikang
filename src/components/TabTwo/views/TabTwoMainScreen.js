@@ -26,11 +26,22 @@ import { UltimateFlatList, SelectBox } from '../../common/';
 //import styles
 import { QaMainScreenStyle as styles } from '../styles/';
 
+import { opppsiteDepartment } from '../../../utils/transferAbbr';
+
 import {
   handleQuestions,
 } from '../data/'
 
 class QaScreen extends PureComponent {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      sort: '',
+      dep: '',
+    }
+  }
 
   componentDidMount() {
     const { navigation, dispatch, token } = this.props;
@@ -38,13 +49,25 @@ class QaScreen extends PureComponent {
     dispatch({ type: GET_QUESTIONS, payload: { token, refresh: true }});
   }
 
+  handleSelectSort = (sort) => {
+    this.setState({
+      sort,
+    })
+  }
+
+  handleSelectDep = (dep) => {
+    this.setState({
+      dep,
+    })
+  }
+
   render() {
     const { questions, navigation, token, dispatch, questionStarredFav } = this.props;
-
+    const { dep, sort } = this.state;
     let questionList = [];
     if (questions) {
       //the second params for horizontal(true) show ten item,
-      questionList = handleQuestions(questions.get('results'));
+      questionList = handleQuestions(questions.get('results'), opppsiteDepartment[dep], sort);
       console.log('questionList', questionList);
     }
 
@@ -75,6 +98,8 @@ class QaScreen extends PureComponent {
             left: 0,
             right: 0,
           }}
+          handleSelectDep={this.handleSelectDep}
+          handleSelectSort={this.handleSelectSort}
         />
         <Header 
           navigation={navigation}

@@ -4,6 +4,43 @@ import { TouchableOpacity, Text, View, Image } from 'react-native';
 //impor style from styles
 import { SelectBoxStyle as styles } from '../styles/';
 
+import { Picker } from 'antd-mobile';
+
+import { selectDep } from '../TabOne/data/';
+
+const sortData = [
+  {
+    label: '默认排序',
+    value: '默认排序',
+  },
+  {
+    label: '关注数最多',
+    value: '关注数最多',
+  },
+  {
+    label: '回答数最多',
+    value: '回答数最多'
+  }
+];
+
+const RenderLeft = props => (
+  <TouchableOpacity onPress={props.onClick}>
+    <View style={[ styles.box]}>
+      <Text style={styles.title}>{props.titleLeft}</Text>
+      <Image source={require('./img/SelectDown.png')} />
+    </View>
+  </TouchableOpacity>
+);
+
+const RenderRight = props => (
+  <TouchableOpacity onPress={props.onClick}>
+    <View style={[ styles.box ]}>
+      <Text style={styles.title}>{props.titleRight}</Text>
+      <Image source={require('./img/Select.png')} />
+    </View>
+  </TouchableOpacity>
+);
+
 
 class SelectBox extends PureComponent {
 
@@ -11,40 +48,51 @@ class SelectBox extends PureComponent {
     super(props);
 
     this.state = {
-      activateLeft: false,
-      activateRight: false,
+      pickerValue: ['全部科室', '全部科室'],
+      sortValue: ['默认排序'],
     };
   }
 
-  handleLeftTouch = () => {
+  handleLeftChange = (v) => {
+    this.props.handleSelectDep(v[1]);
     this.setState({
-      activateLeft: !this.state.activateLeft,
+      pickerValue: v,
     });
   }
 
-  handleRightTouch = () => {
+  handleRightChange = (v) => {
+    this.props.handleSelectSort(v);
+
     this.setState({
-      activateRight: !this.state.activateRight,
+      sortValue: v,
     });
-  }
-  
+  } 
+
   render() {
     const { titleLeft, titleRight } = this.props;
 
     return (
       <View style={[ styles.container, this.props.selectStyle ]}>
-        <TouchableOpacity onPress={() => { this.handleLeftTouch() }}>
-          <View style={[ styles.box]}>
-            <Text style={styles.title}>{titleLeft}</Text>
-            <Image source={require('./img/SelectDown.png')} />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => { this.handleRightTouch() }}>
-          <View style={[ styles.box ]}>
-            <Text style={styles.title}>{titleRight}</Text>
-            <Image source={require('./img/Select.png')} />
-          </View>
-        </TouchableOpacity>
+        <Picker
+          data={selectDep}
+          title="选择科室"
+          cols={2}
+          value={this.state.pickerValue}
+          onChange={v => { this.handleLeftChange(v) }}
+        >
+          <RenderLeft titleLeft={this.state.pickerValue[1]}  />
+        </Picker>
+
+        <Picker
+          data={sortData}
+          title="选择排序方式"
+          cols={1}
+          value={this.state.sortValue}
+          onChange={v => { this.handleRightChange(v) }}
+        >
+          <RenderRight titleRight={this.state.sortValue[0]}/>
+        </Picker>
+        
       </View>
     )
   }
