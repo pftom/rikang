@@ -50,4 +50,40 @@ export const QaMainScreenStyle = StyleSheet.create({
     letterSpacing: -0.32,
     marginLeft: px2dp(16),
   },
+
+  inputContainer: {
+    width: width,
+    height: px2dp(81),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    top: 1,
+    left: 0,
+    right: 0,
+  },
+
+  inputBox: {
+    width: px2dp(334),
+    flexDirection: 'row',
+    height: px2dp(40),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FFF',
+    shadowOffset: { x: 1, y: 10 },
+    shadowColor: '#7F7F7F',
+    shadowOpacity: 0.5,
+    borderRadius: 8,
+    marginTop: px2dp(15),
+  },
+
+  textInput: {
+    height: px2dp(30),
+    lineHeight: px2dp(34),
+    textAlignVertical: 'center',
+    width: px2dp(286),
+    marginLeft: px2dp(10),
+    fontSize: 16,
+    marginTop: px2dp(3),
+  }
 })

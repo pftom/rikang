@@ -208,12 +208,7 @@ function* watchAddDoctorFav() {
     //listen on ADD_SINGLE_DOCTOR_FAV
     const { payload } = yield take(ADD_SINGLE_DOCTOR_FAV);
     //invoke addSingleDoctorFav generator function
-    const task = yield fork(addSingleDoctorFav, payload);
-    
-    //wait for cancel fav
-    const action = yield take(CANCEL_SINGLE_DOCTOR_FAV);
-    //if meet CANCEL action
-    yield cancel(task);
+    yield call(addSingleDoctorFav, payload);
   }
 }
 
@@ -224,10 +219,7 @@ function* watchCancelDoctorFav() {
     //wait for cancel fav
     const { payload } = yield take(CANCEL_SINGLE_DOCTOR_FAV);
     
-   const task = yield fork(cancelSingleDoctorFav, payload);
-   const action = yield take(ADD_SINGLE_DOCTOR_FAV);
-
-   yield cancel(task);
+   yield call(cancelSingleDoctorFav, payload);
   }
 }
 

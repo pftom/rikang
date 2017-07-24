@@ -88,7 +88,7 @@ class TagBox extends PureComponent {
       } = httpStatus;
       if (isStarSingleQuestion || isCancelStarSingleQuestion) {
         if (isStarSingleQuestion) {
-          this.loadingToast('收藏中...');
+          this.loadingToast('中...');
         } else {
           this.loadingToast('取消收藏中...');
         }

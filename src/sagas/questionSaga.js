@@ -47,8 +47,12 @@ import { base, qaApi, qaSingleApi } from '../configs/config';
 //get the questions list
 function* getQuestions(payload) {
   try {
-    const { token, refresh } = payload;
-    const query = (!refresh && payload.query) || null;
+    const { token, refresh, search } = payload;
+    let query = (!refresh && payload.query) || null;
+    if (search) {
+      query = payload.query || null;
+      refresh = true;
+    }
 
     const questions = yield call(request.get, base + qaApi.questions, query, token);
 
@@ -205,12 +209,7 @@ function* watchStarSingleQuestion() {
   while (true) {
     const { payload } = yield take(STAR_SINGLE_QUESTION);
 
-    const task = yield fork(starSingleQuestion, payload);
-
-    //wait for cancel fav
-    const action = yield take(CANCEL_STAR_SINGLE_QUESTION);
-    //if meet CANCEL action
-    yield cancel(task);
+    yield call(starSingleQuestion, payload);
   }
 }
 
@@ -222,10 +221,7 @@ function* watchCancelStarSingleQuestion() {
     //wait for cancel fav
     const { payload } = yield take(CANCEL_STAR_SINGLE_QUESTION);
     
-   const task = yield fork(cancelStarSingleQuestion, payload);
-   const action = yield take(STAR_SINGLE_QUESTION);
-
-   yield cancel(task);
+   yield call(cancelStarSingleQuestion, payload);
   }
 }
 

@@ -5,6 +5,7 @@ import {
   Text, 
   TouchableHighlight,
   Image,
+  TextInput,
  } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -55,6 +56,7 @@ class QaScreen extends PureComponent {
     this.state = {
       sort: '默认排序',
       dep: '全部科室',
+      text: '',
     }
   }
 
@@ -74,6 +76,32 @@ class QaScreen extends PureComponent {
     this.setState({
       dep,
     })
+  }
+
+  handleSubmit = () => {
+    const { navigation, dispatch, token } = this.props;
+
+    let query = null;
+    let search = false;
+    if (this.state.text) {
+      query = {
+        search: this.state.text,
+      }
+      search = true;
+    }
+    
+    dispatch({ type: GET_QUESTIONS, payload: { token, refresh: true, search, query }});
+  }
+
+  handleChangeText = (text) => {
+    const { navigation, dispatch, token } = this.props;
+    this.setState({
+      text,
+    });
+
+    if (text === '') {
+      dispatch({ type: GET_QUESTIONS, payload: { token, refresh: true }});
+    }
   }
 
   render() {
@@ -137,6 +165,25 @@ class QaScreen extends PureComponent {
                 </View>
               </TouchableHighlight>
             </View>
+        </View>
+
+        <View style={styles.inputContainer}>  
+          <View style={styles.inputBox}>
+            <Image source={require('../img/search.png')} />
+            <View>
+                <TextInput
+                  ref="textInput"
+                  style={[ styles.textInput ]}
+                  placeholder={"搜索你感兴趣的问题"}
+                  onChangeText={(text) => { this.handleChangeText(text) }}
+                  placeholderTextColor="#BFBFBF"
+                  value={this.state.text}
+                  autoCorrect={false}
+                  returnKeyType="search"
+                  onSubmitEditing={() => { this.handleSubmit() }}
+              />
+            </View>
+          </View>
         </View>
         
       </View>

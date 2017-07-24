@@ -50,6 +50,7 @@ request.get =  ( url, params, token ) => {
     options = _.extend(header('GET', token));
   }
 
+  console.log('url', url);
 
   return fetch(url, options)
       .then(response => {

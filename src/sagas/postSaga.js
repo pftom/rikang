@@ -56,6 +56,7 @@ function* addSinglePostFav(payload) {
   try {
     const { id, token, post } = payload;
     //emit http get, fetch single doctor fav
+    console.log('favvvvvvvvv');
     yield call(request.get, base + homeSingleApi(id).addSinglePostFav, null, token);
     //get doctor fav success 
     yield put({ type: ADD_SINGLE_POST_FAV_SUCCESS, post });
@@ -70,6 +71,7 @@ function* cancelSinglePostFav(payload) {
   try {
     const { id, token } = payload;
     //emit http get, cancel single doctor fav
+    console.log('unfavvvvvvvvv');
     yield call(request.get, base + homeSingleApi(id).cancelSinglePostFav, null, token);
     //get doctor fav success 
     yield put({ type: CANCEL_SINGLE_POST_FAV_SUCCESS, id });
@@ -102,12 +104,8 @@ function* watchAddPostFav() {
     //listen on ADD_SINGLE_DOCTOR_FAV
     const { payload } = yield take(ADD_SINGLE_POST_FAV);
     //invoke addSingleDoctorFav generator function
-    const task = yield fork(addSinglePostFav, payload);
-    
-    //wait for cancel fav
-    const action = yield take(CANCEL_SINGLE_POST_FAV);
-    //if meet CANCEL action
-    yield cancel(task);
+    yield call(addSinglePostFav, payload);
+  
   }
 }
 
@@ -118,10 +116,7 @@ function* watchCancelPostFav() {
     //wait for cancel fav
     const { payload } = yield take(CANCEL_SINGLE_POST_FAV);
     
-   const task = yield fork(cancelSinglePostFav, payload);
-   const action = yield take(ADD_SINGLE_POST_FAV);
-
-   yield cancel(task);
+   yield call(cancelSinglePostFav, payload);
   }
 }
 
