@@ -27,6 +27,7 @@ class HospitalListItem extends PureComponent {
   render() {
     const { navigation, token, item } = this.props;
     const { doctor_num, rank } = item;
+    console.log('item', item);
     const identical = [
       {
         content: '距您1.1km',

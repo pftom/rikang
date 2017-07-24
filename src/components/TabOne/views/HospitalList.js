@@ -65,6 +65,7 @@ class HospitalList extends PureComponent {
       nearbyHospital = handleNearby(hospitals.get('results'), false, true);
     }
 
+
     return (
       <View style={styles.hospitalContainer}>
         <Header

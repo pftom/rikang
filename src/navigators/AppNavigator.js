@@ -10,6 +10,7 @@ import px2dp from '../utils/px2dp';
 //user section screen
 import LoginScreen from '../components/LoginScreen';
 import Register from '../components/Register';
+import PatientPersonInfo from '../components/TabThree/views/PatientPersonInfo';
 
 /*
  *
@@ -84,6 +85,7 @@ export const AppNavigator = StackNavigator({
     UserNavigator: { screen: UserNavigator },
 
     Profile: { screen: ProfileScreen },
+    PatientPersonInfo: { screen: PatientPersonInfo },
 
     QuestionDetail: { screen: QuestionDetail },
     PutQuestionDetail: { screen: PutQuestionDetail },

@@ -13,7 +13,7 @@ import SelectPhoto from '../common/SelectPhoto';
 class TabThreeHeaderSection extends PureComponent {
 
   render() {
-    const { patientProfile } = this.props;
+    const { patientProfile, navigation, dispatch, token } = this.props;
     return (
      <LinearGradient
             start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}
@@ -32,10 +32,12 @@ class TabThreeHeaderSection extends PureComponent {
                 </View>
                 <View style={styles.rightBox}>
                   <Text style={styles.name}>{patientProfile.get('name')}</Text>
-                  <View style={styles.infoBox}>
-                    <Text style={styles.info}>个人信息</Text>
-                    <Image source={require('../img/rightArrow.png')} />
-                  </View>
+                  <TouchableOpacity onPress={() => { navigation.navigate('PatientPersonInfo', { token, navigation, dispatch })}}>
+                    <View style={styles.infoBox}>
+                      <Text style={styles.info}>个人信息</Text>
+                      <Image source={require('../img/rightArrow.png')} />
+                    </View>
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>

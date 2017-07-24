@@ -157,7 +157,6 @@ class UltimateFlatList extends PureComponent {
 
   render() {
     const { header, data, method, enableRefresh, refreshMethod, simplify } = this.props;
-
     let refreshComponent = null;
     if (enableRefresh) {
       refreshComponent = (
@@ -168,6 +167,7 @@ class UltimateFlatList extends PureComponent {
         />
       )
     }
+    console.log('state', this.state.loadingTop);
 
     return (
       <FlatList

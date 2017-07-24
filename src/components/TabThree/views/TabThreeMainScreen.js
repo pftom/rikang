@@ -154,7 +154,12 @@ class UserScreen extends PureComponent {
     return (
       <View style={{ flex: 1, backgroundColor: '#F5F6F7'}}>
         {
-          <TabThreeHeaderSection patientProfile={patientProfile} />
+          <TabThreeHeaderSection 
+            patientProfile={patientProfile} 
+            navigation={navigation}
+            token={token}
+            dispatch={dispatch}
+          />
         }
         <ScrollableTabView
           page={0}
