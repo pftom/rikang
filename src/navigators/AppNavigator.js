@@ -36,6 +36,13 @@ import DoctorList from '../components/TabOne/views/DoctorList';
 import ProfileScreen from '../components/ProfileScreen';
 import Practice from '../components/practice';
 
+/*
+ *
+ * 
+ * service section screen
+*/
+import ConsultOrder from '../components/TabOne/views/ConsultOrder';
+
 
 /*
  *
@@ -84,6 +91,8 @@ export const AppNavigator = StackNavigator({
     DoctorDetailInfo: { screen: DoctorDetailInfo },
     DoctorList: { screen: DoctorList },
     DoctorDetail: { screen: DoctorDetail },
+    
+    ConsultOrder: { screen: ConsultOrder },
 
     UserNavigator: { screen: UserNavigator },
 

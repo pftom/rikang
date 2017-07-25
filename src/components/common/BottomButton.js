@@ -5,11 +5,11 @@ import { BottomButtonStyle as styles } from '../styles/';
 
 class BottomButton extends PureComponent {
   render() {
-    const { jumpToScreen, content, navigation, isPay } = this.props;
+    const { jumpToScreen, content, navigation, isPay, data } = this.props;
 
     return (
       <View style={styles.BottomBox}>
-        <TouchableWithoutFeedback onPress={() => { navigation.navigate(jumpToScreen)}} style={styles.buttonContainer}>
+        <TouchableWithoutFeedback onPress={() => { navigation.navigate(jumpToScreen, { data, })}} style={styles.buttonContainer}>
           <View style={styles.buttonBox}>
             <Text style={styles.content}>{content}</Text>
           </View>

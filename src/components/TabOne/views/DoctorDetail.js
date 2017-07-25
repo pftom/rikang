@@ -435,7 +435,7 @@ class DoctorDetail extends PureComponent {
           handleAddFav={() => { doctor && dispatch({ type: ADD_SINGLE_DOCTOR_FAV, payload: { token, id, doctor } } ) } }
         />
 
-        <BottomButton content="向他求助" navigation={navigation} jumpToScreen="ConsultOrder" isPay={false} />
+        <BottomButton content="向他求助" data={doctor} navigation={navigation} jumpToScreen="ConsultOrder" isPay={false} />
     </LinearGradient>
     )
   }
