@@ -26,6 +26,8 @@ export const homeSingleApi = (id) => ({
 export const usersApi = {
   register: 'users/register',
   login: 'users/login/',
+  requestSmsCode: 'users/request-sms-code',
+  verifySmsCode: 'users/verify-sms-code',
   changePassword: 'users/change-password/',
   doctorInit: 'users/doctor-init/',
   doctorProfile: 'users/doctor-profile/',

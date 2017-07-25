@@ -35,7 +35,13 @@ export const PutQuestionStyle = StyleSheet.create({
     fontFamily: 'PingFangSC-Medium',
     fontSize: 24,
     color: '#000',
-    marginTop: px2dp(8),
+    marginTop: px2dp(75),
+    marginBottom: px2dp(28),
+  },
+  subTitleText: {
+    fontFamily: 'PingFangSC-Light',
+    fontSize: 18,
+    color: '#000',
   },
 
   inputBox: {
@@ -54,13 +60,20 @@ export const PutQuestionStyle = StyleSheet.create({
     height: px2dp(64),
     borderRadius: 7.5,
     marginRight: px2dp(26),
+    shadowOffset: { x: 0, y: 2 },
+    shadowColor: '#50E3C2',
+    shadowOpacity: 1,
+    shadowRadius: 10,
   },
   rightBox: {
     height: px2dp(64),
     justifyContent: 'space-between',
+    width: px2dp(183)
   },
   topBox: {
     flexDirection: 'row',
+    height: px2dp(24),
+    alignItems: 'center',
   },
   title: {
     fontFamily: 'PingFangSC-Regular',
@@ -122,5 +135,48 @@ export const PutQuestionStyle = StyleSheet.create({
     marginRight: px2dp(15),
     marginBottom: px2dp(10),
   },
+
+  tintBox: {
+    height: px2dp(30),
+    width: px2dp(180),
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: px2dp(55),
+  },
+  tintText: {
+    fontFamily: 'PingFangSC-Light',
+    fontSize: 16,
+    color: '#000',
+  },
+  jumpText: {
+
+    fontFamily: 'PingFangSC-Medium',
+    fontSize: 16,
+    color: '#27AB6F',
+  },
+
+  cd: {
+    fontFamily: 'PingFangSC-Regular',
+    fontSize: 12,
+    color: '#FFF',
+  },
+
+  verifyBox: {
+    width: px2dp(81),
+    height: px2dp(31),
+    backgroundColor: '#FF5151',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    shadowOffset: { x:2, y: 2 },
+    shadowRadius: 10,
+    shadowColor: '#FC4259',
+    shadowOpacity: 0.5,
+  },
+  verifyContainer: {
+    width: px2dp(81),
+    height: px2dp(31),
+    borderRadius: 10,
+  }
 
 });

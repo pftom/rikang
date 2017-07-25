@@ -7,6 +7,14 @@ import {
   REGISTER_ERROR,
   REGISTER_SUCCESS,
 
+  REGISTER_SEND_MESSAGE,
+  REGISTER_SEND_MESSAGE_ERROR,
+  REGISTER_SEND_MESSAGE_SUCCESS,
+
+  REQUEST_SMS_CODE,
+  REQUEST_SMS_CODE_SUCCESS,
+  REQUEST_SMS_CODE_ERROR,
+
   LOGIN,  
   LOGIN_SUCCESS, 
   LOGIN_ERROR, 
@@ -34,20 +42,21 @@ import { base, usersApi } from '../configs/config';
 
 //LOGIN async actions handle function
 function* loginAuthorize(payload) {
-  console.log('base', base + usersApi.login);
+  const { body } = payload;
   try {
-    const { token } = yield call(request.post, base + usersApi.login, payload);
+    const { token } = yield call(request.post, base + usersApi.login, body);
     yield put({ type: LOGIN_SUCCESS, token });
     return token;
   } catch(error) {
-    yield put({ type: LOGIN_ERROR });
+    yield put({ type: LOGIN_ERROR, error });
   }
 }
 
 //register async actions handle function
 function* registerAuthorize(payload) {
   try {
-    yield call(request.post, base + usersApi.register, payload);
+    const { body } = payload;
+    yield call(request.post, base + usersApi.register, body);
     yield put({ type: REGISTER_SUCCESS });
     yield put({ type: LOGIN, payload });
   } catch (error) {
@@ -63,6 +72,29 @@ function* changePassword(payload) {
     yield put({ type: CHANGE_PASSWORD_SUCCESS });
   } catch (error) {
     yield put({ type: CHANGE_PASSWORD_ERROR });
+  }
+}
+
+
+//send message  async actions handle function
+function* requestSmsCode(payload) {
+  try {
+    yield call(request.post, base + usersApi.requestSmsCode, payload);
+    yield put({ type: REQUEST_SMS_CODE_SUCCESS, phone });
+  } catch (error) {
+    yield put({ type: REQUEST_SMS_CODE_ERROR });
+  }
+}
+
+//send message  async actions handle function
+function* verifySmsCode(payload) {
+  try {
+    const { body } = payload;
+    yield call(request.post, base + usersApi.verifySmsCode, body);
+    const { phone } = body;
+    yield put({ type: REGISTER_SEND_MESSAGE_SUCCESS, phone });
+  } catch (error) {
+    yield put({ type: REGISTER_SEND_MESSAGE_ERROR });
   }
 }
 
@@ -106,11 +138,27 @@ function* clearFlow() {
   }
 }
 
+function* watchRequestSmsCode() {
+  while (true) {
+    const { payload } = yield take(REQUEST_SMS_CODE);
+    yield call(requestSmsCode, payload)
+  }
+}
+
+function* watchVerifySmsCode() {
+  while (true) {
+    const { payload } = yield take(REGISTER_SEND_MESSAGE);
+    yield call(verifySmsCode, payload)
+  }
+}
+
 
 
 export {
   loginFlow,
   registerFlow,
   changePasswordFlow,
+  watchRequestSmsCode,
+  watchVerifySmsCode,
   clearFlow,
 }

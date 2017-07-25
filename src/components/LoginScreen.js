@@ -2,7 +2,7 @@
 // import what we need
 import React, { PureComponent } from 'react';
 import { View } from 'react-native';
-import { reduxForm } from 'redux-form/immutable';
+import { reduxForm, reset } from 'redux-form/immutable';
 import { connect } from 'react-redux';
 
 //commomn 表单组件
@@ -19,11 +19,20 @@ import { getInputInitial } from '../selectors/';
 
 //对组件进行二次封装，以应对不同的处理场景如：注册，登录等共用一套逻辑
 class LoginScreen extends PureComponent {
-  render() {
 
+  componentWillUnmount() {
+    this.props.dispatch(reset('Register'));
+  }
+
+  render() {
+    //offer icon and icon title
+    const inputData = {
+      icon: require('./common/img/verify_passwd.png'),
+      title: '账户密码'
+    };
     return (
       <View style={styles.container}>
-        <FormInput {...this.props} kind={LOGIN}/>
+        <FormInput {...this.props} kind={LOGIN} inputData={inputData}/>
       </View>
     )
   }

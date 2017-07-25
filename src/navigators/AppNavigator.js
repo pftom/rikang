@@ -10,6 +10,7 @@ import px2dp from '../utils/px2dp';
 //user section screen
 import LoginScreen from '../components/LoginScreen';
 import Register from '../components/Register';
+import RegisterSendMessage from '../components/RegisterSendMessage';
 import PatientPersonInfo from '../components/TabThree/views/PatientPersonInfo';
 import Setting from '../components/TabThree/views/Setting';
 
@@ -54,6 +55,7 @@ import CommentList from '../components/TabTwo/views/CommentList';
 export const UserNavigator = StackNavigator({
     Login: { screen: LoginScreen },
     Register: { screen: Register },
+    RegisterSendMessage: { screen: RegisterSendMessage },
   },
   {
     navigationOptions: {

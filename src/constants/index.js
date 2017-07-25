@@ -13,6 +13,17 @@ export const REGISTER = 'REGISTER';
 export const REGISTER_ERROR = 'REGISTER_ERROR';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 
+
+//request sms code action type
+export const REQUEST_SMS_CODE = 'REQUEST_SMS_CODE';
+export const REQUEST_SMS_CODE_ERROR = 'REQUEST_SMS_CODE_ERROR';
+export const REQUEST_SMS_CODE_SUCCESS = 'REQUEST_SMS_CODE_SUCCESS';
+
+//verify send message action type
+export const REGISTER_SEND_MESSAGE = 'REGISTER_SEND_MESSAGE';
+export const REGISTER_SEND_MESSAGE_ERROR = 'REGISTER_SEND_MESSAGE_ERROR';
+export const REGISTER_SEND_MESSAGE_SUCCESS = 'REGISTER_SEND_MESSAGE_SUCCESS';
+
 export const LOGOUT = 'LOGOUT';
 
 export const LOGIN = 'LOGIN';

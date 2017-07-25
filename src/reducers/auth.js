@@ -13,6 +13,14 @@ import {
   REGISTER_ERROR,
   REGISTER_SUCCESS,
   CLEAR_STATE,
+
+  REQUEST_SMS_CODE,
+  REQUEST_SMS_CODE_SUCCESS,
+  REQUEST_SMS_CODE_ERROR,
+
+  REGISTER_SEND_MESSAGE,
+  REGISTER_SEND_MESSAGE_SUCCESS,
+  REGISTER_SEND_MESSAGE_ERROR,
 } from '../constants/'
 import { persistor } from '../store';
 
@@ -22,8 +30,19 @@ const initialAuthState = Immutable.Map({
   isLoadingData: false,
   loginError: false,
   loginSuccess: false,
+
+  isRegister: false,
   registerError: false,
   registerSuccess: false,
+
+  phone: null,
+  isRequestSmsCode: false,
+  requestSmsCodeSuccess: true,
+  requestSmsCodeError: false,
+
+  isVerifyCode: false,
+  verifyCodeSuccess: false,
+  verifyCodeError: false,
 });
 
 const auth = function auth(state = initialAuthState, action) {
@@ -37,6 +56,7 @@ const auth = function auth(state = initialAuthState, action) {
         registerError: false,
         registerSuccess: false,
       });
+
 
     case REGISTER_ERROR:
     
@@ -91,6 +111,57 @@ const auth = function auth(state = initialAuthState, action) {
         loginSuccess: false,
       });
 
+
+    case REQUEST_SMS_CODE:
+
+      return state.merge({
+        isRequestSmsCode: true,
+        requestSmsCodeError: false,
+        requestSmsCodeSuccess: false,
+      });
+
+
+    case REQUEST_SMS_CODE_SUCCESS:
+
+      const { phone } = action;
+
+      return state.merge({
+        isRequestSmsCode: false,
+        requestSmsCodeSuccess: true,
+        phone,
+      });
+
+
+    case REQUEST_SMS_CODE_ERROR:
+
+      return state.merge({
+        isRequestSmsCode: false,
+        requestSmsCodeError: true,
+      });
+
+    case REGISTER_SEND_MESSAGE:
+
+      return state.merge({
+        isVerifyCode: true,
+        verifyCodeSuccess: false,
+        verifyCodeError: false,
+      })
+
+    case REGISTER_SEND_MESSAGE_SUCCESS:
+
+      return state.merge({
+        isVerifyCode: false,
+        verifyCodeSuccess: true,
+        phone: action.phone,
+      });
+
+    case REGISTER_SEND_MESSAGE_ERROR:
+
+      return state.merge({
+        isVerifyCode: false,
+        verifyCodeError: true,
+      });
+
     case CLEAR_STATE:
 
       return state.merge({
@@ -98,6 +169,12 @@ const auth = function auth(state = initialAuthState, action) {
         registerError: false,
         loginSuccess: false,
         registerSuccess: false,
+        isRequestSmsCode: false,
+        requestSmsCodeError: false,
+        requestSmsCodeSuccess: false,
+
+        verifyCodeSuccess: false,
+        verifyCodeError: false,
       });
       
     case CLEAR_TOKEN: 

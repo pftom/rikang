@@ -24,7 +24,7 @@ const header = (METHOD, token, multiform) => {
   if (!multiform) {
     contentType = {
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
+      
     };
   }
 
@@ -68,6 +68,8 @@ request.post = ( url, body, token, multiform ) => {
   } else {
     data = JSON.stringify(body);
   }
+
+  console.log('data', data);
   let options = _.extend(header('POST', token, multiform), {
     body: data
   });

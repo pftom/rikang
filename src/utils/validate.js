@@ -4,22 +4,24 @@ const maxLength = max => value =>
   value && value.length > max ? `密码长度最多为${max}` : undefined;
 const maxLength15 = maxLength(15);
 
-const number = value => value && isNaN(Number(value)) ? '必须是11位数字' : undefined;
+const number = value => value && value.length !== 11 && isNaN(Number(value)) ? true : undefined;
 
 const minLength = min => value =>
   value && value.length < min ? `密码长度至少为${min}` : undefined;
 const minLength5 = minLength(5);
 
+const phoneNumber = value =>
+  value && !/^([0-9]{11})$/i.test(value)
+    ? true
+    : undefined
+
+
+
 const validate = values => {
   const errors = {}
-  if (!values.get('username')) {
-    errors.username = 'Required';
+  if (values.get('username') !== values.get('password')) {
+    errors.username = '两次密码不匹配';
   }
-
-  if (!values.get('password')) {
-    errors.password = 'Required';
-  }
-
   return errors;
 }
 
@@ -30,4 +32,5 @@ export {
   minLength5,
   number,
   validate,
+  phoneNumber,
 }

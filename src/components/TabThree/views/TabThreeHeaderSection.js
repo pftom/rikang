@@ -33,7 +33,7 @@ class TabThreeHeaderSection extends PureComponent {
                   <SelectPhoto personInfo={true} avatar={patientProfile && patientProfile.get('avatar') || null} />
                 </View>
                 <View style={styles.rightBox}>
-                  <Text style={styles.name}>{patientProfile.get('name')}</Text>
+                  <Text style={styles.name}>{patientProfile && patientProfile.get('name') && patientProfile.get('name') || '还没填写姓名'}</Text>
                   <TouchableOpacity onPress={() => { navigation.navigate('PatientPersonInfo', { token, patientProfile, dispatch })}}>
                     <View style={styles.infoBox}>
                       <Text style={styles.info}>个人信息</Text>

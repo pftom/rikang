@@ -1,7 +1,14 @@
 import { all } from 'redux-saga/effects';
 
 //import userauth sagas
-import { loginFlow, registerFlow, changePasswordFlow, clearFlow } from './userSaga';
+import { 
+  loginFlow, 
+  registerFlow, 
+  changePasswordFlow, 
+  clearFlow,
+  watchRequestSmsCode,
+  watchVerifySmsCode,
+} from './userSaga';
 
 //import posts sagas
 import { 
@@ -71,6 +78,8 @@ export default function* rootSaga() {
     registerFlow(),
     changePasswordFlow(),
     clearFlow(),
+    watchRequestSmsCode(),
+    watchVerifySmsCode(),
 
     watchGetPost(),
     watchGetPosts(),
