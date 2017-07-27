@@ -278,3 +278,34 @@ export const ADD_SINGLE_QUESTION_IMG_ERROR = 'ADD_SINGLE_QUESTION_IMG_ERROR';
 
 //for question create success jump
 export const JUMP_TO_QA = 'JUMP_TO_QA';
+
+
+/*
+  service section
+  service section
+  service section
+*/
+
+export const CREATE_NEW_ORDER = 'CREATE_NEW_ORDER';
+export const CREATE_NEW_ORDER_SUCCESS = 'CREATE_NEW_ORDER_SUCCESS';
+export const CREATE_NEW_ORDER_ERROR = 'CREATE_NEW_ORDER_ERROR';
+
+
+export const CANCEL_ORDER = 'CANCEL_ORDER';
+export const CANCEL_ORDER_SUCCESS = 'CANCEL_ORDER_SUCCESS';
+export const CANCEL_ORDER_ERROR = 'CANCEL_ORDER_ERROR';
+
+export const PAY = 'PAY';
+export const PAY_SUCCESS = 'PAY_SUCCESS';
+export const PAY_ERROR = 'PAY_ERROR';
+
+export const REFUND = 'REFUND';
+export const REFUND_SUCCESS = 'REFUND_SUCCESS';
+export const REFUND_ERROR = 'REFUND_ERROR';
+
+export const FINISH_ORDER = 'FINISH_ORDER';
+export const FINISH_ORDER_SUCCESS = 'FINISH_ORDER_SUCCESS';
+export const FINISH_ORDER_ERROR = 'FINISH_ORDER_ERROR';
+
+
+export const CLEAR_SERVICE_STATE = 'CLEAR_SERVICE_STATE';

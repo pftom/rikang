@@ -109,7 +109,11 @@ class PostDetail extends PureComponent {
                       <Text style={styles.title}>{post.get('title')}</Text>
                     </View>
                   </Image>
-                  <Text style={styles.body}>{post.get('body')}</Text>
+                  <View style={styles.body}>
+                    <HTMLView
+                      value={post.get('body') || ''}
+                    />
+                  </View>
                 </View>
               )
             }
@@ -119,7 +123,6 @@ class PostDetail extends PureComponent {
           headerText="文章详情"
           logoLeft={true} 
           shareStar={true}
-          share={true}
           animatedOpacity={animatedOpacity}
           navigation={navigation}
           httpStatus={httpStatus}

@@ -13,7 +13,7 @@ import Register from '../components/Register';
 import RegisterSendMessage from '../components/RegisterSendMessage';
 import PatientPersonInfo from '../components/TabThree/views/PatientPersonInfo';
 import Setting from '../components/TabThree/views/Setting';
-
+import TestRNIMUI from '../../miui';
 /*
  *
  * 
@@ -35,6 +35,8 @@ import DoctorList from '../components/TabOne/views/DoctorList';
 
 import ProfileScreen from '../components/ProfileScreen';
 import Practice from '../components/practice';
+
+import Chat from '../im/Chat';
 
 /*
  *
@@ -81,6 +83,7 @@ export const AppNavigator = StackNavigator({
     TabTwoNavigation: { screen: TabTwoNavigation },
 
     PostDetail: { screen: PostDetail },
+    TestRNIMUI: { screen: TestRNIMUI },
 
 
     NearHospital: { screen: NearHospital },
@@ -91,6 +94,7 @@ export const AppNavigator = StackNavigator({
     DoctorDetailInfo: { screen: DoctorDetailInfo },
     DoctorList: { screen: DoctorList },
     DoctorDetail: { screen: DoctorDetail },
+    Chat: { screen: Chat },
     
     ConsultOrder: { screen: ConsultOrder },
 

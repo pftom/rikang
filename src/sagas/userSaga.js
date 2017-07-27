@@ -94,7 +94,7 @@ function* verifySmsCode(payload) {
     const { phone } = body;
     yield put({ type: REGISTER_SEND_MESSAGE_SUCCESS, phone });
   } catch (error) {
-    yield put({ type: REGISTER_SEND_MESSAGE_ERROR });
+    yield put({ type: REGISTER_SEND_MESSAGE_ERROR, error });
   }
 }
 

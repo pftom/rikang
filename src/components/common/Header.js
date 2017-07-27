@@ -352,9 +352,11 @@ const styles = StyleSheet.create({
   },
   shareHeart: {
     top: 42,
+    right: 20,
   },
   shareStar: {
     top: 39,
+    right: 20,
   },
   navigate: {
     top: 40,

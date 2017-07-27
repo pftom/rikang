@@ -14,6 +14,8 @@ const { width, height } = Dimensions.get('window');
 export const PostDetailStyle = StyleSheet.create({
   container: {
     backgroundColor: '#F5F6F7',
+    width: width,
+    alignItems: 'center',
   },
   photo: {
     width: width,
@@ -39,5 +41,10 @@ export const PostDetailStyle = StyleSheet.create({
   },
   postBox: {
     marginBottom: 5,
+    width: width,
+    alignItems: 'center',
+  },
+  body: {
+    width: px2dp(306),
   }
 })

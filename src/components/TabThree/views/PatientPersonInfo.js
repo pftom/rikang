@@ -47,6 +47,7 @@ class PatientPersonInfo extends PureComponent {
       age: patientProfile && (patientProfile.get('age') + '') || '',
       medical_history: patientProfile && patientProfile.get('medical_history') || '',
       avatar: patientProfile && patientProfile.get('avatar') || 'https://facebook.github.io/react/img/logo_og.png',
+      change: false,
     }
   }
 
@@ -84,7 +85,7 @@ class PatientPersonInfo extends PureComponent {
           logoLeft={true}
           headerText="个人信息"
           navigation={navigation}
-          settingSubmit={true}
+          
           submitProfileError={submitProfileError}
           submitProfileSuccess={submitProfileSuccess}
           handleSubmitProfile={this.handleSubmitProfile}

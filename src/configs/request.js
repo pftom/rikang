@@ -24,7 +24,7 @@ const header = (METHOD, token, multiform) => {
   if (!multiform) {
     contentType = {
       'Content-Type': 'application/json',
-      
+      'Accept': 'application/json',
     };
   }
 

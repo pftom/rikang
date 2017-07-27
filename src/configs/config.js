@@ -1,6 +1,6 @@
 'use strict';
 
-export const base = 'http://localhost:8000/';
+export const base = 'http://119.23.243.2/';
 
 export const homeApi = {
   posts: 'home/posts/',
@@ -62,3 +62,12 @@ export const qaSingleApi = (id) => ({
   singleAnswerAllComments: `qa/answers/${id}/comments/`,
   addSingleAnswerComments: `qa/answers/${id}/comments/new`,
 });
+
+
+export const serviceApi = {
+  createNewOrder: 'services/new-order',
+  pay: 'services/pay',
+  cancel: 'services/cancel',
+  refund: 'services/refund',
+  finishOrder: 'services/finish-order',
+}

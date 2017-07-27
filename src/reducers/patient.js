@@ -225,7 +225,7 @@ const patient = (state = initialPatientValue, action) => {
     //add post to fav list
       const { question } = action;
       return state
-            .update('questionStarredFav', list => list.unshift(question))
+            .updateIn(['questionStarredFav'], list => list.unshift(question))
             .merge({
               isStarSingleQuestion: false,
               starSingleQuestionSuccess: true,

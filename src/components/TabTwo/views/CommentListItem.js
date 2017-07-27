@@ -12,6 +12,14 @@ import {
 
 import { TagBox } from '../../common/'
 
+export const handleTime = (time) => {
+  let afterTime = '';
+  afterTime += time.slice(0, 10);
+  afterTime += ' ';
+  afterTime += time.slice(11, 19);
+  return afterTime;
+}
+
 
 class CommentListItem extends PureComponent {
   render() {
@@ -33,7 +41,7 @@ class CommentListItem extends PureComponent {
           <View style={styles.rightBox}>
             <View style={styles.topBox}>
               <Text style={styles.name}>{item.replier_name}</Text>
-              <Text style={styles.time}>{item.created}</Text>
+              <Text style={styles.time}>{handleTime(item.created)}</Text>
             </View>
             <View style={styles.midBox}>
               <Text style={styles.body}>

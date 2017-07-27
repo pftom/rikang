@@ -81,10 +81,19 @@ const transferHospitalClass = {
 '3C': '三级丙等',
 };
 
+const order = {
+  'U':    'UNPAID',
+'P':      'PAID',
+'W':   'UNDERWAY',
+'R':    'REFUND',
+'F':   'FINISHED',
+}
+
 export {
   transferDepartment,
   transferTitle,
   transferHospitalClass,
 
   opppsiteDepartment,
+  order,
 }

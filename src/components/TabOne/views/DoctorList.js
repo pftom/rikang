@@ -143,7 +143,6 @@ class DoctorList extends PureComponent {
         <Header
           headerText="附近医生"
           logoLeft={true}
-          searchIcon={true}
           showGradient={true}
           navigation={navigation}
           headerStyle={{

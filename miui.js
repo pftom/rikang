@@ -237,5 +237,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#3e83d7'
   }
 });
-
-AppRegistry.registerComponent('DangJian', () => TestRNIMUI);

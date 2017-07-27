@@ -76,6 +76,7 @@ class SelectPhoto extends Component {
   render() {
     const { personInfo, addPhoto, settingPhoto } = this.props;
     const { avatarSource } = this.state;
+    console.log('avatarSource', avatarSource);
 
     return (
       <TouchableOpacity onPress={this.selectPhotoTapped} style={ addPhoto && styles.addPhotoContainer}>

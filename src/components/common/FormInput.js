@@ -147,7 +147,7 @@ class FormInput extends Component {
     const { usernameValue, passwordValue } = this.props;
     const item = {
       icon: kind === REGISTER ? require('./img/setting_passwd.png') : require('./img/verify_phone.png'),
-      title: '手机号码'
+      title: kind === REGISTER ? '设定密码' : '手机号码',
     }
 
     let renderNext = null;

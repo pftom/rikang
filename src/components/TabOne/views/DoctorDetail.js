@@ -11,6 +11,7 @@ import {
   ListView,
 } from 'react-native';
 
+
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 
@@ -187,7 +188,7 @@ class DoctorDetail extends PureComponent {
                   </View>
 
                   <View style={styles.hospitalBox}>
-                    <Text style={styles.hospitalName}>{doctor.get('hospital_name')}</Text>
+                    <Text style={styles.hospitalName}>{doctor.get('hospital_name') || '医院暂无'}</Text>
                   </View>
 
                   <TouchableOpacity onPress={() => { navigation.navigate('DoctorDetailInfo', { token, id }) }}>
@@ -422,7 +423,6 @@ class DoctorDetail extends PureComponent {
         <Header 
           logoLeft={true} 
           shareHeart={true}
-          share={true}
           imgOpacity={this.state.imgOpacity}
           leftImg={doctor && doctor}
           navigation={navigation} 
@@ -435,7 +435,7 @@ class DoctorDetail extends PureComponent {
           handleAddFav={() => { doctor && dispatch({ type: ADD_SINGLE_DOCTOR_FAV, payload: { token, id, doctor } } ) } }
         />
 
-        <BottomButton content="向他求助" data={doctor} navigation={navigation} jumpToScreen="ConsultOrder" isPay={false} />
+        <BottomButton content="向他求助" token={token} dispatch={dispatch} data={doctor} navigation={navigation} jumpToScreen="ConsultOrder" kind={'jumpPay'} />
     </LinearGradient>
     )
   }

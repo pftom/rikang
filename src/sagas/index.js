@@ -72,6 +72,14 @@ import {
   watchClearCommentState,
 } from './answerSaga';
 
+import {
+  watchCreateNewOrder,
+  watchCancel,
+  watchPay,
+  watchRefund,
+  watchFinishOrder,
+} from './serviceSaga.js';
+
 export default function* rootSaga() {
   yield all([
     loginFlow(),
@@ -123,5 +131,12 @@ export default function* rootSaga() {
     watchGetAnswerAllComments(),
     watchCreateSingleQuestionAnswerComment(),
     watchClearCommentState(),
+
+
+    watchCreateNewOrder(),
+    watchCancel(),
+    watchPay(),
+    watchRefund(),
+    watchFinishOrder(),
   ]);
 }

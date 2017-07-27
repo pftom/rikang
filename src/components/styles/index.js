@@ -12,6 +12,7 @@ import { HospitalDetailStyle } from './HospitalDetailStyle';
 import { BottomButtonStyle } from './BottomButtonStyle';
 import { SelectBoxStyle } from './SelectBoxStyle';
 import { PutQuestionStyle } from './PutQuestionStyle';
+import { ConsultOrderStyle } from './ConsultOrderStyle';
 
 
 export {
@@ -33,4 +34,5 @@ export {
   SelectBoxStyle,
 
   PutQuestionStyle,
+  ConsultOrderStyle,
 }

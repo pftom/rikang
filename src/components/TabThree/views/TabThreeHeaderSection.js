@@ -19,15 +19,16 @@ class TabThreeHeaderSection extends PureComponent {
             start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}
             colors={['#23BCBB', '#45E994']}
             style={styles.headerBox}>
-        
-        {
-          patientProfile && (
-            <View>
-              <View style={styles.topBox}>
+          <View style={styles.topBox}>
                 <TouchableOpacity onPress={() => { navigation.navigate('Setting', { patientProfile, token, dispatch })}}>
                   <Image source={require('../img/setting.png')} style={styles.setting} />
                 </TouchableOpacity>
               </View>
+        
+        {
+          patientProfile && (
+            <View>
+              
               <View style={styles.bottomBox}>
                 <View style={styles.leftBox}>
                   <SelectPhoto personInfo={true} avatar={patientProfile && patientProfile.get('avatar') || null} />
