@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Dimensions, } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 
 //import common style
 import { commonStyle } from './commonStyle';
@@ -100,8 +100,16 @@ export const PutQuestionStyle = StyleSheet.create({
   },
   textInput: {
     width: px2dp(238),
-    height: px2dp(30),
+
     color: '#000',
+    ...Platform.select({
+      ios: {
+        height: px2dp(30),
+      },
+      android: {
+        height: px2dp(60),
+      }
+    })
   },
 
   nextBox: {

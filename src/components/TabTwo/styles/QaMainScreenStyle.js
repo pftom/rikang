@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Dimensions, } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 
 
 //import screen adapt util
@@ -78,8 +78,19 @@ export const QaMainScreenStyle = StyleSheet.create({
   },
 
   textInput: {
-    height: px2dp(30),
-    lineHeight: px2dp(34),
+    ...Platform.select({
+      ios: {
+        height: px2dp(30),
+      },
+      android: {
+        height: px2dp(60),
+      }
+    }),
+    ...Platform.select({
+      ios: {
+        lineHeight: px2dp(34),
+      }
+    }),
     textAlignVertical: 'center',
     width: px2dp(286),
     marginLeft: px2dp(10),

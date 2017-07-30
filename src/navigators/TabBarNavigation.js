@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet, Platform } from 'react-native';
 import { TabNavigator, TabBarBottom } from 'react-navigation';
 
 import TabOneNavigation from '../components/TabOne/views/TabOneMainScreen';
@@ -8,7 +8,7 @@ import TabThreeNavigation from '../components/TabThree/views/TabThreeMainScreen'
 
 
 const routeConfigs = {
-  TabOneNavigation: { 
+  TabOneNavigation: {
       screen: TabOneNavigation,
       navigationOptions: {
         tabBarLabel: '日康之家',
@@ -20,7 +20,7 @@ const routeConfigs = {
   )
       }
   },
-  TabTwoNavigation: { 
+  TabTwoNavigation: {
       screen: TabTwoNavigation,
       navigationOptions: {
         tabBarLabel: '日康知道',
@@ -33,7 +33,7 @@ const routeConfigs = {
         )
       }
   },
-  TabThreeNavigation: { 
+  TabThreeNavigation: {
       screen: TabThreeNavigation,
       navigationOptions: {
         tabBarLabel: '我的账号',
@@ -46,7 +46,7 @@ const routeConfigs = {
             )
         }
       }
-  
+
   },
 };
 
@@ -65,10 +65,17 @@ const tabNavigatorConfig = {
             paddingTop: 4.7,
             paddingLeft: 25.3,
             paddingRight: 24,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            position: 'absolute',
+            ...Platform.select({
+                ios: {
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    position: 'absolute',
+                },
+                android: {
+                    bottom: 0,
+                },
+            })
         },
         tabStyle: {
             backgroundColor: 'transparent',

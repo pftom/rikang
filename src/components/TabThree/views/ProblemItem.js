@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { TouchableOpacity, Text, View, Image } from 'react-native';
+import { TouchableOpacity, Text, View, Image, Platform } from 'react-native';
 
 import { ProblemStyle as styles } from '../styles/'
 
@@ -12,7 +12,15 @@ class ProblemItem extends PureComponent {
       <TouchableOpacity onPress={() => { navigation.navigate('QuestionDetail', { id: item.id, token }) }}>
         <View style={styles.problemContainer}>
           <View style={styles.problemBox}>
-            <Text style={styles.title}>{"               " + item.title}</Text>
+            {
+              Platform.OS === 'ios'
+              ? (
+                 <Text style={styles.title}>{"               " + item.title}</Text>
+              )
+              : (
+                 <Text style={styles.title}>{"                    " + item.title}</Text>
+              )
+            }
             {
               item && (
                 <View style={styles.answerCountBox}>

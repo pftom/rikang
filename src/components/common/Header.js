@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Image, Alert, Text, Animated, StyleSheet, Platform, View, Dimensions, TouchableOpacity } from 'react-native';
+import { Image, Alert, Text, Animated, Platform, StyleSheet, View, Dimensions, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import px2dp from '../../utils/px2dp';
 import { Toast } from 'antd-mobile';
@@ -71,9 +71,9 @@ class Header extends PureComponent {
     const { httpStatus, submitProfileError, submitProfileSuccess } = nextProps;
     console.log('httpStatus', httpStatus);
       if(httpStatus) {
-        const { 
-        isStarSingleQuestion, 
-        starSingleQuestionSuccess, 
+        const {
+        isStarSingleQuestion,
+        starSingleQuestionSuccess,
         starSingleQuestionError,
 
         isCancelStarSingleQuestion,
@@ -150,38 +150,38 @@ class Header extends PureComponent {
 
     const rightBox = (
       <View style={styles.rightBox}>
-        {props.shareHeart && <TouchableOpacity 
-                                onPress={() => { this.handleFav() } } 
+        {props.shareHeart && <TouchableOpacity
+                                onPress={() => { this.handleFav() } }
                                 >
                                 <Image source={props.shareHeart && ( this.state.faved ? require('./img/faved.png') : require('./img/shareHeart.png'))} style={styles.shareHeart} />
                               </TouchableOpacity>}
-        {props.shareStar && <TouchableOpacity 
-                                onPress={() => { this.handleFav() } } 
+        {props.shareStar && <TouchableOpacity
+                                onPress={() => { this.handleFav() } }
                                 >
                                 <Image source={props.shareStar && ( this.state.faved ? require('./img/starred.png') : require('./img/fav.png') ) } style={styles.shareStar} />
                               </TouchableOpacity>}
-        
-        {props.phone && <TouchableOpacity 
-                              onPress={() => { console.log('share')} } 
+
+        {props.phone && <TouchableOpacity
+                              onPress={() => { console.log('share')} }
                               >
                               <Animated.Image source={props.phone && require('./img/phone.png')} style={[ styles.shareStar, styles.phone, { opacity: props.animatedOpacity }]} />
                             </TouchableOpacity>}
-        
-      {props.share && <TouchableOpacity 
-                              onPress={() => { console.log('share')} } 
+
+      {props.share && <TouchableOpacity
+                              onPress={() => { console.log('share')} }
                               >
                               <Image source={props.share && require('./img/share.png')} style={ [ styles.share]} />
                             </TouchableOpacity>}
-      
 
-      {props.searchIcon && <TouchableOpacity 
-                              onPress={() => { console.log('share')} } 
+
+      {props.searchIcon && <TouchableOpacity
+                              onPress={() => { console.log('share')} }
                               >
                               <Image source={props.searchIcon && require('./img/search.png')} style={ [ styles.share, styles.searchIcon ]} />
                             </TouchableOpacity>}
 
-      {props.navigate && <TouchableOpacity 
-                              onPress={() => { console.log('share')} } 
+      {props.navigate && <TouchableOpacity
+                              onPress={() => { console.log('share')} }
                               >
                               <Animated.Image source={props.navigate && require('./img/navigate.png')} style={ [ styles.share, styles.navigate, { opacity: props.animatedOpacity }  ]} />
                             </TouchableOpacity>}
@@ -191,8 +191,8 @@ class Header extends PureComponent {
 
     const leftBox = (
       <View style={[ styles.leftBox ]}>
-          {props.logoLeft && <TouchableOpacity 
-                                onPress={() => { this.handleGoBack() }} 
+          {props.logoLeft && <TouchableOpacity
+                                onPress={() => { this.handleGoBack() }}
                                 >
                                 <Image source={props.logoLeft && require('./img/back.png')} style={styles.logoLeft} />
                               </TouchableOpacity>}
@@ -247,7 +247,7 @@ class Header extends PureComponent {
         </View>
     )
   }
-  
+
 }
 
 const styles = StyleSheet.create({
@@ -273,9 +273,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.5,
 
       },
-      android: {
-        marginTop: 20.5,
-      }
     })
   },
   headerText: {

@@ -9,8 +9,6 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-//get client ipv4 
-import { NetworkInfo } from 'react-native-network-info';
 
 //
 import px2dp from '../../../utils/px2dp';
@@ -175,7 +173,7 @@ class ConsultOrder extends PureComponent {
   }
 
   render() {
-    
+
     console.log('state', this.state);
     const { navigation } = this.props;
     const { data, dispatch, token } = navigation.state.params;
