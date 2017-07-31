@@ -14,6 +14,8 @@ import RegisterSendMessage from '../components/RegisterSendMessage';
 import PatientPersonInfo from '../components/TabThree/views/PatientPersonInfo';
 import Setting from '../components/TabThree/views/Setting';
 import ChangePassword from '../components/TabThree/views/ChangePassword';
+import Feedback from '../components/TabThree/views/Feedback';
+import About from '../components/TabThree/views/About';
 
 /*
  *
@@ -104,6 +106,8 @@ export const AppNavigator = StackNavigator({
     PatientPersonInfo: { screen: PatientPersonInfo },
     Setting: { screen: Setting },
     ChangePassword: { screen: ChangePassword },
+    Feedback: { screen: Feedback },
+    About: { screen: About },
 
     QuestionDetail: { screen: QuestionDetail },
     PutQuestionDetail: { screen: PutQuestionDetail },

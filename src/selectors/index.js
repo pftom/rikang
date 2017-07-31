@@ -23,6 +23,7 @@ import {
   getPatientProfileSelector,
 
   getChangePasswdSelector,
+  getFeedbackSelector,
 } from './userSelector';
 
 import {
@@ -58,6 +59,7 @@ export {
   getPatientSelector,
   getPatientProfileSelector,
   getChangePasswdSelector,
+  getFeedbackSelector,
 
   getQaSelector,
   getSingleQaSelector,

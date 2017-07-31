@@ -55,3 +55,17 @@ export const getChangePasswdSelector = createSelector(
     changePasswdError,
   }),
 );
+
+const getIsFeedback = (state) => state.getIn(['auth', 'isFeedback']);
+const getFeedbackSuccess = (state) => state.getIn(['auth', 'feedbackSuccess']);
+const getFeedbackError = (state) => state.getIn(['auth', 'feedbackError']);
+
+
+export const getFeedbackSelector = createSelector(
+  [ getIsFeedback, getFeedbackSuccess, getFeedbackError ], 
+  (isFeedback, feedbackSuccess, feedbackError) => ({
+    isFeedback,
+    feedbackSuccess,
+    feedbackError,
+  }),
+);

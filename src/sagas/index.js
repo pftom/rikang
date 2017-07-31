@@ -8,6 +8,7 @@ import {
   clearFlow,
   watchRequestSmsCode,
   watchVerifySmsCode,
+  feedbackFlow,
 } from './userSaga';
 
 //import posts sagas
@@ -88,6 +89,7 @@ export default function* rootSaga() {
     clearFlow(),
     watchRequestSmsCode(),
     watchVerifySmsCode(),
+    feedbackFlow(),
 
     watchGetPost(),
     watchGetPosts(),

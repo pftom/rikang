@@ -30,6 +30,10 @@ import {
 
   CLEAR,
   CLEAR_STATE,
+
+  FEEDBACK,
+  FEEDBACK_SUCCESS,
+  FEEDBACK_ERROR,
 } from '../constants/';
 
 //import request api
@@ -72,6 +76,17 @@ function* changePassword(payload) {
     yield put({ type: CHANGE_PASSWORD_SUCCESS });
   } catch (error) {
     yield put({ type: CHANGE_PASSWORD_ERROR, error });
+  }
+}
+
+//feedback async actions handle function
+function* feedback(payload) {
+  try {
+    const { body, token } = payload;
+    yield call(request.post, base + usersApi.feedback, body, token);
+    yield put({ type: FEEDBACK_SUCCESS });
+  } catch (error) {
+    yield put({ type: FEEDBACK_ERROR, error });
   }
 }
 
@@ -129,6 +144,14 @@ function* changePasswordFlow() {
   }
 }
 
+//watch feedback action for handle
+function* feedbackFlow() {
+  while (true) {
+    const { payload } = yield take(FEEDBACK);
+    yield call(feedback, payload)
+  }
+}
+
 
 function* clearFlow() {
   while(true) {
@@ -161,4 +184,5 @@ export {
   watchRequestSmsCode,
   watchVerifySmsCode,
   clearFlow,
+  feedbackFlow,
 }

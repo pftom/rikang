@@ -144,6 +144,7 @@ class PatientPersonInfo extends PureComponent {
           <TextareaItem
             autoHeight
             labelNumber={5}
+            rows={5}
             onChange={text => this.setState({ medical_history: text })}
             value={this.state.medical_history}
           />

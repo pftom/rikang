@@ -3,6 +3,7 @@ import { HeaderSectionStyle } from './HeaderSectionStyle';
 import { ProblemStyle } from './ProblemStyle';
 import { ServiceStyle } from './ServiceStyle';
 import { ChangePasswordStyle } from './ChangePasswordStyle';
+import { AboutStyle } from './AboutStyle';
 
 
 export {
@@ -11,4 +12,5 @@ export {
   ProblemStyle,
   ServiceStyle,
   ChangePasswordStyle,
+  AboutStyle,
 }

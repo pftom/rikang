@@ -27,6 +27,12 @@ import {
   CHANGE_PASSWORD_ERROR,
 
   CLEAR_PASSWORD_STATE,
+
+  FEEDBACK,
+  FEEDBACK_SUCCESS,
+  FEEDBACK_ERROR,
+
+  CLEAR_FEEDBACK_STATE,
 } from '../constants/'
 import { persistor } from '../store';
 
@@ -53,6 +59,10 @@ const initialAuthState = Immutable.Map({
   isChangePasswd: false,
   changePasswdSuccess: false,
   changePasswdError: false,
+
+  isFeedback: false,
+  feedbackSuccess: false,
+  feedbackError: false,
 });
 
 const auth = function auth(state = initialAuthState, action) {
@@ -201,6 +211,37 @@ const auth = function auth(state = initialAuthState, action) {
         isChangePasswd: false,
         changePasswdSuccess: false,
         changePasswdError: false,
+      });
+
+    case FEEDBACK:
+
+      return state.merge({
+        isFeedback: true,
+        feedbackSuccess: false,
+        feedbackError: false,
+      });
+
+    case FEEDBACK_SUCCESS:
+
+      return state.merge({
+        isFeedback: false,
+        feedbackSuccess: true,
+
+      });
+
+    case FEEDBACK_ERROR:
+
+      return state.merge({
+        isFeedback: true,
+        feedbackError: true,
+      });
+
+    case CLEAR_FEEDBACK_STATE:
+
+      return state.merge({
+        isFeedback: false,
+        feedbackSuccess: false,
+        feedbackError: false,
       });
 
     case CLEAR_STATE:

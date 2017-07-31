@@ -83,8 +83,13 @@ class Setting extends PureComponent {
         </List>
 
         <List renderHeader={() => '意见与反馈'}>
-          <Item arrow="horizontal">意见反馈</Item>
-          <Item arrow="horizontal">日康客服</Item>
+          <Item 
+            arrow="horizontal"
+            onClick={ () => { navigation.navigate('Feedback', { token, dispatch }) } }
+          >意见反馈</Item>
+          <Item arrow="horizontal"
+            onClick={ () => { navigation.navigate('About', { token, dispatch }) } }
+          >日康客服</Item>
         </List>
       </View>
     )

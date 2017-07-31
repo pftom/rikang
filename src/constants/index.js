@@ -37,6 +37,13 @@ export const CHANGE_PASSWORD_ERROR = 'CHANGE_PASSWORD_ERROR';
 
 export const CLEAR_PASSWORD_STATE = 'CLEAR_PASSWORD_STATE';
 
+//change password action constants
+export const FEEDBACK = 'FEEDBACK';
+export const FEEDBACK_SUCCESS = 'FEEDBACK_SUCCESS';
+export const FEEDBACK_ERROR = 'FEEDBACK_ERROR';
+
+export const CLEAR_FEEDBACK_STATE = 'CLEAR_FEEDBACK_STATE';
+
 //after show the error toast and then clear it
 export const CLEAR_STATE = 'CLEAR_STATE';
 export const CLEAR_FAV_STATE = 'CLEAR_FAV_STATE';
