@@ -361,7 +361,7 @@ class DoctorDetail extends PureComponent {
 
     //
     if (Platform.OS === 'android') {
-      style.height = height + 80;
+      style1.height = height + 80;
     }
 
     return (

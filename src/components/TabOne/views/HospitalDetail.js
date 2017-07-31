@@ -10,6 +10,7 @@ import {
   StatusBar,
   ActivityIndicator,
   RefreshControl,
+  Dimensions,
 } from 'react-native';
 
 import ScrollableTabView from 'react-native-scrollable-tab-view';
@@ -59,6 +60,8 @@ const items = [
     content: "入驻医生",
   },
 ];
+
+const { width, height } = Dimensions.get('window');
 
 
 class HospitalDetail extends PureComponent {
@@ -268,7 +271,7 @@ class HospitalDetail extends PureComponent {
 
     //
     if (Platform.OS === 'android') {
-      style.height = height + 80;
+      style1.height = height + 80;
     }
 
 

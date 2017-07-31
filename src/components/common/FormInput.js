@@ -9,6 +9,7 @@ import {
   Keyboard,
   Image,
   TouchableWithoutFeedback,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { Field } from 'redux-form/immutable';
 import { Button, Toast } from 'antd-mobile';
@@ -165,9 +166,9 @@ class FormInput extends Component {
     }
 
     return (
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>  
+      <KeyboardAvoidingView behavior="height" keyboardVerticalOffset={-227} style={{ backgroundColor: '#F5F6F7', flex: 1 }}>
           <View style={styles.container}>
-          <Text style={styles.titleText}>
+            <Text style={styles.titleText}>
             {
               kind === LOGIN 
               ? '登录'
@@ -212,8 +213,8 @@ class FormInput extends Component {
               <Text style={styles.jumpText}>{kind !== LOGIN ? '点击登录' : '点击注册'}</Text>
             </TouchableOpacity>
           </View>
-        </View>
-      </TouchableWithoutFeedback>
+          </View>
+        </KeyboardAvoidingView>
     )
   }
 }

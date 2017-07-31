@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TextInput, View, Image, Text, TouchableHighlight } from 'react-native';
+import { TextInput, View, Image, Text, TouchableHighlight, KeyboardAvoidingView } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
 

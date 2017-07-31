@@ -34,7 +34,7 @@ class HospitalListItem extends PureComponent {
         icon: require('../img/location.png'),
       },
       {
-        content: `${doctor_num}名医生`,
+        content: doctor_num ? `${doctor_num}名医生` : '0名医生',
         icon: require('../img/doctor.png'),
       },
       {
