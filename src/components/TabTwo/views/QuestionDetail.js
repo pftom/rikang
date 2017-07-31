@@ -87,6 +87,15 @@ class QuestionDetail extends PureComponent {
       }
     })
 
+    let IMGS = [];
+    if (AllImg) {
+      AllImg.map(item => {
+        IMGS.push({
+          photo: item.get('image'),
+        })
+      });
+    }
+
     const solvedFlag = question && question.has('solved') && question.get('solved');
 
     let header = null;
@@ -114,7 +123,7 @@ class QuestionDetail extends PureComponent {
                 showsHorizontalScrollIndicator={false}
               >
                 {
-                  EXMAPLES.map((item, key) => (
+                  IMGS.map((item, key) => (
                     <TouchableOpacity key={key} onPress={() => navigation.navigate('ImageView', { media: EXMAPLES })}>
                       <Image source={{ uri: item.photo }} style={styles.photo} />
                     </TouchableOpacity>

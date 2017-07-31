@@ -27,7 +27,14 @@ export const PutQuestionStyle = StyleSheet.create({
     justifyContent: 'space-between',
   },
   subText: {
-    marginTop: -10,
+    ...Platform.select({
+      ios: {
+        marginTop: -10,
+      },
+      android: {
+        marginTop: -5,
+      }
+    }),
     marginRight: -5
   },
 

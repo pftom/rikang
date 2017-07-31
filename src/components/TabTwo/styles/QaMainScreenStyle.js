@@ -74,7 +74,11 @@ export const QaMainScreenStyle = StyleSheet.create({
     shadowColor: '#7F7F7F',
     shadowOpacity: 0.5,
     borderRadius: 8,
-    marginTop: px2dp(15),
+    ...Platform.select({
+      ios: {
+        marginTop: px2dp(15),
+      },
+    })
   },
 
   textInput: {

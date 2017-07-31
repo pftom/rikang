@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Dimensions, } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 
 //import screen adapt util
 import px2dp from '../../utils/px2dp';
@@ -25,7 +25,14 @@ export const commonStyle = {
 
   topView: {
     position: "absolute",
-    top: 190,
+    ...Platform.select({
+      ios: {
+        top: 190,
+      },
+      android: {
+        top: 220,
+      }
+    }),
     bottom: 0,
     left: 0,
     right: 0

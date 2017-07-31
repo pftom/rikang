@@ -133,11 +133,11 @@ class Header extends PureComponent {
     console.log('state', this.state);
     const props = this.props;
     let style = null;
-    if (Platform.OS === 'android' && !!props.logoLeft)  {
-      style = {
-        marginLeft: -34,
-      }
-    }
+    // if (Platform.OS === 'android' && !!props.logoLeft)  {
+    //   style = {
+    //     marginLeft: -34,
+    //   }
+    // }
 
     let headerTextAddStyle = null;
 
@@ -287,39 +287,12 @@ const styles = StyleSheet.create({
         top: 34,
       },
       android: {
-        left: px2dp(width / 2 - 63),
         fontSize: 24,
         top: 34
       }
     }),
     height: 33,
     backgroundColor: 'transparent',
-  },
-  logoBox: {
-    ...Platform.select({
-      ios: {
-        left: 231,
-        top: 31,
-      },
-      android: {
-        left: width - px2dp(145),
-        top: 24,
-        alignItems: 'center',
-      }
-    }),
-  },
-  logoText: {
-    fontFamily: 'PingFangSC-Light',
-    fontSize: 12,
-    color: '#FFFFFF',
-    backgroundColor: 'transparent',
-    ...Platform.select({
-      ios: {
-        left: -10,
-      },
-    }),
-    top: 6,
-    height: 25,
   },
   logoLeft: {
     ...Platform.select({
@@ -335,6 +308,12 @@ const styles = StyleSheet.create({
   },
   rightBox: {
     flexDirection: 'row',
+    height: 81,
+    ...Platform.select({
+      android: {
+         width: 36,
+      }
+    })
   },
   share: {
     marginLeft: px2dp(24),
@@ -349,11 +328,19 @@ const styles = StyleSheet.create({
   },
   shareHeart: {
     top: 42,
-    right: 20,
+    ...Platform.select({
+      ios: {
+        right: 20,
+      }
+    })
   },
   shareStar: {
     top: 39,
-    right: 20,
+    ...Platform.select({
+      ios: {
+        right: 20,
+      }   
+    })
   },
   navigate: {
     top: 40,

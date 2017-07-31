@@ -30,7 +30,11 @@ export const CommentListStyle = StyleSheet.create({
   },
   textInput: {
     height: px2dp(35),
-    lineHeight: px2dp(35),
+    ...Platform.select({
+      ios: {
+        lineHeight: px2dp(35),
+      }
+    }),
     paddingBottom: 2,
     textAlignVertical: 'center',
     fontSize: 18,

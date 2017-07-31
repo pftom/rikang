@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { TouchableOpacity,ScrollView, Image, Text, View, TextInput, TouchableOpacityProperties } from 'react-native';
+import { TouchableOpacity,ScrollView, Image, Text, KeyboardAvoidingView, View, TextInput, TouchableWithoutFeedback, Keyboard, } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -119,7 +119,8 @@ class PutQuestionDetail extends PureComponent {
     console.log('props', this.props);
 
     return (
-      <View style={styles.container}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
         <View style={styles.imgBox}>
           <TouchableOpacity onPress={() => { navigation.goBack() }}>
             <Image source={require('../img/close.png')} />
@@ -129,7 +130,7 @@ class PutQuestionDetail extends PureComponent {
           </TouchableOpacity>
         </View>
         <Text style={styles.titleText}>症状描述</Text>
-        <View>
+        <KeyboardAvoidingView behavior="position" >
           <TextInput
           ref="textInput"
           multiline={true}
@@ -140,7 +141,7 @@ class PutQuestionDetail extends PureComponent {
           placeholderTextColor="#BFBFBF"
           value={this.state.text}
         />
-        </View>
+        </KeyboardAvoidingView>
 
         <ScrollView contentContainerStyle={[ styles.selectImgBox, imgs.length === 0 && styles.selectExtra ]}>  
           {
@@ -153,6 +154,7 @@ class PutQuestionDetail extends PureComponent {
           <View style={styles.selectPhotoBox}><SelectPhoto addPhoto={true} handleAddPic={this.handleAddPic} /></View>
         </ScrollView>
       </View>
+      </TouchableWithoutFeedback>
     )
   }
 }

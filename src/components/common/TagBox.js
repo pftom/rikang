@@ -36,19 +36,9 @@ class TagBox extends PureComponent {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.whetherStarred !== this.props.whetherStarred) {
-      this.setState({
-        starred: nextProps.whetherStarred,
-      })
-    }
-  }
 
   successToast(msg) {
     const { dispatch } = this.props;
-    this.setState({
-      starred: !this.state.starred,
-    });
 
     dispatch({ type: CLEAR_FAV_STATE });
     Toast.success(msg, 1);
@@ -76,6 +66,13 @@ class TagBox extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     const { httpStatus } = nextProps;
+
+    if (nextProps.whetherStarred !== this.props.whetherStarred) {
+      this.setState({
+        starred: nextProps.whetherStarred,
+      })
+    }
+    
       if(httpStatus) {
         const { 
         isStarSingleQuestion, 

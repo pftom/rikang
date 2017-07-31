@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Dimensions, } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 
 //import common style
 import { commonStyle } from './commonStyle';
@@ -32,7 +32,14 @@ export const DoctorDetailStyle = StyleSheet.create({
     marginTop: 81,
     width: width, 
     backgroundColor: 'transparent',
-    height: 189,
+    ...Platform.select({
+      ios: {
+        height: 189,
+      },
+      android: {
+        height: 220,
+      }
+    }),
     alignItems: 'center',
   },
 
@@ -43,7 +50,14 @@ export const DoctorDetailStyle = StyleSheet.create({
   listBox2: commonStyle.listBox2,
 
   introContainer: {
-    width: px2dp(303),
+    ...Platform.select({
+      ios: {
+        width: px2dp(303),
+      },
+      android: {
+        width: px2dp(333),
+      }
+    })
   },
 
   introTopBox: {

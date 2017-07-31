@@ -93,7 +93,11 @@ export const MainScreenStyle = StyleSheet.create({
     height: px2dp(25),
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: px2dp(-10),
+    ...Platform.select({
+      ios: {
+        marginTop: px2dp(-10),
+      },
+    }),
   },
   sectionGradient: {
     width: px2dp(8),
@@ -112,7 +116,12 @@ export const MainScreenStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: px2dp(-10),
+    alignItems: 'center',
+    ...Platform.select({
+      ios: {
+        marginTop: px2dp(-10),
+      },
+    }),
   },
   seeAll: {
     fontFamily: 'PingFangSC-Regular',
@@ -132,7 +141,14 @@ export const MainScreenStyle = StyleSheet.create({
   },
   nearbyDoctorItemBox: {
     marginRight: px2dp(27),
-    width: px2dp(63),
+    ...Platform.select({
+      ios: {
+        width: px2dp(63),
+      },
+      android: {
+        width: px2dp(73),
+      }
+    }),
     marginLeft: px2dp(-5),
     alignItems: 'center',
     justifyContent: 'center',

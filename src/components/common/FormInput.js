@@ -167,7 +167,8 @@ class FormInput extends Component {
 
     return (
       <KeyboardAvoidingView behavior="height" keyboardVerticalOffset={-227} style={{ backgroundColor: '#F5F6F7', flex: 1 }}>
-          <View style={styles.container}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+           <View style={styles.container}>
             <Text style={styles.titleText}>
             {
               kind === LOGIN 
@@ -214,7 +215,9 @@ class FormInput extends Component {
             </TouchableOpacity>
           </View>
           </View>
-        </KeyboardAvoidingView>
+
+        </TouchableWithoutFeedback>   
+      </KeyboardAvoidingView>
     )
   }
 }

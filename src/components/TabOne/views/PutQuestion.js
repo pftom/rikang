@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { TouchableOpacity, Image, Text, View, TextInput, TouchableOpacityProperties } from 'react-native';
+import { TouchableOpacity, Image, KeyboardAvoidingView, Text, View, TextInput, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -112,7 +112,8 @@ class PutQuestion extends PureComponent {
     ];
 
     return (
-      <View style={styles.container}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
         <View style={styles.imgBox}>
           <TouchableOpacity onPress={() => { navigation.goBack() }}>
             <Image source={require('../img/close.png')} />
@@ -130,6 +131,7 @@ class PutQuestion extends PureComponent {
           </TouchableOpacity>
         </View>
       </View>
+      </TouchableWithoutFeedback>
     )
   }
 }
