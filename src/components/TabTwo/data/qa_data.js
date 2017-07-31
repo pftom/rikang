@@ -12,7 +12,7 @@ const handleQuestion = (item) => ({
 const sortMap = {
   '默认排序': 'default',
   '关注数最多': 'stars',
-  '回答数最多': 'solved',
+  '回答数最多': 'answer_num',
 };
 
 const handleQuestions = (data, dep, sort) => {

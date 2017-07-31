@@ -169,7 +169,7 @@ class CommentList extends PureComponent {
             renderItem={(item) => <CommentListItem commentListSeq={commentListSeq} handleAnswerBtn={this.handleAnswerBtn} item={item} navigation={navigation} token={token} />}
         />
 
-        <KeyboardAvoidingView behavior="position" style={{alignSelf: 'stretch'}}>
+        <KeyboardAvoidingView behavior="height">
           <View style={styles.textContainer}>
             <View>
               <TextInput

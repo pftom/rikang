@@ -108,9 +108,10 @@ class QaScreen extends PureComponent {
     const { questions, navigation, token, dispatch, questionStarredFav } = this.props;
     const { dep, sort } = this.state;
     let questionList = [];
+    console.log('sort', sort);
     if (questions) {
       //the second params for horizontal(true) show ten item,
-      questionList = handleQuestions(questions.get('results'), opppsiteDepartment[dep], sort);
+      questionList = handleQuestions(questions.get('results'), opppsiteDepartment[dep], sort[0]);
       console.log('questionList', questionList);
     }
 

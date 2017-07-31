@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Dimensions, } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 
 
 //import screen adapt util
@@ -21,7 +21,11 @@ export const CommentListStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#F5F6F7',
-    position: 'absolute',
+    ...Platform.select({
+      ios: {
+        position: 'absolute',
+      }
+    }),
     bottom: 0,
     left: 0,
     right: 0,
@@ -29,10 +33,13 @@ export const CommentListStyle = StyleSheet.create({
     borderTopColor: '#CCCCCC',
   },
   textInput: {
-    height: px2dp(35),
     ...Platform.select({
       ios: {
         lineHeight: px2dp(35),
+        height: px2dp(35),
+      },
+      android: {
+        height: px2dp(45),
       }
     }),
     paddingBottom: 2,
