@@ -30,9 +30,7 @@ class Header extends PureComponent {
 
   successToast(msg, settingSubmit, isSubmit) {
     const { dispatch, navigation } = this.props;
-    this.setState({
-      faved: !this.state.faved,
-    });
+
 
     if (settingSubmit && isSubmit) {
       navigation.goBack();
@@ -69,7 +67,13 @@ class Header extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     const { httpStatus, submitProfileError, submitProfileSuccess } = nextProps;
-    console.log('httpStatus', httpStatus);
+    
+    if (nextProps.whetherFaved !== this.props.whetherFaved) {
+      this.setState({
+        faved: nextProps.whetherFaved,
+      })
+    }
+
       if(httpStatus) {
         const {
         isStarSingleQuestion,

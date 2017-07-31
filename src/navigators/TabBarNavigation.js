@@ -74,6 +74,8 @@ const tabNavigatorConfig = {
                 },
                 android: {
                     bottom: 0,
+                    left: 0,
+                    right: 0,
                 },
             })
         },
