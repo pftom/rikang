@@ -17,7 +17,7 @@ import SelectPhoto from '../common/SelectPhoto';
 
 const Item = List.Item;
 
-import { SEXMAP } from '../data/';
+import { SEXMAP, SEX } from '../data/';
 
 const PICKDATA = [
   {

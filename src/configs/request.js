@@ -94,7 +94,7 @@ request.put = ( url, token, body, multiform ) => {
     data = JSON.stringify(body);
   }
 
-  console.log('multiform', multiform)
+  console.log('multiform', multiform, url);
 
   //multiform support
   let options = _.extend(header('PUT', token, multiform), {
