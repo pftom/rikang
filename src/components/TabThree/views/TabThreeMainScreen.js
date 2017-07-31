@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, ScrollView, Platform, } from 'react-native';
 import { connect } from 'react-redux';
 
 
@@ -163,13 +163,15 @@ class UserScreen extends PureComponent {
         }
         <ScrollableTabView
           page={0}
-          style={{ marginTop: 148 }}
+          style={ Platform.OS === 'ios' ? { marginTop: 148 } : { marginTop: 165 }}
           renderTabBar={
             () => <CustomTabBar 
                       multiCustom={true} 
-                      underlineStyle={{
-                        marginLeft: 28,
-                      }}
+                      underlineStyle={
+                        Platform.OS === 'ios'
+                        ? { marginLeft: 28 }
+                        : { marginLeft: 0 }
+                      }
                       tabTextStyle={{
                         fontSize: 18,
 

@@ -86,7 +86,7 @@ export const MainScreenStyle = StyleSheet.create({
     backgroundColor: '#F5F6F7',
     paddingTop: px2dp(15),
     alignItems: 'center',
-    borderTopWidth: 0.5,
+    borderTopWidth: 1,
     borderTopColor: 'rgba(9, 199, 156, 0.5)',
   },
   sectionLeftBox: {
@@ -98,6 +98,7 @@ export const MainScreenStyle = StyleSheet.create({
         marginTop: px2dp(-10),
       },
     }),
+    backgroundColor: '#F5F6F7',
   },
   sectionGradient: {
     width: px2dp(8),
@@ -116,12 +117,12 @@ export const MainScreenStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    alignItems: 'center',
     ...Platform.select({
       ios: {
         marginTop: px2dp(-10),
       },
     }),
+    backgroundColor: '#F5F6F7',
   },
   seeAll: {
     fontFamily: 'PingFangSC-Regular',
@@ -159,12 +160,12 @@ export const MainScreenStyle = StyleSheet.create({
     backgroundColor: '#50E3C2',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 30,
+    borderRadius: px2dp(30),
   },
   doctorAvatar: {
     width: px2dp(57),
     height: px2dp(57),
-    borderRadius: 28.5,
+    borderRadius: px2dp(28.5),
   },
   doctorName: {
     fontFamily: 'PingFangSC-Regular',

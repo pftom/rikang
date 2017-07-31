@@ -41,3 +41,17 @@ export const getPatientProfileSelector = createSelector(
     submitProfileError,
   }),
 );
+
+const getIsChangePasswd = (state) => state.getIn(['auth', 'isChangePasswd']);
+const getChangePasswdSuccess = (state) => state.getIn(['auth', 'changePasswdSuccess']);
+const getChangePasswdError = (state) => state.getIn(['auth', 'changePasswdError']);
+
+
+export const getChangePasswdSelector = createSelector(
+  [ getIsChangePasswd, getChangePasswdSuccess, getChangePasswdError ], 
+  (isChangePasswd, changePasswdSuccess, changePasswdError) => ({
+    isChangePasswd,
+    changePasswdSuccess,
+    changePasswdError,
+  }),
+);

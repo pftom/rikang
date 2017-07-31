@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { TouchableOpacity, Keyboard, Text, View, TextInput, KeyboardAvoidingView } from 'react-native';
+import { TouchableOpacity, Keyboard, Text, View, TextInput, KeyboardAvoidingView, Platform, } from 'react-native';
 
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -169,7 +169,7 @@ class CommentList extends PureComponent {
             renderItem={(item) => <CommentListItem commentListSeq={commentListSeq} handleAnswerBtn={this.handleAnswerBtn} item={item} navigation={navigation} token={token} />}
         />
 
-        <KeyboardAvoidingView behavior="height">
+        <KeyboardAvoidingView behavior={ Platform.OS === 'ios' ?  'position' : "height"}>
           <View style={styles.textContainer}>
             <View>
               <TextInput

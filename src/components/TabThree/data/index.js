@@ -4,8 +4,16 @@ import {
   jumpToScreenLists,
 } from './userData';
 
+import {
+  SEX,
+  SEXMAP,
+} from './sexData.js';
+
 export {
   ITEMS,
   handleUserData,
   jumpToScreenLists,
+
+  SEX,
+  SEXMAP,
 }

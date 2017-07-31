@@ -13,7 +13,8 @@ import Register from '../components/Register';
 import RegisterSendMessage from '../components/RegisterSendMessage';
 import PatientPersonInfo from '../components/TabThree/views/PatientPersonInfo';
 import Setting from '../components/TabThree/views/Setting';
-import TestRNIMUI from '../../miui';
+import ChangePassword from '../components/TabThree/views/ChangePassword';
+
 /*
  *
  * 
@@ -83,7 +84,6 @@ export const AppNavigator = StackNavigator({
     TabTwoNavigation: { screen: TabTwoNavigation },
 
     PostDetail: { screen: PostDetail },
-    TestRNIMUI: { screen: TestRNIMUI },
 
 
     NearHospital: { screen: NearHospital },
@@ -103,6 +103,7 @@ export const AppNavigator = StackNavigator({
     Profile: { screen: ProfileScreen },
     PatientPersonInfo: { screen: PatientPersonInfo },
     Setting: { screen: Setting },
+    ChangePassword: { screen: ChangePassword },
 
     QuestionDetail: { screen: QuestionDetail },
     PutQuestionDetail: { screen: PutQuestionDetail },

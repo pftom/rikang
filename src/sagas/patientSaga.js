@@ -67,10 +67,10 @@ function* updatePatientProfile(payload) {
       }
     }
     //the last param supply multipart/form-data support
-    yield call(request.put, base + usersApi.updatePatientProfile, data, token, true);
+    yield call(request.put, base + usersApi.updatePatientProfile, token, data, true);
     yield put({ type: UPDATE_PATIENT_PROFILE_SUCCESS, body });
   } catch(error) {
-    yield put({ type: UPDATE_PATIENT_PROFILE_ERROR });
+    yield put({ type: UPDATE_PATIENT_PROFILE_ERROR, error });
   }
 }
 

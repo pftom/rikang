@@ -1,29 +1,23 @@
 import React from 'react';
 import { StyleSheet, Dimensions, } from 'react-native';
 
-//import common style
-import { commonStyle } from './commonStyle';
 
 //import screen adapt util
-import px2dp from '../../utils/px2dp';
+import px2dp from '../../../utils/px2dp';
 
 //get screen width and height
 const { width, height } = Dimensions.get('window');
 
 //single input style
-export const BottomButtonStyle = StyleSheet.create({
-  BottomBox: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: px2dp(67),
+export const  ChangePasswordStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+
+  btnBox: {
     width: width,
-    backgroundColor: '#F5F6F7',
-    borderTopWidth: 1,
-    borderTopColor: '#D0D0D0',
-    justifyContent: 'center',
     alignItems: 'center',
+    marginTop: px2dp(10),
   },
   buttonBox: {
     width: px2dp(337),

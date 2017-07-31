@@ -82,7 +82,7 @@ class HospitalDetail extends PureComponent {
     const { token, id } = navigation.state.params;
 
     dispatch({ type: GET_SINGLE_HOSPITAL, payload: { token, id }});
-    dispatch({ type: GET_SINGLE_HOSPITAL_DOCTORS, payload: { token, id, refresh: true }})
+    // dispatch({ type: GET_SINGLE_HOSPITAL_DOCTORS, payload: { token, id, refresh: true }})
 
 
     this.setState({
@@ -239,12 +239,12 @@ class HospitalDetail extends PureComponent {
     }
 
     //handle hospital doctor lists data
-    let hospitalDoctorLists = [];
-    if (hospitalDoctors) {
-      hospitalDoctorLists = handleNearby(hospitalDoctors.get('results'));
-    }
-
-    console.log('hospitalDoctorLists', hospitalDoctorLists)
+    let hospitalDoctorLists = [
+      {
+        key: 1,
+        description: '暂无医生',
+      }
+    ];
 
     let dataSource = [
       hospitalIntro,
@@ -322,11 +322,7 @@ class HospitalDetail extends PureComponent {
                       onEndReachedThreshold={10}
                       onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
                       renderItem={({ item, index }) => {
-                        console.log('rowData', item)
-                        if (row.id === 1) {
-                          return this.renderDescription(item);
-                        }
-                        return <DoctorListItem item={item} token={token} key={item.id} navigation={navigation} />
+                        return this.renderDescription(item);
                       }}
                       onScroll={
                       Animated.event(

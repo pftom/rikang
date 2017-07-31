@@ -84,7 +84,7 @@ class SelectPhoto extends Component {
             personInfo && (
               <View style={styles.avatarBox}>
                     {
-                      this.props.avatar && (
+                      (this.props.avatar || avatarSource)  && (
                         <Image style={styles.avatar} source={{ uri: avatarSource ? avatarSource : this.props.avatar }} />
                       )
                     }

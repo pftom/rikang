@@ -29,7 +29,7 @@ export const CommentListStyle = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    borderTopWidth: 0.5,
+    borderTopWidth: 1,
     borderTopColor: '#CCCCCC',
   },
   textInput: {

@@ -9,8 +9,25 @@ import LinearGradient from 'react-native-linear-gradient';
 //import select photo
 import SelectPhoto from '../common/SelectPhoto';
 
+import { UPDATE_PATIENT_PROFILE } from '../../../constants/';
+
+import { SEXMAP } from '../data/';
 
 class TabThreeHeaderSection extends PureComponent {
+
+  handleAddPic = (img) => {
+    const { dispatch, token, patientProfile } = this.props;
+
+    let body = {
+      name: patientProfile.get('name') || '无',
+      avatar: img,
+      age: isNaN(parseInt(patientProfile.get('age'))) ? 18 : parseInt(patientProfile.get('age')),
+      sex: patientProfile.get('sex') || 'U',
+      medical_history: patientProfile.get('medical_history'),
+    };
+
+    dispatch({ type: UPDATE_PATIENT_PROFILE, payload: { body, token } } )
+  }
 
   render() {
     const { patientProfile, navigation, dispatch, token } = this.props;
@@ -31,7 +48,7 @@ class TabThreeHeaderSection extends PureComponent {
               
               <View style={styles.bottomBox}>
                 <View style={styles.leftBox}>
-                  <SelectPhoto personInfo={true} avatar={patientProfile && patientProfile.get('avatar') || null} />
+                  <SelectPhoto handleAddPic={this.handleAddPic} personInfo={true} avatar={patientProfile && patientProfile.get('avatar') || null} />
                 </View>
                 <View style={styles.rightBox}>
                   <Text style={styles.name}>{patientProfile && patientProfile.get('name') && patientProfile.get('name') || '还没填写姓名'}</Text>

@@ -87,11 +87,21 @@ request.post = ( url, body, token, multiform ) => {
 }
 
 request.put = ( url, token, body, multiform ) => {
+  let data = null;
+  if (multiform) {
+    data = body;
+  } else {
+    data = JSON.stringify(body);
+  }
+
+  console.log('multiform', multiform)
 
   //multiform support
   let options = _.extend(header('PUT', token, multiform), {
-    body: JSON.stringify(body),
+    body: data,
   });
+
+  console.log('options', options);
 
   return fetch(url, options) 
         .then(response => {

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { TouchableOpacity, Text, View, Image } from 'react-native';
+import { TouchableOpacity, Text, View, Image, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 
 import { ServiceStyle as styles } from '../styles/';
@@ -17,11 +17,7 @@ import SelectPhoto from '../common/SelectPhoto';
 
 const Item = List.Item;
 
-const SEX = {
-  U: '未选择',
-  F: '女',
-  M: '男',
-};
+import { SEXMAP } from '../data/';
 
 const PICKDATA = [
   {
@@ -44,7 +40,7 @@ class PatientPersonInfo extends PureComponent {
     this.state = {
       pickerValue: ['男'],
       name: patientProfile && patientProfile.get('name') || '' ,
-      age: patientProfile && (patientProfile.get('age') + '') || '',
+      age: patientProfile && (patientProfile.get('age') + '') || '18',
       medical_history: patientProfile && patientProfile.get('medical_history') || '',
       avatar: patientProfile && patientProfile.get('avatar') || 'https://facebook.github.io/react/img/logo_og.png',
       change: false,
@@ -63,10 +59,10 @@ class PatientPersonInfo extends PureComponent {
     const { dispatch, token } = navigation.state.params;
     const { name, avatar, age, pickerValue, medical_history } = this.state;
     let body = {
-      name,
+      name: name || '小康',
       avatar,
-      age,
-      sex: pickerValue[0],
+      age: isNaN(parseInt(age)) ? 18 : parseInt(age),
+      sex: SEXMAP[pickerValue[0]],
       medical_history,
     };
 
@@ -80,12 +76,13 @@ class PatientPersonInfo extends PureComponent {
     const medical_history = patientProfile.get('medical_history');
 
     return (
-      <View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View>
         <Header 
           logoLeft={true}
           headerText="个人信息"
           navigation={navigation}
-          
+          settingSubmit={true}
           submitProfileError={submitProfileError}
           submitProfileSuccess={submitProfileSuccess}
           handleSubmitProfile={this.handleSubmitProfile}
@@ -153,6 +150,7 @@ class PatientPersonInfo extends PureComponent {
 
         </List>
       </View>
+      </TouchableWithoutFeedback>
     )
   }
 

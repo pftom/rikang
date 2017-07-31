@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
-import { TouchableOpacity, Text, View, Image } from 'react-native';
+import { TouchableOpacity, Text, View, Image, Switch, } from 'react-native';
 import { connect } from 'react-redux';
 
 import { ServiceStyle as styles } from '../styles/';
 
-import { List, Switch, WhiteSpace, Button, Modal } from 'antd-mobile';
+import { List, WhiteSpace, Button, Modal } from 'antd-mobile';
 
 const Item = List.Item;
 import { Header } from '../../common/';
@@ -19,6 +19,14 @@ const showAlert = () => {
 }
 
 class Setting extends PureComponent {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      value: false,
+    }
+  }
 
   handleSubmitProfile = () => {
     const { navigation } = this.props;
@@ -38,6 +46,7 @@ class Setting extends PureComponent {
 
   render() {
     const { item, dispatch, navigation, patientProfile, submitProfileError, submitProfileSuccess } = this.props;
+    const { token } = navigation.state.params;
 
 
     return (
@@ -54,14 +63,16 @@ class Setting extends PureComponent {
           dispatch={dispatch}
         />
         <List renderHeader={() => '消息通知'}>
-          <Item extra={<Switch />}>在线咨询消息通知</Item>
-          <Item extra={<Switch />}>新文章推送通知</Item>
-          <Item extra={<Switch />}>问题新回答通知</Item>
-          <Item extra={<Switch />}>评论回复通知</Item>
+          <Item extra={
+            <Switch 
+              value={this.state.value}
+              onValueChange={value => this.setState({ value: !this.state.value })}
+            />
+        }>消息通知</Item>
         </List>
 
         <List renderHeader={() => '账户安全'}>
-          <Item arrow="horizontal">修改账户密码</Item>
+          <Item arrow="horizontal" onClick={ () => { navigation.navigate('ChangePassword', { token, dispatch }) }}>修改账户密码</Item>
           <Item 
             arrow="horizontal"
             onClick={() => alert('确定退出？', '', [

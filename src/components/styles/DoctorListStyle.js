@@ -44,12 +44,12 @@ export const DoctorListStyle = StyleSheet.create({
     backgroundColor: '#50E3C2',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 30,
+    borderRadius: px2dp(30),
   },
   avatar: {
     width: px2dp(57),
     height: px2dp(57),
-    borderRadius: 28.5,
+    borderRadius: px2dp(28.5),
   },
   doctorName: {
     marginTop: 8,
@@ -93,7 +93,7 @@ export const DoctorListStyle = StyleSheet.create({
     height: px2dp(12),
     paddingLeft: px2dp(10),
     marginLeft: px2dp(10),
-    borderLeftWidth: 0.5,
+    borderLeftWidth: 1,
     borderLeftColor: '#9B9B9B',
     justifyContent: 'center',
   },

@@ -19,7 +19,14 @@ export const QaMainScreenStyle = StyleSheet.create({
     alignItems: 'center',
     left: 0,
     right: 0,
-    bottom: px2dp(98),
+    ...Platform.select({
+      ios: {
+        bottom: px2dp(98),
+      },
+      android: {
+        bottom: px2dp(70),
+      }
+    }),
   },
   putQuestionBox: {
     width: px2dp(149),
@@ -74,11 +81,6 @@ export const QaMainScreenStyle = StyleSheet.create({
     shadowColor: '#7F7F7F',
     shadowOpacity: 0.5,
     borderRadius: 8,
-    ...Platform.select({
-      ios: {
-        marginTop: px2dp(15),
-      },
-    })
   },
 
   textInput: {

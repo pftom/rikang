@@ -89,6 +89,10 @@ class HomeMainScreen extends PureComponent {
         <Header 
           navigation={navigation}
           headerText="日康之家"
+          gradientStyle={{
+            justifyContent: 'center',
+          }}
+          onlyText={true}
           showGradient={true}
         />
         <UltimateListView

@@ -143,17 +143,9 @@ class Header extends PureComponent {
     //   }
     // }
 
-    let headerTextAddStyle = null;
-
-    if (!(props.share  || props.searchIcon || props.navigate) && !( props.shareHeart || props.shareStar || props.phone)) {
-      headerTextAddStyle = {
-        left: -5,
-      }
-    }
-
 
     const rightBox = (
-      <View style={styles.rightBox}>
+      <View style={ !props.onlyText && styles.rightBox}>
         {props.shareHeart && <TouchableOpacity
                                 onPress={() => { this.handleFav() } }
                                 >
@@ -218,11 +210,11 @@ class Header extends PureComponent {
                   <LinearGradient
               start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}
               colors={['#23BCBB', '#45E994']}
-              style={styles.linearGradient}>
+              style={[ styles.linearGradient, props.gradientStyle ]}>
               {
                 leftBox
               }
-              <View><Animated.Text style={[styles.headerText, props.headerTextStyle, style, headerTextAddStyle, props.animatedOpacity && { opacity: props.animatedOpacity}]}>{props.headerText}</Animated.Text></View>
+              <View><Animated.Text style={[styles.headerText, props.logoLeft && styles.headerExtraStyle, props.headerTextStyle, style , props.animatedOpacity && { opacity: props.animatedOpacity}]}>{props.headerText}</Animated.Text></View>
               {
                 rightBox
               }
@@ -239,7 +231,7 @@ class Header extends PureComponent {
                 }
                 {
                   !props.animatedOpacity && (
-                    <View><Text style={[styles.headerText, style, headerTextAddStyle ]}>{props.headerText}</Text></View>
+                    <View><Text style={[styles.headerText, style, props.logoLeft && styles.headerExtraStyle ]}>{props.headerText}</Text></View>
                   )
                 }
                 {
@@ -275,7 +267,6 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 5},
         shadowRadius: 10,
         shadowOpacity: 0.5,
-
       },
     })
   },
@@ -283,11 +274,9 @@ const styles = StyleSheet.create({
     fontFamily: 'PingFangSC-Regular',
     fontSize: 24,
     color: '#FFF',
-    width: 96,
     textAlign: 'center',
     ...Platform.select({
       ios: {
-        left: 26,
         top: 34,
       },
       android: {
@@ -297,6 +286,13 @@ const styles = StyleSheet.create({
     }),
     height: 33,
     backgroundColor: 'transparent',
+  },
+  headerExtraStyle: {
+    ...Platform.select({
+      ios: {
+        left: -13,
+      },
+    }),
   },
   logoLeft: {
     ...Platform.select({

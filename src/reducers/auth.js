@@ -21,6 +21,12 @@ import {
   REGISTER_SEND_MESSAGE,
   REGISTER_SEND_MESSAGE_SUCCESS,
   REGISTER_SEND_MESSAGE_ERROR,
+
+  CHANGE_PASSWORD,
+  CHANGE_PASSWORD_SUCCESS,
+  CHANGE_PASSWORD_ERROR,
+
+  CLEAR_PASSWORD_STATE,
 } from '../constants/'
 import { persistor } from '../store';
 
@@ -43,6 +49,10 @@ const initialAuthState = Immutable.Map({
   isVerifyCode: false,
   verifyCodeSuccess: false,
   verifyCodeError: false,
+
+  isChangePasswd: false,
+  changePasswdSuccess: false,
+  changePasswdError: false,
 });
 
 const auth = function auth(state = initialAuthState, action) {
@@ -160,6 +170,37 @@ const auth = function auth(state = initialAuthState, action) {
       return state.merge({
         isVerifyCode: false,
         verifyCodeError: true,
+      });
+
+    case CHANGE_PASSWORD:
+
+      return state.merge({
+        isChangePasswd: true,
+        changePasswdSuccess: false,
+        changePasswdError: false,
+      });
+
+    case CHANGE_PASSWORD_SUCCESS:
+
+      return state.merge({
+        isChangePasswd: false,
+        changePasswdSuccess: true,
+
+      });
+
+    case CHANGE_PASSWORD_ERROR:
+
+      return state.merge({
+        isChangePasswd: true,
+        changePasswdError: true,
+      });
+
+    case CLEAR_PASSWORD_STATE:
+
+      return state.merge({
+        isChangePasswd: false,
+        changePasswdSuccess: false,
+        changePasswdError: false,
       });
 
     case CLEAR_STATE:
