@@ -43,9 +43,9 @@ export const BottomButtonStyle = StyleSheet.create({
   },
   content: {
     fontFamily: 'PingFangSC-Medium',
-    fontSize: 20,
+    fontSize: px2dp(20),
     color: '#FFF',
-    letterSpacing: 5,
+    letterSpacing: px2dp(5),
 
   },
 });
