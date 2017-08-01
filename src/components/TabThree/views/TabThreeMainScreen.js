@@ -166,7 +166,7 @@ class UserScreen extends PureComponent {
         }
         <ScrollableTabView
           page={0}
-          style={ Platform.OS === 'ios' ? { marginTop: px2dp(148) } : { marginTop: px2dp(165) }}
+          style={ Platform.OS === 'ios' ? { marginTop: px2dp(148) } : { marginTop: px2dp(147) }}
           renderTabBar={
             () => <CustomTabBar 
                       multiCustom={true} 

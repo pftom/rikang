@@ -121,7 +121,7 @@ export const ConsultOrderStyle = StyleSheet.create({
     letterSpacing: -0.4,
   },
   itemBox: {
-    width: px2dp(351.5),
+    width: px2dp(352.5),
     height: px2dp(80),
     flexDirection: 'row',
     alignItems: 'center',

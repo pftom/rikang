@@ -11,7 +11,7 @@ const routeConfigs = {
   TabOneNavigation: {
       screen: TabOneNavigation,
       navigationOptions: {
-        tabBarLabel: '日康之家',
+        tabBarLabel: '日康在线',
         tabBarIcon: ({ focused, tintColor }) => (
             <Image
                 source={ focused ? require('./img/homeBarActive.png') : require('./img/homeBar.png') }

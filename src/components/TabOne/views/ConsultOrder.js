@@ -6,7 +6,8 @@ import {
   Animated,
   Image,
   TouchableHighlight,
-  TouchableOpacity
+  TouchableOpacity,
+  TouchableWithoutFeedback,
 } from 'react-native';
 
 
@@ -106,15 +107,16 @@ class PopUpBox extends PureComponent {
         <View style={styles.selectContainer}>
           {
             selectPay.map((item, key) => (
-              <View style={[ styles.itemBox, key === 0 && styles.itemExtra ]} key={key}>
+              <TouchableWithoutFeedback key={key} onPress={() => {
+                  this.handleSelect(item.kind)
+                }}>
+              <View style={[ styles.itemBox, key === 0 && styles.itemExtra ]} >
                 <Image source={item.icon} />
                 <View style={styles.textBox}>
                   <Text style={styles.title}>{item.title}</Text>
                   <Text style={styles.desc}>{item.desc}</Text>
                 </View>
-                <TouchableHighlight style={styles.selectBox} onPress={() => {
-                  this.handleSelect(item.kind)
-                }}>
+                <View style={styles.selectBox}>
                   <View style={[ styles.selectBox, { backgroundColor: '#F5F6F7'}]}>
                     {
                       item.kind === 'alipay'  && (
@@ -128,8 +130,9 @@ class PopUpBox extends PureComponent {
                       )
                     }
                   </View>
-                </TouchableHighlight>
+                </View>
               </View>
+              </TouchableWithoutFeedback>
             ))
           }
         </View>

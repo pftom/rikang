@@ -155,7 +155,14 @@ const styles = StyleSheet.create({
     width: px2dp(60),
     height: px2dp(4),
     borderRadius: px2dp(2),
-    marginTop: px2dp(-4),
+    ...Platform.select({
+      ios: {
+         marginTop: px2dp(-4),
+      },
+      android: {
+         marginTop: px2dp(-7),
+      }
+    }),
   },
   text: {
     fontFamily: 'PingFangSC-Medium',

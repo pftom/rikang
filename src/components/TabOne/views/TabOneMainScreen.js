@@ -88,7 +88,7 @@ class HomeMainScreen extends PureComponent {
       <View style={styles.container}>
         <Header 
           navigation={navigation}
-          headerText="日康之家"
+          headerText="日康在线"
           gradientStyle={{
             justifyContent: 'center',
           }}

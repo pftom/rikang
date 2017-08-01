@@ -24,7 +24,7 @@ export const QaMainScreenStyle = StyleSheet.create({
         bottom: px2dp(98),
       },
       android: {
-        bottom: px2dp(70),
+        bottom: px2dp(25),
       }
     }),
   },
