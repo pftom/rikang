@@ -25,10 +25,18 @@ export const handleTime = (time) => {
 class CommentListItem extends PureComponent {
   render() {
     const { item, navigation, token, commentListSeq } = this.props;
+    const { userId } = navigation.state.params;
+
     let name = null;
     if (item.reply_to) {
       name = getBeRepliedName(commentListSeq, item.reply_to);
     }
+
+    let isMine = false;
+    if (userId === item.replier_uid) {
+      isMine = true;
+    }
+
     return (
       <View style={styles.itemContainer}>
         <View style={styles.itemBox}>
@@ -56,6 +64,7 @@ class CommentListItem extends PureComponent {
               <TagBox 
                 comment={true} 
                 item={item} 
+                isMine={true}
                 btnText={"回复"}
                 handleAnswerBtn={this.props.handleAnswerBtn}
                 navigation={navigation}

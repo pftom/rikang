@@ -39,6 +39,7 @@ class QaAnswerListItem extends PureComponent {
 
   render() {
     const { item, navigation, token } = this.props;
+    const { userId } = navigation.state.params;
     //answer listitem data
     const midBoxData = [
       {

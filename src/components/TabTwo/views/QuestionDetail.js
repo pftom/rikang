@@ -70,8 +70,8 @@ class QuestionDetail extends PureComponent {
   }
 
   render() {
-    const { question, AllImg, dispatch, navigation, answers, questionStarredFav } = this.props;
-    const { token, id } = navigation.state.params;
+    const { question, userId, AllImg, dispatch, navigation, answers, questionStarredFav } = this.props;
+    const { token, id, questionFav } = navigation.state.params;
 
     let answerList = [];
     if (answers) {
@@ -94,6 +94,15 @@ class QuestionDetail extends PureComponent {
           photo: item.get('image'),
         })
       });
+    }
+
+    let isMine = false;
+    if (questionFav) {
+      questionFav.map(ques => {
+        if (ques.get('id') === id) {
+          isMine = true;
+        }
+      })
     }
 
     const solvedFlag = question && question.has('solved') && question.get('solved');
@@ -138,6 +147,7 @@ class QuestionDetail extends PureComponent {
                 btnText={"关注"} 
                 navigation={navigation}
                 token={token}
+                isMine={isMine}
                 whetherStarred={whetherStarred}
                 handleCancelStar={() => { dispatch({ type: CANCEL_STAR_SINGLE_QUESTION, payload: { token, id } }) }}
                 handleAddStar={() => { dispatch({ type: STAR_SINGLE_QUESTION, payload: { token, id, question } }) }}
@@ -172,7 +182,7 @@ class QuestionDetail extends PureComponent {
               token={token}
               id={id}
               footText={ answerList.length ? "到底了哦..." : "啊哦！还没有回答哦"}
-              renderItem={(item) => <QaAnswerListItem token={token} navigation={navigation} item={item} />}
+              renderItem={(item) => <QaAnswerListItem userId={userId} token={token} navigation={navigation} item={item} />}
             />
           )
         }

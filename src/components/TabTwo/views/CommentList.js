@@ -136,7 +136,7 @@ class CommentList extends PureComponent {
   }
 
   render() {
-    const { dispatch, navigation, singleAnswerAllComments, commentListSeq } = this.props;
+    const { dispatch, userId, navigation, singleAnswerAllComments, commentListSeq } = this.props;
     const { token, id } = navigation.state.params;
 
     let commentList = [];
@@ -166,7 +166,7 @@ class CommentList extends PureComponent {
             token={token}
             id={id}
             footText={ commentList.length > 0 ? "到底了哦..." : "还没有评论哦..."}
-            renderItem={(item) => <CommentListItem commentListSeq={commentListSeq} handleAnswerBtn={this.handleAnswerBtn} item={item} navigation={navigation} token={token} />}
+            renderItem={(item) => <CommentListItem userId={userId} commentListSeq={commentListSeq} handleAnswerBtn={this.handleAnswerBtn} item={item} navigation={navigation} token={token} />}
         />
 
         <KeyboardAvoidingView behavior={ Platform.OS === 'ios' ?  'position' : "height"}>

@@ -15,14 +15,16 @@ import {
 
 const getQuestions = (state) => state.getIn(['qa', 'questions']);
 const getQuestionStarredFav = (state) => state.getIn(['patient', 'questionStarredFav']);
+const getMyQuestions = (state) => state.getIn(['patient', 'questionFav']);
 
 export const getQaSelector = createSelector(
-  [ getToken, getQuestions, getQuestionStarredFav ],
-  (token, questions, questionStarredFav) => {
+  [ getToken, getQuestions, getQuestionStarredFav, getMyQuestions ],
+  (token, questions, questionStarredFav, questionFav ) => {
       return {
       token,
       questions,
       questionStarredFav,
+      questionFav,
     }
   }
 );
@@ -30,10 +32,12 @@ export const getQaSelector = createSelector(
 const getQuestion = (state) => state.getIn(['qa', 'question']);
 const getQuestionAllImg = (state) => state.getIn(['qa', 'AllImg']);
 const getAnswers = (state) => state.getIn(['answer', 'answers']);
+const getUserId = (state) => state.getIn(['auth', 'id']);
 
 export const getSingleQaSelector = createSelector(
-  [ getQuestion, getQuestionAllImg, getAnswers, getQuestionStarredFav ],
-  (question, AllImg, answers, questionStarredFav) => ({
+  [ getUserId, getQuestion, getQuestionAllImg, getAnswers, getQuestionStarredFav ],
+  ( userId, question, AllImg, answers, questionStarredFav) => ({
+    userId,
     question,
     AllImg,
     answers,

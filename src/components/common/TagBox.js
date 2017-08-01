@@ -170,22 +170,27 @@ class TagBox extends PureComponent {
             )
           }
 
-
-          <View style={styles.rightBox}>
-            <TouchableHighlight onPress={() => { this.handleTouch() }} style={styles.btnContainer}>
-              <View style={[ styles.starBtn, this.state.starred && styles.starredBtn ]}>
-                {
-                  ((star || comment) && !this.state.starred) && (
-                    <Image source={mapImg} style={styles.img} />
-                  )
-                }
-                <Text style={styles.starText}>{renderText}</Text>
+          {
+            ((star || comment || help) && !this.props.isMine) && (
+              <View style={styles.rightBox}>
+                <TouchableHighlight onPress={() => { this.handleTouch() }} style={styles.btnContainer}>
+                  <View style={[ styles.starBtn, this.state.starred && styles.starredBtn ]}>
+                    {
+                      ((star || comment) && !this.state.starred) && (
+                        <Image source={mapImg} style={styles.img} />
+                      )
+                    }
+                    <Text style={styles.starText}>{renderText}</Text>
+                  </View>
+                </TouchableHighlight>
               </View>
-            </TouchableHighlight>
-          </View>
-        </View>
-    )
-  }
+            )
+          }
+          
+      
+      </View>
+     )
+    }
 }
 
 export default TagBox;

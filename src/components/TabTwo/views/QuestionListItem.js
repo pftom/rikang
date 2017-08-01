@@ -30,7 +30,7 @@ import {
 class QuestionListItem extends PureComponent {
   
   render() {
-    const { navigation, token, item, dispatch, question, questionStarredFav } = this.props;
+    const { navigation, questionFav, token, item, dispatch, question, questionStarredFav } = this.props;
     let whetherStarred = false;
 
     //whether have fav this doctor
@@ -39,6 +39,15 @@ class QuestionListItem extends PureComponent {
         whetherStarred = true;
       }
     });
+
+    let isMine = false;
+    if (questionFav) {
+      questionFav.map(ques => {
+        if (ques.get('id') === item.id) {
+          isMine = true;
+        }
+      })
+    }
 
     const { 
       isStarSingleQuestion, 
@@ -60,7 +69,7 @@ class QuestionListItem extends PureComponent {
     };
 
     return (
-      <TouchableWithoutFeedback onPress={() => { navigation.navigate('QuestionDetail', { id: item.key, token })}} style={styles.touchBox}>
+      <TouchableWithoutFeedback onPress={() => { navigation.navigate('QuestionDetail', { id: item.key, token, questionFav })}} style={styles.touchBox}>
         <View style={styles.container}>
             <View style={styles.QuestionBox}>
               <Text style={styles.title}>{item.title}</Text>
@@ -69,6 +78,7 @@ class QuestionListItem extends PureComponent {
                   star={true} 
                   item={item} 
                   btnText={"关注"}
+                  isMine={isMine}
                   navigation={navigation}
                   token={token}
                   httpStatus={httpStatus}
