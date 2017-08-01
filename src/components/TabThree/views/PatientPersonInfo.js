@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { TouchableOpacity, Text, View, Image, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { TouchableOpacity, Text, View, Image, Platform, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 
 import { ServiceStyle as styles } from '../styles/';
@@ -76,7 +76,8 @@ class PatientPersonInfo extends PureComponent {
     const medical_history = patientProfile.get('medical_history');
 
     return (
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <KeyboardAvoidingView behavior={ Platform.OS === 'ios' ? 'position' : 'height' }>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View>
         <Header 
           logoLeft={true}
@@ -109,6 +110,14 @@ class PatientPersonInfo extends PureComponent {
             昵称
           </InputItem>
 
+          <InputItem
+              onChange={text => this.setState({ age: text })}
+              value={this.state.age}
+              type={'number'}
+          >
+            年龄
+          </InputItem>
+
           <Picker 
             title="选择性别"
             onChange={v => this.setState({ pickerValue: v })}
@@ -123,13 +132,6 @@ class PatientPersonInfo extends PureComponent {
               性别
             </Item>
           </Picker>
-
-          <InputItem
-            onChange={text => this.setState({ age: text })}
-            value={this.state.age}
-          >
-            年龄
-          </InputItem>
         </List>
 
         <List
@@ -142,7 +144,6 @@ class PatientPersonInfo extends PureComponent {
           </Item>
 
           <TextareaItem
-            autoHeight
             labelNumber={5}
             rows={5}
             onChange={text => this.setState({ medical_history: text })}
@@ -152,6 +153,7 @@ class PatientPersonInfo extends PureComponent {
         </List>
       </View>
       </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     )
   }
 

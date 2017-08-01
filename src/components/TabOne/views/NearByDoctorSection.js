@@ -15,11 +15,15 @@ class NearByDoctorSection extends PureComponent {
           </View>
           <Text style={styles.doctorName}>{item.name}</Text>
           <Image source={item.categoryImg} style={styles.categoryImg} />
-          <View style={styles.ageBox}>
-            <View style={styles.doctorAgeBox}>
-              <Text style={styles.doctorAge}>从医{item.years}年</Text>
-            </View>
-          </View>
+          {
+            !this.props.noYear && (
+              <View style={styles.ageBox}>
+                <View style={styles.doctorAgeBox}>
+                  <Text style={styles.doctorAge}>从医{item.years}年</Text>
+                </View>
+              </View>
+            )
+          }
         </View>
       </TouchableOpacity>
     )

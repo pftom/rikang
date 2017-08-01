@@ -108,6 +108,7 @@ class PostDetail extends PureComponent {
                     <View style={styles.titleBox}>
                       <Text style={styles.title}>{post.get('title')}</Text>
                     </View>
+                    <View style={[ styles.shade ]} />
                   </Image>
                   <View style={styles.body}>
                     <HTMLView

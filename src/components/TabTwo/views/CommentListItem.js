@@ -15,8 +15,9 @@ import { TagBox } from '../../common/'
 export const handleTime = (time) => {
   let afterTime = '';
   afterTime += time.slice(0, 10);
-  afterTime += ' ';
-  afterTime += time.slice(11, 19);
+  // for more exact time show
+  // afterTime += ' ';
+  // afterTime += time.slice(11, 19);
   return afterTime;
 }
 

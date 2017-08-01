@@ -93,7 +93,6 @@ class Feedback extends PureComponent {
           >
           
             <TextareaItem
-              placeholder='你好，再见！'
               value={this.state.feedback}
               onChange={(text) => this.setState({ feedback: text })}
               rows={5}

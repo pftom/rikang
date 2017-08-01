@@ -31,6 +31,13 @@ export const PostDetailStyle = StyleSheet.create({
     width: px2dp(306),
     alignItems: 'center',
   },
+  shade: {
+    width: width,
+    height: px2dp(210 + 25),
+    position: 'absolute',
+    backgroundColor: '#000000',
+    opacity: 0.5
+  },
   title: {
     fontFamily: 'PingFangSC-Medium',
     fontSize: px2dp(24),

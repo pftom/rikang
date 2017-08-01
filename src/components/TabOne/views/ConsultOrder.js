@@ -189,7 +189,7 @@ class ConsultOrder extends PureComponent {
       }
     ];
 
-    const priceText = `提交提单 - ￥${data && data.get('consult_price')}`;
+    const priceText = `提交订单 - ￥${data && data.get('consult_price')}`;
     return (
       <View style={styles.container}>
         <Header
