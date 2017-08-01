@@ -77,7 +77,7 @@ const DefaultTabBar = React.createClass({
       tabUnderlineStyle = {
         position: 'absolute',
         width: containerWidth / numberOfTabs,
-        bottom: 0,
+        bottom: px2dp(5),
         justifyContent: "center",
         alignItems: "center"
       }
@@ -155,14 +155,6 @@ const styles = StyleSheet.create({
     width: px2dp(60),
     height: px2dp(4),
     borderRadius: px2dp(2),
-    ...Platform.select({
-      ios: {
-         marginTop: px2dp(-4),
-      },
-      android: {
-         marginTop: px2dp(-7),
-      }
-    }),
   },
   text: {
     fontFamily: 'PingFangSC-Medium',

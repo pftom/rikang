@@ -34,15 +34,15 @@ export const ConsultOrderStyle = StyleSheet.create({
 
   priceDetail: {
     fontFamily: 'PingFangSC-Medium',
-    fontSize: 20,
+    fontSize: px2dp(20),
     color: '#000',
-    letterSpacing: -0.4,
+    letterSpacing: px2dp(-0.4),
   },
 
   consultBox: {
     width: px2dp(280),
     height: px2dp(54),
-    borderBottomWidth: 0.5,
+    borderBottomWidth: px2dp(1),
     borderBottomColor: '#E9E9E9',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -51,15 +51,15 @@ export const ConsultOrderStyle = StyleSheet.create({
 
   consultTitle: {
     fontFamily: 'PingFangSC-Regular',
-    fontSize: 18,
+    fontSize: px2dp(18),
     color: '#000',
-    letterSpacing: -0.36,
+    letterSpacing: px2dp(-0.36),
   },
 
   noNow: {
-    fontSize: 14,
+    fontSize: px2dp(14),
     color: '#BCBCBC',
-    letterSpacing: -0.28, 
+    letterSpacing: px2dp(-0.28), 
   },
 
   totalBox: {
@@ -70,22 +70,22 @@ export const ConsultOrderStyle = StyleSheet.create({
   },
   total: {
     fontFamily: 'PingFangSC-Medium',
-    fontSize: 18,
+    fontSize: px2dp(18),
     color: '#000',
-    letterSpacing: -0.36,
+    letterSpacing: px2dp(-0.36),
   },
 
   money: {
-    fontSize: 20,
+    fontSize: px2dp(20),
   },
 
   hintBox: {
-    width: width - 26 * 2,
+    width: px2dp(width - 26 * 2),
     marginTop: px2dp(10),
   },
   hintText: {
     fontFamily: 'Helvetica',
-    fontSize: 14,
+    fontSize: px2dp(14),
     color: '#6D6D6D',
     marginTop: px2dp(10),
   },
@@ -100,6 +100,10 @@ export const ConsultOrderStyle = StyleSheet.create({
     height: px2dp(45),
     flexDirection: 'row',
   },
+  select: {
+    height: px2dp(32),
+    width: px2dp(32),
+  },
   titleBox: {
     height: px2dp(45),
     width: px2dp(251),
@@ -109,16 +113,16 @@ export const ConsultOrderStyle = StyleSheet.create({
   },  
   closeBox: {
     height: px2dp(45),
-    width: width - px2dp(251) - 20,
+    width: px2dp(width - px2dp(251) - 20),
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
   },   
   headerTitle: {
     fontFamily: 'PingFangSC-Medium',
-    fontSize: 20,
+    fontSize: px2dp(20),
     color: '#000',
-    letterSpacing: -0.4,
+    letterSpacing: px2dp(-0.4),
   },
   itemBox: {
     width: px2dp(352.5),
@@ -130,7 +134,7 @@ export const ConsultOrderStyle = StyleSheet.create({
     paddingRight: px2dp(14),
   },
   itemExtra: {
-    borderBottomWidth: 0.5,
+    borderBottomWidth: px2dp(1),
     borderBottomColor: '#D3D3D3',
   },
   textBox: {
@@ -140,15 +144,15 @@ export const ConsultOrderStyle = StyleSheet.create({
   },
   title: {
     fontFamily: 'PingFangSC-Regular',
-    fontSize: 18,
+    fontSize: px2dp(18),
     color: '#000',
-    letterSpacing: -0.36,
+    letterSpacing: px2dp(-0.36),
   },
   desc: {
     fontFamily: 'PingFangSC-Regular',
-    fontSize: 14,
+    fontSize: px2dp(14),
     color: '#9F9F9F',
-    letterSpacing: -0.28,
+    letterSpacing: px2dp(-0.28),
   },
   selectBox: {
     height: px2dp(32),

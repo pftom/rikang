@@ -147,7 +147,7 @@ export const MainScreenStyle = StyleSheet.create({
         width: px2dp(63),
       },
       android: {
-        width: px2dp(73),
+        width: px2dp(75),
       }
     }),
     marginLeft: px2dp(-5),
@@ -175,19 +175,19 @@ export const MainScreenStyle = StyleSheet.create({
     marginBottom: 3,
   },
   categoryImg: {
-    marginBottom: 5,
+    marginBottom: px2dp(5),
   },
   ageBox: {
-    width: px2dp(63),
+    width: px2dp(62),
     height: px2dp(21),
-    backgroundColor: '#C4C4C4',
     borderRadius: px2dp(8),
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: px2dp(1),
+    borderColor: '#C4C4C4',
   },
   doctorAgeBox: {
-    width: px2dp(62),
-    height: px2dp(20),
+
     backgroundColor: '#F5F6F7',
     borderRadius: px2dp(8),
     alignItems: 'center',

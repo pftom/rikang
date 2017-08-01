@@ -120,13 +120,13 @@ class PopUpBox extends PureComponent {
                   <View style={[ styles.selectBox, { backgroundColor: '#F5F6F7'}]}>
                     {
                       item.kind === 'alipay'  && (
-                        <Image source={this.state.isAlipaySelected ? require('../img/select.png') : require('../img/unSelect.png')} />
+                        <Image style={styles.select} source={this.state.isAlipaySelected ? require('../img/select.png') : require('../img/unSelect.png')} />
                       )
                     }
 
                     {
                       item.kind === 'wechat'  && (
-                        <Image source={this.state.isAlipaySelected ? require('../img/unSelect.png') : require('../img/select.png') } />
+                        <Image style={styles.select} source={this.state.isAlipaySelected ? require('../img/unSelect.png') : require('../img/select.png') } />
                       )
                     }
                   </View>

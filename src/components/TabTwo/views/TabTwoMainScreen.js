@@ -6,6 +6,7 @@ import {
   TouchableHighlight,
   Image,
   TextInput,
+  Platform,
  } from 'react-native';
 import { connect } from 'react-redux';
 
