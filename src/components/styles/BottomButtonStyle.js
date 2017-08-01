@@ -31,7 +31,7 @@ export const BottomButtonStyle = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#09C79C',
-    borderRadius: 8,
+    borderRadius: px2dp(8),
   },
   buttonContainer: {
     width: px2dp(337),
@@ -39,7 +39,7 @@ export const BottomButtonStyle = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5F6F7',
-    borderRadius: 8,
+    borderRadius: px2dp(8),
   },
   content: {
     fontFamily: 'PingFangSC-Medium',
