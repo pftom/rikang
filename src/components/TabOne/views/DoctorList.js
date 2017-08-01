@@ -129,12 +129,7 @@ class DoctorList extends PureComponent {
         <SelectBox 
           titleLeft={"全部科室"}
           titleRight={"默认排序"}
-          selectStyle={{
-            position: 'absolute',
-            top: 81,
-            left: 0,
-            right: 0,
-          }}
+          selectStyle={styles.selectBox}
           sortData={sortData}
           handleSelectDep={this.handleSelectDep}
           handleSelectSort={this.handleSelectSort}

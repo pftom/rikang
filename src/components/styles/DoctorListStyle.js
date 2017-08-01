@@ -143,6 +143,13 @@ export const DoctorListStyle = StyleSheet.create({
     fontSize: 14,
     color: '#17B18F',
   },
+
+  selectBox: {
+    position: 'absolute',
+    top: px2dp(81),
+    left: 0,
+    right: 0,
+  },
   
 
   loadingMore: commonStyle.loadingMore,
