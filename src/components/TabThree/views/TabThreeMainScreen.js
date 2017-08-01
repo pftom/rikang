@@ -20,6 +20,9 @@ import PaidServiceItem from './PaidServiceItem';
 //IMPORT underway service item
 import ServiceItem from './ServiceItem'
 
+//import px to dp 
+import px2dp from '../../../utils/px2dp';
+
 //import action constants
 import { 
   GET_PATIENT_PROFILE,
@@ -135,9 +138,9 @@ class UserScreen extends PureComponent {
 
     const SectionLists = [
       [
-        { data: patientUnsolvedQuestionsData.data, key: `未解决（${patientUnsolvedQuestionsData.count}）`, seeMore: true, renderItem: ({ item }) => <ProblemItem navigation={navigation} item={item} token={token} /> },
-        { data: patientStarredQuestionsData.data, key: `关注的问题（${patientStarredQuestionsData.count}）`, seeMore: true, renderItem: ({ item }) => <ProblemItem navigation={navigation} item={item} token={token} /> },
-        { data: patientSolvedQuestionsData.data, key: `已解决（${patientSolvedQuestionsData.count}）`, seeMore: true, renderItem: ({ item }) => <ProblemItem navigation={navigation} item={item} token={token} /> },
+        { data: patientUnsolvedQuestionsData.data, key: `未解决（${patientUnsolvedQuestionsData.count}）`, seeMore: true, renderItem: ({ item }) => <ProblemItem navigation={navigation} item={item} token={token} noHintBar={patientUnsolvedQuestionsData.count === 0} /> },
+        { data: patientStarredQuestionsData.data, key: `关注的问题（${patientStarredQuestionsData.count}）`, seeMore: true, renderItem: ({ item }) => <ProblemItem navigation={navigation} item={item} token={token} noHintBar={patientStarredQuestionsData.count === 0} /> },
+        { data: patientSolvedQuestionsData.data, key: `已解决（${patientSolvedQuestionsData.count}）`, seeMore: true, renderItem: ({ item }) => <ProblemItem navigation={navigation} item={item} token={token} noHintBar={patientSolvedQuestionsData.count === 0}/> },
       ],
       [
         { data: patientUnderWayServicesData.data, key: `进行中（${patientUnderWayServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <ServiceItem navigation={navigation} item={item} token={token} /> },
@@ -163,18 +166,17 @@ class UserScreen extends PureComponent {
         }
         <ScrollableTabView
           page={0}
-          style={ Platform.OS === 'ios' ? { marginTop: 148 } : { marginTop: 165 }}
+          style={ Platform.OS === 'ios' ? { marginTop: px2dp(148) } : { marginTop: px2dp(165) }}
           renderTabBar={
             () => <CustomTabBar 
                       multiCustom={true} 
                       underlineStyle={
                         Platform.OS === 'ios'
-                        ? { marginLeft: 28 }
+                        ? { marginLeft: px2dp(28) }
                         : { marginLeft: 0 }
                       }
                       tabTextStyle={{
-                        fontSize: 18,
-
+                        fontSize: px2dp(18),
                       }}
                   />
           }

@@ -13,7 +13,7 @@ export const QaAnswerListStyle = StyleSheet.create({
   answerContainer: {
     width: width,
     alignItems: 'center',
-    borderBottomWidth: 0.5,
+    borderBottomWidth: px2dp(0.5),
     borderBottomColor: '#09C79C',
   },
 
@@ -38,22 +38,22 @@ export const QaAnswerListStyle = StyleSheet.create({
   doctorAvatar: {
     width: px2dp(47),
     height: px2dp(47),
-    borderRadius: 23.5,
+    borderRadius: px2dp(23.5),
   },
   idBox: {
     width: px2dp(220),
   },
   name: {
     fontFamily: 'PingFangSC-Regular',
-    fontSize: 20,
+    fontSize: px2dp(20),
     color: '#000',
-    letterSpacing: -0.4,
+    letterSpacing: px2dp(-0.4),
   },
   location: {
     fontFamily: 'PingFangSC-Light',
-    fontSize: 14,
+    fontSize: px2dp(14),
     color: '#000',
-    letterSpacing: -0.28,
+    letterSpacing: px2dp(-0.28),
   },  
   spreadBox: {
     width: px2dp(24),
@@ -63,9 +63,9 @@ export const QaAnswerListStyle = StyleSheet.create({
   },
   spread: {
     fontFamily: 'PingFangSC-Regular',
-    fontSize: 12,
+    fontSize: px2dp(12),
     color: '#8A8A8A',
-    letterSpacing: -0.24,
+    letterSpacing: px2dp(-0.24),
     marginTop: px2dp(2),
   },
 
@@ -74,7 +74,7 @@ export const QaAnswerListStyle = StyleSheet.create({
   },
   itemBox: {
     width: px2dp(328),
-    borderBottomWidth: 0.5,
+    borderBottomWidth: px2dp(0.5),
     borderBottomColor: '#DDDDDD',
     flexDirection: 'row',
     marginTop: px2dp(14),
@@ -86,22 +86,22 @@ export const QaAnswerListStyle = StyleSheet.create({
     width: px2dp(48),
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 40,
+    marginRight: px2dp(40),
   },  
   rightBox: {
     width: px2dp(221),
   },
   title: {
     fontFamily: 'PingFangSC-Light',
-    fontSize: 12,
+    fontSize: px2dp(12),
     color: '#000',
-    marginTop: 4,
+    marginTop: px2dp(4),
   },
   content: {
     fontFamily: 'PingFangSC-Regular',
-    fontSize: 16,
+    fontSize: px2dp(16),
     color: '#000',
-    letterSpacing: -0.32,
+    letterSpacing: px2dp(-0.32),
   },
 
   tagContainer: {

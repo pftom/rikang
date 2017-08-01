@@ -164,7 +164,7 @@ class TagBox extends PureComponent {
               <TouchableOpacity onPress={() => { navigation.navigate('CommentList', { token, id: item.id }) }}>
                 <View style={[ styles.leftBox]}>
                   <Image source={require('../TabOne/img/comment.png')} />
-                  <Text style={styles.upvote}>{item.comment_num}</Text>
+                  <Text style={styles.upvote}>{item.comment_num || ''}</Text>
                 </View>
               </TouchableOpacity>
             )

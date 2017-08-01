@@ -13,6 +13,8 @@ const {
 const Button = require('../../common/Button');
 import LinearGradient from 'react-native-linear-gradient';
 
+import px2dp from '../../../utils/px2dp';
+
 
 const DefaultTabBar = React.createClass({
   propTypes: {
@@ -66,10 +68,10 @@ const DefaultTabBar = React.createClass({
     if (Platform.OS === 'ios') {
       tabUnderlineStyle = {
         position: 'absolute',
-        width: 75,
-        height: 4,
+        width: px2dp(75),
+        height: px2dp(4),
         bottom: 0,
-        marginLeft: 60,
+        marginLeft: px2dp(60),
       };
     } else {
       tabUnderlineStyle = {
@@ -119,63 +121,63 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingBottom: 10,
+    paddingBottom: px2dp(10),
     flexDirection: 'row',
-    paddingTop: 3,
+    paddingTop: px2dp(3),
   },
   customTab: {
     backgroundColor: '#F5F6F7',
   },
   tabs: {
-    height: 49,
+    height: px2dp(49),
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
   customTabs: {
-    borderBottomWidth: 0.5,
+    borderBottomWidth: px2dp(0.5),
     borderBottomColor: '#E4E4E4',
     ...Platform.select({
       ios: {
       },
       android: {
-        marginTop: 20.5,
+        marginTop: px2dp(20.5),
       }
     })
   },
   tabbarUnderLine: {
-    height: 5,
-    width: 73,
-    borderRadius: 5,
+    height: px2dp(5),
+    width: px2dp(73),
+    borderRadius: px2dp(5),
     backgroundColor: '#FFF',
-    marginTop: -6,
+    marginTop: px2dp(-6),
   },
   tabbarCustom: {
-    width: 60,
-    height: 4,
-    borderRadius: 2,
-    marginTop: -4,
+    width: px2dp(60),
+    height: px2dp(4),
+    borderRadius: px2dp(2),
+    marginTop: px2dp(-4),
   },
   text: {
     fontFamily: 'PingFangSC-Medium',
-    fontSize: 20,
+    fontSize: px2dp(20),
     color: '#FFFFFF',
-    letterSpacing: -0.4,
+    letterSpacing: px2dp(-0.4),
     backgroundColor: 'transparent',
-    marginBottom: 3,
+    marginBottom: px2dp(3),
   },
   customText: {
     fontFamily: 'PingFangSC-Medium',
-    fontSize: 18,
+    fontSize: px2dp(18),
     color: '#09C79C',
   },
   gradient: {
-    height: 5,
-    width: 75,
-    marginTop: -1,
+    height: px2dp(5),
+    width: px2dp(75),
+    marginTop: px2dp(-1),
   },
   img: {
-    marginRight: 8,
-    marginTop: -2,
+    marginRight: px2dp(8),
+    marginTop: px2dp(-2),
   }
 });
 

@@ -96,7 +96,7 @@ class QaAnswerListItem extends PureComponent {
           </View>
           <View style={styles.answerMid}>
             {
-              !this.state.spread && (
+              this.state.spread && (
                 midBoxData.map((item, key) => this.renderItem(item, key))
               )
             }

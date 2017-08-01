@@ -15,7 +15,7 @@ export const QuestionListStyle = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     backgroundColor: '#F5F6F7',
-    borderBottomWidth: 1,
+    borderBottomWidth: px2dp(0.5),
     borderBottomColor: '#09C79C',
   },
   touchBox: {

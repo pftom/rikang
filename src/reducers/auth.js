@@ -108,6 +108,7 @@ const auth = function auth(state = initialAuthState, action) {
         isLoadingData: false,
         loginSuccess: true,
         token: action.token,
+        id: action.id,
       });
 
 
@@ -270,6 +271,7 @@ const auth = function auth(state = initialAuthState, action) {
       //get persist data from redux-persist
       const { auth } = action.payload;
       const token = auth && auth.has('token') && auth.get('token');
+      const id = auth && auth.has('id') && auth.get('id');
 
       //use isLoggedIn show the initialScreen
       const isLoggedIn = !!token ? true : false;
@@ -279,6 +281,7 @@ const auth = function auth(state = initialAuthState, action) {
         registerError: false,
         isLoggedIn,
         token,
+        id,
         loginSuccess: false,
       });
 

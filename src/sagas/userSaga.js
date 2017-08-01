@@ -48,8 +48,8 @@ import { base, usersApi } from '../configs/config';
 function* loginAuthorize(payload) {
   const { body } = payload;
   try {
-    const { token } = yield call(request.post, base + usersApi.login, body);
-    yield put({ type: LOGIN_SUCCESS, token });
+    const { token, id } = yield call(request.post, base + usersApi.login, body);
+    yield put({ type: LOGIN_SUCCESS, token, id });
     return token;
   } catch(error) {
     yield put({ type: LOGIN_ERROR, error });

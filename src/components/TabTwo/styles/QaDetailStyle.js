@@ -30,8 +30,8 @@ export const QaDetailStyle = StyleSheet.create({
     marginTop: px2dp(10),
   },
   photo: {
-    width: 80,
-    height: 66,
+    width: px2dp(80),
+    height: px2dp(66),
     marginRight: px2dp(5),
   },
 
@@ -43,15 +43,15 @@ export const QaDetailStyle = StyleSheet.create({
   },
   title: {
     fontFamily: 'PingFangSC-Medium',
-    fontSize: 20,
+    fontSize: px2dp(20),
     color: '#000',
-    letterSpacing: -0.4,
+    letterSpacing: px2dp(-0.4),
   },
   solved: {
     fontFamily: 'PingFangSC-Regular',
-    fontSize: 18,
+    fontSize: px2dp(18),
     color: '#09C79C',
-    letterSpacing: -0.36,
+    letterSpacing: px2dp(-0.36),
   },
   body: {
     width: px2dp(324),
@@ -60,9 +60,9 @@ export const QaDetailStyle = StyleSheet.create({
   },
   content: {
     fontFamily: 'PingFangSC-Light',
-    fontSize: 16,
+    fontSize: px2dp(16),
     color: '#000',
-    letterSpacing: -0.32,
+    letterSpacing: px2dp(-0.32),
   },  
   tagContainer: {
     width: px2dp(324),
