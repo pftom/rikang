@@ -69,7 +69,7 @@ class SelectBox extends PureComponent {
 
         <Picker
           data={this.props.sortData}
-          title="选择排序方式"
+          title="排序方式"
           cols={1}
           value={this.state.sortValue}
           onChange={v => { this.handleRightChange(v) }}

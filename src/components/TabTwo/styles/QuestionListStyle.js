@@ -15,7 +15,7 @@ export const QuestionListStyle = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     backgroundColor: '#F5F6F7',
-    borderBottomWidth: 0.5,
+    borderBottomWidth: 1,
     borderBottomColor: '#09C79C',
   },
   touchBox: {
@@ -47,7 +47,7 @@ export const QuestionListStyle = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   helpLeft: {
-    marginLeft: 100,
+    marginLeft: px2dp(100),
   },
 
   leftBox: {
@@ -57,14 +57,14 @@ export const QuestionListStyle = StyleSheet.create({
   },
   upvote: {
     fontFamily: 'PingFangSC-Light',
-    fontSize: 16,
+    fontSize: px2dp(16),
     color: '#000',
-    letterSpacing: -0.32,
+    letterSpacing: px2dp(-0.32),
     marginLeft: px2dp(10),
   },
   starsAndAnswer: {
     fontFamily: 'PingFangSC-Light',
-    fontSize: 18,
+    fontSize: px2dp(18),
     color: '#C3C3C3',
   },
   dot: {
@@ -83,7 +83,7 @@ export const QuestionListStyle = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#09C79C',
-    borderRadius: 8,
+    borderRadius: px2dp(8),
   },
 
   starredBtn: {
@@ -95,13 +95,13 @@ export const QuestionListStyle = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5F6F7',
-    borderRadius: 8,
+    borderRadius: px2dp(8),
   },
   starText: {
     fontFamily: 'PingFangSC-Regular',
-    fontSize: 14,
+    fontSize: px2dp(14),
     color: '#FFFFFF',
-    letterSpacing: -0.28,
+    letterSpacing: px2dp(-0.28),
   },
   img: {
     marginRight: px2dp(9)

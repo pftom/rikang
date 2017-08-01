@@ -112,6 +112,7 @@ class PostDetail extends PureComponent {
                   <View style={styles.body}>
                     <HTMLView
                       value={post.get('body') || ''}
+                      
                     />
                   </View>
                 </View>

@@ -124,7 +124,7 @@ class QuestionDetail extends PureComponent {
               >
                 {
                   IMGS.map((item, key) => (
-                    <TouchableOpacity key={key} onPress={() => navigation.navigate('ImageView', { media: EXMAPLES })}>
+                    <TouchableOpacity key={key} onPress={() => navigation.navigate('ImageView', { media: IMGS })}>
                       <Image source={{ uri: item.photo }} style={styles.photo} />
                     </TouchableOpacity>
                   ))

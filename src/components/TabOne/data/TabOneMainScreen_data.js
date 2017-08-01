@@ -5,11 +5,11 @@ const headerTitleData = [
   },
   {
     img: require('../img/nearbyDoctor.png'),
-    title: '附近医生',
+    title: '寻找医生',
   },
   {
     img: require('../img/nearbyHospital.png'),
-    title: '附近医院',
+    title: '寻找医院',
   },
 ];
 

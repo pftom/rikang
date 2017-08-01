@@ -1,5 +1,5 @@
 import { delay } from 'redux-saga';
-import { put, take, call, fork, cancel, } from 'redux-saga/effects';
+import { put, take, call, fork, cancel, takeEvery } from 'redux-saga/effects';
 
 //import HOSPITAL action constans
 import { 
@@ -84,8 +84,9 @@ function* createSingleQuestion(payload) {
 }
 
 //add img for question
-function* addImgForQuestion(payload) {
+function* addImgForQuestion(action) {
   try {
+    const { payload } = action;
     const { token, id, body } = payload;
     //the last param supply multipart/form-data support
     const questionImg = yield call(request.post, base + qaSingleApi(id).addQuestionImg, body, token, true);
@@ -175,11 +176,7 @@ function* watchCreateSingleQuestion() {
 }
 
 function* watchAddSingleQuestionImg() {
-  while (true) {
-    const { payload } = yield take(ADD_SINGLE_QUESTION_IMG);
-
-    yield call(addImgForQuestion, payload);
-  }
+  yield takeEvery(ADD_SINGLE_QUESTION_IMG, addImgForQuestion);
 }
 
 function* watchGetSingleQuestion() {

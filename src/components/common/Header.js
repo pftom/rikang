@@ -214,7 +214,7 @@ class Header extends PureComponent {
               {
                 leftBox
               }
-              <View><Animated.Text style={[styles.headerText, props.logoLeft && styles.headerExtraStyle, props.headerTextStyle, style , props.animatedOpacity && { opacity: props.animatedOpacity}]}>{props.headerText}</Animated.Text></View>
+              <View style={styles.headerTextBox}><Animated.Text style={[styles.headerText, props.logoLeft && styles.headerExtraStyle, props.headerTextStyle, style , props.animatedOpacity && { opacity: props.animatedOpacity}]}>{props.headerText}</Animated.Text></View>
               {
                 rightBox
               }
@@ -231,7 +231,7 @@ class Header extends PureComponent {
                 }
                 {
                   !props.animatedOpacity && (
-                    <View><Text style={[styles.headerText, style, props.logoLeft && styles.headerExtraStyle ]}>{props.headerText}</Text></View>
+                    <View style={styles.headerTextBox}><Text style={[styles.headerText, style, props.logoLeft && styles.headerExtraStyle ]}>{props.headerText}</Text></View>
                   )
                 }
                 {
@@ -249,15 +249,18 @@ class Header extends PureComponent {
 const styles = StyleSheet.create({
   containerBox: {
     position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
   },
   container: {
     width: width,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: 81,
+    height: px2dp(81),
   },
   linearGradient: {
-    height: 81,
+    height: px2dp(81),
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: width,
@@ -270,88 +273,92 @@ const styles = StyleSheet.create({
       },
     })
   },
+  headerTextBox: {
+    height: px2dp(81),
+    alignItems: 'center',
+  },
   headerText: {
     fontFamily: 'PingFangSC-Regular',
-    fontSize: 24,
+    fontSize: px2dp(24),
     color: '#FFF',
     textAlign: 'center',
     ...Platform.select({
       ios: {
-        top: 34,
+        top: px2dp(34),
       },
       android: {
-        fontSize: 24,
-        top: 34
+        fontSize: px2dp(24),
+        top: px2dp(34),
       }
     }),
-    height: 33,
+    height: px2dp(33),
     backgroundColor: 'transparent',
   },
   headerExtraStyle: {
     ...Platform.select({
       ios: {
-        left: -13,
+        left: px2dp(-13),
       },
     }),
   },
   logoLeft: {
     ...Platform.select({
       ios: {
-        marginLeft: 23,
-        marginTop: 40,
+        marginLeft: px2dp(23),
+        marginTop: px2dp(40),
       },
       android: {
-        marginLeft: 23,
-        marginTop: 41,
-      }
-    })
+        marginLeft: px2dp(23),
+        marginTop: px2dp(41),
+      },
+    }),
   },
   rightBox: {
     flexDirection: 'row',
-    height: 81,
+    height: px2dp(81),
     ...Platform.select({
       android: {
-         width: 36,
+         width: px2dp(36),
       }
     })
   },
   share: {
     marginLeft: px2dp(24),
     marginRight: px2dp(24),
-    top: 42,
+    top: px2dp(42),
   },
   searchIcon: {
-    top: 39
+    top: px2dp(39),
   },
   phone: {
-    top: 40,
+    top: px2dp(40),
   },
   shareHeart: {
-    top: 42,
+    top: px2dp(42),
     ...Platform.select({
       ios: {
-        right: 20,
+        right: px2dp(20),
       }
     })
   },
   shareStar: {
-    top: 39,
+    top: px2dp(39),
     ...Platform.select({
       ios: {
-        right: 20,
+        right: px2dp(20),
       }   
     })
   },
   navigate: {
-    top: 40,
+    top: px2dp(40),
   },
 
   smallAvatarBox: {
     height: px2dp(42),
     width: px2dp(42),
     borderRadius: px2dp(21),
-    marginLeft: 65,
-    marginTop: -31,
+    marginLeft: px2dp(65),
+    marginTop: px2dp(-31),
   },
   smallAvatar: {
     height: px2dp(42),
@@ -359,8 +366,8 @@ const styles = StyleSheet.create({
     borderRadius: px2dp(21),
   },
   logoShareBox: {
-    left: 222,
-    top: 41,
+    left: px2dp(222),
+    top: px2dp(41),
   },
 })
 

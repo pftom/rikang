@@ -65,9 +65,22 @@ export const QaMainScreenStyle = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'transparent',
     position: 'absolute',
-    top: 1,
+    top: px2dp(10),
     left: 0,
     right: 0,
+  },
+
+  selectStyle: {
+    position: 'absolute',
+    top: px2dp(81),
+    left: 0,
+    right: 0,
+  },
+
+  listStyle: {
+    flex: 1,
+    backgroundColor: '#F5F6F7',
+    marginTop: px2dp(81 + 49),
   },
 
   inputBox: {
