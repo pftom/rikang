@@ -63,15 +63,12 @@ function* createNewOrder(payload) {
 
 function* cancelOrder(payload) {
   try {
-    const { token, order_no } = payload;
+    const { token, body } = payload;
 
-    const body = {
-      order_no
-    }
 
     yield call(request.post, base + serviceApi.cancel, body, token);
 
-    yield put({ type: CANCEL_ORDER_SUCCESS, order });
+    yield put({ type: CANCEL_ORDER_SUCCESS });
   } catch (error) {
     yield put({ type: CANCEL_ORDER_ERROR, error });
   }

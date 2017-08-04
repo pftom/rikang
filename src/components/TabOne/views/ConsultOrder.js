@@ -188,6 +188,8 @@ class ConsultOrder extends PureComponent {
       charge,
     } = nextProps;
 
+    const { navigation } = this.props;
+
     console.log('clientIp', clientIp);
 
     if (getClientIpError) {
@@ -196,12 +198,13 @@ class ConsultOrder extends PureComponent {
 
     if (paySuccess) {
 
-      Pingpp.createPayment({
-        "object": charge,
-        "urlScheme": "wx68751473156cfd6b",
-      }, function(res, error) {
-        console.log('res, error');
-      });
+      // Pingpp.createPayment({
+      //   "object": charge,
+      //   "urlScheme": "wx68751473156cfd6b",
+      // }, function(res, error) {
+      //   console.log('res, error');
+      // });
+        navigation.navigate('')
     }
   }
 
@@ -251,6 +254,7 @@ class ConsultOrder extends PureComponent {
     this.setState({
       isClosed: false,
     });
+    
 
     const body = {
       type: 'C',
