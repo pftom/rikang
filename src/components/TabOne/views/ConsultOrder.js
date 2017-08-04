@@ -10,6 +10,12 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 
+import { connect } from 'react-redux';
+
+import Pingpp from 'pingpp-react-native';
+
+import { getServiceSelector } from '../../../selectors/';
+
 
 //
 import px2dp from '../../../utils/px2dp';
@@ -18,7 +24,17 @@ import { BottomButton } from '../../common/';
 
 import { Header } from '../../common/';
 
-import {} from '../../../constants/';
+import {
+  CREATE_NEW_ORDER,
+
+  CANCEL_ORDER,
+
+  PAY,
+
+  GET_CLIENT_IP,
+
+  CLEAR_SERVICE_STATE,
+} from '../../../constants/';
 
 //import show modal
 import { Popup, List, Button, Icon, Radio } from 'antd-mobile';
@@ -58,15 +74,9 @@ class PopUpBox extends PureComponent {
 
     this.state = {
       isAlipaySelected: true,
-      isClosed: false,
     }
   }
 
-  componentDidMount() {
-    const { token, navigation, dispatch } = this.props;
-
-
-  }
 
   handleSelect = (kind) => {
     console.log('kind', kind);
@@ -83,14 +93,6 @@ class PopUpBox extends PureComponent {
     }
   }
 
-  onClose = () => {
-
-    Popup.hide();
-    this.setState({
-      isClosed: true,
-    })
-  }
-
   render() {
     return (
       <View style={styles.payContainer}>
@@ -98,7 +100,7 @@ class PopUpBox extends PureComponent {
           <View style={styles.titleBox}>
             <Text style={styles.headerTitle}>请选择支付方式</Text>
           </View>
-          <TouchableOpacity onPress={() => { this.onClose() }}>
+          <TouchableOpacity onPress={() => { this.props.onClose() }}>
             <View style={styles.closeBox}>
               <Image source={require('../img/close.png')} style={styles.close} />
             </View>
@@ -136,7 +138,7 @@ class PopUpBox extends PureComponent {
             ))
           }
         </View>
-        <BottomButton textStyle={{ letterSpacing: -0.4 }} boxStyle={{ position: null }}  content={this.props.priceText} token={this.props.token} dispatch={this.props.dispatch}  navigation={this.props.navigation}  kind={'goPay'} handlePayPage={() => { this.handlePayPage() }} />
+        <BottomButton isAlipay={this.state.isAlipaySelected} textStyle={{ letterSpacing: -0.4 }} boxStyle={{ position: null }}  content={this.props.priceText} token={this.props.token} dispatch={this.props.dispatch}  navigation={this.props.navigation}  kind={'goPay'} handlePayPage={() => { this.props.handlePayPage(this.state.isAlipaySelected) }} />
       </View>
     )
   }
@@ -149,19 +151,95 @@ class ConsultOrder extends PureComponent {
 
     this.state = {
       isAlipaySelected: true,
+      isClosed: false,
+    };
+  }
+
+  successToast(msg) {
+    this.props.dispatch({ type: CLEAR_SERVICE_STATE });
+    Toast.success(msg, 1);
+  }
+
+  failToast(msg) {
+    this.props.dispatch({ type: CLEAR_SERVICE_STATE });
+    Toast.fail(msg, 1);
+  }
+
+  loadingToast() {
+    Toast.loading('请稍后...', 1);
+  }
+
+  componentDidMount() {
+    const { token, navigation, dispatch } = this.props;
+
+    // dispatch({ type: GET_CLIENT_IP });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {
+      isGetClientIp,
+      getClientIpSuccess,
+      getClientIpError,
+      clientIp,
+
+      isPaying,
+      paySuccess,
+      payError,
+      charge,
+    } = nextProps;
+
+    console.log('clientIp', clientIp);
+
+    if (getClientIpError) {
+      this.failToast('网络无连接');
+    }
+
+    if (paySuccess) {
+
+      Pingpp.createPayment({
+        "object": charge,
+        "urlScheme": "wx68751473156cfd6b",
+      }, function(res, error) {
+        console.log('res, error');
+      });
     }
   }
 
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextState !== this.state) {
-      console.log('nextState', nextState, this.state);
-      return true;
-    }
+  onClose = () => {
+    const { navigation } = this.props;
+    const { data, dispatch, token } = navigation.state.params;
+    const { newOrder } = this.props;
+
+    const body = {
+      order_no: newOrder.get('order_no'),
+    };
+
+    dispatch({ type: CANCEL_ORDER, payload: { token, body } });
+
+    Popup.hide();
+    this.setState({
+      isClosed: true,
+    })
   }
 
-  handlePayPage = () => {
+  handlePayPage = (isAlipay) => {
+    Pingpp.setDebugModel(true);
 
+    const { navigation } = this.props;
+    const { data, dispatch, token } = navigation.state.params;
+    const { newOrder, clientIp } = this.props;
+
+
+    const body = {
+      order_no: newOrder.get('order_no'),
+      type: 'C',
+      cost: newOrder.get('cost'),
+      channel: isAlipay ? 'alipay' : 'wechat',
+      client_ip: '127.0.0.1',
+    };
+
+    dispatch({ type: PAY, payload: { token, body } } );
   }
 
 
@@ -170,8 +248,19 @@ class ConsultOrder extends PureComponent {
     const { navigation } = this.props;
     const { data, dispatch, token } = navigation.state.params;
 
+    this.setState({
+      isClosed: false,
+    });
+
+    const body = {
+      type: 'C',
+      doctor: data.get('id'),
+    };
+
+    dispatch({ type: CREATE_NEW_ORDER, payload: { token, body }});
+
     Popup.show(
-      <PopUpBox data={data} dispatch={dispatch} token={token} priceText={priceText} navigation={navigation} />
+      <PopUpBox data={data} dispatch={dispatch} onClose={this.onClose} handlePayPage={this.handlePayPage} token={token} priceText={priceText} navigation={navigation} />
     , { animationType: 'slide-up', maskClosable: false })
   }
 
@@ -227,4 +316,7 @@ class ConsultOrder extends PureComponent {
   }
 }
 
-export default ConsultOrder;
+
+export default connect(
+  state => getServiceSelector(state),
+)(ConsultOrder);

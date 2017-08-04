@@ -17,7 +17,7 @@ class BottomButton extends PureComponent {
     }
 
     if (kind === 'goPay') {
-      navigation.navigate('TestRNIMUI');
+      this.props.handlePayPage(this.props.isAlipay)
     }
   }
 

@@ -11,6 +11,7 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import "Pingpp.h"
 
 @implementation AppDelegate
 
@@ -32,6 +33,13 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   return YES;
+}
+
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary *)options {
+  BOOL canHandleURL = [Pingpp handleOpenURL:url withCompletion:nil];
+  return canHandleURL;
 }
 
 @end

@@ -24,12 +24,21 @@ import {
 
 
   CLEAR_SERVICE_STATE,
+
+  GET_CLIENT_IP,
+  GET_CLIENT_IP_SUCCESS,
+  GET_CLIENT_IP_ERROR,
 } from '../constants/';
 
 const initialServiceValue = Map({
   newOrder: null,
   charge: null,
   refund: null,
+
+  clientIp: null,
+  isGetClientIp: false,
+  getClientIpSuccess: false,
+  getClientIpError: false,
   
   isCreateNewOrder: false,
   createNewOrderSuccess: false,
@@ -43,11 +52,13 @@ const initialServiceValue = Map({
   paySuccess: false,
   payError: false,
 
+  charge: null,
+
   isRefunding: false,
   refundSuccess: false,
   refundError: false,
 
-  isFinsishOrder: false,
+  isFinishOrder: false,
   finishOrderSuccess: false,
   finishOrderError: false,
 });
@@ -159,7 +170,7 @@ const service = (state = initialServiceValue, action) => {
     case FINISH_ORDER:
 
       return state.merge({
-        isFinsishOrder: true,
+        isFinishOrder: true,
         finishOrderSuccess: false,
         finishOrderError: false,
       });
@@ -167,15 +178,40 @@ const service = (state = initialServiceValue, action) => {
     case FINISH_ORDER_SUCCESS:
 
       return state.merge({
-        isFinsishOrder: false,
+        isFinishOrder: false,
         finishOrderSuccess: true,
       });
 
     case FINISH_ORDER_ERROR:
 
       return state.merge({
-        isFinsishOrder: false,
+        isFinishOrder: false,
         finishOrderError: true,
+      });
+
+    case GET_CLIENT_IP:
+    
+      return state.merge({
+        isGetClientIp: true,
+        getClientIpSuccess: false,
+        getClientIpError: false,
+      });
+
+    case GET_CLIENT_IP_SUCCESS:
+      
+      const { clientIp } = action;
+
+      return state.merge({
+        isGetClientIp: false,
+        getClientIpSuccess: true,
+        clientIp,
+      });
+
+    case GET_CLIENT_IP:
+    
+      return state.merge({
+        isGetClientIp: false,
+        getClientIpError: true,
       });
 
 
@@ -198,9 +234,13 @@ const service = (state = initialServiceValue, action) => {
         refundSuccess: false,
         refundError: false,
 
-        isFinsishOrder: false,
+        isFinishOrder: false,
         finishOrderSuccess: false,
         finishOrderError: false,
+
+        isGetClientIp: false,
+        getClientIpSuccess: false,
+        getClientIpError: false,
       })
 
     default: 

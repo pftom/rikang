@@ -22,6 +22,10 @@ import {
   FINISH_ORDER,
   FINISH_ORDER_SUCCESS,
   FINISH_ORDER_ERROR,
+
+  GET_CLIENT_IP,
+  GET_CLIENT_IP_SUCCESS,
+  GET_CLIENT_IP_ERROR,
 } from '../constants/';
 
 //import request api
@@ -31,15 +35,26 @@ import { base, serviceApi } from '../configs/config';
 //  import clear token api
 // import { clearItem, setItem } from '../actions/user';
 
+function* getClientIp(payload) {
+  try {
+
+    const clientIp = yield call(request.get, 'freegeoip.net/json/', null, null);
+
+    yield put({ type: GET_CLIENT_IP_SUCCESS, clientIp });
+  } catch (error) {
+    yield put({ type: GET_CLIENT_IP_ERROR, error });
+  }
+}
+
 
 function* createNewOrder(payload) {
   try {
     const { token, body } = payload;
 
 
-    const order = yield call(request.post, base + serviceApi.createNewOrder, body, token);
+    const newOrder = yield call(request.post, base + serviceApi.createNewOrder, body, token);
 
-    yield put({ type: CREATE_NEW_ORDER_SUCCESS, order });
+    yield put({ type: CREATE_NEW_ORDER_SUCCESS, newOrder });
   } catch (error) {
     yield put({ type: CREATE_NEW_ORDER_ERROR, error });
   }
@@ -66,9 +81,9 @@ function* pay(payload) {
   try {
     const { token, body } = payload;
 
-    const paidOrder = yield call(request.post, base + serviceApi.pay, body, token);
+    const charge = yield call(request.post, base + serviceApi.pay, body, token);
 
-    yield put({ type: PAY_SUCCESS, paidOrder });
+    yield put({ type: PAY_SUCCESS, charge });
   } catch (error) {
     yield put({ type: PAY_ERROR, error });
   }
@@ -139,10 +154,20 @@ function* watchFinishOrder() {
   }
 }
 
+function* watchGetClientIp() {
+  while (true) {
+    yield take(GET_CLIENT_IP);
+
+    yield call(getClientIp);
+  }
+}
+
 export {
   watchCreateNewOrder,
   watchCancel,
   watchPay,
   watchRefund,
   watchFinishOrder,
+
+  watchGetClientIp,
 }
