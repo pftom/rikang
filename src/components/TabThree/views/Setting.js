@@ -24,7 +24,7 @@ class Setting extends PureComponent {
     super(props);
 
     this.state = {
-      value: false,
+      value: true,
     }
   }
 
