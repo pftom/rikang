@@ -56,7 +56,14 @@ export const QaAnswerListStyle = StyleSheet.create({
     letterSpacing: px2dp(-0.28),
   },  
   spreadBox: {
-    width: px2dp(24),
+    ...Platform.select({
+      ios: {
+        width: px2dp(24),
+      },
+      android: {
+        width: px2dp(30),
+      }
+    }),
     alignItems: 'center',
     height: px2dp(50),
     justifyContent: 'center',
@@ -73,7 +80,14 @@ export const QaAnswerListStyle = StyleSheet.create({
     marginTop: px2dp(15),
   },
   itemBox: {
-    width: px2dp(328),
+    ...Platform.select({
+      ios: {
+        height: px2dp(51),
+      },
+      android: {
+        height: px2dp(55),
+      }
+    }),
     borderBottomWidth: px2dp(0.5),
     borderBottomColor: '#DDDDDD',
     flexDirection: 'row',
@@ -83,7 +97,14 @@ export const QaAnswerListStyle = StyleSheet.create({
     paddingBottom: px2dp(9),
   },  
   leftBox: {
-    width: px2dp(48),
+    ...Platform.select({
+      ios: {
+        width: px2dp(48),
+      },
+      android: {
+        width: px2dp(55),
+      }
+    }),
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: px2dp(40),
