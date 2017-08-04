@@ -53,17 +53,17 @@ class ChangePassword extends PureComponent {
       dispatch({ type: CHANGE_PASSWORD, payload: { token, body }});
 
       Keyboard.dismiss();
-      this.setState({
-        oldPasswd: '',
-        newPasswd: '',
-        confirmPasswd: '',
-      })
 
     }
   }
 
   successToast(msg) {
     this.props.dispatch({ type: CLEAR_PASSWORD_STATE });
+    this.setState({
+        oldPasswd: '',
+        newPasswd: '',
+        confirmPasswd: '',
+      });
     Toast.success(msg, 1);
   }
 
