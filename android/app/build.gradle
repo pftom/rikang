@@ -135,6 +135,7 @@ android {
 }
 
 dependencies {
+    compile project(':pingpp-react-native')
     compile project(':react-native-picker')
     compile project(':react-native-linear-gradient')
     compile project(':react-native-image-picker')
