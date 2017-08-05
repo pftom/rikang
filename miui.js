@@ -19,6 +19,9 @@ var InputView = IMUI.ChatInput;
 var MessageListView = IMUI.MessageList;
 const window = Dimensions.get('window');
 
+import { TextMessage, Message } from 'leancloud-realtime';
+
+
 import px2dp from './src/utils/px2dp';
 
 import { Header } from './src/components/common/';
@@ -30,30 +33,12 @@ function constructNormalMessage() {
     var message = {}
     message.msgId = themsgid.toString()
     themsgid += 1
-    message.status = "send_succeed"
+    message.status = "send_going"
     message.isOutgoing = true
     message.timeString = ""
     var user = {
           userId: "1",
           displayName: "Tom",
-          avatarPath: ""
-    }
-    message.fromUser = user
-
-    return  message
-}
-
-function constructNormalMessage1() {
-
-    var message = {}
-    message.msgId = themsgid.toString()
-    themsgid += 1
-    message.status = "send_succeed"
-    message.isOutgoing = true
-    message.timeString = ""
-    var user = {
-          userId: "2",
-          displayName: "hhhh",
           avatarPath: ""
     }
     message.fromUser = user
@@ -67,12 +52,116 @@ export default class TestRNIMUI extends Component {
     this.state = { inputViewLayout: {width:window.width, height:86,}};
     console.log('AuroraIController', MessageListView);
     this.updateLayout = this.updateLayout.bind(this);
+
+    this.state = {
+      maxResultsAmount: 50,
+      messages: [],
+      hasLoadAllMessages: false,
+      
+    }
   }
 
 
 
   updateLayout(layout) {
     this.setState({inputViewLayout: layout})
+  }
+
+  componentDidMount() {
+    this.getCurrentConversation();
+  }
+
+  getCurrentConversation = () => {
+    const { navigation } = this.props;
+    const { imClient, conv } = navigation.state.params;
+    const that = this;
+    return imClient.getConversation(conv.id)
+        .then(conversation => {
+          console.log('conversation', conversation);
+          this.messageIterator = conversation.createMessagesIterator({ limit: 20 });
+
+          this.currentConversation = conversation;
+          console.log('unreadMessagesCount', conversation);
+          this.currentConversation.on('message', this.readMarker);
+          this.currentConversation.on('message', this.messageUpdater);
+
+          this.loadMoreMessages();
+          conversation.read();
+          return conversation;
+        })
+  }
+
+  messageUpdater = (msg) => {
+    if (msg.transient && msg.type === Message.TYPE) {
+      return;
+    }
+    // 消息列表滚动
+    let { messages } = this.state;
+    messages.push(msg);
+    this.setState({ messages });
+  }
+
+  readMarker = (msg) => {
+    // 暂态消息不标记
+    // 特殊情况：暂态对话的所有消息都是暂态的，因此暂态对话收到消息全部标记
+    if (msg.transient && !conversation.transient) {
+      return;
+    }
+    // 当前对话标记为已读
+    conversation.read();
+  }
+
+  send = (message) => {
+    const that = this;
+    let { messages } = that.state;
+    return this.getCurrentConversation()
+      .then(conversation => {
+        const sendPromise = conversation.send(message, {
+          receipt: conversation.members.length === 2
+        });
+
+        messages.push(message);
+        console.log(messages);
+        that.setState({
+          messages,
+        });
+        return sendPromise;
+      })
+      .catch(console.error.bind(console));
+  }
+
+  sendText = (draft) => {
+    if (!draft) {
+      return;
+    }
+    const message = new TextMessage(draft);
+    return this.send(message);
+  }
+
+  loadMoreMessages = () => {
+    if (this.state.hasLoadAllMessages) {
+      return;
+    }
+    const that = this;
+    return this.messageIterator.next().then(result => {
+      const { messages } = that.state
+      const newState = {};
+
+      if (result.done) {
+        newState.hasLoadAllMessages = true;
+      }
+      newState.messages = result.value.concat(messages);
+      this.setState(newState)
+    })
+  }
+
+  handleSendText = () => {
+    this.sendText();
+  }
+
+  componentWillUnmount() {
+    this.currentConversation.off('message', this.messageUpdater);
+    this.currentConversation.off('message', this.readMarker);
   }
 
   onAvatarClick = (message) => {
@@ -102,6 +191,8 @@ export default class TestRNIMUI extends Component {
 
     message.msgType = "text"
     message.text = text
+
+    this.sendText(text);
 
     AuroraIController.appendMessages([message])
     AuroraIController.scrollToBottom(true)
@@ -175,6 +266,8 @@ export default class TestRNIMUI extends Component {
     this.updateLayout({width:window.width, height:inputViewHeight,})
   }
 
+  h
+
 
   onInitPress() {
       console.log('on click init push ');
@@ -182,6 +275,11 @@ export default class TestRNIMUI extends Component {
   }
 
   render() {
+
+    const { messages } = this.state;
+
+    console.log('messages', messages);
+
     return (
       <View style={styles.container}>
         <MessageListView style={styles.messageList}

@@ -19,24 +19,51 @@ import { ServiceItemStyle as styles } from '../styles/';
 
 class ServiceItem extends PureComponent {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      normalConv: [],
+    }
+  }
+
   handleBtn = () => {
 
   }
 
-  handleChat() {
-    const { imClient, navigation, myId, LeanRT, userId,  } = this.props;
+  getNormalConvs = () => {
+    const { userId, LeanRT, navigation, item } = this.props;
 
-    const clientId =
+    const doctorId = item.service_object.doctor;
+    const clientId = userId;
     const imClient = LeanRT.imClient;
+    return imClient.getQuery().withLastMessagesRefreshed().containsMembers([clientId, doctorId]).find();
+  }
+
+  getConversations = () => {
+    const that = this;
+    return this.getNormalConvs()
+      .then(data => {
+        that.setState({
+          normalConv: data,
+        });
+      })
+  }
+
+  handleChat(doctorId) {
+    const { navigation, myId, LeanRT, userId,  } = this.props;
+
+    const clientId = userId;
+    const imClient = LeanRT.imClient;
+    
     return imClient.createConversation({
-      members: [myId],
-      name: `${clientId} 和 ${imClient.id}的对话`,
+      members: [String(doctorId)],
+      name: `${String(doctorId)} 和 ${imClient.id}的对话`,
       transient: false,
       unique: true,
     }).then(conversation => {
 
-      navigation.navigate('TestRNIMUI')
-      navigation.navigate('ChatDetail', { clientId: clientId, myId: myId, imClient: imClient, conv: conversation });
+      navigation.navigate('TestRNIMUI', { clientId: userId, doctorId, imClient: imClient, conv: conversation })
     }).catch(console.error.bind(console));
   }
 
@@ -47,6 +74,9 @@ class ServiceItem extends PureComponent {
 
 
     let lastMessage = "每次洗完澡后记得局部要用护肤品哈哈哈哈或或";
+
+    const { normalConv } = this.state;
+    console.log('normalConv', normalConv);
 
     if (lastMessage.length > 13) {
       lastMessage = lastMessage.slice(0, 13) + '...';
