@@ -64,16 +64,16 @@ class UserScreen extends PureComponent {
     dispatch({ type: GET_PATIENT_FAV_DOCTORS, payload: { token} });
     dispatch({ type: GET_PATIENT_FAV_POSTS, payload: { token, refresh: true } });
     dispatch({ type: GET_PATIENT_QUESTIONS, payload: { token } });
-    // dispatch({ type: GET_PATIENT_STARRED_QUESTIONS, payload: { token } });
-    // dispatch({ type: GET_PATIENT_SERVICES, payload: { token } });
+    dispatch({ type: GET_PATIENT_STARRED_QUESTIONS, payload: { token } });
+    dispatch({ type: GET_PATIENT_SERVICES, payload: { token } });
   } 
 
   render() {
     const { dispatch, navigation, token,  patientProfile  } = this.props;
     //get faved data
     const { postFav, doctorFav, questionFav, questionStarredFav, servicesFav } = this.props;
-    //get fetch data
-    const { postFetch } = this.props;
+    //get fetch data and doctor
+    const { postFetch, doctors} = this.props;
 
     //get post data
     // if not fetch or lose network, use 
@@ -117,7 +117,28 @@ class UserScreen extends PureComponent {
     }
 
     let patientUnderWayServicesData = {
-      data: [],
+      data: [
+        {
+          key: 1,
+          name: '汤婷',
+          avatar: 'https://facebook.github.io/react/img/logo_og.png',
+          service_object: {
+              "doctor": 1,
+              "patient": 1
+          },
+          owner: 1,
+        },
+        {
+          key: 2,
+          name: '汤婷',
+          avatar: 'https://facebook.github.io/react/img/logo_og.png',
+          service_object: {
+              "doctor": 1,
+              "patient": 1
+          },
+          owner: 1,
+        },
+      ],
       count: 0,
     };
     let patientPaidServicesData = {
@@ -128,11 +149,16 @@ class UserScreen extends PureComponent {
       data: [],
       count: 0,
     };
-    //service for later handle
-    // if (patientServices) {
-    //   patientUnderWayServicesData = handleUserData(patientServices.get('results'), 'services', 'underway');
-    //   patientPaidServicesData = handleUserData(patientServices.get('results'), 'services', 'paid')
-    //   patientFinishedServicesData = handleUserData(patientServices.get('results'), 'services', 'finished');
+    // service for later handle
+    // if (servicesFav.size > 0) {
+    //   console.log('servicesFav', servicesFav && servicesFav.toJS());
+    //   patientUnderWayServicesData = handleUserData(servicesFav, 'services', 'underway', doctors);
+    //   patientPaidServicesData = handleUserData(servicesFav, 'services', 'paid', doctors)
+    //   patientFinishedServicesData = handleUserData(servicesFav, 'services', 'finished', doctors);
+
+    //   console.log('patientUnderWayServicesData', patientUnderWayServicesData);
+    //   console.log('patientPaidServicesData', patientPaidServicesData);
+    //   console.log('patientFinishedServicesData', patientFinishedServicesData);
     // }
 
 

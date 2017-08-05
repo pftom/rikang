@@ -198,6 +198,7 @@ class ConsultOrder extends PureComponent {
     }
 
     if (paySuccess) {
+      Popup.hide();
       this.props.dispatch({ type: CLEAR_SERVICE_STATE });
       Pingpp.createPayment({
         "object": charge,

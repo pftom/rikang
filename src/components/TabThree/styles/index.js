@@ -4,6 +4,9 @@ import { ProblemStyle } from './ProblemStyle';
 import { ServiceStyle } from './ServiceStyle';
 import { ChangePasswordStyle } from './ChangePasswordStyle';
 import { AboutStyle } from './AboutStyle';
+import { ServiceItemStyle } from './ServiceItemStyle';
+
+import { WaitForAcceptListItemStyle } from './WaitForAcceptListItemStyle';
 
 
 export {
@@ -13,4 +16,7 @@ export {
   ServiceStyle,
   ChangePasswordStyle,
   AboutStyle,
+  ServiceItemStyle,
+
+  WaitForAcceptListItemStyle,
 }

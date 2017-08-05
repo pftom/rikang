@@ -30,7 +30,12 @@ import { PaySuccessStyle as styles } from '../../styles/';
 class PaySuccess extends PureComponent {
 
   handleBtn = (kind) => {
+    const { navigation, dispatch } = this.props;
+    if (kind === 'home') {
       navigation.navigate('TabBarNavigation')
+    } else if (kind === 'doctor') {
+      navigation.goBack();
+    }
   }
 
   render() {
@@ -41,6 +46,12 @@ class PaySuccess extends PureComponent {
           <Image source={require('../img/submitSuccess.png')} />
           <Text style={styles.title}>支付成功</Text>
           <Text style={styles.hintText}>等待医生接受订单，您可以在当天任何时间继续进行咨询，只需进入“我的帐号-我的咨询”即可。</Text>
+
+          <TouchableWithoutFeedback onPress={() => { this.handleBtn('doctor') }} style={styles.buttonContainer}>
+            <View style={styles.buttonBox}>
+              <Text style={[ styles.content, this.props.textStyle ]}>查看订单</Text>
+            </View>
+          </TouchableWithoutFeedback>
 
           <TouchableWithoutFeedback onPress={() => { this.handleBtn('home') }} style={[ styles.buttonContainer, styles.extraButtonContainer ]}>
             <View style={[ styles.buttonBox, styles.extraButtonBox ]}>

@@ -21,7 +21,8 @@ const MAP_PAID_STATUS ={
 };
 
 
-const handleUserData = (data, kind, status) => {
+const handleUserData = (data, kind, status, doctors) => {
+  //the last params doctors is for get the service item doctor name
   let dataSource = [];
 
   data.map((item) => {
@@ -35,25 +36,50 @@ const handleUserData = (data, kind, status) => {
     }
 
     if (kind === 'services') {
-      if (status === 'underway' && item.get('status') !== 'underway') {
+      console.log('status', MAP_PAID_STATUS[item.get('status')], item.get('status'))
+      if (status === 'underway' && MAP_PAID_STATUS[item.get('status')] !== 'underway') {
         return;
       }
 
-      if (status === 'paid' && item.get('status') !== 'paid') {
+      if (status === 'paid' && MAP_PAID_STATUS[item.get('status')] !== 'paid') {
         return;
       }
 
-      if (status === 'finished' && item.get('status') !== 'finished') {
+      if (status === 'finished' && MAP_PAID_STATUS[item.get('status')] !== 'finished') {
         return;
       }
     }
 
+
+
       item = item.toJS();
       const { id } = item;
+
+      //nameItem and avatarItem is a trick 
+      // which i use for kind === services to get the doctor name and avatar
+      // because, the back-end not supply, and I am so lazy. = =!
+      let nameItem = {};
+      let avatarItem = {};
+
+      if (kind === 'services') {
+        doctors.map(item => {
+          if (item.get('id') === id) {
+            nameItem = {
+              name: item.get('name'),
+            };
+            
+            avatarItem = {
+              avatar: item.get('avatar'),
+            };
+          }
+        })
+      }
 
       dataSource.push({
           ...item,
           key: id,
+          ...nameItem,
+          ...avatarItem,
         });
     });
   return {

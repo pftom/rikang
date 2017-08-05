@@ -12,10 +12,12 @@ const getPatientServices = (state) => state.getIn(['patient', 'servicesFav']);
 
 const getPatientFetchPosts = (state) => state.getIn(['patient', 'patientPosts']);
 
+const getAllDoctors = (state) => state.getIn(['home', 'doctors']);
+
 
 export const getPatientSelector = createSelector(
-  [ getToken, getPatientProfile, getPatientFavPosts, getPatientFavDoctors, getPatientQuestions, getPatientStarredQuestions, getPatientServices, getPatientFetchPosts  ],
-  (token, patientProfile, postFav, doctorFav, questionFav, questionStarredFav, servicesFav, postFetch, ) => ({
+  [ getToken, getPatientProfile, getPatientFavPosts, getPatientFavDoctors, getPatientQuestions, getPatientStarredQuestions, getPatientServices, getPatientFetchPosts, getAllDoctors  ],
+  (token, patientProfile, postFav, doctorFav, questionFav, questionStarredFav, servicesFav, postFetch, doctors ) => ({
     token,
     patientProfile,
 
@@ -26,6 +28,7 @@ export const getPatientSelector = createSelector(
     servicesFav,
 
     postFetch,
+    doctors,
   }),
 );
 

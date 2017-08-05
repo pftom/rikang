@@ -127,7 +127,7 @@ function* getPatientServices(payload) {
     const patientServices = yield call(request.get, base + usersApi.patientServices, null, token);
     yield put({ type: GET_PATIENT_SERVICES_SUCCESS, patientServices });
   } catch (error) {
-    yield put({ type: GET_PATIENT_SERVICES_ERROR });
+    yield put({ type: GET_PATIENT_SERVICES_ERROR, error });
   }
 }
 
