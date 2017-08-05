@@ -22,6 +22,8 @@ import ServiceItem from './ServiceItem';
 
 import WaitForAcceptListItem from './WaitForAcceptListItem';
 
+import FinishedListItem from './FinishedListItem';
+
 //import px to dp 
 import px2dp from '../../../utils/px2dp';
 
@@ -159,7 +161,35 @@ class UserScreen extends PureComponent {
       count: 0,
     };
     let patientFinishedServicesData = {
-      data: [],
+      data: [
+        {
+          avatar: 'https://facebook.github.io/react/img/logo_og.png',
+          name: '汤婷',
+          key: 1,
+          comment: null,
+        },
+        {
+          avatar: 'https://facebook.github.io/react/img/logo_og.png',
+          name: '汤婷',
+          key: 2,
+          comment: {
+              "anonymous": false,
+              "body": "好啊",
+              "created": "2017-08-02",
+              "id": 1,
+              "patient": {
+                  "age": null,
+                  "avatar": null,
+                  "id": 1,
+                  "medical_history": "",
+                  "name": "阿哲",
+                  "phone": "18321025181",
+                  "sex": "M"
+              },
+              "ratings": 5
+          },
+        }
+      ],
       count: 0,
     };
     // service for later handle
@@ -184,7 +214,7 @@ class UserScreen extends PureComponent {
       [
         { data: patientUnderWayServicesData.data, key: `进行中（${patientUnderWayServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <ServiceItem navigation={navigation} item={item} token={token} /> },
         { data: patientPaidServicesData.data, key: `等待接受预约（${patientPaidServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <WaitForAcceptListItem navigation={navigation} item={item} token={token} /> },
-        { data: patientFinishedServicesData.data, key: `已完成（${patientFinishedServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <ServiceItem navigation={navigation} item={item} token={token} /> },
+        { data: patientFinishedServicesData.data, key: `已完成（${patientFinishedServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <FinishedListItem navigation={navigation} item={item} token={token} /> },
       ],
       [
         { data: [{ favDoctors: patientFavDoctorsData.data, key: '1' }], key: `收藏的医生（${patientFavDoctorsData.count}）`, spread: true, renderItem: ({ item }) => <NearByDoctorSection noYear={true} navigation={navigation} nearbyDoctor={item.favDoctors} token={token} /> },

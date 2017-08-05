@@ -8,6 +8,8 @@ import { ServiceItemStyle } from './ServiceItemStyle';
 
 import { WaitForAcceptListItemStyle } from './WaitForAcceptListItemStyle';
 
+import { FinishedListItemStyle } from './FinishedListItemStyle';
+
 
 export {
   SelectPhotoStyle,
@@ -19,4 +21,5 @@ export {
   ServiceItemStyle,
 
   WaitForAcceptListItemStyle,
+  FinishedListItemStyle,
 }
