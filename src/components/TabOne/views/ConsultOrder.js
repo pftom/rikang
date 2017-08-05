@@ -62,7 +62,7 @@ const selectPay = [
     icon: require('../img/wechat.png'),
     title: '微信支付',
     desc: '中国领先的第三方支付平台',
-    kind: 'wechat',
+    kind: 'wx',
   }
 ]
 
@@ -86,7 +86,7 @@ class PopUpBox extends PureComponent {
       })
     }
 
-    if (kind === 'wechat') {
+    if (kind === 'wx') {
       this.setState({
         isAlipaySelected: false,
       })
@@ -127,7 +127,7 @@ class PopUpBox extends PureComponent {
                     }
 
                     {
-                      item.kind === 'wechat'  && (
+                      item.kind === 'wx'  && (
                         <Image style={styles.select} source={this.state.isAlipaySelected ? require('../img/unSelect.png') : require('../img/select.png') } />
                       )
                     }
@@ -189,6 +189,7 @@ class ConsultOrder extends PureComponent {
     } = nextProps;
 
     const { navigation } = this.props;
+    const { dispatch, token } = navigation.state.params;
 
     console.log('clientIp', clientIp);
 
@@ -197,14 +198,17 @@ class ConsultOrder extends PureComponent {
     }
 
     if (paySuccess) {
-
-      // Pingpp.createPayment({
-      //   "object": charge,
-      //   "urlScheme": "wx68751473156cfd6b",
-      // }, function(res, error) {
-      //   console.log('res, error');
-      // });
-        navigation.navigate('')
+      this.props.dispatch({ type: CLEAR_SERVICE_STATE });
+      Pingpp.createPayment({
+        "object": charge,
+        "urlScheme": "wx68751473156cfd6b",
+      }, function(res, error) {
+        if (error) {
+          this.fail('支付未成功');
+        } else {
+          navigation.navigate('PaySuccess', { token, dispatch });
+        }
+      });
     }
   }
 
@@ -238,7 +242,7 @@ class ConsultOrder extends PureComponent {
       order_no: newOrder.get('order_no'),
       type: 'C',
       cost: newOrder.get('cost'),
-      channel: isAlipay ? 'alipay' : 'wechat',
+      channel: isAlipay ? 'alipay' : 'wx',
       client_ip: '127.0.0.1',
     };
 
