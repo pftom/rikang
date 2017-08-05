@@ -23,6 +23,23 @@ class ServiceItem extends PureComponent {
 
   }
 
+  handleChat() {
+    const { imClient, navigation, myId, LeanRT, userId,  } = this.props;
+
+    const clientId =
+    const imClient = LeanRT.imClient;
+    return imClient.createConversation({
+      members: [myId],
+      name: `${clientId} 和 ${imClient.id}的对话`,
+      transient: false,
+      unique: true,
+    }).then(conversation => {
+
+      navigation.navigate('TestRNIMUI')
+      navigation.navigate('ChatDetail', { clientId: clientId, myId: myId, imClient: imClient, conv: conversation });
+    }).catch(console.error.bind(console));
+  }
+
   render() {
     const { item, navigation, dispatch, LeanRT, userId } = this.props;
 
@@ -41,7 +58,7 @@ class ServiceItem extends PureComponent {
     const remainTime = '剩余3小时';
 
     return (
-      <TouchableOpacity onPress={() => { navigation.navigate('TestRNIMUI')}}>
+      <TouchableOpacity onPress={() => { this.handleChat() }}>
         <View style={styles.container}>
           <View style={styles.box}>
             <View style={styles.doctorAvatarBox}>
