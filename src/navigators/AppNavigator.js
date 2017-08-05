@@ -48,6 +48,7 @@ import Chat from '../im/Chat';
 */
 import ConsultOrder from '../components/TabOne/views/ConsultOrder';
 import PaySuccess from '../components/TabOne/views/PaySuccess';
+import NewComment from '../components/TabThree/views/NewComment';
 
 
 /*
@@ -101,6 +102,7 @@ export const AppNavigator = StackNavigator({
     
     ConsultOrder: { screen: ConsultOrder },
     PaySuccess: { screen: PaySuccess },
+    NewComment: { screen: NewComment },
 
     UserNavigator: { screen: UserNavigator },
 

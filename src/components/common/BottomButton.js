@@ -19,6 +19,10 @@ class BottomButton extends PureComponent {
     if (kind === 'goPay') {
       this.props.handlePayPage(this.props.isAlipay)
     }
+
+    if (kind === 'putComment') {
+      this.props.handlePutComment();
+    }
   }
 
   render() {

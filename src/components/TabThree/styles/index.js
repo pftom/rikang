@@ -9,6 +9,7 @@ import { ServiceItemStyle } from './ServiceItemStyle';
 import { WaitForAcceptListItemStyle } from './WaitForAcceptListItemStyle';
 
 import { FinishedListItemStyle } from './FinishedListItemStyle';
+import { NewCommentStyle } from './NewCommentStyle';
 
 
 export {
@@ -22,4 +23,5 @@ export {
 
   WaitForAcceptListItemStyle,
   FinishedListItemStyle,
+  NewCommentStyle,
 }

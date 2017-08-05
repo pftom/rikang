@@ -21,7 +21,9 @@ import { FinishedListItemStyle as styles } from '../styles/';
 class FinishedListItem extends PureComponent {
 
   handleBtn = () => {
+    const { navigation, dispatch, token } = this.props;
 
+    navigation.navigate('NewComment', { token, dispatch });
   }
 
   render() {
