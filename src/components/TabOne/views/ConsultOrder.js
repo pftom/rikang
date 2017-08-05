@@ -206,7 +206,7 @@ class ConsultOrder extends PureComponent {
         if (error) {
           this.fail('支付未成功');
         } else {
-          navigation.navigate('PaySuccess', { token, dispatch });
+          navigation.navigate('PaySuccess');
         }
       });
     }

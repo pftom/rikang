@@ -14,6 +14,8 @@ import { SelectBoxStyle } from './SelectBoxStyle';
 import { PutQuestionStyle } from './PutQuestionStyle';
 import { ConsultOrderStyle } from './ConsultOrderStyle';
 
+import { PaySuccessStyle } from './PaySuccessStyle';
+
 
 export {
   ContainerStyle,
@@ -35,4 +37,5 @@ export {
 
   PutQuestionStyle,
   ConsultOrderStyle,
+  PaySuccessStyle,
 }

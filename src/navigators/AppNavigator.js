@@ -47,6 +47,7 @@ import Chat from '../im/Chat';
  * service section screen
 */
 import ConsultOrder from '../components/TabOne/views/ConsultOrder';
+import PaySuccess from '../components/TabOne/views/PaySuccess';
 
 
 /*
@@ -99,6 +100,7 @@ export const AppNavigator = StackNavigator({
     Chat: { screen: Chat },
     
     ConsultOrder: { screen: ConsultOrder },
+    PaySuccess: { screen: PaySuccess },
 
     UserNavigator: { screen: UserNavigator },
 
