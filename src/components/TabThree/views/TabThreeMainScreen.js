@@ -18,7 +18,9 @@ import ProblemItem from './ProblemItem';
 //import Service item
 import PaidServiceItem from './PaidServiceItem';
 //IMPORT underway service item
-import ServiceItem from './ServiceItem'
+import ServiceItem from './ServiceItem';
+
+import WaitForAcceptListItem from './WaitForAcceptListItem';
 
 //import px to dp 
 import px2dp from '../../../utils/px2dp';
@@ -142,7 +144,18 @@ class UserScreen extends PureComponent {
       count: 0,
     };
     let patientPaidServicesData = {
-      data: [],
+      data: [
+        {
+          avatar: 'https://facebook.github.io/react/img/logo_og.png',
+          name: '汤婷',
+          key: 1,
+        },
+        {
+          avatar: 'https://facebook.github.io/react/img/logo_og.png',
+          name: '汤婷',
+          key: 2,
+        }
+      ],
       count: 0,
     };
     let patientFinishedServicesData = {
@@ -170,7 +183,7 @@ class UserScreen extends PureComponent {
       ],
       [
         { data: patientUnderWayServicesData.data, key: `进行中（${patientUnderWayServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <ServiceItem navigation={navigation} item={item} token={token} /> },
-        { data: patientPaidServicesData.data, key: `等待接受预约（${patientPaidServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <PaidServiceItem navigation={navigation} item={item} token={token} /> },
+        { data: patientPaidServicesData.data, key: `等待接受预约（${patientPaidServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <WaitForAcceptListItem navigation={navigation} item={item} token={token} /> },
         { data: patientFinishedServicesData.data, key: `已完成（${patientFinishedServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <ServiceItem navigation={navigation} item={item} token={token} /> },
       ],
       [

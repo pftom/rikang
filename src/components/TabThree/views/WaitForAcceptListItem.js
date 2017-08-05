@@ -30,7 +30,7 @@ class WaitForAcceptListItem extends PureComponent {
 
     const { item } = this.props;
 
-    let lastTime = "接受（剩余1小时48分）";
+    let lastTime = "1小时48分后退款";
     // item.avatar
 
     return (
@@ -38,19 +38,12 @@ class WaitForAcceptListItem extends PureComponent {
         <View style={styles.box}>
           <View style={styles.idBox}>
             <View style={styles.doctorAvatarBox}>
-              <Image source={{ uri: 'https://facebook.github.io/react/img/logo_og.png' }} style={styles.doctorAvatar} />
+              <Image source={{ uri: item.avatar }} style={styles.doctorAvatar} />
             </View>
             <View style={styles.nameBox}>
               <Text style={styles.name}>{item.name}</Text>
-              <Text style={styles.consult}>向您发出咨询请求</Text>
+              <Text style={styles.consult}>{lastTime}</Text>
             </View>
-          </View>
-          <View style={styles.btnBox}>
-            <TouchableHighlight onPress={() => { this.handleBtn() }} style={styles.buttonContainer}>
-              <View style={styles.buttonBox}>
-                <Text style={[ styles.content, this.props.textStyle ]}>{lastTime}</Text>
-              </View>
-            </TouchableHighlight>
           </View>
         </View>
       </View>
