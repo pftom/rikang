@@ -14,10 +14,13 @@ const getPatientFetchPosts = (state) => state.getIn(['patient', 'patientPosts'])
 
 const getAllDoctors = (state) => state.getIn(['home', 'doctors']);
 
+const getPatientId = (state) => state.getIn(['auth', 'id']);
+
 
 export const getPatientSelector = createSelector(
-  [ getToken, getPatientProfile, getPatientFavPosts, getPatientFavDoctors, getPatientQuestions, getPatientStarredQuestions, getPatientServices, getPatientFetchPosts, getAllDoctors  ],
-  (token, patientProfile, postFav, doctorFav, questionFav, questionStarredFav, servicesFav, postFetch, doctors ) => ({
+  [ getPatientId, getToken, getPatientProfile, getPatientFavPosts, getPatientFavDoctors, getPatientQuestions, getPatientStarredQuestions, getPatientServices, getPatientFetchPosts, getAllDoctors  ],
+  ( userId, token, patientProfile, postFav, doctorFav, questionFav, questionStarredFav, servicesFav, postFetch, doctors ) => ({
+    userId,
     token,
     patientProfile,
 
@@ -51,7 +54,7 @@ const getChangePasswdError = (state) => state.getIn(['auth', 'changePasswdError'
 
 
 export const getChangePasswdSelector = createSelector(
-  [ getIsChangePasswd, getChangePasswdSuccess, getChangePasswdError ], 
+  [ getIsChangePasswd, getChangePasswdSuccess, getChangePasswdError ],
   (isChangePasswd, changePasswdSuccess, changePasswdError) => ({
     isChangePasswd,
     changePasswdSuccess,
@@ -65,7 +68,7 @@ const getFeedbackError = (state) => state.getIn(['auth', 'feedbackError']);
 
 
 export const getFeedbackSelector = createSelector(
-  [ getIsFeedback, getFeedbackSuccess, getFeedbackError ], 
+  [ getIsFeedback, getFeedbackSuccess, getFeedbackError ],
   (isFeedback, feedbackSuccess, feedbackError) => ({
     isFeedback,
     feedbackSuccess,

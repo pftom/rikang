@@ -2,12 +2,12 @@ import { REHYDRATE } from 'redux-persist-immutable/constants';
 import Immutable from 'immutable';
 
 //import action constants
-import { 
-  LOGIN_SUCCESS, 
-  LOGIN_ERROR, 
-  LOGOUT, 
-  LOGIN, 
-  CLEAR_TOKEN, 
+import {
+  LOGIN_SUCCESS,
+  LOGIN_ERROR,
+  LOGOUT,
+  LOGIN,
+  CLEAR_TOKEN,
   SET_TOKEN,
   REGISTER,
   REGISTER_ERROR,
@@ -36,8 +36,9 @@ import {
 } from '../constants/'
 import { persistor } from '../store';
 
-const initialAuthState = Immutable.Map({ 
+const initialAuthState = Immutable.Map({
   token: null,
+  id: null,
   isLoggedIn: false,
   isLoadingData: false,
   loginError: false,
@@ -70,7 +71,7 @@ const auth = function auth(state = initialAuthState, action) {
 
     // later write the register logic
     case REGISTER:
-      
+
       return state.merge({
         isLoadingData: true,
         registerError: false,
@@ -79,7 +80,7 @@ const auth = function auth(state = initialAuthState, action) {
 
 
     case REGISTER_ERROR:
-    
+
       return state.merge({
         isLoadingData: false,
         registerError: true,
@@ -92,7 +93,7 @@ const auth = function auth(state = initialAuthState, action) {
         registerSuccess: true,
       });
 
-    case LOGIN: 
+    case LOGIN:
       //capture login action and show loading spinner
       return state.merge({
         isLoadingData: true,
@@ -114,7 +115,7 @@ const auth = function auth(state = initialAuthState, action) {
 
     case LOGIN_ERROR:
 
-      //if login error, change the state 
+      //if login error, change the state
       return state.merge({
         isLoadingData: false,
         loginError: true,
@@ -259,8 +260,8 @@ const auth = function auth(state = initialAuthState, action) {
         verifyCodeSuccess: false,
         verifyCodeError: false,
       });
-      
-    case CLEAR_TOKEN: 
+
+    case CLEAR_TOKEN:
 
       // 清除token
         return state.merge({

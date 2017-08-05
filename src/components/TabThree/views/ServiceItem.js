@@ -24,7 +24,9 @@ class ServiceItem extends PureComponent {
   }
 
   render() {
-    const { item, navigation, dispatch } = this.props;
+    const { item, navigation, dispatch, LeanRT, userId } = this.props;
+
+    const doctorId = item.service_object.doctor;
 
 
     let lastMessage = "每次洗完澡后记得局部要用护肤品哈哈哈哈或或";

@@ -7,15 +7,21 @@ import {
   TouchableHighlight,
   NativeModules,
   requireNativeComponent,
-  Dimensions
+  Dimensions,
+  TouchableOpacity,
+  Image,
 } from 'react-native';
 
-var ReactNative = require('react-native');                
+var ReactNative = require('react-native');
 const AuroraIController = NativeModules.AuroraIMUIModule;
 import IMUI from 'aurora-imui-react-native'
 var InputView = IMUI.ChatInput;
 var MessageListView = IMUI.MessageList;
 const window = Dimensions.get('window');
+
+import px2dp from './src/utils/px2dp';
+
+import { Header } from './src/components/common/';
 
 var themsgid = 1
 
@@ -24,7 +30,7 @@ function constructNormalMessage() {
     var message = {}
     message.msgId = themsgid.toString()
     themsgid += 1
-    message.status = "send_going"
+    message.status = "send_succeed"
     message.isOutgoing = true
     message.timeString = ""
     var user = {
@@ -33,7 +39,7 @@ function constructNormalMessage() {
           avatarPath: ""
     }
     message.fromUser = user
-    
+
     return  message
 }
 
@@ -42,7 +48,7 @@ function constructNormalMessage1() {
     var message = {}
     message.msgId = themsgid.toString()
     themsgid += 1
-    message.status = "send_going"
+    message.status = "send_succeed"
     message.isOutgoing = true
     message.timeString = ""
     var user = {
@@ -51,7 +57,7 @@ function constructNormalMessage1() {
           avatarPath: ""
     }
     message.fromUser = user
-    
+
     return  message
 }
 
@@ -76,7 +82,7 @@ export default class TestRNIMUI extends Component {
   onMsgClick = (message) => {
       console.log(message)
     }
-    
+
   onStatusViewClick = (message) => {
       console.log(message)
     }
@@ -92,11 +98,11 @@ export default class TestRNIMUI extends Component {
 
   onSendText = (text) => {
 
-    var message = constructNormalMessage1()
-    
+    var message = constructNormalMessage()
+
     message.msgType = "text"
     message.text = text
-    
+
     AuroraIController.appendMessages([message])
     AuroraIController.scrollToBottom(true)
   }
@@ -139,7 +145,7 @@ export default class TestRNIMUI extends Component {
 
     AuroraIController.appendMessages([message])
   }
-    
+
   onSendGalleryFiles = (mediaFiles) => {
     console.log(mediaFiles)
     for(index in mediaFiles) {
@@ -179,31 +185,36 @@ export default class TestRNIMUI extends Component {
     return (
       <View style={styles.container}>
         <MessageListView style={styles.messageList}
-        onAvatarClick={this.onAvatarClick}
-        onMsgClick={this.onMsgClick}
-        onStatusViewClick={this.onStatusViewClick}
-        onTapMessageCell={this.onTapMessageCell}
-        onBeginDragMessageList={this.onBeginDragMessageList}
-        onPullToRefresh={this.onPullToRefresh}
-        avatarSize={{width:40,height:40}}
-        sendBubbleTextSize={18}
-        sendBubbleTextColor={"000000"}
-        sendBubblePadding={{left:10,top:10,right:10,bottom:10}}
+          onAvatarClick={this.onAvatarClick}
+          onMsgClick={this.onMsgClick}
+          onStatusViewClick={this.onStatusViewClick}
+          onTapMessageCell={this.onTapMessageCell}
+          onBeginDragMessageList={this.onBeginDragMessageList}
+          onPullToRefresh={this.onPullToRefresh}
+          avatarSize={{width:40,height:40}}
+          sendBubbleTextSize={18}
+          sendBubbleTextColor={"000000"}
+          sendBubblePadding={{left:10,top:10,right:10,bottom:10}}
         />
         <InputView style={this.state.inputViewLayout}
-        onSendText={this.onSendText}
-        onTakePicture={this.onTakePicture}
-        onStartRecordVoice={this.onStartRecordVoice}
-        onFinishRecordVoice={this.onFinishRecordVoice}
-        onCancelRecordVoice={this.onCancelRecordVoice}
-        onStartRecordVideo={this.onStartRecordVideo}
-        onFinishRecordVideo={this.onFinishRecordVideo}
-        onSendGalleryFiles={this.onSendGalleryFiles}
-        onSwitchToMicrophoneMode={this.onSwitchToMicrophoneMode}
-        onSwitchToGalleryMode={this.onSwitchToGalleryMode}
-        onSwitchToCameraMode={this.onSwitchToCameraMode}
-        onShowKeyboard={this.onShowKeyboard}
+          onSendText={this.onSendText}
+          onTakePicture={this.onTakePicture}
+          onStartRecordVoice={this.onStartRecordVoice}
+          onFinishRecordVoice={this.onFinishRecordVoice}
+          onCancelRecordVoice={this.onCancelRecordVoice}
+          onStartRecordVideo={this.onStartRecordVideo}
+          onFinishRecordVideo={this.onFinishRecordVideo}
+          onSendGalleryFiles={this.onSendGalleryFiles}
+          onSwitchToMicrophoneMode={this.onSwitchToMicrophoneMode}
+          onSwitchToGalleryMode={this.onSwitchToGalleryMode}
+          onSwitchToCameraMode={this.onSwitchToCameraMode}
+          onShowKeyboard={this.onShowKeyboard}
         />
+          <View style={styles.back}>
+            <TouchableOpacity onPress={() => { this.props.navigation.goBack() }}>
+              <Image style={styles.backImg} source={require('./src/components/common/img/back.png')} />
+            </TouchableOpacity>
+          </View>
       </View>
     );
   }
@@ -212,8 +223,6 @@ export default class TestRNIMUI extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   messageList: {
@@ -227,7 +236,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     width: window.width,
     height:100,
-    
+
   },
   btnStyle: {
     marginTop: 10,
@@ -235,5 +244,19 @@ const styles = StyleSheet.create({
     borderColor: '#3e83d7',
     borderRadius: 8,
     backgroundColor: '#3e83d7'
+  },
+  back: {
+    width: window.width,
+    height: px2dp(81),
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'transparent',
+  },
+  backImg: {
+    left: px2dp(23),
+    top: px2dp(40),
+    tintColor: '#000',
   }
 });

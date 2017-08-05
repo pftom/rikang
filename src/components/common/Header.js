@@ -67,7 +67,7 @@ class Header extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     const { httpStatus, submitProfileError, submitProfileSuccess } = nextProps;
-    
+
     if (nextProps.whetherFaved !== this.props.whetherFaved) {
       this.setState({
         faved: nextProps.whetherFaved,
@@ -203,7 +203,7 @@ class Header extends PureComponent {
     )
 
     return (
-        <View style={[ props.animatedOpacity && styles.containerBox, props.headerStyle ]}>
+        <View style={[ props.animatedOpacity && styles.containerBox, props.headerStyle, props.miuiHeader && styles.containerBox ]}>
           <Animated.View style={props.animatedOpacity && [ styles.containerBox, { opacity: props.animatedOpacity } ]}>
             {
                 props.showGradient && (
@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         right: px2dp(20),
-      }   
+      }
     })
   },
   navigate: {
