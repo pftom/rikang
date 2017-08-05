@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
-import { 
-  TouchableOpacity, 
-  Text, 
-  View, 
-  ScrollView, 
+import {
+  TouchableOpacity,
+  Text,
+  View,
+  ScrollView,
   StatusBar,
   Animated,
   Image,
@@ -39,23 +39,25 @@ class ServiceItem extends PureComponent {
     const remainTime = '剩余3小时';
 
     return (
-      <View style={styles.container}>
-        <View style={styles.box}>
-          <View style={styles.doctorAvatarBox}>
-            <Image source={{ uri: item.avatar }} style={styles.doctorAvatar} />
-          </View>
-          <View style={styles.rightBox}>
-              <View style={styles.nameBox}>
-                <View style={styles.remainContainer}>
-                  <Text style={styles.name}>{item.name}</Text>
-                  <View style={styles.remainBox}><Text style={styles.remainTime}>{remainTime}</Text></View>
-                </View>
-                <Text style={styles.lastTime}>{lastTime}</Text>
-              </View>
-              <Text style={styles.lastMessage}>{lastMessage}</Text>
+      <TouchableOpacity onPress={() => { navigation.navigate('TestRNIMUI')}}>
+        <View style={styles.container}>
+          <View style={styles.box}>
+            <View style={styles.doctorAvatarBox}>
+              <Image source={{ uri: item.avatar }} style={styles.doctorAvatar} />
             </View>
+            <View style={styles.rightBox}>
+                <View style={styles.nameBox}>
+                  <View style={styles.remainContainer}>
+                    <Text style={styles.name}>{item.name}</Text>
+                    <View style={styles.remainBox}><Text style={styles.remainTime}>{remainTime}</Text></View>
+                  </View>
+                  <Text style={styles.lastTime}>{lastTime}</Text>
+                </View>
+                <Text style={styles.lastMessage}>{lastMessage}</Text>
+              </View>
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 }

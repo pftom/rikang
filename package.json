@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "antd-mobile": "1.4.1",
+    "aurora-imui-react-native": "^0.3.2",
     "babel-preset-expo": "^2.0.0",
     "formdata-polyfill": "2.0.3",
     "immutable": "3.7.6",

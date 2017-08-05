@@ -19,7 +19,7 @@ import About from '../components/TabThree/views/About';
 
 /*
  *
- * 
+ *
  * home section screen
 */
 import TabBarNavigation from './TabBarNavigation';
@@ -40,10 +40,11 @@ import ProfileScreen from '../components/ProfileScreen';
 import Practice from '../components/practice';
 
 import Chat from '../im/Chat';
+import TestRNIMUI from '../../miui';
 
 /*
  *
- * 
+ *
  * service section screen
 */
 import ConsultOrder from '../components/TabOne/views/ConsultOrder';
@@ -53,7 +54,7 @@ import NewComment from '../components/TabThree/views/NewComment';
 
 /*
  *
- * 
+ *
  * qa section screen
 */
 import QuestionDetail from '../components/TabTwo/views/QuestionDetail';
@@ -99,7 +100,8 @@ export const AppNavigator = StackNavigator({
     DoctorList: { screen: DoctorList },
     DoctorDetail: { screen: DoctorDetail },
     Chat: { screen: Chat },
-    
+    TestRNIMUI: { screen: TestRNIMUI },
+
     ConsultOrder: { screen: ConsultOrder },
     PaySuccess: { screen: PaySuccess },
     NewComment: { screen: NewComment },
