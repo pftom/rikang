@@ -26,6 +26,10 @@ import {
   GET_CLIENT_IP,
   GET_CLIENT_IP_SUCCESS,
   GET_CLIENT_IP_ERROR,
+
+  ADD_COMMENT_FOR_ORDER,
+  ADD_COMMENT_FOR_ORDER_ERROR,
+  ADD_COMMENT_FOR_ORDER_SUCCESS,
 } from '../constants/';
 
 //import request api
@@ -43,6 +47,19 @@ function* getClientIp(payload) {
     yield put({ type: GET_CLIENT_IP_SUCCESS, clientIp });
   } catch (error) {
     yield put({ type: GET_CLIENT_IP_ERROR, error });
+  }
+}
+
+function* createNewComment(payload) {
+  try {
+    const { token, body } = payload;
+
+
+    yield call(request.post, base + serviceApi.createNewComment, body, token);
+
+    yield put({ type: ADD_COMMENT_FOR_ORDER_SUCCESS });
+  } catch (error) {
+    yield put({ type: ADD_COMMENT_FOR_ORDER_ERROR, error });
   }
 }
 
@@ -159,6 +176,14 @@ function* watchGetClientIp() {
   }
 }
 
+function* watchCreateNewComment() {
+  while (true) {
+    const { payload } = yield take(ADD_COMMENT_FOR_ORDER);
+
+    yield call(createNewComment, payload);
+  }
+}
+
 export {
   watchCreateNewOrder,
   watchCancel,
@@ -167,4 +192,5 @@ export {
   watchFinishOrder,
 
   watchGetClientIp,
+  watchCreateNewComment,
 }

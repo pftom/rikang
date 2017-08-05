@@ -15,12 +15,18 @@ import {
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 
+import { Toast } from 'antd-mobile';
+
+import { getNewCommentSelector } from '../../../selectors/';
+
 import { Header } from '../../common/';
 
 import { BottomButton } from '../../common/';
 
 //import post style
 import { NewCommentStyle as styles } from '../styles/';
+
+import { ADD_COMMENT_FOR_ORDER, CLEAR_COMMENT_ORDER_STATE } from '../../../constants/';
 
 const COUNTERTEXT = [
   '很差',
@@ -45,41 +51,96 @@ class NewComment extends PureComponent {
       value: false,
       text: '',
       ratings,
-      counterText: '非常满意'
+      counterText: '非常满意',
     }
   }
 
   handleTouch = (i) => {
+    console.log('i', i);
     this.setState({
       ratings: parseInt(i),
+      counterText: COUNTERTEXT[parseInt(i)],
     });
   }
 
+
+  componentWillReceiveProps(nextProps) {
+    const { isComment, commentSuccess, commentError } = nextProps;
+
+    if (isComment) {
+      this.loadingToast();
+    } 
+
+    if (commentSuccess) {
+
+      this.successToast('评价成功');
+    }
+
+    if (commentError) {
+      this.failToast('评价失败');
+    }
+  }
+
   handlePutComment = () => {
-    console.log('hhhh');
+    const { text, value, ratings } = this.state;
+    const { navigation } = this.props;
+    const { order_no, dispatch, doctor } = navigation.state.params;
+
+    if (text && text.length === 0) {
+      this.failToast('评论内容不能为空');
+    } else {
+
+      const body = {
+        order_no,
+        body: text,
+        ratings,
+        doctor,
+        anonymous: value,
+      };
+
+      dispatch({ type: ADD_COMMENT_FOR_ORDER, payload: { token, body }});
+    }
+  }
+
+  successToast(msg) {
+    this.props.dispatch({ type: CLEAR_COMMENT_ORDER_STATE });
+    Toast.success(msg, 1);
+  }
+
+  failToast(msg) {
+    this.props.dispatch({ type: CLEAR_COMMENT_ORDER_STATE });
+    Toast.fail(msg, 1);
+  }
+
+  loadingToast() {
+    Toast.loading('请稍后...', 1);
   }
 
   render() {
 
     const { headerText, navigation } = this.props;
 
-    const {  ratings } = this.state;
+    const { dispatch, token, isAddComment } = navigation.state.params;
+
+    const { ratings } = this.state;
+
+    console.log('ratings', ratings);
 
     const ITEMS = [];
 
     if (ratings && !isNaN(Number(ratings))) {
-        for (let i = 0; i < Number(ratings); i++) {
-          ITEM.push(
-            <TouchableOpacity onPress={() => this.handleTouch(i) }>
-              <Image source={require('../../TabOne/img/bigHeart.png')} style={styles.img} key={i} />
+        for (let i = 1; i <= Number(ratings); i++) {
+          ITEMS.push(
+            <TouchableOpacity onPress={() => this.handleTouch(i) } key={i}>
+              <Image source={require('../../TabOne/img/bigSolidHeart.png')} style={styles.img} />
             </TouchableOpacity>
           )
         }
 
-        for (let i = 0; i < 5 - Number(ratings); i++) {
-          ITEM.push(
-            <TouchableOpacity onPress={() => this.handleTouch(i) }>
-              <Image source={require('../../TabOne/img/bigHeart.png')} style={styles.img} key={i} />
+        for (let i = Number(ratings) + 1; i <= 5; i++) {
+          ITEMS.push(
+            <TouchableOpacity onPress={() => this.handleTouch(i) } key={i}>
+              <Image source={require('../../TabOne/img/bigHeart.png')} style={styles.img}  />
             </TouchableOpacity>
           )
         }
@@ -105,7 +166,7 @@ class NewComment extends PureComponent {
           <Text style={styles.counterText}>{this.state.counterText}</Text>
         </View>
         {
-          this.props.isAddComment && (
+          isAddComment && (
             <View style={styles.anonymousBox}>
               <Text style={styles.anonymous}>匿名评论</Text>
               <Switch 
@@ -115,15 +176,19 @@ class NewComment extends PureComponent {
             </View>
           )
         }
-        <View style={[ styles.commentBox, this.props.isAddComment && styles.extraCommentBox ]}>
+        <View style={[ styles.commentBox, !isAddComment && styles.extraCommentBox ]}>
             <Text style={styles.ratings}>评论</Text>
-            <TextInput
-              placeholder='输入评论的内容...'
-              value={this.state.text}
-              onChangeText={(text) => { this.setState({ text } ) } }
-              multiline={true}
-              style={styles.textInput}
-            />
+            <View>
+              <TextInput
+                placeholder='输入评论的内容...'
+                placeholderTextColor="#B6B6B6"
+                value={this.state.text}
+                onChangeText={(text) => { this.setState({ text } ) } }
+                multiline={true}
+                style={styles.textInput}
+                numberOfLines = {6}
+              />
+            </View>
         </View>
         <BottomButton content={'提交评价'} token={token} dispatch={dispatch} handlePutComment={this.handlePutComment}  navigation={navigation}  kind={'putComment'} />
       </View>
@@ -131,4 +196,6 @@ class NewComment extends PureComponent {
   }
 }
 
-export default NewComment;
+export default connect(
+  state => getNewCommentSelector(state),
+)(NewComment);

@@ -23,7 +23,7 @@ class FinishedListItem extends PureComponent {
   handleBtn = () => {
     const { navigation, dispatch, token } = this.props;
 
-    navigation.navigate('NewComment', { token, dispatch });
+    navigation.navigate('NewComment', { token, dispatch, isAddComment: true });
   }
 
   render() {

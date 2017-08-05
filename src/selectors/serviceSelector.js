@@ -102,3 +102,24 @@ export const getServiceSelector = createSelector(
     clientIp,
   }),
 );
+
+const getIsComment = (state) => state.getIn(['service', 'isComment']);
+const getCommentSuccess = (state) => state.getIn(['service', 'commentSuccess']);
+const getCommentError = (state) => state.getIn(['service', 'commentError']);
+
+export const getNewCommentSelector = createSelector(
+  [ 
+    getIsComment,
+    getCommentSuccess,
+    getCommentError,
+  ],
+  (
+    isComment,
+    commentSuccess,
+    commentError,
+  ) => ({
+    isComment,
+    commentSuccess,
+    commentError,
+  })
+)

@@ -86,6 +86,7 @@ export const  NewCommentStyle = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 4,
     marginTop: px2dp(16),
+    height: px2dp(162),
   },
   extraCommentBox: {
     marginTop: 0,
@@ -93,7 +94,7 @@ export const  NewCommentStyle = StyleSheet.create({
   textInput: {
     width: px2dp(313),
     fontSize: px2dp(18),
-    height: px2dp(25),
+    height: px2dp(115),
     ...Platform.select({
       ios: {
         lineHeight: px2dp(25),

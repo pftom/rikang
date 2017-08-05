@@ -42,7 +42,9 @@ import {
 } from './PutQuestionSelector.js';
 
 import {
-  getServiceSelector
+  getServiceSelector,
+
+  getNewCommentSelector,
 } from './serviceSelector.js';
 
 export {
@@ -74,5 +76,6 @@ export {
   getQuestionStatusSelector,
 
   getServiceSelector,
+  getNewCommentSelector,
 
 }

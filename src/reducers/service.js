@@ -28,6 +28,12 @@ import {
   GET_CLIENT_IP,
   GET_CLIENT_IP_SUCCESS,
   GET_CLIENT_IP_ERROR,
+
+  ADD_COMMENT_FOR_ORDER,
+  ADD_COMMENT_FOR_ORDER_ERROR,
+  ADD_COMMENT_FOR_ORDER_SUCCESS,
+  CLEAR_COMMENT_ORDER_STATE,
+
 } from '../constants/';
 
 const initialServiceValue = Map({
@@ -61,6 +67,10 @@ const initialServiceValue = Map({
   isFinishOrder: false,
   finishOrderSuccess: false,
   finishOrderError: false,
+
+  isComment: false, 
+  commentSuccess: false, 
+  commentError: false,
 });
 
 
@@ -214,6 +224,36 @@ const service = (state = initialServiceValue, action) => {
         getClientIpError: true,
       });
 
+
+    case ADD_COMMENT_FOR_ORDER:
+
+      return state.merge({
+        isComment: true, 
+        commentSuccess: false, 
+        commentError: false,
+      });
+
+    case ADD_COMMENT_FOR_ORDER_SUCCESS:
+
+      return state.merge({
+        isComment: false, 
+        commentSuccess: true, 
+      });
+
+    case ADD_COMMENT_FOR_ORDER_ERROR:
+
+      return state.merge({
+        isComment: false, 
+        commentError: true,
+      });
+
+    case CLEAR_COMMENT_ORDER_STATE:
+      
+      return state.merge({
+        isComment: false, 
+        commentSuccess: false, 
+        commentError: false,
+      });
 
     case CLEAR_SERVICE_STATE:
 
