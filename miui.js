@@ -19,7 +19,16 @@ var InputView = IMUI.ChatInput;
 var MessageListView = IMUI.MessageList;
 const window = Dimensions.get('window');
 
-import { TextMessage, Message } from 'leancloud-realtime';
+import { TextMessage, Message, Realtime } from 'leancloud-realtime';
+import AV from 'leancloud-storage';
+var ImageMessage = require('leancloud-realtime-plugin-typed-messages').ImageMessage;
+var AudioMessage = require('leancloud-realtime-plugin-typed-messages').AudioMessage;
+
+
+//read the voice and image data
+import RNFS from 'react-native-fs';
+
+import RNFetchBlob from 'react-native-fetch-blob'
 
 
 import px2dp from './src/utils/px2dp';
@@ -80,6 +89,7 @@ function constructMoreDetailMessage(item, clientId, isSucceed) {
 
   return message;
 }
+
 
 export default class TestRNIMUI extends Component {
   constructor(props) {
@@ -160,6 +170,8 @@ export default class TestRNIMUI extends Component {
 
         let { nowMessage } = this.state;
 
+        console.log('message', message);
+
         nowMessage = {
           ...nowMessage,
           status: "send_success",
@@ -186,6 +198,78 @@ export default class TestRNIMUI extends Component {
     return this.send(message);
   }
 
+  constructMoreDetailMessageImg = (item, clientId, isSucceed) => {
+    //for mediaPath
+    // let mediaPath = '/Users/tom/Library/Developer/CoreSimulator/Devices/0E969615-494B-4EA4-AC1B-595EC84CD751/data/Containers/Data/Application/CE841824-7F9F-4DBE-B4A1-1FBABEF10A1E/Documents/';
+
+    RNFetchBlob
+      .config({
+        fileCache : true,
+        // by adding this option, the temp files will have a file extension
+        appendExt : 'png'
+      })
+      .fetch('GET', item._lcfile.url)
+      .then((res) => {
+        console.log('res', res)
+          const message = constructNormalMessage();
+
+          const nowTime = getNowTime(item);
+
+          //sign message is me or other
+          const isOutgoing = Number(item.from) === Number(clientId);
+
+          message.msgType = "image"
+          message.mediaPath = res.path();
+          message.progress = "加载中...";
+
+          message.timeString = nowTime;
+          message.isOutgoing = isOutgoing;
+          message.status = isSucceed ? "send_succeed" : "send_going";
+
+          AuroraIController.insertMessagesToTop([message]);
+          AuroraIController.scrollToBottom(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  constructMoreDetailMessageAudio = (item, clientId, isSucceed) => {
+    //for mediaPath
+    // let mediaPath = '/Users/tom/Library/Developer/CoreSimulator/Devices/0E969615-494B-4EA4-AC1B-595EC84CD751/data/Containers/Data/Application/CE841824-7F9F-4DBE-B4A1-1FBABEF10A1E/Documents/';
+
+    RNFetchBlob
+      .config({
+        fileCache : true,
+        // by adding this option, the temp files will have a file extension
+        appendExt : 'm4a'
+      })
+      .fetch('GET', item._lcfile.url)
+      .then((res) => {
+        console.log('res', res)
+          const message = constructNormalMessage();
+
+          const nowTime = getNowTime(item);
+
+          //sign message is me or other
+          const isOutgoing = Number(item.from) === Number(clientId);
+
+          message.msgType = "voice"
+          message.mediaPath = res.path();
+          message.progress = "加载中...";
+
+          message.timeString = nowTime;
+          message.isOutgoing = isOutgoing;
+          message.status = isSucceed ? "send_succeed" : "send_going";
+
+          AuroraIController.insertMessagesToTop([message]);
+          AuroraIController.scrollToBottom(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
   loadMoreMessages = () => {
     if (this.state.hasLoadAllMessages) {
       return;
@@ -207,8 +291,16 @@ export default class TestRNIMUI extends Component {
 
       if (result.value) {
         result.value.map(item => {
-          MESSAGES.push(constructMoreDetailMessage(item, clientId, true));
+          if (!item._lcfile && item._lctext !== 'data:image/jpeg;base64,') {
+            MESSAGES.push(constructMoreDetailMessage(item, clientId, true));
+          } 
+          else if (item._lcfile && item._lctext === 'data:image/jpeg;base64,') {
+            this.constructMoreDetailMessageImg(item, clientId, true)
+          } else if (item._lcfile && item._lctext === "data:audio/m4a;base64,") {
+            this.constructMoreDetailMessageAudio(item, clientId, true)
+          }
         })
+
 
         AuroraIController.insertMessagesToTop(MESSAGES);
         AuroraIController.scrollToBottom(true);
@@ -272,9 +364,39 @@ export default class TestRNIMUI extends Component {
 
   onTakePicture = (mediaPath) => {
 
+    const that = this;
+
     var message = constructNormalMessage()
     message.msgType = "image"
     message.mediaPath = mediaPath
+
+      //add image 
+      this.setState({
+        nowMessage: message,
+      });
+
+      RNFS.readFile(message.mediaPath, 'base64')
+        .then((contents) => {
+              console.log(contents);
+              const img = 'data:image/jpeg;base64,' + contents;
+
+              const file = new AV.File('image', {
+                blob: {
+                  uri: img
+                }
+              });
+              file.save().then(function () {
+              const msg = new ImageMessage(file);
+              msg.setText('data:image/jpeg;base64,');
+              console.log('msg', msg);
+
+              return that.send(msg);
+              
+            }).catch(console.error.bind(console));
+          })
+        .catch(err => {
+          console.log(err.message, err.code);
+        })
 
     AuroraIController.appendMessages([message])
     AuroraIController.scrollToBottom(true)
@@ -285,9 +407,40 @@ export default class TestRNIMUI extends Component {
   }
 
   onFinishRecordVoice = (mediaPath, duration) => {
+    const that = this;
     var message = constructNormalMessage()
     message.msgType = "voice"
     message.mediaPath = mediaPath
+
+    console.log('message.mediaPath', message.mediaPath)
+
+    //add image 
+      this.setState({
+        nowMessage: message,
+      });
+
+      RNFS.readFile(message.mediaPath, 'base64')
+        .then((contents) => {
+              console.log(contents);
+              const audio = 'data:audio/m4a;base64,' + contents;
+
+              const file = new AV.File('audio', {
+                blob: {
+                  uri: audio
+                }
+              });
+              file.save().then(function () {
+              const msg = new AudioMessage(file);
+              msg.setText('data:audio/m4a;base64,');
+              console.log('msg', msg);
+
+              return that.send(msg);
+              
+            }).catch(console.error.bind(console));
+          })
+        .catch(err => {
+          console.log(err.message, err.code);
+        })
 
     AuroraIController.appendMessages([message])
   }
@@ -301,20 +454,49 @@ export default class TestRNIMUI extends Component {
   }
 
   onFinishRecordVideo = (mediaPath) => {
-    var message = constructNormalMessage()
+    // var message = constructNormalMessage()
 
-    message.msgType = "video"
-    message.mediaPath = mediaPath
+    // message.msgType = "video"
+    // message.mediaPath = mediaPath
 
-    AuroraIController.appendMessages([message])
+    // AuroraIController.appendMessages([message])
   }
 
   onSendGalleryFiles = (mediaFiles) => {
+    const that = this;
     console.log(mediaFiles)
     for(index in mediaFiles) {
       var message = constructNormalMessage()
       message.msgType = "image"
       message.mediaPath = mediaFiles[index].mediaPath
+
+      this.setState({
+        nowMessage: message,
+      });
+
+      RNFS.readFile(message.mediaPath, 'base64')
+        .then((contents) => {
+              console.log(contents);
+              const img = 'data:image/jpeg;base64,' + contents;
+
+              const file = new AV.File('image', {
+                blob: {
+                  uri: img
+                }
+              });
+              file.save().then(function () {
+              const msg = new ImageMessage(file);
+              msg.setText('data:image/jpeg;base64,');
+              console.log('msg', msg);
+
+              return that.send(msg);
+              
+            }).catch(console.error.bind(console));
+          })
+        .catch(err => {
+          console.log(err.message, err.code);
+        })
+      
 
       AuroraIController.appendMessages([message])
       AuroraIController.scrollToBottom(true)

@@ -9,6 +9,8 @@ import {
   Image,
 } from 'react-native';
 
+import RNFS from 'react-native-fs';
+
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 
@@ -24,11 +26,29 @@ class ServiceItem extends PureComponent {
 
     this.state = {
       normalConv: [],
+      img: null,
     }
   }
 
   handleBtn = () => {
 
+  }
+
+  componentDidMount() {
+    // this.getConversations();
+
+    const that = this;
+
+    return RNFS.readFile('/Users/tom/Library/Developer/CoreSimulator/Devices/0E969615-494B-4EA4-AC1B-595EC84CD751/data/Containers/Data/Application/CE841824-7F9F-4DBE-B4A1-1FBABEF10A1E/Documents/523694323.379707', 'base64')
+          .then((contents) => {
+            console.log(contents);
+            that.setState({
+              img: 'data:image/jpeg;base64,' + contents,
+            });
+          })
+          .catch(err => {
+            console.log(err.message, err.code);
+          })
   }
 
   getNormalConvs = () => {
@@ -99,6 +119,11 @@ class ServiceItem extends PureComponent {
             <View style={styles.rightBox}>
                 <View style={styles.nameBox}>
                   <View style={styles.remainContainer}>
+                  {
+                    this.state.img && (
+                      <Image source={{ uri: this.state.img }} style={{ height: 30, width: 30 }}/>
+                    )
+                  }
                     <Text style={styles.name}>{item.name}</Text>
                     <View style={styles.remainBox}><Text style={styles.remainTime}>{remainTime}</Text></View>
                   </View>
