@@ -58,17 +58,23 @@ class ServiceItem extends PureComponent {
     const clientId = userId;
     const imClient = LeanRT.imClient;
     console.log('imClient', imClient);
-    return imClient.getQuery().withLastMessagesRefreshed(true).containsMembers([String(clientId), String(doctorId)]).find();
+    if (imClient && imClient.getQuery) {
+      return imClient.getQuery().withLastMessagesRefreshed(true).containsMembers([String(clientId), String(doctorId)]).find();
+    }
   }
 
   getConversations = () => {
     const that = this;
-    return this.getNormalConvs()
-      .then(data => {
+
+    const convs =  this.getNormalConvs()
+    
+    if (convs) {
+      return convs.then(data => {
         that.setState({
           normalConv: data,
         });
       })
+    }
   }
 
   handleChat(doctorId) {

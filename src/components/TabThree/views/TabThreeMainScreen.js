@@ -248,7 +248,7 @@ class UserScreen extends PureComponent {
       [
         { data: patientUnderWayServicesData.data, key: `进行中（${patientUnderWayServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <ServiceItem LeanRT={LeanRT} userId={this.props.userId} navigation={navigation} item={item} token={token} /> },
         { data: patientPaidServicesData.data, key: `等待接受预约（${patientPaidServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <WaitForAcceptListItem navigation={navigation} item={item} token={token} /> },
-        { data: patientFinishedServicesData.data, key: `已完成（${patientFinishedServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <FinishedListItem navigation={navigation} item={item} token={token} /> },
+        { data: patientFinishedServicesData.data, key: `已完成（${patientFinishedServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <FinishedListItem navigation={navigation} item={item} token={token} dispatch={dispatch} /> },
       ],
       [
         { data: [{ favDoctors: patientFavDoctorsData.data, key: '1' }], key: `收藏的医生（${patientFavDoctorsData.count}）`, spread: true, renderItem: ({ item }) => <NearByDoctorSection noYear={true} navigation={navigation} nearbyDoctor={item.favDoctors} token={token} /> },

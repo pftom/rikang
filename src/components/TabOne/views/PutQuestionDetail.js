@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { TouchableOpacity,ScrollView, Image, Text, KeyboardAvoidingView, View, TextInput, TouchableWithoutFeedback, Keyboard, } from 'react-native';
+import { TouchableOpacity,ScrollView, Image, Text, Platform, KeyboardAvoidingView, View, TextInput, TouchableWithoutFeedback, Keyboard, } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -130,7 +130,7 @@ class PutQuestionDetail extends PureComponent {
           </TouchableOpacity>
         </View>
         <Text style={styles.titleText}>症状描述</Text>
-        <KeyboardAvoidingView behavior="position" >
+        <KeyboardAvoidingView behavior={Platform.OS === 'android' ? 'height' : "position"} >
           <TextInput
           ref="textInput"
           multiline={true}

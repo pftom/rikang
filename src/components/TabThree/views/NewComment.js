@@ -10,6 +10,10 @@ import {
   TouchableHighlight,
   Switch,
   TextInput,
+  KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback,
+  Platform,
 } from 'react-native';
 
 import { NavigationActions } from 'react-navigation';
@@ -84,7 +88,7 @@ class NewComment extends PureComponent {
   handlePutComment = () => {
     const { text, value, ratings } = this.state;
     const { navigation } = this.props;
-    const { order_no, dispatch, doctor } = navigation.state.params;
+    const { order_no, dispatch, doctor, token } = navigation.state.params;
 
     if (text && text.length === 0) {
       this.failToast('评论内容不能为空');
@@ -147,7 +151,8 @@ class NewComment extends PureComponent {
       }
 
     return (
-      <View style={styles.container}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
         <Header
           headerText={headerText}
           logoLeft={true}
@@ -178,7 +183,7 @@ class NewComment extends PureComponent {
         }
         <View style={[ styles.commentBox, !isAddComment && styles.extraCommentBox ]}>
             <Text style={styles.ratings}>评论</Text>
-            <View>
+            <KeyboardAvoidingView behavior={Platform.OS === 'android' ? 'height' : "position"} >
               <TextInput
                 placeholder='输入评论的内容...'
                 placeholderTextColor="#B6B6B6"
@@ -188,10 +193,11 @@ class NewComment extends PureComponent {
                 style={styles.textInput}
                 numberOfLines = {6}
               />
-            </View>
+            </KeyboardAvoidingView>
         </View>
         <BottomButton content={'提交评价'} token={token} dispatch={dispatch} handlePutComment={this.handlePutComment}  navigation={navigation}  kind={'putComment'} />
       </View>
+      </TouchableWithoutFeedback>
     )
   }
 }
