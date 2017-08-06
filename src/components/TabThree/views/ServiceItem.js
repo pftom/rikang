@@ -17,6 +17,17 @@ import { connect } from 'react-redux';
 //import post style
 import { ServiceItemStyle as styles } from '../styles/';
 
+function getNowTime(item) {
+  const now = new Date(item._lastMessageAt);
+
+  const hour = now.getHours();
+  const minute = now.getMinutes();
+
+  const nowTime = `${hour}:${minute}`;
+
+  return nowTime;
+}
+
 
 
 class ServiceItem extends PureComponent {
@@ -35,20 +46,9 @@ class ServiceItem extends PureComponent {
   }
 
   componentDidMount() {
-    // this.getConversations();
+    this.getConversations();
 
     const that = this;
-
-    return RNFS.readFile('/Users/tom/Library/Developer/CoreSimulator/Devices/0E969615-494B-4EA4-AC1B-595EC84CD751/data/Containers/Data/Application/CE841824-7F9F-4DBE-B4A1-1FBABEF10A1E/Documents/523694323.379707', 'base64')
-          .then((contents) => {
-            console.log(contents);
-            that.setState({
-              img: 'data:image/jpeg;base64,' + contents,
-            });
-          })
-          .catch(err => {
-            console.log(err.message, err.code);
-          })
   }
 
   getNormalConvs = () => {
@@ -57,7 +57,8 @@ class ServiceItem extends PureComponent {
     const doctorId = item.service_object.doctor;
     const clientId = userId;
     const imClient = LeanRT.imClient;
-    return imClient.getQuery().withLastMessagesRefreshed().containsMembers([clientId, doctorId]).find();
+    console.log('imClient', imClient);
+    return imClient.getQuery().withLastMessagesRefreshed(true).containsMembers([String(clientId), String(doctorId)]).find();
   }
 
   getConversations = () => {
@@ -92,20 +93,29 @@ class ServiceItem extends PureComponent {
 
     const doctorId = item.service_object.doctor;
 
-    console.log('doctorId', doctorId);
-
-
-    let lastMessage = "每次洗完澡后记得局部要用护肤品哈哈哈哈或或";
-
     const { normalConv } = this.state;
     console.log('normalConv', normalConv);
+
+    let lastMessage = '';
+    let lastTime = '';
+
+    if (normalConv.length > 0) {
+      const message = normalConv[0].lastMessage;
+
+      if (!message._lcfile && message._lctext !== 'data:image/jpeg;base64,') {
+        lastMessage = message._lctext;
+      } else if (message._lcfile && message._lctext === 'data:image/jpeg;base64,') {
+        lastMessage = '发来了一张图片...';
+      } else if (message._lcfile && message._lctext === "data:audio/m4a;base64,") {
+        lastMessage = '发来了一段语音...';
+      }
+
+      lastTime = getNowTime(normalConv[0]);
+    }
 
     if (lastMessage.length > 13) {
       lastMessage = lastMessage.slice(0, 13) + '...';
     }
-
-    const lastTime = '12:01';
-    // item.avatar
 
     const remainTime = '剩余3小时';
 
