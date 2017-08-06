@@ -35,21 +35,56 @@ function constructNormalMessage() {
     themsgid += 1
     message.status = "send_going"
     message.isOutgoing = true
-    message.timeString = ""
+    message.timeString = "10: 00"
     var user = {
           userId: "1",
           displayName: "Tom",
-          avatarPath: ""
+          avatarPath: "https://facebook.github.io/react/img/logo_og.png"
     }
     message.fromUser = user
 
     return  message
 }
 
+
+function getNowTime(item) {
+  const now = new Date(item.timestamp);
+
+  //setting message time
+  const year = now.getFullYear();
+  const month = now.getMonth() >= 9 ? now.getMonth() + 1 : `0${now.getMonth() + 1}`;
+  const day = now.getDate();
+  const hour = now.getHours();
+  const minute = now.getMinutes();
+
+  const nowTime = `${year}-${month}-${day} ${hour}:${minute}`;
+
+  return nowTime;
+}
+
+function constructMoreDetailMessage(item, clientId, isSucceed) {
+
+  const message = constructNormalMessage();
+
+  const nowTime = getNowTime(item);
+
+  //sign message is me or other
+  const isOutgoing = Number(item.from) === Number(clientId);
+
+  message.msgType = "text"
+  message.text = item.content._lctext;
+
+  message.timeString = nowTime;
+  message.isOutgoing = isOutgoing;
+  message.status = isSucceed ? "send_succeed" : "send_going";
+
+  return message;
+}
+
 export default class TestRNIMUI extends Component {
   constructor(props) {
     super(props);
-    this.state = { inputViewLayout: {width:window.width, height:86,}};
+
     console.log('AuroraIController', MessageListView);
     this.updateLayout = this.updateLayout.bind(this);
 
@@ -57,7 +92,8 @@ export default class TestRNIMUI extends Component {
       maxResultsAmount: 50,
       messages: [],
       hasLoadAllMessages: false,
-      
+      inputViewLayout: {width:window.width, height:86,},
+      nowMessage: null,
     }
   }
 
@@ -121,10 +157,22 @@ export default class TestRNIMUI extends Component {
         });
 
         messages.push(message);
+
+        let { nowMessage } = this.state;
+
+        nowMessage = {
+          ...nowMessage,
+          status: "send_success",
+          timeString: getNowTime(message),
+        };
+        AuroraIController.updateMessage(nowMessage);
+
+
         console.log(messages);
         that.setState({
           messages,
         });
+
         return sendPromise;
       })
       .catch(console.error.bind(console));
@@ -150,7 +198,27 @@ export default class TestRNIMUI extends Component {
       if (result.done) {
         newState.hasLoadAllMessages = true;
       }
+
+      //add to messagelist
+      const { navigation } = this.props;
+      const { clientId } = navigation.state.params;
+      let MESSAGES = [];
+      console.log('clientId', clientId);
+
+      if (result.value) {
+        result.value.map(item => {
+          MESSAGES.push(constructMoreDetailMessage(item, clientId, true));
+        })
+
+        AuroraIController.insertMessagesToTop(MESSAGES);
+        AuroraIController.scrollToBottom(true);
+
+        console.log('MESSAGE', MESSAGES)
+      }
+
       newState.messages = result.value.concat(messages);
+      
+
       this.setState(newState)
     })
   }
@@ -185,9 +253,13 @@ export default class TestRNIMUI extends Component {
       console.log("on pull to refresh")
     }
 
-  onSendText = (text) => {
+  onSendText = (text, needSendToCloud) => {
 
     var message = constructNormalMessage()
+
+    this.setState({
+      nowMessage: message,
+    });
 
     message.msgType = "text"
     message.text = text

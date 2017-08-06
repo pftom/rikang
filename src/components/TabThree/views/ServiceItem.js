@@ -72,6 +72,8 @@ class ServiceItem extends PureComponent {
 
     const doctorId = item.service_object.doctor;
 
+    console.log('doctorId', doctorId);
+
 
     let lastMessage = "每次洗完澡后记得局部要用护肤品哈哈哈哈或或";
 
@@ -88,7 +90,7 @@ class ServiceItem extends PureComponent {
     const remainTime = '剩余3小时';
 
     return (
-      <TouchableOpacity onPress={() => { this.handleChat() }}>
+      <TouchableOpacity onPress={() => { this.handleChat(doctorId) }}>
         <View style={styles.container}>
           <View style={styles.box}>
             <View style={styles.doctorAvatarBox}>
