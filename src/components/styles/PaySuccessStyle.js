@@ -59,9 +59,11 @@ export const PaySuccessStyle = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5F6F7',
     borderRadius: px2dp(8),
+    top: px2dp(35),
   },
   extraButtonContainer: {
-    marginTop: px2dp(34),
+    width: width,
+    height: px2dp(34),
   },
   content: {
     fontFamily: 'PingFangSC-Medium',
