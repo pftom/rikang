@@ -135,6 +135,7 @@ android {
 }
 
 dependencies {
+    compile project(':aurora-imui-react-native')
     compile project(':react-native-fetch-blob')
     compile project(':react-native-fs')
     compile project(':pingpp-react-native')

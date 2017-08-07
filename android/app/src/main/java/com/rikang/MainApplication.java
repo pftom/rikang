@@ -13,6 +13,8 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import cn.jiguang.imui.messagelist.ReactIMUIPackage;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +36,8 @@ public class MainApplication extends Application implements ReactApplication {
             new PingppPackage(),
             new PickerViewPackage(),
             new LinearGradientPackage(),
-            new ImagePickerPackage()
+            new ImagePickerPackage(),
+            new ReactIMUIPackage()
       );
     }
   };
