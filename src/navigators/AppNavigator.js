@@ -42,6 +42,8 @@ import Practice from '../components/practice';
 import Chat from '../im/Chat';
 import TestRNIMUI from '../../miui';
 
+import TestRNIMUIAndroid from '../../miuiAndroid';
+
 /*
  *
  *
@@ -101,6 +103,7 @@ export const AppNavigator = StackNavigator({
     DoctorDetail: { screen: DoctorDetail },
     Chat: { screen: Chat },
     TestRNIMUI: { screen: TestRNIMUI },
+    TestRNIMUIAndroid: { screen: TestRNIMUIAndroid },
 
     ConsultOrder: { screen: ConsultOrder },
     PaySuccess: { screen: PaySuccess },

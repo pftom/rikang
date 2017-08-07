@@ -7,6 +7,7 @@ import {
   StatusBar,
   Animated,
   Image,
+  Platform,
 } from 'react-native';
 
 import RNFS from 'react-native-fs';
@@ -125,8 +126,11 @@ class ServiceItem extends PureComponent {
       transient: false,
       unique: true,
     }).then(conversation => {
-
-      navigation.navigate('TestRNIMUI', { clientId: userId, doctorId, imClient: imClient, conv: conversation })
+      const SELECT = {
+        'ios': 'TestRNIMUI',
+        'android': 'TestRNIMUIAndroid'
+      };
+      navigation.navigate(SELECT[Platform.OS], { clientId: userId, doctorId, imClient: imClient, conv: conversation })
     }).catch(console.error.bind(console));
   }
 
