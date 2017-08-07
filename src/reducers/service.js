@@ -58,7 +58,7 @@ const initialServiceValue = Map({
   paySuccess: false,
   payError: false,
 
-  charge: null,
+  charge: List([]),
 
   isRefunding: false,
   refundSuccess: false,

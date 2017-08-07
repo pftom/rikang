@@ -28,6 +28,15 @@ function getNowTime(item) {
   return nowTime;
 }
 
+function calculateTime (orderCreatedTime, totalTime) {
+    const lastOrderTime = Date.parse(orderCreatedTime);
+    const now = new Date();
+    const nowOrderTime = Date.parse(now.getTime());
+    const remainTime = Math.floor( totalTime - ((nowOrderTime - lastOrderTime) / 1000 / 60 / 60) );
+
+    return remainTime;
+}
+
 
 
 class ServiceItem extends PureComponent {
@@ -38,6 +47,7 @@ class ServiceItem extends PureComponent {
     this.state = {
       normalConv: [],
       img: null,
+      recentMessages: [],
     }
   }
 
@@ -46,9 +56,39 @@ class ServiceItem extends PureComponent {
   }
 
   componentDidMount() {
+    //judge whether the order has completed
+
+    const { item, dispatch, token,  } = this.props;
+    if (calculateTime(item.orderCreatedTime, 24) <= 0) {
+      dispatch
+    }
+
     this.getConversations();
 
     const that = this;
+  }
+
+  getMessages = (converstion) => {
+    const that = this;
+
+    const { item, token, dispatch } = that;
+    const { order_no } = item;
+
+    return converstion.queryMessages({
+      limit: 10,
+    }).then(function(messages) {
+
+
+      if (messages.length === 0 && calculateTime(item.orderCreatedTime, 2) <= 0) {
+
+      }
+
+
+
+      that.setState({
+        recentMessages: messages,
+      });
+    }).catch(console.error.bind(console));
   }
 
   getNormalConvs = () => {
@@ -69,7 +109,10 @@ class ServiceItem extends PureComponent {
     const convs =  this.getNormalConvs()
     
     if (convs) {
-      return convs.then(data => {
+      return convs.then((data) => {
+        if (data && data.length > 0) {
+          this.getMessages(data[0]);
+        }
         that.setState({
           normalConv: data,
         });
@@ -99,11 +142,22 @@ class ServiceItem extends PureComponent {
 
     const doctorId = item.service_object.doctor;
 
-    const { normalConv } = this.state;
+    const { normalConv, recentMessages } = this.state;
     console.log('normalConv', normalConv);
+    console.log('recentMessages', recentMessages);
 
     let lastMessage = '';
     let lastTime = '';
+
+    /*
+     * for  calculate time
+     * really really really important!!!!!
+     * because, We depend on it to make money. - -!  _______电脑玩家汤姆
+    */
+
+    const remainTime = calculateTime("2017-08-06T23:12:06.966131");
+
+
 
     if (normalConv.length > 0) {
       const message = normalConv[0].lastMessage;

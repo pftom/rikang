@@ -62,8 +62,11 @@ const handleUserData = (data, kind, status, doctors) => {
       let avatarItem = {};
 
       if (kind === 'services') {
+        const { service_object } = item;
+        const { doctor } = service_object;
+        console.log('service_object', service_object)
         doctors.map(item => {
-          if (item.get('id') === id) {
+          if (item.get('id') === doctor) {
             nameItem = {
               name: item.get('name'),
             };

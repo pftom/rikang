@@ -21,19 +21,15 @@ import { FinishedListItemStyle as styles } from '../styles/';
 class FinishedListItem extends PureComponent {
 
   handleBtn = () => {
-    const { navigation, dispatch, token } = this.props;
+    const { navigation, dispatch, token, item } = this.props;
+    const { order_no, service_object } = item;
+    const { doctor } = service_object;
 
-    navigation.navigate('NewComment', { token, dispatch, isAddComment: true });
+    navigation.navigate('NewComment', { token, dispatch, isAddComment: true, order_no, doctor  });
   }
 
   render() {
     const { item } = this.props;
-
-    let lastMessage = "每次洗完澡后记得局部要用护肤品哈哈哈哈或或";
-
-    if (lastMessage.length > 13) {
-      lastMessage = lastMessage.slice(0, 13) + '...';
-    }
 
     const lastTime = '2017年7月15日';
 
@@ -59,7 +55,7 @@ class FinishedListItem extends PureComponent {
       <View style={styles.container}>
         <View style={styles.box}>
           <View style={styles.doctorAvatarBox}>
-            <Image source={{ uri: 'https://facebook.github.io/react/img/logo_og.png' }} style={styles.doctorAvatar} />
+            <Image source={{ uri: item.avatar }} style={styles.doctorAvatar} />
           </View>
           <View style={styles.rightBox}>
               <View style={styles.nameBox}>

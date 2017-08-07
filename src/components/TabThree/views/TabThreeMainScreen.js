@@ -201,6 +201,11 @@ class UserScreen extends PureComponent {
           name: '汤婷',
           key: 1,
           comment: null,
+          service_object: {
+              "doctor": 1,
+              "patient": 1
+          },
+          order_no: "a78sdas87dsdwq89wd8998b89df89fs"
         },
         {
           avatar: 'https://facebook.github.io/react/img/logo_og.png',
@@ -222,6 +227,11 @@ class UserScreen extends PureComponent {
               },
               "ratings": 5
           },
+            service_object: {
+              "doctor": 1,
+              "patient": 1
+          },
+          order_no: "a78sdas87dsdwq89wd8998b89df89fs"
         }
       ],
       count: 0,
