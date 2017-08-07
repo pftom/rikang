@@ -30,6 +30,42 @@
         </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+
+    <!-- Ping++ sdk -->
+      <activity
+        android:name="com.pingplusplus.android.PaymentActivity"
+        android:configChanges="orientation|screenSize"
+        android:launchMode="singleTop"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        <!--使用QQ钱包时，需要填写-->
+        <intent-filter>
+          <action android:name="android.intent.action.VIEW"/>
+          <category android:name="android.intent.category.BROWSABLE"/>
+          <category android:name="android.intent.category.DEFAULT"/>
+          <!-- 填写规则:qwallet + APP_ID -->
+          <data android:scheme="qwalletXXXXXXXX"/>
+        </intent-filter>
+      </activity>
+
+      <!-- 微信支付 sdk ，也是 Ping++ sdk 调用入口 -->
+      <activity-alias
+        android:name=".wxapi.WXPayEntryActivity"
+        android:exported="true"
+        android:targetActivity="com.pingplusplus.android.PaymentActivity" />
+      <!-- 支付宝 sdk -->
+      <activity
+        android:name="com.alipay.sdk.app.H5PayActivity"
+        android:configChanges="orientation|keyboardHidden|navigation"
+        android:exported="false"
+        android:screenOrientation="behind" >
+      </activity>
+      <activity
+        android:name="com.alipay.sdk.auth.AuthActivity"
+        android:configChanges="orientation|keyboardHidden|navigation"
+        android:exported="false"
+        android:screenOrientation="behind" >
+      </activity>
+      
     </application>
 
 </manifest>

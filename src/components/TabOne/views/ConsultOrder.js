@@ -8,6 +8,8 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  Platform,
+  ToastAndroid,
 } from 'react-native';
 
 import { connect } from 'react-redux';
@@ -200,16 +202,26 @@ class ConsultOrder extends PureComponent {
     if (paySuccess) {
       Popup.hide();
       this.props.dispatch({ type: CLEAR_SERVICE_STATE });
-      Pingpp.createPayment({
-        "object": charge,
-        "urlScheme": "wx68751473156cfd6b",
-      }, function(res, error) {
-        if (error) {
-          this.fail('支付未成功');
-        } else {
-          navigation.navigate('PaySuccess');
-        }
-      });
+      if (Platform.OS === 'ios') {
+        Pingpp.createPayment({
+          "object": charge.toJS(),
+          "urlScheme": "wx68751473156cfd6b",
+        }, function(res, error) {
+          if (error) {
+            this.fail('支付未成功');
+          } else {
+            navigation.navigate('PaySuccess');
+          }
+        });
+      } else if (Platform.OS === 'android') {
+        console.log('charge', charge.toJS());
+        const object = charge.toJS();
+        console.log('object', JSON.stringify(object))
+        Pingpp.createPayment(JSON.stringify(object), function(result) {
+          //JSON.parse(result);
+          ToastAndroid.show("react-result:" + result, ToastAndroid.SHORT);
+        });
+      }
     }
   }
 
@@ -232,7 +244,10 @@ class ConsultOrder extends PureComponent {
   }
 
   handlePayPage = (isAlipay) => {
-    Pingpp.setDebugModel(true);
+    
+    // if (Platform.OS === 'ios') {
+    //   Pingpp.setDebugModel(true);
+    // }
 
     const { navigation } = this.props;
     const { data, dispatch, token } = navigation.state.params;
@@ -289,6 +304,8 @@ class ConsultOrder extends PureComponent {
         price: '暂无'
       }
     ];
+
+    console.log('pingPP', Pingpp);
 
     const priceText = `提交订单 - ￥${data && data.get('consult_price')}`;
     return (
