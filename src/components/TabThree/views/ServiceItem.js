@@ -114,7 +114,7 @@ class ServiceItem extends PureComponent {
   }
 
   handleChat(doctorId) {
-    const { navigation, myId, LeanRT, userId,  } = this.props;
+    const { navigation, LeanRT, userId,  } = this.props;
 
     const clientId = userId;
     const imClient = LeanRT.imClient;
