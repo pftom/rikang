@@ -134,9 +134,9 @@ export default class ChatActivity extends React.Component {
 	onSendText(text) {
 		console.log("will send text: " + text);
 		var messages = [{
-			msgId: "1",
+			msgId: "100",
 			status: "send_going",
-			msgType: "event",
+			msgType: "text",
 			text: text,
 			isOutgoing: true,
 			fromUser: {
