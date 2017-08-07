@@ -18,7 +18,9 @@ import { connect } from 'react-redux';
 //import post style
 import { WaitForAcceptListItemStyle as styles } from '../styles/';
 
+import { REFUND } from '../../../constants/';
 
+import { calculateTime } from './ServiceItem';
 
 class WaitForAcceptListItem extends PureComponent {
 
@@ -26,11 +28,26 @@ class WaitForAcceptListItem extends PureComponent {
 
   }
 
+  componentDidMount() {
+    // const { item, dispatch } = this.props;
+
+    // const { order_no, charge_id } = item;
+
+    // const remainTime = calculateTime(item.orderCreatedTime, 2);
+
+    // if (remainTime && remainTime <= 0) {
+    //   dispatch({ type: REFUND, payload: { token, body: { charge_id, order_no } }});
+    // }
+
+  }
+
   render() {
 
     const { item } = this.props;
 
-    let lastTime = "1小时48分后退款";
+    // const remainTime = calculateTime(item.orderCreatedTime, 2);
+
+    let remainTime = "1小时48分后退款";
     // item.avatar
 
     return (
@@ -42,7 +59,7 @@ class WaitForAcceptListItem extends PureComponent {
             </View>
             <View style={styles.nameBox}>
               <Text style={styles.name}>{item.name}</Text>
-              <Text style={styles.consult}>{lastTime}</Text>
+              <Text style={styles.consult}>{remainTime}</Text>
             </View>
           </View>
         </View>

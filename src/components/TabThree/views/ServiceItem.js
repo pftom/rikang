@@ -19,7 +19,7 @@ import { ServiceItemStyle as styles } from '../styles/';
 
 import { REFUND, FINISH_ORDER } from '../../../constants/';
 
-function getNowTime(item) {
+export function getNowTime(item) {
   const now = new Date(item._lastMessageAt);
 
   const hour = now.getHours();
@@ -30,7 +30,7 @@ function getNowTime(item) {
   return nowTime;
 }
 
-function calculateTime (orderCreatedTime, totalTime) {
+export function calculateTime (orderCreatedTime, totalTime) {
     const lastOrderTime = Date.parse(orderCreatedTime);
     const now = new Date();
     const nowOrderTime = now.getTime()
