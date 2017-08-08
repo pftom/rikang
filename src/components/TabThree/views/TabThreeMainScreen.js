@@ -169,9 +169,9 @@ class UserScreen extends PureComponent {
     // service for later handle
     if (servicesFav.size > 0) {
       console.log('servicesFav', servicesFav && servicesFav.toJS());
-      patientUnderWayServicesData = handleUserData(servicesFav, 'services', 'underway', doctors);
-      patientPaidServicesData = handleUserData(servicesFav, 'services', 'paid', doctors)
-      patientFinishedServicesData = handleUserData(servicesFav, 'services', 'finished', doctors);
+      patientUnderWayServicesData = handleUserData(servicesFav, 'services', 'underway', doctors.get('results'));
+      patientPaidServicesData = handleUserData(servicesFav, 'services', 'paid', doctors.get('results'))
+      patientFinishedServicesData = handleUserData(servicesFav, 'services', 'finished', doctors.get('results'));
 
       console.log('patientUnderWayServicesData', patientUnderWayServicesData);
       console.log('patientPaidServicesData', patientPaidServicesData);

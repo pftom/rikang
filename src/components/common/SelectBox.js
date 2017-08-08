@@ -55,6 +55,7 @@ class SelectBox extends PureComponent {
 
   render() {
 
+    //the select component 
     return (
       <View style={[ styles.container, this.props.selectStyle ]}>
         <Picker
