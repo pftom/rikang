@@ -6,6 +6,12 @@ import { MainScreenStyle as styles } from '../../styles/TabOneStyle';
 class NearByDoctorSection extends PureComponent {
 
   renderItem(item, key) {
+
+    let name = item.name;
+    if (name && name.length >= 3) {
+      name = name.slice(0, 4);
+    }
+
     const { navigation, token } = this.props;
     return (
       <TouchableOpacity onPress={() => { navigation.navigate('DoctorDetail', { token, id: item.id }) }} key={key}>
@@ -13,7 +19,7 @@ class NearByDoctorSection extends PureComponent {
           <View style={styles.doctorAvatarBox}>
             <Image source={{ uri: item.avatar }} style={styles.doctorAvatar} />
           </View>
-          <Text style={styles.doctorName}>{item.name}</Text>
+          <Text style={styles.doctorName}>{name}</Text>
           <Image source={item.categoryImg} style={styles.categoryImg} />
           {
             !this.props.noYear && (

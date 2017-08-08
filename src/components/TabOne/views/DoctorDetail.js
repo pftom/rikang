@@ -177,9 +177,9 @@ class DoctorDetail extends PureComponent {
 
           <View style={styles.introContainer}>
               <View style={styles.introTopBox}>
-                <View style={styles.introTopLeftBox}>
-                  <Image source={{ uri: doctor.get('avatar') }} style={styles.avatar} />
-                </View>
+                  <View style={styles.introTopLeftBox}>
+                    <Image source={{ uri: doctor.get('avatar') }} style={styles.avatar} />
+                  </View>
                 <View style={styles.introTopRightBox}>
 
                   <View style={styles.identicalBox}>
@@ -188,7 +188,7 @@ class DoctorDetail extends PureComponent {
                   </View>
 
                   <View style={styles.hospitalBox}>
-                    <Text style={styles.hospitalName}>{doctor.get('hospital_name') || '医院暂无'}</Text>
+                    <Text style={styles.hospitalName}>{doctor.get('hospital') || '医院暂无'}</Text>
                   </View>
 
                   <TouchableOpacity onPress={() => { navigation.navigate('DoctorDetailInfo', { token, id }) }}>

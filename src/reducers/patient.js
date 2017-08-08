@@ -349,11 +349,12 @@ const patient = (state = initialPatientValue, action) => {
       const { auth, patient } = action.payload;
       const token = auth && auth.has('token') && auth.get('token');
 
-
+      console.log('token', token);
+      console.log('patient', patient);
       if (token) {
         const data = {};
-        console.log('patient', patient.toJS());
-        patient.mapEntries(([key, value]) => {
+        console.log('patient', patient);
+        patient && patient.mapEntries(([key, value]) => {
           if (DATA.includes(key)) {
 
             data[key] = (value && value.keySeq().count() > 0 && value.toList().filter(item => item !== null) ) || List([]);

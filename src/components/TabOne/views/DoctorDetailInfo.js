@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { TouchableOpacity, Text, View, } from 'react-native';
+import { TouchableOpacity, Text, View, ScrollView, } from 'react-native';
 
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -49,7 +49,7 @@ class DoctorDetailInfo extends PureComponent {
     }
 
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         <Header 
           navigation={navigation}
           showGradient={true}
@@ -57,20 +57,23 @@ class DoctorDetailInfo extends PureComponent {
           logoLeft={true}
         />
 
-        {
-         doctorInfo && contentBox.map((item, key) => (
-            <View style={styles.detailInfoContainer} key={key}>
-                <View style={styles.detailInfoBox}>
-                <Text style={styles.titleText}>{item.title}</Text>
-                <LinearGradient
-                    start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}
-                    colors={['#09C79C', '#F5F6F7']}
-                    style={styles.linearGradient} />
-                <Text style={styles.contentText}>{item.content}</Text>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {
+          doctorInfo && contentBox.map((item, key) => (
+              <View style={styles.detailInfoContainer} key={key}>
+                  <View style={styles.detailInfoBox}>
+                  <Text style={styles.titleText}>{item.title}</Text>
+                  <LinearGradient
+                      start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}
+                      colors={['#09C79C', '#F5F6F7']}
+                      style={styles.linearGradient} />
+                  <Text style={styles.contentText}>{item.content}</Text>
+                </View>
               </View>
-            </View>
-          ))
-        }
+            ))
+          }
+        </ScrollView>
+
       </View>
     )
   }

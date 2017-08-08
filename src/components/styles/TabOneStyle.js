@@ -144,7 +144,7 @@ export const MainScreenStyle = StyleSheet.create({
     marginRight: px2dp(27),
     ...Platform.select({
       ios: {
-        width: px2dp(63),
+        width: px2dp(66),
       },
       android: {
         width: px2dp(75),

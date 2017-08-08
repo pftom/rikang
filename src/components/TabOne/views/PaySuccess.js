@@ -49,7 +49,7 @@ class PaySuccess extends PureComponent {
 
           <TouchableWithoutFeedback onPress={() => { this.handleBtn('doctor') }} style={[styles.buttonContainer]}>
             <View style={styles.buttonBox}>
-              <Text style={[ styles.content, this.props.textStyle ]}>查看订单</Text>
+              <Text style={[ styles.content, this.props.textStyle ]}>返回医生</Text>
             </View>
           </TouchableWithoutFeedback>
 

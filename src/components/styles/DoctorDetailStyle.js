@@ -57,7 +57,12 @@ export const DoctorDetailStyle = StyleSheet.create({
       android: {
         width: px2dp(333),
       }
-    })
+    }),
+    alignItems: 'center',
+  },
+
+  introTopRightBox: {
+    alignItems: 'center',
   },
 
   introTopBox: {

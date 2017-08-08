@@ -34,6 +34,7 @@ const handleUserData = (data, kind, status, doctors) => {
         return;
       }
     }
+    console.log('questions', item);
 
     if (kind === 'services') {
       console.log('status', MAP_PAID_STATUS[item.get('status')], item.get('status'))

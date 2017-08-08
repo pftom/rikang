@@ -155,98 +155,28 @@ class UserScreen extends PureComponent {
     }
 
     let patientUnderWayServicesData = {
-      data: [
-        {
-          key: 1,
-          name: '汤婷',
-          avatar: 'https://facebook.github.io/react/img/logo_og.png',
-          service_object: {
-              "doctor": 1,
-              "patient": 1
-          },
-          owner: 1,
-        },
-        {
-          key: 2,
-          name: '汤婷',
-          avatar: 'https://facebook.github.io/react/img/logo_og.png',
-          service_object: {
-              "doctor": 1,
-              "patient": 1
-          },
-          owner: 1,
-        },
-      ],
+      data: [],
       count: 0,
     };
     let patientPaidServicesData = {
-      data: [
-        {
-          avatar: 'https://facebook.github.io/react/img/logo_og.png',
-          name: '汤婷',
-          key: 1,
-        },
-        {
-          avatar: 'https://facebook.github.io/react/img/logo_og.png',
-          name: '汤婷',
-          key: 2,
-        }
-      ],
+      data: [],
       count: 0,
     };
     let patientFinishedServicesData = {
-      data: [
-        {
-          avatar: 'https://facebook.github.io/react/img/logo_og.png',
-          name: '汤婷',
-          key: 1,
-          comment: null,
-          service_object: {
-              "doctor": 1,
-              "patient": 1
-          },
-          order_no: "a78sdas87dsdwq89wd8998b89df89fs"
-        },
-        {
-          avatar: 'https://facebook.github.io/react/img/logo_og.png',
-          name: '汤婷',
-          key: 2,
-          comment: {
-              "anonymous": false,
-              "body": "好啊",
-              "created": "2017-08-02",
-              "id": 1,
-              "patient": {
-                  "age": null,
-                  "avatar": null,
-                  "id": 1,
-                  "medical_history": "",
-                  "name": "阿哲",
-                  "phone": "18321025181",
-                  "sex": "M"
-              },
-              "ratings": 5
-          },
-            service_object: {
-              "doctor": 1,
-              "patient": 1
-          },
-          order_no: "a78sdas87dsdwq89wd8998b89df89fs"
-        }
-      ],
+      data: [],
       count: 0,
     };
     // service for later handle
-    // if (servicesFav.size > 0) {
-    //   console.log('servicesFav', servicesFav && servicesFav.toJS());
-    //   patientUnderWayServicesData = handleUserData(servicesFav, 'services', 'underway', doctors);
-    //   patientPaidServicesData = handleUserData(servicesFav, 'services', 'paid', doctors)
-    //   patientFinishedServicesData = handleUserData(servicesFav, 'services', 'finished', doctors);
+    if (servicesFav.size > 0) {
+      console.log('servicesFav', servicesFav && servicesFav.toJS());
+      patientUnderWayServicesData = handleUserData(servicesFav, 'services', 'underway', doctors);
+      patientPaidServicesData = handleUserData(servicesFav, 'services', 'paid', doctors)
+      patientFinishedServicesData = handleUserData(servicesFav, 'services', 'finished', doctors);
 
-    //   console.log('patientUnderWayServicesData', patientUnderWayServicesData);
-    //   console.log('patientPaidServicesData', patientPaidServicesData);
-    //   console.log('patientFinishedServicesData', patientFinishedServicesData);
-    // }
+      console.log('patientUnderWayServicesData', patientUnderWayServicesData);
+      console.log('patientPaidServicesData', patientPaidServicesData);
+      console.log('patientFinishedServicesData', patientFinishedServicesData);
+    }
 
 
     const SectionLists = [

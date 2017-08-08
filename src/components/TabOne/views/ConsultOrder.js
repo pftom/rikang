@@ -39,7 +39,7 @@ import {
 } from '../../../constants/';
 
 //import show modal
-import { Popup, List, Button, Icon, Radio } from 'antd-mobile';
+import { Popup, List, Button, Icon, Radio, Toast } from 'antd-mobile';
 const RadioItem = Radio.RadioItem;
 const Item = List.Item;
 
@@ -157,17 +157,17 @@ class ConsultOrder extends PureComponent {
     };
   }
 
-  successToast(msg) {
+  successToast = (msg) => {
     this.props.dispatch({ type: CLEAR_SERVICE_STATE });
     Toast.success(msg, 1);
   }
 
-  failToast(msg) {
+  failToast = (msg) => {
     this.props.dispatch({ type: CLEAR_SERVICE_STATE });
     Toast.fail(msg, 1);
   }
 
-  loadingToast() {
+  loadingToast = () => {
     Toast.loading('请稍后...', 1);
   }
 
@@ -203,12 +203,14 @@ class ConsultOrder extends PureComponent {
       Popup.hide();
       this.props.dispatch({ type: CLEAR_SERVICE_STATE });
       if (Platform.OS === 'ios') {
+        console.log('charge', charge && charge.toJS());
+
         Pingpp.createPayment({
           "object": charge.toJS(),
           "urlScheme": "wx68751473156cfd6b",
         }, function(res, error) {
           if (error) {
-            this.fail('支付未成功');
+            this.fail
           } else {
             navigation.navigate('PaySuccess');
           }
@@ -245,9 +247,6 @@ class ConsultOrder extends PureComponent {
 
   handlePayPage = (isAlipay) => {
     
-    // if (Platform.OS === 'ios') {
-    //   Pingpp.setDebugModel(true);
-    // }
 
     const { navigation } = this.props;
     const { data, dispatch, token } = navigation.state.params;
