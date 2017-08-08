@@ -712,6 +712,8 @@
 			isa = PBXGroup;
 			children = (
 				D77A291E006B42E7999AE241 /* libPingppModule.a */,
+				07C29091FEFB431F8AAB71B8 /* libRNFS.a */,
+				3DE4A7562E1946C38A68F478 /* libRNFetchBlob.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
