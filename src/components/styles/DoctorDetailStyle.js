@@ -49,13 +49,13 @@ export const DoctorDetailStyle = StyleSheet.create({
   listBox1: commonStyle.listBox1,
   listBox2: commonStyle.listBox2,
   listBox3: {
-    height: px2dp(height - 90 - 49 - 117),
+    height: px2dp(height - px2dp(90) - px2dp(49) - px2dp(160)),
     width,
     marginBottom: 90,
     backgroundColor: '#F5F6F7',
   },
   listBox4: {
-    height: px2dp(height - 90 - 39 - 117),
+    height: px2dp(height - 90 -  39 - px2dp(160)),
     width,
     backgroundColor: '#F5F6F7'
   },

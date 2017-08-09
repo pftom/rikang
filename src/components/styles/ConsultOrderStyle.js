@@ -94,6 +94,7 @@ export const ConsultOrderStyle = StyleSheet.create({
     fontSize: px2dp(14),
     color: '#6D6D6D',
     marginTop: px2dp(10),
+    marginLeft: px2dp(5),
   },
 
   payContainer: {

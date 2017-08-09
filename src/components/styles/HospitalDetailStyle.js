@@ -119,6 +119,13 @@ export const HospitalDetailStyle = StyleSheet.create({
   listBox1: commonStyle.listBox1,
   listBox2: commonStyle.listBox2,
 
+  listBox5: {
+    height: px2dp(height - 81 - 49 - 90),
+  },
+  listBox6: {
+    height: px2dp(height - 81 - 49 - 90),
+  },
+
   loadingMore: commonStyle.loadingMore,
   loadingTextBox: commonStyle.loadingTextBox,
   loadingText: commonStyle.loadingText,

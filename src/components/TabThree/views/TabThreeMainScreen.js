@@ -185,9 +185,8 @@ class UserScreen extends PureComponent {
 
     const SectionLists = [
       [
-        { data: patientUnsolvedQuestionsData.data, key: `未解决（${patientUnsolvedQuestionsData.count}）`, seeMore: true, renderItem: ({ item }) => <ProblemItem navigation={navigation} item={item} token={token} noHintBar={patientUnsolvedQuestionsData.count === 0} /> },
+        { data: patientUnsolvedQuestionsData.data, key: `我的问题（${patientUnsolvedQuestionsData.count}）`, seeMore: true, renderItem: ({ item }) => <ProblemItem navigation={navigation} item={item} token={token} noHintBar={patientUnsolvedQuestionsData.count === 0} /> },
         { data: patientStarredQuestionsData.data, key: `关注的问题（${patientStarredQuestionsData.count}）`, seeMore: true, renderItem: ({ item }) => <ProblemItem navigation={navigation} item={item} token={token} noHintBar={patientStarredQuestionsData.count === 0} /> },
-        { data: patientSolvedQuestionsData.data, key: `已解决（${patientSolvedQuestionsData.count}）`, seeMore: true, renderItem: ({ item }) => <ProblemItem navigation={navigation} item={item} token={token} noHintBar={patientSolvedQuestionsData.count === 0}/> },
       ],
       [
         { data: patientUnderWayServicesData.data, key: `进行中（${patientUnderWayServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <ServiceItem LeanRT={LeanRT} userId={this.props.userId} navigation={navigation} item={item} token={token} /> },

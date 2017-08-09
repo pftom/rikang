@@ -302,9 +302,9 @@ class HospitalDetail extends PureComponent {
                   <Animated.View
                   key={row.id}
                   tabLabel={row.content}
-                   style=  {[ styles.listBox1, style2 ]}
+                   style=  {[ styles.listBox1, style2, styles.listBox5 ]}
               >
-                <View style={ styles.listBox2}>
+                <View style={ [styles.listBox2, styles.listBox5]}>
                   <FlatList
                       data={dataSource[key]}
                       enableEmptySections
