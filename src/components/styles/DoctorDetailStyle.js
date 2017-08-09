@@ -48,6 +48,17 @@ export const DoctorDetailStyle = StyleSheet.create({
   listBox: commonStyle.listBox,
   listBox1: commonStyle.listBox1,
   listBox2: commonStyle.listBox2,
+  listBox3: {
+    height: px2dp(height - 90 - 49 - 117),
+    width,
+    marginBottom: 90,
+    backgroundColor: '#F5F6F7',
+  },
+  listBox4: {
+    height: px2dp(height - 90 - 39 - 117),
+    width,
+    backgroundColor: '#F5F6F7'
+  },
 
   introContainer: {
     ...Platform.select({

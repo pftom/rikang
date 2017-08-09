@@ -26,6 +26,7 @@ export const DoctorListStyle = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 0.5,
     borderBottomColor: '#09C79C',
+    height: px2dp(151),
   },
   ItemBox: {
     width: px2dp(322),

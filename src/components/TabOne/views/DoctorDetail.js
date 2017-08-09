@@ -387,9 +387,9 @@ class DoctorDetail extends PureComponent {
                   <Animated.View
                   key={item.id}
                   tabLabel={item.content}
-                   style=  {[ styles.listBox1, style2 ]}
+                   style=  {[ styles.listBox1, style2, styles.listBox4 ]}
               >
-                <View style={[ styles.listBox2 ]}>
+                <View style={[ styles.listBox2, styles.listBox3 ]}>
                   <ListView
                       dataSource={item.id === 1 ? answerList : commentList}
                       enableEmptySections

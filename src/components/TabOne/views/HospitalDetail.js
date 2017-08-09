@@ -27,6 +27,8 @@ import CustomTabBar from './CustomTabBar';
 //import Header
 import { Header } from '../../common/';
 
+import px2dp from '../../../utils/px2dp';
+
 //import selector for computing data
 import { getHospitalSelector } from '../../../selectors/';
 
@@ -307,6 +309,7 @@ class HospitalDetail extends PureComponent {
                       data={dataSource[key]}
                       enableEmptySections
                       removeClippedSubviews={false}
+                      style={{ height: px2dp(height - px2dp(81))}}
                       ListFooterComponent={() => this.renderFoot()}
                       onEndReached={() => {
                           //because of bug of the flatlist or sectionlist, will triger twice on scroll to end
