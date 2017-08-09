@@ -55,7 +55,7 @@ export const DoctorDetailStyle = StyleSheet.create({
     backgroundColor: '#F5F6F7',
   },
   listBox4: {
-    height: px2dp(height - 90 -  39 - px2dp(160)),
+    height: px2dp(height - 90 -  39),
     width,
     backgroundColor: '#F5F6F7'
   },

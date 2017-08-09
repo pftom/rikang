@@ -35,7 +35,7 @@ class DoctorListItem extends PureComponent {
               </View>
 
               <View style={styles.propBox}>
-                <Text style={styles.hospitalName}>{item.hospital_name || '暂无'}</Text>
+                <Text style={styles.hospitalName}>{item.hospital || '暂无'}</Text>
                 <View style={styles.yearsBox}><Text style={styles.years}>从医 {item.years} 年</Text></View>
               </View>
 

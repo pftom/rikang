@@ -89,7 +89,7 @@ class HospitalDetail extends PureComponent {
 
 
     this.setState({
-      scrollY: this.scrollViewY.interpolate({inputRange: [0, 139, 139],outputRange: [0, -139, -139]}),
+      scrollY: this.scrollViewY.interpolate({inputRange: [0, px2dp(139), px2dp(139)],outputRange: [0, px2dp(-139), px2dp(-139)]}),
     })
   }
 
@@ -228,7 +228,7 @@ class HospitalDetail extends PureComponent {
 
     //for header opacity
     let animatedOpacity = this.scrollViewY.interpolate({
-      inputRange: [0, 60, 139],
+      inputRange: [0, px2dp(60), px2dp(139)],
       outputRange: [0, 0.6, 1],
     });
 
@@ -256,8 +256,8 @@ class HospitalDetail extends PureComponent {
 
 
     let scrollY = this.scrollViewY.interpolate({
-      inputRange: [-90, -50, 0, 0],
-      outputRange: [-90, -50, 0, 0],
+      inputRange: [px2dp(-90), px2dp(-50), 0, 0],
+      outputRange: [px2dp(-90), px2dp(-50), 0, 0],
     });
 
     let style1 = {
@@ -274,7 +274,7 @@ class HospitalDetail extends PureComponent {
 
     //
     if (Platform.OS === 'android') {
-      style1.height = height + 80;
+      style1.height = height + px2dp(80);
     }
 
 
@@ -302,14 +302,13 @@ class HospitalDetail extends PureComponent {
                   <Animated.View
                   key={row.id}
                   tabLabel={row.content}
-                   style=  {[ styles.listBox1, style2, styles.listBox5 ]}
+                   style=  {[ styles.listBox1, style2 ]}
               >
-                <View style={ [styles.listBox2, styles.listBox5]}>
+                <View style={ [styles.listBox2]}>
                   <FlatList
                       data={dataSource[key]}
                       enableEmptySections
                       removeClippedSubviews={false}
-                      style={{ height: px2dp(height - px2dp(81))}}
                       ListFooterComponent={() => this.renderFoot()}
                       onEndReached={() => {
                           //because of bug of the flatlist or sectionlist, will triger twice on scroll to end

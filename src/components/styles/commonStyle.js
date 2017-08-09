@@ -27,10 +27,10 @@ export const commonStyle = {
     position: "absolute",
     ...Platform.select({
       ios: {
-        top: 190,
+        top: px2dp(190),
       },
       android: {
-        top: 220,
+        top: px2dp(220),
       }
     }),
     bottom: 0,
@@ -45,14 +45,13 @@ export const commonStyle = {
     
   },
   listBox1: {
-    height: px2dp(height - 90 - 39),
+    height: px2dp(height - px2dp(49)),
     width,
     backgroundColor: '#F5F6F7'
   },
   listBox2: {
-    height: px2dp(height - 90 - 49),
+    height: px2dp(height - px2dp(49)),
     width,
-    marginBottom: 90,
     backgroundColor: '#F5F6F7',
   },
 }

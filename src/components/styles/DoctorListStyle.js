@@ -107,7 +107,7 @@ export const DoctorListStyle = StyleSheet.create({
 
   consultBox: {
     flexDirection: 'row',
-    width: px2dp(241),
+    width: px2dp(230),
     height: px2dp(22),
     justifyContent: 'space-between',
     alignItems: 'center',

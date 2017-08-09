@@ -16,7 +16,7 @@ export const HospitalListStyle = StyleSheet.create({
   container: {
     width: width,
     alignItems: 'center',
-    borderBottomWidth: 0.5,
+    borderBottomWidth: px2dp(0.5),
     borderBottomColor: '#09C79C',
   },
   nearbyHopBox: {
@@ -27,12 +27,12 @@ export const HospitalListStyle = StyleSheet.create({
   photoBox: {
     width: px2dp(333),
     height: px2dp(186),
-    borderRadius: 8,
+    borderRadius: px2dp(8),
   },
   photo: {
     width: px2dp(333),
     height: px2dp(186),
-    borderRadius: 8,
+    borderRadius: px2dp(8),
   },
 
   locationBox: {
@@ -46,12 +46,12 @@ export const HospitalListStyle = StyleSheet.create({
   },
   hospital_name: {
     fontFamily: 'PingFangSC-Medium',
-    fontSize: 20,
+    fontSize: px2dp(20),
     color: '#09C79C',
   },
   location: {
     fontFamily: 'PingFangSC-Light',
-    fontSize: 12,
+    fontSize: px2dp(12),
     color: '#A8A8A8',
     letterSpacing: -0.24,
   },
@@ -66,7 +66,7 @@ export const HospitalListStyle = StyleSheet.create({
   },
   content: {
     fontFamily: 'PingFangSC-Light',
-    fontSize: 14,
+    fontSize: px2dp(14),
     color: '#000',
     marginTop: px2dp(6),
   },

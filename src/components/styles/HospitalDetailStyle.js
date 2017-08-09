@@ -109,7 +109,7 @@ export const HospitalDetailStyle = StyleSheet.create({
 
   topView: commonStyle.topView,
   topView1: {
-    top: 200,
+    top: px2dp(193),
   },
 
   listBox: commonStyle.listBox,
