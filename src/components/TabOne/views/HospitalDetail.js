@@ -89,7 +89,7 @@ class HospitalDetail extends PureComponent {
 
 
     this.setState({
-      scrollY: this.scrollViewY.interpolate({inputRange: [0, px2dp(139), px2dp(139)],outputRange: [0, px2dp(-139), px2dp(-139)]}),
+      scrollY: this.scrollViewY.interpolate({inputRange: [0, px2dp(136), px2dp(136)],outputRange: [0, px2dp(-136), px2dp(-136)]}),
     })
   }
 
@@ -228,7 +228,7 @@ class HospitalDetail extends PureComponent {
 
     //for header opacity
     let animatedOpacity = this.scrollViewY.interpolate({
-      inputRange: [0, px2dp(60), px2dp(139)],
+      inputRange: [0, px2dp(60), px2dp(136)],
       outputRange: [0, 0.6, 1],
     });
 
@@ -304,7 +304,7 @@ class HospitalDetail extends PureComponent {
                   tabLabel={row.content}
                    style=  {[ styles.listBox1, style2 ]}
               >
-                <View style={ [styles.listBox2]}>
+                <View style={ [styles.listBox2, styles.listBox5, key === 0 && styles.listBox7]}>
                   <FlatList
                       data={dataSource[key]}
                       enableEmptySections

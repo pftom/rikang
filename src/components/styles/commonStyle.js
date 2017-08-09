@@ -45,12 +45,12 @@ export const commonStyle = {
     
   },
   listBox1: {
-    height: px2dp(height - px2dp(49)),
+    height: height - px2dp(49) - px2dp(81),
     width,
     backgroundColor: '#F5F6F7'
   },
   listBox2: {
-    height: px2dp(height - px2dp(49)),
+    height: height - px2dp(49) - px2dp(81),
     width,
     backgroundColor: '#F5F6F7',
   },

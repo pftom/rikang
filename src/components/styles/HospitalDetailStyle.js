@@ -120,10 +120,14 @@ export const HospitalDetailStyle = StyleSheet.create({
   listBox2: commonStyle.listBox2,
 
   listBox5: {
-    height: px2dp(height - 81 - 49 - 90),
+    height: px2dp(height - px2dp(81) - px2dp(49) - px2dp(80) ),
   },
   listBox6: {
     height: px2dp(height - 81 - 49 - 90),
+  },
+
+  listBox7: {
+    height: height - px2dp(46)
   },
 
   loadingMore: commonStyle.loadingMore,
