@@ -13,6 +13,14 @@ import px2dp from '../../../utils/px2dp';
 //import style
 import { CommentListStyle as styles } from '../../styles/'
 
+const handleTime = (time) => {
+  let afterTime = '';
+  afterTime += time.slice(0, 10);
+  afterTime += ' ';
+  afterTime += time.slice(11, 19);
+  return afterTime;
+}
+
 class CommentList extends PureComponent {
 
   constructor(props) {
@@ -82,7 +90,7 @@ class CommentList extends PureComponent {
           <View style={styles.rightBox}>
             <View style={styles.nameBox}>
               <Text style={styles.name}>{item.patient.name}</Text>
-              <Text style={styles.time}>{item.created}</Text>
+              <Text style={styles.time}>{handleTime(item.created)}</Text>
             </View>
             <View style={styles.starBox}>
               {
@@ -98,9 +106,6 @@ class CommentList extends PureComponent {
             </View>
             <View style={styles.contentBox}>
               <Text style={styles.content}>{item.body}</Text>
-            </View>
-            <View style={styles.shareBox}>
-              <Text style={styles.shareText}>查看TA分享的咨询记录</Text>
             </View>
           </View>
         </View>

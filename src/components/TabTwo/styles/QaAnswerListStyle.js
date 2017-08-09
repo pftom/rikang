@@ -92,7 +92,6 @@ export const QaAnswerListStyle = StyleSheet.create({
     borderBottomColor: '#DDDDDD',
     flexDirection: 'row',
     marginTop: px2dp(14),
-    height: px2dp(51),
     alignItems: 'center',
     paddingBottom: px2dp(9),
   },  

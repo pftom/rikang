@@ -30,7 +30,7 @@ export const commonStyle = {
         top: px2dp(190),
       },
       android: {
-        top: px2dp(220),
+        top: px2dp(190),
       }
     }),
     bottom: 0,

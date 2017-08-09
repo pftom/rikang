@@ -103,7 +103,6 @@ class PutQuestionDetail extends PureComponent {
   }
 
   failToast(msg) {
-    this.props.dispatch({ type: CLEAR });
     Toast.fail(msg, 1);
   }
 
@@ -143,7 +142,9 @@ class PutQuestionDetail extends PureComponent {
         />
         </KeyboardAvoidingView>
 
-        <ScrollView contentContainerStyle={[ styles.selectImgBox, imgs.length === 0 && styles.selectExtra ]}>  
+        <ScrollView 
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={[ styles.selectImgBox, imgs.length === 0 && styles.selectExtra ]}>  
           {
             imgs.map((item, key) => (
                 <TouchableOpacity key={key} onPress={() => { navigation.navigate('ImageView', { media: this.state.imgs }) }}>

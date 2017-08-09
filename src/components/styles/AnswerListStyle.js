@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Dimensions, } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 
 //import common style
 import { commonStyle } from './commonStyle';
@@ -58,7 +58,14 @@ export const AnswerListStyle = StyleSheet.create({
 
   spreadBox: {
     marginTop: px2dp(-30),
-    width: px2dp(24),
+    ...Platform.select({
+      ios: {
+        width: px2dp(24),
+      },
+      android: {
+        width: px2dp(34),
+      }
+    }),
     alignItems: 'center',
   },
   spread: {
