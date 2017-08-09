@@ -70,7 +70,7 @@ export const HospitalDetailStyle = StyleSheet.create({
   touchBox: {
     width: px2dp(315),
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
   },
   contentBox: {
     width: 132,
@@ -92,11 +92,12 @@ export const HospitalDetailStyle = StyleSheet.create({
 
   descriptionContainer: {
     width: width,
-    height: height,
     alignItems: 'center',
+    flex: 1,
   },
   descriptionBox: {
     width: px2dp(325),
+    marginTop: px2dp(10),
   },
   description: {
     fontFamily: 'PingFangSC-Light',

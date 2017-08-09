@@ -109,7 +109,7 @@ const qa = (state = initialQaValue, action) => {
       })
 
     case CANCEL_STAR_SINGLE_QUESTION_SUCCESS:
-
+    if (state.get('questions')) {
       return state.updateIn(['questions', 'results'], list => {
         return list.map(item => {
           if (item.get('id') === action.id) {
@@ -118,6 +118,9 @@ const qa = (state = initialQaValue, action) => {
           return item;
         })
       })
+    } else {
+      return state;
+    }
 
       
     case GET_SINGLE_QUESTION_SUCCESS:

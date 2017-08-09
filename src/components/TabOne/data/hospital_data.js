@@ -3,11 +3,10 @@ const handleHospitalDoctors = (data) => {
   let dataSource = [];
  
   data.map((item) => {
+    item = item.toJS();
     dataSource.push({
-      key: item.get('id'),
-      img: item.get('photo'),
-      title: item.get('title'),
-      time: handleTime(item.get('created')),
+      key: item.id,
+      ...item,
     });
   })
 

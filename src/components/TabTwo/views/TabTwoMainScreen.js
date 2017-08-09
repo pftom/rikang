@@ -90,6 +90,8 @@ class QaScreen extends PureComponent {
       }
       search = true;
     }
+
+    console.log('text', this.state.text)
     
     dispatch({ type: GET_QUESTIONS, payload: { token, refresh: true, search, query }});
   }

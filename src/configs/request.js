@@ -43,8 +43,11 @@ let request = {};
 request.get =  ( url, params, token ) => {
   let options = null;
   if (params) {
+    console.log('params', params)
     url += '?' + queryString.stringify(params);
   }
+
+
 
   if (token) {
     options = _.extend(header('GET', token));

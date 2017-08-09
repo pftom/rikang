@@ -46,6 +46,7 @@ import DoctorListItem from './DoctorListItem';
 
 import {
   handleNearby,
+  handleHospitalDoctors,
 } from '../data/'
 
 
@@ -82,7 +83,7 @@ class HospitalDetail extends PureComponent {
     const { token, id } = navigation.state.params;
 
     dispatch({ type: GET_SINGLE_HOSPITAL, payload: { token, id }});
-    // dispatch({ type: GET_SINGLE_HOSPITAL_DOCTORS, payload: { token, id, refresh: true }})
+    dispatch({ type: GET_SINGLE_HOSPITAL_DOCTORS, payload: { token, id, refresh: true }})
 
 
     this.setState({
@@ -96,16 +97,16 @@ class HospitalDetail extends PureComponent {
 
     const rank = transferHospitalClass[hospital.get('rank')];
 
-    let touchItems = [
-      {
-        img: require('../img/phone.png'),
-        content: '电话咨询',
-      },
-      {
-        img: require('../img/location_opacity.png'),
-        content: '查看地图',
-      },
-    ];
+    let touchItems = [];
+    //   {
+    //     img: require('../img/phone.png'),
+    //     content: '电话咨询',
+    //   },
+    //   {
+    //     img: require('../img/location_opacity.png'),
+    //     content: '查看地图',
+    //   },
+    // ];
 
     return (
       <Image source={{ uri: hospital.get('photo') }} style={styles.introSectionBox}>
@@ -239,12 +240,12 @@ class HospitalDetail extends PureComponent {
     }
 
     //handle hospital doctor lists data
-    let hospitalDoctorLists = [
-      {
-        key: 1,
-        description: '暂无医生',
-      }
-    ];
+    let hospitalDoctorLists = [];
+
+    if (hospitalDoctors) {
+      hospitalDoctorLists = handleHospitalDoctors(hospitalDoctors.get('results'));
+      console.log('hospitalDoctorLists', hospitalDoctorLists);
+    }
 
     let dataSource = [
       hospitalIntro,
@@ -322,7 +323,11 @@ class HospitalDetail extends PureComponent {
                       onEndReachedThreshold={10}
                       onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
                       renderItem={({ item, index }) => {
-                        return this.renderDescription(item);
+                        console.log('item', item, index);
+                        if (item.description) {
+                          return this.renderDescription(item);
+                        }
+                        return <DoctorListItem  token={token} item={item} navigation={navigation} dispatch={dispatch} />
                       }}
                       onScroll={
                       Animated.event(
@@ -343,8 +348,6 @@ class HospitalDetail extends PureComponent {
         <Header 
           headerText={hospital && hospital.get('name')}
           logoLeft={true} 
-          phone={true}
-          navigate={true}
           animatedOpacity={animatedOpacity}
           navigation={navigation} 
           showGradient={true} 

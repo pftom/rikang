@@ -58,7 +58,7 @@ function* getQuestions(payload) {
 
     yield put({ type: GET_QUESTIONS_SUCCESS, questions, refresh });
   } catch (error) {
-    yield put({ type: GET_QUESTIONS_ERROR });
+    yield put({ type: GET_QUESTIONS_ERROR, error });
   }
 }
 
