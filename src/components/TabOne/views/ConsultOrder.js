@@ -318,7 +318,11 @@ class ConsultOrder extends PureComponent {
           navigation={navigation}
         />
 
-        <View style={styles.consultContainer}>
+        <ScrollView 
+          contentContainerStyle={{ alignItems: 'center', }}
+          showsVerticalScrollIndicator={false} 
+          style={styles.scrollView}>
+          <View style={styles.consultContainer}>
           <Text style={styles.priceDetail}>费用详情</Text>
           {
             dataMap.map((item, key) => (
@@ -329,14 +333,15 @@ class ConsultOrder extends PureComponent {
             ))
           }
          <View style={styles.totalBox}><Text style={styles.total}>小计 <Text style={styles.money}>￥{data && data.get('consult_price')}</Text></Text></View>
-        </View>
-        <View style={styles.hintBox}>
-          {
-            HintMessage.map((item, key) => (
-              <Text key={key} style={styles.hintText}>{item}</Text>
-            ))
-          }
-        </View>
+          </View>
+          <View style={styles.hintBox}>
+            {
+              HintMessage.map((item, key) => (
+                <Text key={key} style={styles.hintText}>{item}</Text>
+              ))
+            }
+          </View>
+        </ScrollView>
         <BottomButton textStyle={{ letterSpacing: -0.4 }} content={priceText} token={token} dispatch={dispatch}  navigation={navigation}  kind={'popUpPayingPage'} showModal={() => { this.showModal(priceText) }} />
       </View>
     )

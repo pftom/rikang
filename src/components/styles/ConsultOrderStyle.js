@@ -20,6 +20,12 @@ export const ConsultOrderStyle = StyleSheet.create({
     backgroundColor: '#F5F6F7'
   },
 
+  scrollView: {
+    width: width,
+    flex: 1,
+    backgroundColor: '#F5F6F7'
+  },
+
   consultContainer: {
     marginTop: px2dp(30),
     width: px2dp(337),
