@@ -163,7 +163,7 @@ class DoctorDetail extends PureComponent {
       },
       {
         title: '已帮助患者',
-        content: doctor.get('patient_num'),
+        content: doctor.get('order_num'),
       },
     ];
 

@@ -39,18 +39,39 @@ export const commonStyle = {
   },
 
   listBox: {
-    marginTop: 91,
-    height: px2dp(height + 99),
+    marginTop: px2dp(91),
+    ...Platform.select({
+      ios: {
+        height: px2dp(height + 99),
+      },
+      android: {
+        height: px2dp(height - px2dp(81)),
+      }
+    }),
     width,
     
   },
   listBox1: {
-    height: height - px2dp(49) - px2dp(81),
+    ...Platform.select({
+      ios: {
+        height: height - px2dp(49) - px2dp(81),
+      },
+      android: {
+        height: height + px2dp(180),
+      }
+    }),
     width,
     backgroundColor: '#F5F6F7'
   },
   listBox2: {
-    height: height - px2dp(49) - px2dp(81),
+    ...Platform.select({
+      ios: {
+        height: height - px2dp(49) - px2dp(81),
+      },
+      android: {
+        height: height + 80,
+      }
+    }),
     width,
     backgroundColor: '#F5F6F7',
   },

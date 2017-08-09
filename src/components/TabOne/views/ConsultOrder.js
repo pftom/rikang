@@ -224,8 +224,15 @@ class ConsultOrder extends PureComponent {
         const object = charge.toJS();
         console.log('object', JSON.stringify(object))
         Pingpp.createPayment(JSON.stringify(object), function(result) {
-          //JSON.parse(result);
-          ToastAndroid.show("react-result:" + result, ToastAndroid.SHORT);
+          const res = JSON.parse(result);
+          if (res.error_msg && res.error_msg.length > 0) {
+            that.failToast('支付失败');
+            
+            navigation.goBack();
+          } else if (res.pay_result === 'success') {
+            navigation.navigate('PaySuccess');
+          }
+          
         });
       }
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Dimensions, } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 
 //import common style
 import { commonStyle } from './commonStyle';
@@ -127,7 +127,14 @@ export const HospitalDetailStyle = StyleSheet.create({
   },
 
   listBox7: {
-    height: height - px2dp(46)
+    ...Platform.select({
+      ios: {
+        height: height - px2dp(46)
+      },
+      android: {
+        height: height - px2dp(86)
+      }
+    })
   },
 
   loadingMore: commonStyle.loadingMore,

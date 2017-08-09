@@ -274,8 +274,9 @@ class HospitalDetail extends PureComponent {
 
     //
     if (Platform.OS === 'android') {
-      style1.height = height + px2dp(80);
+      style1.height = height + px2dp(180);
     }
+
 
 
 

@@ -50,7 +50,7 @@ class DoctorListItem extends PureComponent {
                 </View>
               </View>
 
-              <Text style={styles.patientNum}>已帮助 {item.patient_num} 位患者</Text>
+              <Text style={styles.patientNum}>已帮助 {item.order_num} 位患者</Text>
             </View>
           </View>
         </View>

@@ -136,13 +136,6 @@ const styles = StyleSheet.create({
   customTabs: {
     borderBottomWidth: px2dp(0.5),
     borderBottomColor: '#E4E4E4',
-    ...Platform.select({
-      ios: {
-      },
-      android: {
-        marginTop: px2dp(20.5),
-      }
-    })
   },
   tabbarUnderLine: {
     height: px2dp(5),
