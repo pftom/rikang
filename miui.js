@@ -48,7 +48,7 @@ function constructNormalMessage() {
     var user = {
           userId: "1",
           displayName: "Tom",
-          avatarPath: "https://facebook.github.io/react/img/logo_og.png"
+          avatarPath: "patient"
     }
     message.fromUser = user
 
@@ -86,6 +86,12 @@ function constructMoreDetailMessage(item, clientId, isSucceed) {
   message.timeString = nowTime;
   message.isOutgoing = isOutgoing;
   message.status = isSucceed ? "send_succeed" : "send_going";
+  
+  if (isOutgoing) {
+    message.fromUser.avatarPath = 'patient';
+  } else {
+    message.fromUser.avatarPath = 'doctor';
+  }
 
   return message;
 }
@@ -572,7 +578,7 @@ export default class TestRNIMUI extends Component {
           onTapMessageCell={this.onTapMessageCell}
           onBeginDragMessageList={this.onBeginDragMessageList}
           onPullToRefresh={this.onPullToRefresh}
-          avatarSize={{width:40,height:40}}
+          avatarSize={{width: px2dp(40),height:px2dp(40)}}
           sendBubbleTextSize={18}
           sendBubbleTextColor={"000000"}
           sendBubblePadding={{left:10,top:10,right:10,bottom:10}}

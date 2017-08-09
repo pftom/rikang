@@ -82,14 +82,9 @@ LeanRT.currentConversation = null;
 
 class UserScreen extends PureComponent {
 
-  componentDidMount() {
-
+  getData = () => {
     const { dispatch, navigation, token } = this.props;
 
-    //init leancloud im
-
-    const { userId } = this.props;
-    console.log('userId', userId, )
 
     dispatch({ type: GET_PATIENT_PROFILE, payload: { token } });
     dispatch({ type: GET_PATIENT_FAV_DOCTORS, payload: { token} });
@@ -97,6 +92,10 @@ class UserScreen extends PureComponent {
     dispatch({ type: GET_PATIENT_QUESTIONS, payload: { token } });
     dispatch({ type: GET_PATIENT_STARRED_QUESTIONS, payload: { token } });
     dispatch({ type: GET_PATIENT_SERVICES, payload: { token } });
+  }
+
+  componentDidMount() {
+    this.getData();
   }
 
   createImClient = (item) => {

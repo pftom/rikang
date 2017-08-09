@@ -188,6 +188,7 @@ class ServiceItem extends PureComponent {
                   <View style={styles.remainContainer}>
                     <Text style={styles.name}>{item.name}</Text>
                     <View style={styles.remainBox}><Text style={styles.remainTime}>剩余{remainTime}小时</Text></View>
+                    <Image source={{ uri: 'patient' }} style={{ width: 40, height: 40 }} />
                   </View>
                   <Text style={styles.lastTime}>{lastTime}</Text>
                 </View>

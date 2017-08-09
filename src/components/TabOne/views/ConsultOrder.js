@@ -199,6 +199,8 @@ class ConsultOrder extends PureComponent {
       this.failToast('网络无连接');
     }
 
+    const that = this;
+
     if (paySuccess) {
       Popup.hide();
       this.props.dispatch({ type: CLEAR_SERVICE_STATE });
@@ -210,7 +212,7 @@ class ConsultOrder extends PureComponent {
           "urlScheme": "wx68751473156cfd6b",
         }, function(res, error) {
           if (error) {
-            this.fail
+            that.failToast('支付失败');
           } else {
             navigation.navigate('PaySuccess');
           }
