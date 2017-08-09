@@ -66,23 +66,22 @@ class ServiceItem extends PureComponent {
     const that = this;
     console.log('')
 
-    // const { item, token, dispatch } = that.props;
-    // const { order_no, charge_id } = item;
+    const { item, token, dispatch } = that.props;
+    const { order_no, charge_id } = item;
 
     return converstion.queryMessages({
       limit: 10,
     }).then(function(messages) {
 
-      //judge whether the order has completed
+      // judge whether the order has completed
 
-      // if (messages.length === 0 && calculateTime(item.service_object.start, 2) <= 0) {
-      //   dispatch({ type: REFUND, payload: { token, body: { charge_id, order_no } }});
-      // }
+      if (messages.length === 0 && calculateTime(item.service_object.start, 2) <= 0) {
+        dispatch({ type: REFUND, payload: { token, body: { charge_id, order_no } }});
+      }
 
-      // if (messages.length !== 0 && calculateTime(item.service_object.start, 24) <= 0) {
-      //   dispatch({ type: FINISH_ORDER, payload: { token, body: { order_no } }});
-      // } else {
-      // }
+      if (messages.length !== 0 && calculateTime(item.service_object.start, 24) <= 0) {
+        dispatch({ type: FINISH_ORDER, payload: { token, body: { order_no } }});
+      }
     }).catch(console.error.bind(console));
   }
 

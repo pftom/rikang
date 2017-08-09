@@ -97,7 +97,7 @@ class NewComment extends PureComponent {
       const body = {
         order_no,
         body: text,
-        ratings,
+        ratings: isNaN(Number(ratings)) ? 5 : Number(ratings),
         doctor,
         anonymous: value,
       };

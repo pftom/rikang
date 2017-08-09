@@ -211,8 +211,10 @@ class ConsultOrder extends PureComponent {
           "object": charge.toJS(),
           "urlScheme": "wx68751473156cfd6b",
         }, function(res, error) {
+          console.log('res', res);
           if (error) {
             that.failToast('支付失败');
+            navigation.goBack();
           } else {
             navigation.navigate('PaySuccess');
           }

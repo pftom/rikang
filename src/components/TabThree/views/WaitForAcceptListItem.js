@@ -20,7 +20,27 @@ import { WaitForAcceptListItemStyle as styles } from '../styles/';
 
 import { REFUND } from '../../../constants/';
 
-import { calculateTime } from './ServiceItem';
+import { calculateTime as refundTime} from './ServiceItem';
+
+export function calculateTime (orderCreatedTime, totalTime) {
+  console.log('orderCreatedTime', orderCreatedTime)
+    const lastOrderTime = Date.parse(orderCreatedTime);
+    const now = new Date();
+    const nowOrderTime = now.getTime()
+    console.log('lastOrderTime', lastOrderTime, nowOrderTime)
+    const remainHour =  totalTime - ((nowOrderTime - lastOrderTime) / 1000 / 60 / 60) ;
+    console.log('remainHour', remainHour);
+    const remainMinute = Math.floor( (remainHour - Math.floor(remainHour)) * 60 );
+    console.log('remainMinute', remainMinute)
+
+    const remainTime = Math.floor(remainHour) + '小时' + remainMinute + '分钟后退款';
+
+    return {
+      remainTime,
+      remainHour,
+      remainMinute,
+    }
+}
 
 class WaitForAcceptListItem extends PureComponent {
 
@@ -29,15 +49,15 @@ class WaitForAcceptListItem extends PureComponent {
   }
 
   componentDidMount() {
-    // const { item, dispatch } = this.props;
+    const { item, dispatch, token } = this.props;
 
-    // const { order_no, charge_id } = item;
+    const { order_no, charge_id } = item;
 
-    // const remainTime = calculateTime(item.orderCreatedTime, 2);
+    const remainObject = calculateTime(item.created, 2);
 
-    // if (remainTime && remainTime <= 0) {
-    //   dispatch({ type: REFUND, payload: { token, body: { charge_id, order_no } }});
-    // }
+    if (remainObject && remainObject.remainHour <= 0 && remainObject.remainMinute <= 0) {
+      dispatch({ type: REFUND, payload: { token, body: { charge_id, order_no } }});
+    }
 
   }
 
@@ -45,10 +65,7 @@ class WaitForAcceptListItem extends PureComponent {
 
     const { item } = this.props;
 
-    // const remainTime = calculateTime(item.orderCreatedTime, 2);
-
-    let remainTime = "1小时48分后退款";
-    // item.avatar
+    const remainObject = calculateTime(item.created, 2);
 
     return (
       <View style={styles.container}>
@@ -59,7 +76,7 @@ class WaitForAcceptListItem extends PureComponent {
             </View>
             <View style={styles.nameBox}>
               <Text style={styles.name}>{item.name}</Text>
-              <Text style={styles.consult}>{remainTime}</Text>
+              <Text style={styles.consult}>{remainObject.remainTime}</Text>
             </View>
           </View>
         </View>
