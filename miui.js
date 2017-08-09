@@ -19,7 +19,7 @@ var InputView = IMUI.ChatInput;
 var MessageListView = IMUI.MessageList;
 const window = Dimensions.get('window');
 
-import { TextMessage, Message, Realtime } from 'leancloud-realtime';
+import { Message, Realtime } from 'leancloud-realtime';
 import AV from 'leancloud-storage';
 var ImageMessage = require('leancloud-realtime-plugin-typed-messages').ImageMessage;
 var AudioMessage = require('leancloud-realtime-plugin-typed-messages').AudioMessage;

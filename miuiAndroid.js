@@ -14,11 +14,90 @@ var {
 	NativeModules,
 	StyleSheet,
 	PermissionsAndroid,
+	TouchableOpacity,
 } = ReactNative;
 
 var MessageList = IMUI.MessageList;
 var ChatInput = IMUI.ChatInput;
 const AuroraIMUIModule = NativeModules.AuroraIMUIModule;
+
+
+//read the voice and image data
+import RNFS from 'react-native-fs';
+
+import RNFetchBlob from 'react-native-fetch-blob'
+
+
+import px2dp from './src/utils/px2dp';
+
+import { Header } from './src/components/common/';
+
+var themsgid = 1
+
+
+import { TextMessage, Message, Realtime } from 'leancloud-realtime';
+import AV from 'leancloud-storage';
+var ImageMessage = require('leancloud-realtime-plugin-typed-messages').ImageMessage;
+var AudioMessage = require('leancloud-realtime-plugin-typed-messages').AudioMessage;
+
+function constructNormalMessage() {
+
+    var message = {}
+    message.msgId = themsgid.toString()
+    themsgid += 1
+    message.status = "send_going"
+    message.isOutgoing = true
+    message.timeString = "10: 00"
+    var user = {
+          userId: "1",
+          displayName: "Tom",
+          avatarPath: "patient"
+    }
+    message.fromUser = user
+
+    return  message
+}
+
+
+function getNowTime(item) {
+  const now = new Date(item.timestamp);
+
+  //setting message time
+  const year = now.getFullYear();
+  const month = now.getMonth() >= 9 ? now.getMonth() + 1 : `0${now.getMonth() + 1}`;
+  const day = now.getDate();
+  const hour = now.getHours();
+  const minute = now.getMinutes();
+
+  const nowTime = `${year}-${month}-${day} ${hour}:${minute}`;
+
+  return nowTime;
+}
+
+function constructMoreDetailMessage(item, clientId, isSucceed) {
+
+  const message = constructNormalMessage();
+
+  const nowTime = getNowTime(item);
+
+  //sign message is me or other
+  const isOutgoing = Number(item.from) === Number(clientId);
+
+  message.msgType = "text"
+  message.text = item.content._lctext;
+
+  message.timeString = nowTime;
+  message.isOutgoing = isOutgoing;
+  message.status = isSucceed ? "send_succeed" : "send_going";
+  
+  if (isOutgoing) {
+    message.fromUser.avatarPath = 'patient';
+  } else {
+    message.fromUser.avatarPath = 'doctor';
+  }
+
+  return message;
+}
 
 export default class ChatActivity extends React.Component {
 
@@ -36,6 +115,11 @@ export default class ChatActivity extends React.Component {
 			},
 			isDismissMenuContainer: false,
 			updateUI: false,
+			maxResultsAmount: 50,
+      messages: [],
+      hasLoadAllMessages: false,
+      inputViewLayout: {width:window.width, height:86,},
+      nowMessage: null,
 
 		};
 
@@ -63,7 +147,14 @@ export default class ChatActivity extends React.Component {
 	componentWillMount() {}
 
 	onMsgClick(message) {
-		console.log("message click! " + message);
+		console.log('message', message);
+		message = JSON.parse(message);
+		if (message.msgType === 'image') {
+			const { navigation } = this.props;
+			console.log('messagemessage', navigation)
+			navigation.navigate('ImageView', { media: [{ photo: message.mediaPath }] })
+		}
+		
 	}
 
 	onMsgLongClick(message) {
@@ -100,7 +191,7 @@ export default class ChatActivity extends React.Component {
 			fromUser: {
 				userId: "1",
 				displayName: "Ken",
-				avatarPath: "ironman"
+				avatarPath: "patient"
 			},
 			timeString: "9:00",
 		}, {
@@ -112,7 +203,7 @@ export default class ChatActivity extends React.Component {
 			fromUser: {
 				userId: "1",
 				displayName: "Ken",
-				avatarPath: "ironman"
+				avatarPath: "patient"
 			},
 			timeString: "9:20",
 		}, {
@@ -124,7 +215,7 @@ export default class ChatActivity extends React.Component {
 			fromUser: {
 				userId: "1",
 				displayName: "Ken",
-				avatarPath: "ironman"
+				avatarPath: "doctor"
 			},
 			timeString: "9:30",
 		}];
@@ -142,7 +233,7 @@ export default class ChatActivity extends React.Component {
 			fromUser: {
 				userId: "1",
 				displayName: "Ken",
-				avatarPath: "ironman"
+				avatarPath: "doctor"
 			},
 			timeString: "10:00",
 		}];
@@ -169,7 +260,7 @@ export default class ChatActivity extends React.Component {
 					fromUser: {
 						userId: "1",
 						displayName: "ken",
-						avatarPath: "ironman"
+						avatarPath: "doctor"
 					},
 					timeString: "10:00"
 				}];
@@ -184,7 +275,7 @@ export default class ChatActivity extends React.Component {
 					fromUser: {
 						userId: "1",
 						displayName: "ken",
-						avatarPath: "ironman"
+						avatarPath: "doctor"
 					},
 					timeString: "10:00"
 				}];
@@ -209,7 +300,7 @@ export default class ChatActivity extends React.Component {
 			fromUser: {
 				userId: "1",
 				displayName: "ken",
-				avatarPath: "ironman"
+				avatarPath: "doctor"
 			},
 			timeString: "10:00"
 		}];
@@ -237,7 +328,7 @@ export default class ChatActivity extends React.Component {
 			fromUser: {
 				userId: "1",
 				displayName: "ken",
-				avatarPath: "ironman"
+				avatarPath: "doctor"
 			},
 			timeString: "10:00"
 		}];
@@ -259,7 +350,7 @@ export default class ChatActivity extends React.Component {
 			fromUser: {
 				userId: "1",
 				displayName: "ken",
-				avatarPath: "ironman"
+				avatarPath: "doctor"
 			},
 			timeString: "10:00"
 		}];
@@ -355,28 +446,194 @@ export default class ChatActivity extends React.Component {
 	}
 
 	componentDidMount() {
-		this.timer = setTimeout(() => {
-			console.log("updating message! ");
-			var messages = [{
-				msgId: "1",
-				status: "send_succeed",
-				msgType: "text",
-				text: "Hello world",
-				isOutgoing: true,
-				fromUser: {
-					userId: "1",
-					displayName: "Ken",
-					avatarPath: "ironman"
-				},
-				timeString: "10:00",
-			}];
-			AuroraIMUIModule.appendMessages(messages);
-		}, 5000);
-
+    this.getCurrentConversation();
 	}
+	
+	getCurrentConversation = () => {
+    const { navigation } = this.props;
+    const { imClient, conv } = navigation.state.params;
+    const that = this;
+    return imClient.getConversation(conv.id)
+        .then(conversation => {
+          console.log('conversation', conversation);
+          this.messageIterator = conversation.createMessagesIterator({ limit: 20 });
+
+          this.currentConversation = conversation;
+          console.log('unreadMessagesCount', conversation);
+          this.currentConversation.on('message', this.readMarker);
+          this.currentConversation.on('message', this.messageUpdater);
+
+          this.loadMoreMessages();
+          conversation.read();
+          return conversation;
+        })
+  }
+
+  messageUpdater = (msg) => {
+    if (msg.transient && msg.type === Message.TYPE) {
+      return;
+    }
+    // 消息列表滚动
+    let { messages } = this.state;
+
+    let MESSAGES = [];
+
+    //add to messagelist
+      const { navigation } = this.props;
+      const { clientId } = navigation.state.params;
+
+    if (msg) {
+      let item = msg;
+          if (!item._lcfile && item._lctext !== 'data:image/jpeg;base64,') {
+            MESSAGES.push(constructMoreDetailMessage(item, clientId, true));
+          } 
+          else if (item._lcfile && item._lctext === 'data:image/jpeg;base64,') {
+            this.constructMoreDetailMessageImg(item, clientId, true)
+          } else if (item._lcfile && item._lctext === "data:audio/m4a;base64,") {
+            this.constructMoreDetailMessageAudio(item, clientId, true)
+          }
+
+
+        AuroraIMUIModule.insertMessagesToTop(MESSAGES);
+        AuroraIMUIModule.scrollToBottom();
+
+        console.log('MESSAGE', MESSAGES)
+      }
+    console.log('messageUpdater', messages);
+    messages.push(msg);
+    this.setState({ messages });
+  }
+
+  readMarker = (msg) => {
+    // 暂态消息不标记
+    // 特殊情况：暂态对话的所有消息都是暂态的，因此暂态对话收到消息全部标记
+    if (msg.transient && !conversation.transient) {
+      return;
+    }
+    // 当前对话标记为已读
+    conversation.read();
+	}
+	
+	constructMoreDetailMessageImg = (item, clientId, isSucceed) => {
+    //for mediaPath
+    // let mediaPath = '/Users/tom/Library/Developer/CoreSimulator/Devices/0E969615-494B-4EA4-AC1B-595EC84CD751/data/Containers/Data/Application/CE841824-7F9F-4DBE-B4A1-1FBABEF10A1E/Documents/';
+
+    RNFetchBlob
+      .config({
+        fileCache : true,
+        // by adding this option, the temp files will have a file extension
+        appendExt : 'png'
+      })
+      .fetch('GET', item._lcfile.url)
+      .then((res) => {
+        console.log('res', res)
+          const message = constructNormalMessage();
+
+          const nowTime = getNowTime(item);
+
+          //sign message is me or other
+          const isOutgoing = Number(item.from) === Number(clientId);
+
+          message.msgType = "image"
+          message.mediaPath = res.path();
+          message.progress = "加载中...";
+
+          message.timeString = nowTime;
+          message.isOutgoing = isOutgoing;
+          message.status = isSucceed ? "send_succeed" : "send_going";
+
+          AuroraIMUIModule.insertMessagesToTop([message]);
+          AuroraIMUIModule.scrollToBottom();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  constructMoreDetailMessageAudio = (item, clientId, isSucceed) => {
+    //for mediaPath
+    // let mediaPath = '/Users/tom/Library/Developer/CoreSimulator/Devices/0E969615-494B-4EA4-AC1B-595EC84CD751/data/Containers/Data/Application/CE841824-7F9F-4DBE-B4A1-1FBABEF10A1E/Documents/';
+
+    RNFetchBlob
+      .config({
+        fileCache : true,
+        // by adding this option, the temp files will have a file extension
+        appendExt : 'm4a'
+      })
+      .fetch('GET', item._lcfile.url)
+      .then((res) => {
+        console.log('res', res)
+          const message = constructNormalMessage();
+
+          const nowTime = getNowTime(item);
+
+          //sign message is me or other
+          const isOutgoing = Number(item.from) === Number(clientId);
+
+          message.msgType = "voice"
+          message.mediaPath = res.path();
+          message.progress = "加载中...";
+
+          message.timeString = nowTime;
+          message.isOutgoing = isOutgoing;
+          message.status = isSucceed ? "send_succeed" : "send_going";
+
+          AuroraIMUIModule.insertMessagesToTop([message]);
+          AuroraIMUIModule.scrollToBottom();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  loadMoreMessages = () => {
+    if (this.state.hasLoadAllMessages) {
+      return;
+    }
+    const that = this;
+    return this.messageIterator.next().then(result => {
+      const { messages } = that.state
+      const newState = {};
+
+
+      if (result.done) {
+        newState.hasLoadAllMessages = true;
+      }
+
+      //add to messagelist
+      const { navigation } = this.props;
+      const { clientId } = navigation.state.params;
+      let MESSAGES = [];
+      console.log('clientId', clientId);
+
+      if (result.value) {
+        result.value.map(item => {
+          if (!item._lcfile && item._lctext !== 'data:image/jpeg;base64,') {
+            MESSAGES.push(constructMoreDetailMessage(item, clientId, true));
+          } 
+          else if (item._lcfile && item._lctext === 'data:image/jpeg;base64,') {
+            this.constructMoreDetailMessageImg(item, clientId, true)
+          } else if (item._lcfile && item._lctext === "data:audio/m4a;base64,") {
+            // this.constructMoreDetailMessageAudio(item, clientId, true)
+          }
+        })
+
+
+        AuroraIMUIModule.insertMessagesToTop(MESSAGES);
+        AuroraIMUIModule.scrollToBottom();
+
+        console.log('MESSAGE', MESSAGES)
+      }
+
+      newState.messages = result.value.concat(messages);
+      
+
+      this.setState(newState)
+    })
+  }
 
 	componentWillUnmount() {
-		this.timer && clearTimeout(this.timer);
+		
 	}
 
 	render() {
@@ -419,6 +676,11 @@ export default class ChatActivity extends React.Component {
 						onSwitchToCameraMode = {this.onSwitchToCameraMode}
 						onTouchEditText = {this.onTouchEditText}
 					/>
+					<View style={styles.back}>
+            <TouchableOpacity onPress={() => { this.props.navigation.goBack() }}>
+              <Image style={styles.backImg} source={require('./src/components/common/img/back.png')} />
+            </TouchableOpacity>
+          </View>
 			</View>
 		);
 	}
@@ -427,5 +689,20 @@ export default class ChatActivity extends React.Component {
 var styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: '#F5FCFF',
 	},
+	back: {
+    width: window.width,
+    height: px2dp(81),
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'transparent',
+  },
+  backImg: {
+    marginLeft: px2dp(23),
+    marginTop: px2dp(40),
+    tintColor: '#000',
+  }
 });
