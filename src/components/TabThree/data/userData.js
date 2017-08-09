@@ -34,10 +34,8 @@ const handleUserData = (data, kind, status, doctors) => {
         return;
       }
     }
-    console.log('questions', item);
 
     if (kind === 'services') {
-      console.log('status', MAP_PAID_STATUS[item.get('status')], item.get('status'))
       if (status === 'underway' && MAP_PAID_STATUS[item.get('status')] !== 'underway') {
         return;
       }
@@ -61,29 +59,36 @@ const handleUserData = (data, kind, status, doctors) => {
       // because, the back-end not supply, and I am so lazy. = =!
       let nameItem = {};
       let avatarItem = {};
+      let keyItem = {};
 
       if (kind === 'services') {
         const { service_object } = item;
         const { doctor } = service_object;
-        console.log('service_object', service_object)
-        doctors.map(item => {
-          if (item.get('id') === doctor) {
+        doctors.map(doc => {
+          if (doc.get('id') === doctor) {
             nameItem = {
-              name: item.get('name'),
+              name: doc.get('name'),
             };
             
             avatarItem = {
-              avatar: item.get('avatar'),
+              avatar: doc.get('avatar'),
             };
+
+            keyItem = {
+              key: item.order_no
+            }
+
+            console.log('keyItem', keyItem)
           }
         })
       }
 
       dataSource.push({
           ...item,
-          key: id,
           ...nameItem,
           ...avatarItem,
+          key: id,
+          ...keyItem,
         });
     });
   return {

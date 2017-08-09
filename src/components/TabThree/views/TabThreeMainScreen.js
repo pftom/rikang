@@ -90,13 +90,6 @@ class UserScreen extends PureComponent {
 
     const { userId } = this.props;
     console.log('userId', userId, )
-    LeanRT.realtime.createIMClient(String(userId))
-      .then(userClient => {
-        LeanRT.imClient = userClient;
-
-        console.log('LeanRT', LeanRT);
-      })
-      .catch(console.error.bind(console));
 
     dispatch({ type: GET_PATIENT_PROFILE, payload: { token } });
     dispatch({ type: GET_PATIENT_FAV_DOCTORS, payload: { token} });
@@ -104,6 +97,16 @@ class UserScreen extends PureComponent {
     dispatch({ type: GET_PATIENT_QUESTIONS, payload: { token } });
     dispatch({ type: GET_PATIENT_STARRED_QUESTIONS, payload: { token } });
     dispatch({ type: GET_PATIENT_SERVICES, payload: { token } });
+  }
+
+  createImClient = (item) => {
+    LeanRT.realtime.createIMClient(String(item.getIn(['service_object', 'patient', 'id'])))
+      .then(userClient => {
+        LeanRT.imClient = userClient;
+
+        console.log('LeanRT', LeanRT);
+      })
+      .catch(console.error.bind(console));
   }
 
   render() {
@@ -168,6 +171,8 @@ class UserScreen extends PureComponent {
     };
     // service for later handle
     if (servicesFav.size > 0) {
+
+      this.createImClient(servicesFav.get(0));
       console.log('servicesFav', servicesFav && servicesFav.toJS());
       patientUnderWayServicesData = handleUserData(servicesFav, 'services', 'underway', doctors.get('results'));
       patientPaidServicesData = handleUserData(servicesFav, 'services', 'paid', doctors.get('results'))

@@ -143,6 +143,31 @@ export default class TestRNIMUI extends Component {
     }
     // 消息列表滚动
     let { messages } = this.state;
+
+    let MESSAGES = [];
+
+    //add to messagelist
+      const { navigation } = this.props;
+      const { clientId } = navigation.state.params;
+
+    if (msg) {
+      let item = msg;
+          if (!item._lcfile && item._lctext !== 'data:image/jpeg;base64,') {
+            MESSAGES.push(constructMoreDetailMessage(item, clientId, true));
+          } 
+          else if (item._lcfile && item._lctext === 'data:image/jpeg;base64,') {
+            this.constructMoreDetailMessageImg(item, clientId, true)
+          } else if (item._lcfile && item._lctext === "data:audio/m4a;base64,") {
+            this.constructMoreDetailMessageAudio(item, clientId, true)
+          }
+
+
+        AuroraIController.insertMessagesToTop(MESSAGES);
+        AuroraIController.scrollToBottom(true);
+
+        console.log('MESSAGE', MESSAGES)
+      }
+    console.log('messageUpdater', messages);
     messages.push(msg);
     this.setState({ messages });
   }
@@ -279,6 +304,7 @@ export default class TestRNIMUI extends Component {
       const { messages } = that.state
       const newState = {};
 
+
       if (result.done) {
         newState.hasLoadAllMessages = true;
       }
@@ -342,8 +368,11 @@ export default class TestRNIMUI extends Component {
     }
 
   onPullToRefresh = () => {
-      console.log("on pull to refresh")
-    }
+      // this.loadMoreMessages();
+      if (this.messageIterator) {
+        this.loadMoreMessages();
+      }
+  }
 
   onSendText = (text, needSendToCloud) => {
 

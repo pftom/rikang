@@ -64,8 +64,9 @@ class ServiceItem extends PureComponent {
 
   getMessages = (converstion) => {
     const that = this;
+    console.log('')
 
-    // const { item, token, dispatch } = that;
+    // const { item, token, dispatch } = that.props;
     // const { order_no, charge_id } = item;
 
     return converstion.queryMessages({
@@ -74,11 +75,11 @@ class ServiceItem extends PureComponent {
 
       //judge whether the order has completed
 
-      // if (messages.length === 0 && calculateTime(item.orderCreatedTime, 2) <= 0) {
+      // if (messages.length === 0 && calculateTime(item.service_object.start, 2) <= 0) {
       //   dispatch({ type: REFUND, payload: { token, body: { charge_id, order_no } }});
       // }
 
-      // if (messages.length !== 0 && calculateTime(item.orderCreatedTime, 24) <= 0) {
+      // if (messages.length !== 0 && calculateTime(item.service_object.start, 24) <= 0) {
       //   dispatch({ type: FINISH_ORDER, payload: { token, body: { order_no } }});
       // } else {
       // }
@@ -89,9 +90,10 @@ class ServiceItem extends PureComponent {
     const { userId, LeanRT, navigation, item } = this.props;
 
     const doctorId = item.service_object.doctor;
-    const clientId = userId;
+    const clientId = item.service_object.patient.id;
     const imClient = LeanRT.imClient;
     console.log('imClient', imClient);
+    console.log('doctorId', doctorId, clientId)
     if (imClient && imClient.getQuery) {
       return imClient.getQuery().withLastMessagesRefreshed(true).containsMembers([String(clientId), String(doctorId)]).find();
     }
@@ -115,11 +117,10 @@ class ServiceItem extends PureComponent {
   }
 
   handleChat(doctorId) {
-    const { navigation, LeanRT, userId,  } = this.props;
+    const { navigation, LeanRT, item  } = this.props;
 
-    const clientId = userId;
+    const clientId = item.service_object.patient.id;
     const imClient = LeanRT.imClient;
-    
     return imClient.createConversation({
       members: [String(doctorId)],
       name: `${String(doctorId)} 和 ${imClient.id}的对话`,
@@ -130,7 +131,7 @@ class ServiceItem extends PureComponent {
         'ios': 'TestRNIMUI',
         'android': 'TestRNIMUIAndroid'
       };
-      navigation.navigate(SELECT[Platform.OS], { clientId: userId, doctorId, imClient: imClient, conv: conversation })
+      navigation.navigate(SELECT[Platform.OS], { clientId, doctorId, imClient: imClient, conv: conversation })
     }).catch(console.error.bind(console));
   }
 
@@ -151,11 +152,11 @@ class ServiceItem extends PureComponent {
      * because, We depend on it to make money. - -!  _______电脑玩家汤姆
     */
 
-    const remainTime = calculateTime("2017-08-06T23:12:06.966131", 24);
+    const remainTime = calculateTime(item.service_object.start, 24);
 
 
 
-    if (normalConv.length > 0) {
+    if (normalConv.length > 0 && normalConv[0].lastMessage) {
       const message = normalConv[0].lastMessage;
 
       if (!message._lcfile && message._lctext !== 'data:image/jpeg;base64,') {
@@ -171,6 +172,8 @@ class ServiceItem extends PureComponent {
 
     if (lastMessage.length > 13) {
       lastMessage = lastMessage.slice(0, 13) + '...';
+    } else if (lastMessage.length === 0) {
+      lastMessage = '暂无消息';
     }
 
     return (
