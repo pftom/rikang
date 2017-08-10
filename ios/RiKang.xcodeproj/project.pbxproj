@@ -28,7 +28,6 @@
 		265C27FB1F35F5720064E1B1 /* RCTAuroraIMUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 265C27DF1F35F52F0064E1B1 /* RCTAuroraIMUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		265C27FE1F35F5AA0064E1B1 /* libAuroraIMUI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 265C27DD1F35F52F0064E1B1 /* libAuroraIMUI.a */; };
 		26719E731F35FB4A0000E455 /* defoult_header.png in Resources */ = {isa = PBXBuildFile; fileRef = 26719E701F35FB3F0000E455 /* defoult_header.png */; };
-		26719E741F35FB4A0000E455 /* defoult_header@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26719E711F35FB430000E455 /* defoult_header@2x.png */; };
 		26719E751F35FB4A0000E455 /* defoult_header@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 26719E721F35FB460000E455 /* defoult_header@3x.png */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -56,9 +55,7 @@
 		C5DEB9FE1F298B8E002FB400 /* libRCTBEEPickerManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C54C92BF1F28E97C0095F7AD /* libRCTBEEPickerManager.a */; };
 		E11FC4D496A54A238D291ACD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2577E3741554240A4811A54 /* UIKit.framework */; };
 		E20983581F2F4C340030896C /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C5DEB9FF1F298BD6002FB400 /* libc++.tbd */; };
-		E23A54D21F3AB75B00DBD740 /* defoult_header.png in Resources */ = {isa = PBXBuildFile; fileRef = E23A54CF1F3AB75B00DBD740 /* defoult_header.png */; };
-		E23A54D31F3AB75B00DBD740 /* defoult_header@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E23A54D01F3AB75B00DBD740 /* defoult_header@2x.png */; };
-		E23A54D41F3AB75B00DBD740 /* defoult_header@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E23A54D11F3AB75B00DBD740 /* defoult_header@3x.png */; };
+		E2DD77891F3C34E500B8AFBA /* defoult_header@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E2DD77881F3C34E500B8AFBA /* defoult_header@2x.png */; };
 		E2FBBF071F3496C500FECC39 /* libPingppModule.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2FBBF061F3496A800FECC39 /* libPingppModule.a */; };
 		E2FBBF091F3496D800FECC39 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2FBBF081F3496D800FECC39 /* Security.framework */; };
 		E2FBBF0B1F3496E500FECC39 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2FBBF0A1F3496E500FECC39 /* QuartzCore.framework */; };
@@ -396,6 +393,7 @@
 		E23A54CF1F3AB75B00DBD740 /* defoult_header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = defoult_header.png; path = ../../rikangDoctor/defoult_header.png; sourceTree = "<group>"; };
 		E23A54D01F3AB75B00DBD740 /* defoult_header@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "defoult_header@2x.png"; path = "../../rikangDoctor/defoult_header@2x.png"; sourceTree = "<group>"; };
 		E23A54D11F3AB75B00DBD740 /* defoult_header@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "defoult_header@3x.png"; path = "../../rikangDoctor/defoult_header@3x.png"; sourceTree = "<group>"; };
+		E2DD77881F3C34E500B8AFBA /* defoult_header@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "defoult_header@2x.png"; sourceTree = "<group>"; };
 		E2FBBF081F3496D800FECC39 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		E2FBBF0A1F3496E500FECC39 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E2FBBF0C1F3496F800FECC39 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -665,6 +663,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				E2DD77881F3C34E500B8AFBA /* defoult_header@2x.png */,
 				E23A54CF1F3AB75B00DBD740 /* defoult_header.png */,
 				E23A54D01F3AB75B00DBD740 /* defoult_header@2x.png */,
 				E23A54D11F3AB75B00DBD740 /* defoult_header@3x.png */,
@@ -1214,12 +1213,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				26719E741F35FB4A0000E455 /* defoult_header@2x.png in Resources */,
-				E23A54D21F3AB75B00DBD740 /* defoult_header.png in Resources */,
-				E23A54D31F3AB75B00DBD740 /* defoult_header@2x.png in Resources */,
 				26719E751F35FB4A0000E455 /* defoult_header@3x.png in Resources */,
+				E2DD77891F3C34E500B8AFBA /* defoult_header@2x.png in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				E23A54D41F3AB75B00DBD740 /* defoult_header@3x.png in Resources */,
 				26719E731F35FB4A0000E455 /* defoult_header.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
