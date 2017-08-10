@@ -38,6 +38,8 @@ import {
   CLEAR_SERVICE_STATE,
 
   GET_PATIENT_SERVICES,
+
+  GET_MEMBERSHIP,
 } from '../../../constants/';
 
 //import show modal
@@ -214,6 +216,7 @@ class ConsultOrder extends PureComponent {
           } else {
             navigation.navigate('PaySuccess');
             dispatch({ type: GET_PATIENT_SERVICES, payload: { token }})
+            dispatch({ type: GET_MEMBERSHIP, payload: { token }})
           }
         });
       } else if (Platform.OS === 'android') {
@@ -229,6 +232,7 @@ class ConsultOrder extends PureComponent {
           } else if (res.pay_result === 'success') {
             navigation.navigate('PaySuccess');
             dispatch({ type: GET_PATIENT_SERVICES, payload: { token }})
+            dispatch({ type: GET_MEMBERSHIP, payload: { token }})
           }
           
         });
