@@ -239,11 +239,12 @@ class ConsultOrder extends PureComponent {
 
   onClose = () => {
     const { navigation } = this.props;
-    const { data, dispatch, token } = navigation.state.params;
+    const { data, dispatch, token, type } = navigation.state.params;
     const { newOrder } = this.props;
 
     const body = {
       order_no: newOrder.get('order_no'),
+      type,
     };
 
     dispatch({ type: CANCEL_ORDER, payload: { token, body } });
