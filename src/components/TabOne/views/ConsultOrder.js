@@ -36,6 +36,8 @@ import {
   GET_CLIENT_IP,
 
   CLEAR_SERVICE_STATE,
+
+  GET_PATIENT_SERVICES,
 } from '../../../constants/';
 
 //import show modal
@@ -217,6 +219,7 @@ class ConsultOrder extends PureComponent {
             navigation.goBack();
           } else {
             navigation.navigate('PaySuccess');
+            dispatch({ type: GET_PATIENT_SERVICES, payload: { token }})
           }
         });
       } else if (Platform.OS === 'android') {
@@ -231,6 +234,7 @@ class ConsultOrder extends PureComponent {
             navigation.goBack();
           } else if (res.pay_result === 'success') {
             navigation.navigate('PaySuccess');
+            dispatch({ type: GET_PATIENT_SERVICES, payload: { token }})
           }
           
         });

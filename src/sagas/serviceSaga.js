@@ -101,7 +101,6 @@ function* pay(payload) {
     const charge = yield call(request.post, base + serviceApi.pay, body, token);
 
     yield put({ type: PAY_SUCCESS, charge });
-    yield put({ type: GET_PATIENT_SERVICES, payload: { token }})
   } catch (error) {
     yield put({ type: PAY_ERROR, error });
   }
