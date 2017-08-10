@@ -12,11 +12,12 @@ const { width, height } = Dimensions.get('window');
 export const  MemberShipStyle = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#F5F6F7'
   },
   secondContainer: {
     width: width,
     alignItems: 'center',
-    marginTop: px2dp(28),
+    marginTop: px2dp(24),
   },
   box: {
     width: px2dp(289),
@@ -37,7 +38,7 @@ export const  MemberShipStyle = StyleSheet.create({
   itemBox: {
     width: px2dp(289),
     flexDirection: 'row',
-    borderTopWidth: px2dp(0.5),
+    borderTopWidth: 1,
     borderTopColor: '#DADADA',
     height: px2dp(64),
     alignItems: 'center',
@@ -45,7 +46,7 @@ export const  MemberShipStyle = StyleSheet.create({
   extraItemBox: {
     width: px2dp(289),
     flexDirection: 'row',
-    borderTopWidth: px2dp(0.5),
+    borderTopWidth: 1,
     borderTopColor: '#DADADA',
     height: px2dp(151),
     paddingTop: px2dp(20),
@@ -73,11 +74,25 @@ export const  MemberShipStyle = StyleSheet.create({
     letterSpacing: px2dp(-0.4),
   },
   schemeBox: {
-    width: px2dp(241),
+    ...Platform.select({
+      ios: {
+        width: px2dp(241),
+      },
+      android: {
+        width: px2dp(235),
+      }
+    })
   },
   scheme: {
     fontFamily: 'PingFangSC-Regular',
-    fontSize: px2dp(18),
+    ...Platform.select({
+      ios: {
+        fontSize: px2dp(18),
+      },
+      android: {
+        fontSize: px2dp(15),
+      }
+    }),
     color: '#545454',
     letterSpacing: px2dp(-0.36),
     marginBottom: px2dp(21)
