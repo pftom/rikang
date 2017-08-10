@@ -189,8 +189,8 @@ class UserScreen extends PureComponent {
         { data: patientStarredQuestionsData.data, key: `关注的问题（${patientStarredQuestionsData.count}）`, seeMore: true, renderItem: ({ item }) => <ProblemItem navigation={navigation} item={item} token={token} noHintBar={patientStarredQuestionsData.count === 0} /> },
       ],
       [
-        { data: patientUnderWayServicesData.data, key: `进行中（${patientUnderWayServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <ServiceItem LeanRT={LeanRT} userId={this.props.userId} navigation={navigation} item={item} token={token} /> },
-        { data: patientPaidServicesData.data, key: `等待接受预约（${patientPaidServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <WaitForAcceptListItem navigation={navigation} item={item} token={token} /> },
+        { data: patientUnderWayServicesData.data, key: `进行中（${patientUnderWayServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <ServiceItem LeanRT={LeanRT} userId={this.props.userId} navigation={navigation} item={item} token={token} dispatch={dispatch} /> },
+        { data: patientPaidServicesData.data, key: `等待接受预约（${patientPaidServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <WaitForAcceptListItem navigation={navigation} item={item} token={token} dispatch={dispatch} /> },
         { data: patientFinishedServicesData.data, key: `已完成（${patientFinishedServicesData.count}）`, seeMore: true, renderItem: ({ item }) => <FinishedListItem navigation={navigation} item={item} token={token} dispatch={dispatch} /> },
       ],
       [

@@ -81,15 +81,17 @@ class CommentList extends PureComponent {
       unstar.push('entity_heart');
     }
 
+    console.log('item', item);
+
     return (
       <View style={styles.container}>
         <View style={styles.commentBox}>
           <View style={styles.leftBox}>
-            <Image source={{ uri: item.patient.avatar }} style={styles.avatar} />
+            <Image source={{ uri: item.patient.get('avatar') }} style={styles.avatar} />
           </View>
           <View style={styles.rightBox}>
             <View style={styles.nameBox}>
-              <Text style={styles.name}>{item.patient.name}</Text>
+              <Text style={styles.name}>{item.patient.get('name')}</Text>
               <Text style={styles.time}>{handleTime(item.created)}</Text>
             </View>
             <View style={styles.starBox}>

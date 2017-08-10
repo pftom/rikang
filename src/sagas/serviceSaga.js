@@ -1,4 +1,4 @@
-import { delay } from 'redux-saga';
+import { delay, takeEvery } from 'redux-saga';
 import { put, take, call, fork, cancel, } from 'redux-saga/effects';
 
 
@@ -30,6 +30,8 @@ import {
   ADD_COMMENT_FOR_ORDER,
   ADD_COMMENT_FOR_ORDER_ERROR,
   ADD_COMMENT_FOR_ORDER_SUCCESS,
+
+  GET_PATIENT_SERVICES,
 } from '../constants/';
 
 //import request api
@@ -58,6 +60,7 @@ function* createNewComment(payload) {
     yield call(request.post, base + serviceApi.createNewComment, body, token);
 
     yield put({ type: ADD_COMMENT_FOR_ORDER_SUCCESS });
+    yield put({ type: GET_PATIENT_SERVICES, payload: { token }})
   } catch (error) {
     yield put({ type: ADD_COMMENT_FOR_ORDER_ERROR, error });
   }
@@ -98,18 +101,21 @@ function* pay(payload) {
     const charge = yield call(request.post, base + serviceApi.pay, body, token);
 
     yield put({ type: PAY_SUCCESS, charge });
+    yield put({ type: GET_PATIENT_SERVICES, payload: { token }})
   } catch (error) {
     yield put({ type: PAY_ERROR, error });
   }
 }
 
-function* refund(payload) {
+function* refund(action) {
   try {
+    const { payload } = action;
     const { token, body } = payload;
 
     const refund = yield call(request.post, base + serviceApi.refund, body, token);
 
     yield put({ type: REFUND_SUCCESS, refund });
+    yield put({ type: GET_PATIENT_SERVICES, payload: { token }})
   } catch (error) {
     yield put({ type: REFUND_ERROR, error });
   }
@@ -153,11 +159,8 @@ function* watchPay() {
 }
 
 function* watchRefund() {
-  while (true) {
-    const { payload } = yield take(REFUND);
 
-    yield call(refund, payload);
-  }
+  yield takeEvery(REFUND, refund)
 }
 
 function* watchFinishOrder() {

@@ -54,8 +54,9 @@ class WaitForAcceptListItem extends PureComponent {
     const { order_no, charge_id } = item;
 
     const remainObject = calculateTime(item.created, 2);
+    console.log('remainObject', remainObject);
 
-    if (remainObject && remainObject.remainHour <= 0 && remainObject.remainMinute <= 0) {
+    if (remainObject && remainObject.remainHour < 0 && remainObject.remainMinute >= 0) {
       dispatch({ type: REFUND, payload: { token, body: { charge_id, order_no } }});
     }
 

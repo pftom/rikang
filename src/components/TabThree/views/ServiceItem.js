@@ -169,8 +169,8 @@ class ServiceItem extends PureComponent {
       lastTime = getNowTime(normalConv[0]);
     }
 
-    if (lastMessage.length > 13) {
-      lastMessage = lastMessage.slice(0, 13) + '...';
+    if (lastMessage.length > 10) {
+      lastMessage = lastMessage.slice(0, 10) + '...';
     } else if (lastMessage.length === 0) {
       lastMessage = '暂无消息';
     }

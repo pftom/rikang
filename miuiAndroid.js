@@ -60,7 +60,7 @@ function constructNormalMessage() {
 
 
 function getNowTime(item) {
-  const now = new Date(item.timestamp);
+  const now = item ? new Date(item.timestamp) : new Date();
 
   //setting message time
   const year = now.getFullYear();
@@ -120,7 +120,7 @@ export default class ChatActivity extends React.Component {
       hasLoadAllMessages: false,
       inputViewLayout: {width:window.width, height:86,},
       nowMessage: null,
-
+			imgMessage: [],
 		};
 
 		this.onMsgClick = this.onMsgClick.bind(this);
@@ -151,8 +151,9 @@ export default class ChatActivity extends React.Component {
 		message = JSON.parse(message);
 		if (message.msgType === 'image') {
 			const { navigation } = this.props;
+			const { imgMessage } = this.state;
 			console.log('messagemessage', navigation)
-			navigation.navigate('ImageView', { media: [{ photo: message.mediaPath }] })
+			navigation.navigate('ImageView', { media: imgMessage })
 		}
 		
 	}
@@ -180,109 +181,79 @@ export default class ChatActivity extends React.Component {
 		});
 	}
 
-	onPullToRefresh() {
-		console.log("pull to refresh! Will load history messages insert to top of MessageList");
-		var messages = [{
-			msgId: "1",
-			status: "send_succeed",
-			msgType: "text",
-			text: "history1",
-			isOutgoing: false,
-			fromUser: {
-				userId: "1",
-				displayName: "Ken",
-				avatarPath: "patient"
-			},
-			timeString: "9:00",
-		}, {
-			msgId: "2",
-			status: "send_succeed",
-			msgType: "text",
-			text: "history2",
-			isOutgoing: true,
-			fromUser: {
-				userId: "1",
-				displayName: "Ken",
-				avatarPath: "patient"
-			},
-			timeString: "9:20",
-		}, {
-			msgId: "3",
-			status: "send_succeed",
-			msgType: "text",
-			text: "history3",
-			isOutgoing: false,
-			fromUser: {
-				userId: "1",
-				displayName: "Ken",
-				avatarPath: "doctor"
-			},
-			timeString: "9:30",
-		}];
-		AuroraIMUIModule.insertMessagesToTop(messages);
+	onPullToRefresh = () => {
+      // this.loadMoreMessages();
+      if (this.messageIterator) {
+        this.loadMoreMessages();
+      }
 	}
+		
+	sendText = (draft) => {
+    if (!draft) {
+      return;
+    }
+    const message = new TextMessage(draft);
+    return this.send(message);
+  }
 
-	onSendText(text) {
-		console.log("will send text: " + text);
-		var messages = [{
-			msgId: "100",
-			status: "send_going",
-			msgType: "text",
-			text: text,
-			isOutgoing: true,
-			fromUser: {
-				userId: "1",
-				displayName: "Ken",
-				avatarPath: "doctor"
-			},
-			timeString: "10:00",
-		}];
-		AuroraIMUIModule.appendMessages(messages);
-		this.setState({
-			updateUI: true
-		});
-	}
+	onSendText = (text, needSendToCloud) => {
 
-	onSendGalleryFiles(mediaFiles) {
-		console.log("will send media files: " + mediaFiles);
-		AuroraIMUIModule.scrollToBottom();
-		for (var i = 0; i < mediaFiles.length; i++) {
-			var mediaFile = mediaFiles[i];
-			console.log("mediaFile: " + mediaFile);
-			var messages;
-			if (mediaFile.mediaType == "image") {
-				messages = [{
-					msgId: "1",
-					status: "send_going",
-					msgType: "image",
-					isOutgoing: true,
-					mediaPath: mediaFile.mediaPath,
-					fromUser: {
-						userId: "1",
-						displayName: "ken",
-						avatarPath: "doctor"
-					},
-					timeString: "10:00"
-				}];
-			} else {
-				messages = [{
-					msgId: "1",
-					status: "send_going",
-					msgType: "video",
-					isOutgoing: true,
-					mediaPath: mediaFile.mediaPath,
-					duration: mediaFile.duration,
-					fromUser: {
-						userId: "1",
-						displayName: "ken",
-						avatarPath: "doctor"
-					},
-					timeString: "10:00"
-				}];
-			}
-			AuroraIMUIModule.appendMessages(messages);
-		}
-	}
+    var message = constructNormalMessage()
+
+    this.setState({
+      nowMessage: message,
+    });
+
+    message.msgType = "text"
+    message.text = text
+
+    this.sendText(text);
+
+    AuroraIMUIModule.appendMessages([message])
+    AuroraIMUIModule.scrollToBottom()
+  }
+
+	onSendGalleryFiles = (mediaFiles) => {
+		const that = this;
+		const { imgMessage } = this.state;
+    console.log(mediaFiles)
+    for(index in mediaFiles) {
+      var message = constructNormalMessage()
+      message.msgType = "image"
+      message.mediaPath = mediaFiles[index].mediaPath
+
+      this.setState({
+        nowMessage: message,
+      });
+
+      RNFS.readFile(message.mediaPath, 'base64')
+        .then((contents) => {
+              console.log(contents);
+              const img = 'data:image/jpeg;base64,' + contents;
+
+              const file = new AV.File('image', {
+                blob: {
+                  uri: img
+                }
+              });
+              file.save().then(function () {
+              const msg = new ImageMessage(file);
+              msg.setText('data:image/jpeg;base64,');
+              console.log('msg', msg);
+
+              return that.send(msg);
+              
+            }).catch(console.error.bind(console));
+          })
+        .catch(err => {
+          console.log(err.message, err.code);
+        })
+      
+
+      AuroraIMUIModule.appendMessages([message])
+      AuroraIMUIModule.scrollToBottom()
+    }
+  }
 
 	onStartRecordVideo() {
 		console.log("start record video");
@@ -316,46 +287,102 @@ export default class ChatActivity extends React.Component {
 
 	}
 
-	onFinishRecordVoice(mediaPath, duration) {
-		console.log("finish record voice, mediaPath: " + mediaPath + " duration: " + duration);
-		var messages = [{
-			msgId: "1",
-			status: "send_going",
-			msgType: "voice",
-			isOutgoing: true,
-			mediaPath: mediaPath,
-			duration: duration,
-			fromUser: {
-				userId: "1",
-				displayName: "ken",
-				avatarPath: "doctor"
-			},
-			timeString: "10:00"
-		}];
-		AuroraIMUIModule.appendMessages(messages);
-	}
+	onFinishRecordVoice = (mediaPath, duration) => {
+    const that = this;
+		
+		var message = {
+						msgId: String(themsgid),
+						status: "send_going",
+						msgType: "voice",
+						isOutgoing: true,
+						mediaPath: mediaPath,
+						duration: duration,
+						fromUser: {
+							userId: "1",
+							displayName: "ken",
+							avatarPath: "patient"
+						},
+						timeString: String(getNowTime()),
+					};
+
+	themsgid += 1
+
+    console.log('message.mediaPath', message.mediaPath)
+
+    //add image 
+      this.setState({
+        nowMessage: message,
+      });
+
+      RNFS.readFile(message.mediaPath, 'base64')
+        .then((contents) => {
+              console.log(contents);
+              const audio = 'data:audio/m4a;base64,' + contents;
+
+              const file = new AV.File('audio', {
+                blob: {
+                  uri: audio
+                }
+              });
+              file.save().then(function () {
+              const msg = new AudioMessage(file);
+              msg.setText('data:audio/m4a;base64,');
+              console.log('msg', msg);
+
+              return that.send(msg);
+              
+            }).catch(console.error.bind(console));
+          })
+        .catch(err => {
+          console.log(err.message, err.code);
+        })
+
+    AuroraIMUIModule.appendMessages([message])
+  }
 
 	onCancelRecordVoice() {
 		console.log("cancel record voice");
 	}
 
-	onTakePicture(mediaPath) {
-		console.log("finish take picture, mediaPath: " + mediaPath);
-		var messages = [{
-			msgId: "1",
-			status: "send_going",
-			msgType: "image",
-			isOutgoing: true,
-			mediaPath: mediaPath,
-			fromUser: {
-				userId: "1",
-				displayName: "ken",
-				avatarPath: "doctor"
-			},
-			timeString: "10:00"
-		}];
-		AuroraIMUIModule.appendMessages(messages);
-	}
+	onTakePicture = (mediaPath) => {
+
+    const that = this;
+
+    var message = constructNormalMessage()
+    message.msgType = "image"
+    message.mediaPath = mediaPath
+
+      //add image 
+      this.setState({
+        nowMessage: message,
+      });
+
+      RNFS.readFile(message.mediaPath, 'base64')
+        .then((contents) => {
+              console.log(contents);
+              const img = 'data:image/jpeg;base64,' + contents;
+
+              const file = new AV.File('image', {
+                blob: {
+                  uri: img
+                }
+              });
+              file.save().then(function () {
+              const msg = new ImageMessage(file);
+              msg.setText('data:image/jpeg;base64,');
+              console.log('msg', msg);
+
+              return that.send(msg);
+              
+            }).catch(console.error.bind(console));
+          })
+        .catch(err => {
+          console.log(err.message, err.code);
+        })
+
+    AuroraIMUIModule.appendMessages([message])
+    AuroraIMUIModule.scrollToBottom()
+  }
 
 	async onSwitchToMicrophoneMode() {
 		console.log("switch to microphone mode, set menuContainerHeight : " + this.state.menuContainerHeight);
@@ -448,6 +475,39 @@ export default class ChatActivity extends React.Component {
 	componentDidMount() {
     this.getCurrentConversation();
 	}
+
+	send = (message) => {
+    const that = this;
+    let { messages } = that.state;
+    return this.getCurrentConversation()
+      .then(conversation => {
+        const sendPromise = conversation.send(message, {
+          receipt: conversation.members.length === 2
+        });
+
+        messages.push(message);
+
+        let { nowMessage } = this.state;
+
+        console.log('message', message);
+
+        nowMessage = {
+          ...nowMessage,
+          status: "send_success",
+          timeString: getNowTime(message),
+        };
+        AuroraIMUIModule.updateMessage(nowMessage);
+
+
+        console.log(messages);
+        that.setState({
+          messages,
+        });
+
+        return sendPromise;
+      })
+      .catch(console.error.bind(console));
+  }
 	
 	getCurrentConversation = () => {
     const { navigation } = this.props;
@@ -516,7 +576,17 @@ export default class ChatActivity extends React.Component {
 	
 	constructMoreDetailMessageImg = (item, clientId, isSucceed) => {
     //for mediaPath
-    // let mediaPath = '/Users/tom/Library/Developer/CoreSimulator/Devices/0E969615-494B-4EA4-AC1B-595EC84CD751/data/Containers/Data/Application/CE841824-7F9F-4DBE-B4A1-1FBABEF10A1E/Documents/';
+		// let mediaPath = '/Users/tom/Library/Developer/CoreSimulator/Devices/0E969615-494B-4EA4-AC1B-595EC84CD751/data/Containers/Data/Application/CE841824-7F9F-4DBE-B4A1-1FBABEF10A1E/Documents/';
+		let { imgMessage } = this.state;
+		if (item._lcfile.url) {
+			imgMessage.push({
+				photo: item._lcfile.url,
+			});
+		}
+
+		this.setState({
+			imgMessage,
+		});
 
     RNFetchBlob
       .config({
@@ -558,7 +628,7 @@ export default class ChatActivity extends React.Component {
       .config({
         fileCache : true,
         // by adding this option, the temp files will have a file extension
-        appendExt : 'm4a'
+        appendExt : 'amr'
       })
       .fetch('GET', item._lcfile.url)
       .then((res) => {
@@ -568,17 +638,25 @@ export default class ChatActivity extends React.Component {
           const nowTime = getNowTime(item);
 
           //sign message is me or other
-          const isOutgoing = Number(item.from) === Number(clientId);
+					const isOutgoing = Number(item.from) === Number(clientId);
+					
+					var messages = [{
+						msgId: String(themsgid),
+						status: "send_succeed",
+						msgType: "voice",
+						isOutgoing: isOutgoing,
+						mediaPath: res.path(),
+						duration: 3,
+						fromUser: {
+							userId: "1",
+							displayName: "ken",
+							avatarPath: "patient"
+						},
+						timeString: String(nowTime),
+					}];
 
-          message.msgType = "voice"
-          message.mediaPath = res.path();
-          message.progress = "加载中...";
 
-          message.timeString = nowTime;
-          message.isOutgoing = isOutgoing;
-          message.status = isSucceed ? "send_succeed" : "send_going";
-
-          AuroraIMUIModule.insertMessagesToTop([message]);
+          AuroraIMUIModule.insertMessagesToTop(messages);
           AuroraIMUIModule.scrollToBottom();
       })
       .catch((err) => {
@@ -614,7 +692,7 @@ export default class ChatActivity extends React.Component {
           else if (item._lcfile && item._lctext === 'data:image/jpeg;base64,') {
             this.constructMoreDetailMessageImg(item, clientId, true)
           } else if (item._lcfile && item._lctext === "data:audio/m4a;base64,") {
-            // this.constructMoreDetailMessageAudio(item, clientId, true)
+            this.constructMoreDetailMessageAudio(item, clientId, true)
           }
         })
 
@@ -630,11 +708,16 @@ export default class ChatActivity extends React.Component {
 
       this.setState(newState)
     })
+	}
+	
+	handleSendText = () => {
+    this.sendText();
   }
 
 	componentWillUnmount() {
-		
-	}
+    this.currentConversation.off('message', this.messageUpdater);
+    this.currentConversation.off('message', this.readMarker);
+  }
 
 	render() {
 		return (

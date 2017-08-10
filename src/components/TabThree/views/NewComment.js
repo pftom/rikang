@@ -103,6 +103,15 @@ class NewComment extends PureComponent {
       };
 
       dispatch({ type: ADD_COMMENT_FOR_ORDER, payload: { token, body }});
+
+      Keyboard.dismiss();
+      this.setState({
+        body: '',
+        ratings: 5,
+        doctor: '',
+        anonymous: false,
+        order_no: '',
+      })
     }
   }
 

@@ -66,6 +66,7 @@ export const CommentListStyle = StyleSheet.create({
 
   contentBox: {
     width: px2dp(256),
+    marginBottom: px2dp(5),
   },
   content: {
     fontFamily: 'PingFangSC-Light',

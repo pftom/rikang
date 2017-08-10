@@ -1,4 +1,4 @@
-import { delay } from 'redux-saga';
+import { delay, takeEvery } from 'redux-saga';
 import { put, take, call } from 'redux-saga/effects';
 
 //import HOSPITAL action constans
@@ -121,8 +121,9 @@ function* getPatientStarredQuestions(payload) {
 
 
   //get patient services
-function* getPatientServices(payload) {
+function* getPatientServices(action) {
   try {
+    const { payload } = action;
     const { token } = payload;
     const patientServices = yield call(request.get, base + usersApi.patientServices, null, token);
     yield put({ type: GET_PATIENT_SERVICES_SUCCESS, patientServices });
@@ -190,11 +191,8 @@ function* watchGetPatientStarredQuestions() {
 
 //patient async actions watch function
 function* watchGetPatientServices() {
-  while (true) {
-    const { payload } = yield take(GET_PATIENT_SERVICES);
-    // fork return a Task object for cancel later
-    yield call(getPatientServices, payload);
-  }
+
+  yield takeEvery(GET_PATIENT_SERVICES, getPatientServices)
 }
 
 
