@@ -317,7 +317,7 @@ export default class ChatActivity extends React.Component {
       RNFS.readFile(message.mediaPath, 'base64')
         .then((contents) => {
               console.log(contents);
-              const audio = 'data:audio/m4a;base64,' + contents;
+              const audio = 'data:audio/mp3;base64,' + contents;
 
               const file = new AV.File('audio', {
                 blob: {
@@ -326,7 +326,7 @@ export default class ChatActivity extends React.Component {
               });
               file.save().then(function () {
               const msg = new AudioMessage(file);
-              msg.setText('data:audio/m4a;base64,');
+              msg.setText('data:audio/mp3;base64,');
               console.log('msg', msg);
 
               return that.send(msg);
@@ -628,7 +628,7 @@ export default class ChatActivity extends React.Component {
       .config({
         fileCache : true,
         // by adding this option, the temp files will have a file extension
-        appendExt : 'amr'
+        appendExt : 'mp3'
       })
       .fetch('GET', item._lcfile.url)
       .then((res) => {

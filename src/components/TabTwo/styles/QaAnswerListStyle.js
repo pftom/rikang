@@ -85,7 +85,7 @@ export const QaAnswerListStyle = StyleSheet.create({
         height: px2dp(51),
       },
       android: {
-        height: px2dp(55),
+        height: px2dp(65),
       }
     }),
     borderBottomWidth: px2dp(0.5),
@@ -101,7 +101,7 @@ export const QaAnswerListStyle = StyleSheet.create({
         width: px2dp(48),
       },
       android: {
-        width: px2dp(55),
+        width: px2dp(),
       }
     }),
     justifyContent: 'center',

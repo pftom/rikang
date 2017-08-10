@@ -29,7 +29,7 @@ export const DoctorDetailStyle = StyleSheet.create({
     right: 0,
     top: 0,
     bottom: 0,
-    marginTop: 81,
+    marginTop: px2dp(81),
     width: width, 
     backgroundColor: 'transparent',
     ...Platform.select({
@@ -37,7 +37,7 @@ export const DoctorDetailStyle = StyleSheet.create({
         height: 189,
       },
       android: {
-        height: 220,
+        height: px2dp(220),
       }
     }),
     alignItems: 'center',

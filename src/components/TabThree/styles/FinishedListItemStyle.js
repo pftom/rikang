@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Dimensions, } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 
 
 //import screen adapt util
@@ -76,7 +76,14 @@ export const FinishedListItemStyle = StyleSheet.create({
     marginRight: px2dp(7),
   },
   buttonBox: {
-    width: px2dp(98),
+    ...Platform.select({
+      ios: {
+        width: px2dp(98),
+      },
+      android: {
+        width: px2dp(60),
+      }
+    }),
     height: px2dp(25),
     justifyContent: 'center',
     alignItems: 'center',
