@@ -72,4 +72,5 @@ export const serviceApi = {
   cancel: 'services/cancel',
   refund: 'services/refund',
   finishOrder: 'services/finish-order',
+  memberShip: 'users/patient/membership/'
 }

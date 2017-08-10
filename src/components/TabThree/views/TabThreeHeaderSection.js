@@ -6,12 +6,16 @@ import { HeaderSectionStyle as styles } from '../styles/HeaderSectionStyle';
 
 import LinearGradient from 'react-native-linear-gradient';
 
+import { Toast } from 'antd-mobile'
+
 //import select photo
 import SelectPhoto from '../common/SelectPhoto';
+
 
 import { UPDATE_PATIENT_PROFILE } from '../../../constants/';
 
 import { SEXMAP } from '../data/';
+
 
 class TabThreeHeaderSection extends PureComponent {
 
@@ -29,8 +33,22 @@ class TabThreeHeaderSection extends PureComponent {
     dispatch({ type: UPDATE_PATIENT_PROFILE, payload: { body, token } } )
   }
 
+  successToast(msg) {
+    Toast.success(msg, 1);
+  }
+
+  handleMemberShip = () => {
+    const { navigation, membership } = this.props;
+    if(!(membership && membership.get('expire'))) {
+      this.successToast('您已开通会员');
+    } else {
+      navigation.navigate('MemberShip', { dispatch, token, });
+    }
+  }
+
   render() {
     const { patientProfile, navigation, dispatch, token, membership } = this.props;
+
     return (
      <LinearGradient
             start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}
@@ -54,25 +72,29 @@ class TabThreeHeaderSection extends PureComponent {
                   <View style={styles.membershipBox}>
                     <Text style={styles.name}>{patientProfile && patientProfile.get('name') && patientProfile.get('name') || '还没填写姓名'}</Text>
                     {
-                      membership && (
+                      !(membership && membership.get('expire')) && (
                         <Image source={require('../img/membership.png')} />
                       )
                     }
                   </View>
                   <View style={styles.infoContainer}>
-                      <TouchableOpacity onPress={() => { navigation.navigate('PatientPersonInfo', { token, patientProfile, dispatch })}}>
-                      <View style={styles.infoBox}>
-                        <Image source={require('../img/pen.png')} />
-                        <Text style={styles.info}>个人信息</Text>
-                      </View>
-                    </TouchableOpacity>
+                        <TouchableOpacity onPress={() => { navigation.navigate('PatientPersonInfo', { token, patientProfile, dispatch })}}>
+                        <View style={styles.infoBox}>
+                          <View style={styles.infoSecondContainer}>
+                            <Image source={require('../img/pen.png')} />
+                            <Text style={styles.info}>个人信息</Text>
+                          </View>
+                        </View>
+                      </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => { thia.handleMemberShip() }}>
-                      <View style={styles.infoBox}>
-                        <Image source={require('../img/sign.png')} />
-                        <Text style={styles.info}>日康会员</Text>
-                      </View>
-                    </TouchableOpacity>
+                      <TouchableOpacity onPress={() => { this.handleMemberShip() }}>
+                        <View style={styles.infoBox}>
+                         <View style={styles.infoSecondContainer}>
+                            <Image source={require('../img/sign.png')} />
+                            <Text style={styles.info}>日康会员</Text>
+                          </View>
+                        </View>
+                      </TouchableOpacity>
                   </View>
                 </View>
               </View>

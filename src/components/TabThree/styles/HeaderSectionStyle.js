@@ -40,10 +40,16 @@ export const  HeaderSectionStyle = StyleSheet.create({
     marginRight: px2dp(17),
     marginLeft: px2dp(9),
   },
+  membershipBox: {
+    height: px2dp(35),
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
   name: {
     fontFamily: 'PingFangSC-Medium',
-    fontSize: 20,
+    fontSize: px2dp(20),
     color: '#FFF',
+    marginRight: px2dp(9),
   },
   rightBox: {
     backgroundColor: 'transparent',
@@ -56,15 +62,21 @@ export const  HeaderSectionStyle = StyleSheet.create({
     alignItems: 'center',
     marginTop: px2dp(10),
   },
-  infoBox: {
+  infoSecondContainer: {
+    width: px2dp(76),
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    height: px2dp(26),
+    alignItems: 'center',
+  },
+  infoBox: {
     height: px2dp(26),
     width: px2dp(110),
     alignItems: 'center',
     borderWidth: px2dp(1),
     borderColor: '#FFFFFF',
+    justifyContent: 'center',
     backgroundColor: 'transparent',
+    borderRadius: px2dp(5),
   },
   info: {
     fontFamily: 'PingFangSC-Regular',

@@ -153,7 +153,6 @@ class UserScreen extends PureComponent {
       patientUnsolvedQuestionsData = handleUserData(questionFav, 'questions', 'unsolved');
       // the second params for handle  solved status question
       patientSolvedQuestionsData = handleUserData(questionFav, 'questions', 'solved');
-      console.log('patientSolvedQuestionsData', patientSolvedQuestionsData);
     }
 
     let patientStarredQuestionsData = {
@@ -180,14 +179,10 @@ class UserScreen extends PureComponent {
     if (servicesFav.size > 0) {
 
       this.createImClient(servicesFav.get(0));
-      console.log('servicesFav', servicesFav && servicesFav.toJS());
       patientUnderWayServicesData = handleUserData(servicesFav, 'services', 'underway', doctors.get('results'));
       patientPaidServicesData = handleUserData(servicesFav, 'services', 'paid', doctors.get('results'))
       patientFinishedServicesData = handleUserData(servicesFav, 'services', 'finished', doctors.get('results'));
 
-      console.log('patientUnderWayServicesData', patientUnderWayServicesData);
-      console.log('patientPaidServicesData', patientPaidServicesData);
-      console.log('patientFinishedServicesData', patientFinishedServicesData);
     }
 
 

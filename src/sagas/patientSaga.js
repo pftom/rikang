@@ -1,5 +1,5 @@
-import { delay, takeEvery } from 'redux-saga';
-import { put, take, call } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
+import { put, take, call, takeEvery } from 'redux-saga/effects';
 
 //import HOSPITAL action constans
 import { 

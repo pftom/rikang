@@ -1,5 +1,5 @@
-import { delay, takeEvery } from 'redux-saga';
-import { put, take, call, fork, cancel, } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
+import { put, take, call, fork, cancel, takeEvery } from 'redux-saga/effects';
 
 
 import {
@@ -140,7 +140,7 @@ function* getMemberShip(payload) {
   try {
     const { token } = payload;
 
-    const membership = yield call(request.get, base + serviceApi.finishOrder, body, token);
+    const membership = yield call(request.get, base + serviceApi.memberShip, null, token);
 
     yield put({ type: GET_MEMBERSHIP_SUCCESS, membership });
   } catch (error) {
