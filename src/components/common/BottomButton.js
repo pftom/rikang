@@ -6,10 +6,10 @@ import { BottomButtonStyle as styles } from '../styles/';
 class BottomButton extends PureComponent {
 
   handleBtn = () => {
-    const { kind, navigation, token, dispatch, data, jumpToScreen } = this.props;
+    const { kind, navigation, token, dispatch, data, jumpToScreen, HintMessage, type } = this.props;
 
     if (kind === 'jumpPay') {
-      navigation.navigate(jumpToScreen, { token, data, dispatch })
+      navigation.navigate(jumpToScreen, { token, data, dispatch, HintMessage, type })
     }
 
     if (kind === 'popUpPayingPage') {
@@ -22,6 +22,10 @@ class BottomButton extends PureComponent {
 
     if (kind === 'putComment') {
       this.props.handlePutComment();
+    }
+
+    if (kind === 'membership') {
+      this.props.handleMemberShip();
     }
   }
 

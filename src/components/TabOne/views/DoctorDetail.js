@@ -107,6 +107,14 @@ const items = [
 ];
 
 
+
+const HintMessage = [
+  '● 请不要在咨询中透露与疾病无关的个人信息。',
+  '● 在线咨询包含文字、图片和语音多种方式。',
+  '● 如果医生2小时内未回复，将退还全部费用。',
+  '● 咨询24小时有效，您可以有效期内任何时间继续开始咨询。',
+];
+
 class DoctorDetail extends PureComponent {
 
   constructor(props) {
@@ -435,7 +443,7 @@ class DoctorDetail extends PureComponent {
           handleAddFav={() => { doctor && dispatch({ type: ADD_SINGLE_DOCTOR_FAV, payload: { token, id, doctor } } ) } }
         />
 
-        <BottomButton doctorId={doctor && doctor.get('id')} boxStyle={ Platform.OS === 'android' && { bottom: 20 } } content="向他求助" token={token} dispatch={dispatch} data={doctor} navigation={navigation} jumpToScreen="ConsultOrder" kind={'jumpPay'} />
+        <BottomButton HintMessage={HintMessage} type={'C'}  doctorId={doctor && doctor.get('id')} boxStyle={ Platform.OS === 'android' && { bottom: 20 } } content="向他求助" token={token} dispatch={dispatch} data={doctor} navigation={navigation} jumpToScreen="ConsultOrder" kind={'jumpPay'} />
     </LinearGradient>
     )
   }

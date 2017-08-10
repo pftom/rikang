@@ -20,6 +20,8 @@ import About from '../components/TabThree/views/About';
 
 //member ship
 import MemberShip from '../components/TabThree/views/MemberShip';
+import MemberShipContent from '../components/TabThree/views/MemberShipContent';
+import MemberShipReallyPage from '../components/TabThree/views/MemberShipReallyPage';
 
 /*
  *
@@ -123,6 +125,8 @@ export const AppNavigator = StackNavigator({
     About: { screen: About },
 
     MemberShip: { screen: MemberShip },
+    MemberShipContent: { screen: MemberShipContent },
+    MemberShipReallyPage: { screen: MemberShipReallyPage },
 
     QuestionDetail: { screen: QuestionDetail },
     PutQuestionDetail: { screen: PutQuestionDetail },

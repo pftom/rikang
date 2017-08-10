@@ -8,6 +8,8 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import { Toast } from 'antd-mobile'
 
+import { Map } from 'immutable';
+
 //import select photo
 import SelectPhoto from '../common/SelectPhoto';
 
@@ -40,7 +42,7 @@ class TabThreeHeaderSection extends PureComponent {
   handleMemberShip = () => {
     const { navigation, membership, dispatch, token, patientProfile } = this.props;
     if((membership && membership.get('expire'))) {
-      this.successToast('您已开通会员');
+      navigation.navigate('MemberShipReallyPage', { dispatch, token, membership });
     } else {
       navigation.navigate('MemberShip', { dispatch, token, phone: patientProfile.get('phone') });
     }
@@ -72,7 +74,7 @@ class TabThreeHeaderSection extends PureComponent {
                   <View style={styles.membershipBox}>
                     <Text style={styles.name}>{patientProfile && patientProfile.get('name') && patientProfile.get('name') || '还没填写姓名'}</Text>
                     {
-                      !(membership && membership.get('expire')) && (
+                      (membership && membership.get('expire')) && (
                         <Image source={require('../img/membership.png')} />
                       )
                     }

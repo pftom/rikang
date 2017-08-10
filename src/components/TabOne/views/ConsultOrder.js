@@ -48,12 +48,6 @@ const Item = List.Item;
 //import style
 import {  ConsultOrderStyle as styles } from '../../styles/';
 
-const HintMessage = [
-  '● 请不要在咨询中透露与疾病无关的个人信息。',
-  '● 在线咨询包含文字、图片和语音多种方式。',
-  '● 如果医生2小时内未回复，将退还全部费用。',
-  '● 咨询24小时有效，您可以有效期内任何时间继续开始咨询。',
-];
 
 const selectPay = [
   {
@@ -264,13 +258,13 @@ class ConsultOrder extends PureComponent {
     
 
     const { navigation } = this.props;
-    const { data, dispatch, token } = navigation.state.params;
+    const { data, dispatch, token, type } = navigation.state.params;
     const { newOrder, clientIp } = this.props;
 
 
     const body = {
       order_no: newOrder.get('order_no'),
-      type: 'C',
+      type: type,
       cost: newOrder.get('cost'),
       channel: isAlipay ? 'alipay' : 'wx',
       client_ip: '127.0.0.1',
@@ -283,17 +277,26 @@ class ConsultOrder extends PureComponent {
 
   showModal = (priceText) => {
     const { navigation } = this.props;
-    const { data, dispatch, token } = navigation.state.params;
+    const { data, dispatch, token, type, contentBody } = navigation.state.params;
 
     this.setState({
       isClosed: false,
     });
     
 
-    const body = {
-      type: 'C',
-      doctor: data.get('id'),
-    };
+    let body = null;
+    if (type === 'C') {
+      body = {
+        type: 'C',
+        doctor: data.get('id'),
+      }
+    } else if (type === 'M') {
+      body = {
+        type: 'M',
+        name: contentBody.name,
+        id_card: contentBody.id,
+      }
+    }
 
     dispatch({ type: CREATE_NEW_ORDER, payload: { token, body }});
 
@@ -306,7 +309,7 @@ class ConsultOrder extends PureComponent {
 
     console.log('state', this.state);
     const { navigation } = this.props;
-    const { data, dispatch, token } = navigation.state.params;
+    const { data, dispatch, token, HintMessage } = navigation.state.params;
 
     const dataMap = [
       {

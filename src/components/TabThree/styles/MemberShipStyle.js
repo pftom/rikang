@@ -81,5 +81,19 @@ export const  MemberShipStyle = StyleSheet.create({
     color: '#545454',
     letterSpacing: px2dp(-0.36),
     marginBottom: px2dp(21)
-  }
+  },
+  textContainer: {
+    width: width,
+    alignItems: 'center',
+  },
+  textBox: {
+    width: px2dp(270),
+    marginTop: px2dp(53),
+  },
+  text: {
+    fontFamily: 'PingFangSC-Regular',
+    fontSize: px2dp(14),
+    color: '#545454',
+    letterSpacing: px2dp(-0.28),
+  },
 });
