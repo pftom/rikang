@@ -82,6 +82,8 @@ import {
 
   watchGetClientIp,
   watchCreateNewComment,
+
+  watchGetMemberShip,
 } from './serviceSaga.js';
 
 export default function* rootSaga() {
@@ -145,5 +147,6 @@ export default function* rootSaga() {
     watchFinishOrder(),
     watchGetClientIp(),
     watchCreateNewComment(),
+    watchGetMemberShip(),
   ]);
 }

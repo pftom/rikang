@@ -35,6 +35,8 @@ import {
   GET_PATIENT_QUESTIONS,
   GET_PATIENT_STARRED_QUESTIONS,
   GET_PATIENT_SERVICES,
+
+  GET_MEMBERSHIP,
  } from '../../../constants/'
 
 //import selector from select data
@@ -92,6 +94,8 @@ class UserScreen extends PureComponent {
     dispatch({ type: GET_PATIENT_QUESTIONS, payload: { token } });
     dispatch({ type: GET_PATIENT_STARRED_QUESTIONS, payload: { token } });
     dispatch({ type: GET_PATIENT_SERVICES, payload: { token } });
+
+    dispatch({ type: GET_MEMBERSHIP, payload: { token } });
   }
 
   componentDidMount() {
@@ -114,6 +118,10 @@ class UserScreen extends PureComponent {
     const { postFav, doctorFav, questionFav, questionStarredFav, servicesFav } = this.props;
     //get fetch data and doctor
     const { postFetch, doctors} = this.props;
+
+
+    //get member shio
+    const { membership } = this.props;
 
     //get post data
     // if not fetch or lose network, use
@@ -207,6 +215,7 @@ class UserScreen extends PureComponent {
             patientProfile={patientProfile}
             navigation={navigation}
             token={token}
+            membership={membership}
             dispatch={dispatch}
           />
         }

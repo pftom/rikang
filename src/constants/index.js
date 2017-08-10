@@ -302,6 +302,11 @@ export const JUMP_TO_QA = 'JUMP_TO_QA';
   service section
 */
 
+
+export const GET_MEMBERSHIP = 'GET_MEMBERSHIP';
+export const GET_MEMBERSHIP_SUCCESS = 'GET_MEMBERSHIP_SUCCESS';
+export const GET_MEMBERSHIP_ERROR = 'GET_MEMBERSHIP_ERROR';
+
 export const GET_CLIENT_IP = 'GET_CLIENT_IP';
 export const GET_CLIENT_IP_SUCCESS = 'GET_CLIENT_IP_SUCCESS';
 export const GET_CLIENT_IP_ERROR = 'GET_CLIENT_IP_ERROR';

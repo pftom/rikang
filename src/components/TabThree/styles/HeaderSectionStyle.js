@@ -48,16 +48,28 @@ export const  HeaderSectionStyle = StyleSheet.create({
   rightBox: {
     backgroundColor: 'transparent',
   },
-  infoBox: {
-    marginTop: px2dp(10),
+  infoContainer: {
+    width: px2dp(228),
+    height: px2dp(30),
     flexDirection: 'row',
-    height: px2dp(22),
+    justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: px2dp(10),
+  },
+  infoBox: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: px2dp(26),
+    width: px2dp(110),
+    alignItems: 'center',
+    borderWidth: px2dp(1),
+    borderColor: '#FFFFFF',
+    backgroundColor: 'transparent',
   },
   info: {
     fontFamily: 'PingFangSC-Regular',
-    fontSize: 16,
+    fontSize: px2dp(16),
     color: '#FFF',
-    marginRight: px2dp(8),
+    marginLeft: px2dp(6),
   },
 })

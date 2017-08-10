@@ -34,6 +34,10 @@ import {
   ADD_COMMENT_FOR_ORDER_SUCCESS,
   CLEAR_COMMENT_ORDER_STATE,
 
+  GET_MEMBERSHIP,
+  GET_MEMBERSHIP_SUCCESS,
+  GET_MEMBERSHIP_ERROR,
+
 } from '../constants/';
 
 const initialServiceValue = Map({
@@ -71,6 +75,11 @@ const initialServiceValue = Map({
   isComment: false, 
   commentSuccess: false, 
   commentError: false,
+
+  membership: null,
+  getMemberShip: false,
+  getMemberShipSuccess: false,
+  getMemberShipError: false,
 });
 
 
@@ -255,6 +264,30 @@ const service = (state = initialServiceValue, action) => {
         commentError: false,
       });
 
+    case GET_MEMBERSHIP:
+      
+      return state.merge({
+        getMemberShip: true, 
+        getMemberShipSuccess: false, 
+        getMemberShipError: false,
+      });
+
+    case GET_MEMBERSHIP_SUCCESS:
+      const { membership } = action;  
+
+      return state.merge({
+        getMemberShip: false, 
+        getMemberShipSuccess: false, 
+        membership,
+      });
+
+    case GET_MEMBERSHIP_ERROR:
+
+      return state.merge({
+        getMemberShip: false, 
+        getMemberShipError: false, 
+      });
+
     case CLEAR_SERVICE_STATE:
 
       return state.merge({
@@ -281,6 +314,10 @@ const service = (state = initialServiceValue, action) => {
         isGetClientIp: false,
         getClientIpSuccess: false,
         getClientIpError: false,
+
+        getMemberShip: false, 
+        getMemberShipSuccess: false, 
+        getMemberShipError: false,
       })
 
     default: 

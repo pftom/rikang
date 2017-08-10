@@ -32,6 +32,10 @@ import {
   ADD_COMMENT_FOR_ORDER_SUCCESS,
 
   GET_PATIENT_SERVICES,
+
+  GET_MEMBERSHIP,
+  GET_MEMBERSHIP_SUCCESS,
+  GET_MEMBERSHIP_ERROR,
 } from '../constants/';
 
 //import request api
@@ -132,6 +136,18 @@ function* finishOrder(payload) {
   }
 }
 
+function* getMemberShip(payload) {
+  try {
+    const { token } = payload;
+
+    const membership = yield call(request.get, base + serviceApi.finishOrder, body, token);
+
+    yield put({ type: GET_MEMBERSHIP_SUCCESS, membership });
+  } catch (error) {
+    yield put({ type: GET_MEMBERSHIP_ERROR, error });
+  }
+}
+
 //HOSPITAL async actions handle function
 function* watchCreateNewOrder() {
   while (true) {
@@ -186,6 +202,14 @@ function* watchCreateNewComment() {
   }
 }
 
+function* watchGetMemberShip() {
+  while (true) {
+    const { payload } = yield take(GET_MEMBERSHIP);
+
+    yield call(getMemberShip, payload);
+  }
+}
+
 export {
   watchCreateNewOrder,
   watchCancel,
@@ -195,4 +219,6 @@ export {
 
   watchGetClientIp,
   watchCreateNewComment,
+
+  watchGetMemberShip,
 }

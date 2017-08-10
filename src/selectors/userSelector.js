@@ -17,9 +17,26 @@ const getAllDoctors = (state) => state.getIn(['home', 'doctors']);
 const getPatientId = (state) => state.getIn(['auth', 'id']);
 
 
+//get member ship
+const getIsMemberShip = (state) => state.getIn(['service', 'getMemberShip']);
+const getIsMemberShipSuccess = (state) => state.getIn(['service', 'getMemberShipSuccess']);
+const getIsMemberShipError = (state) => state.getIn(['service', 'getMemberShipError']);
+const getMemberShip = (state) => state.getIn(['service', 'membership']);
+
+
 export const getPatientSelector = createSelector(
-  [ getPatientId, getToken, getPatientProfile, getPatientFavPosts, getPatientFavDoctors, getPatientQuestions, getPatientStarredQuestions, getPatientServices, getPatientFetchPosts, getAllDoctors  ],
-  ( userId, token, patientProfile, postFav, doctorFav, questionFav, questionStarredFav, servicesFav, postFetch, doctors ) => ({
+  [ getPatientId, getToken, getPatientProfile, getPatientFavPosts, getPatientFavDoctors, getPatientQuestions, getPatientStarredQuestions, getPatientServices, getPatientFetchPosts, getAllDoctors,
+    getIsMemberShip,
+    getIsMemberShipSuccess,
+    getIsMemberShipError,
+    getMemberShip,
+  ],
+  ( userId, token, patientProfile, postFav, doctorFav, questionFav, questionStarredFav, servicesFav, postFetch, doctors,
+    getMemberShip,
+    getMemberShipSuccess,
+    getMemberShipError,
+    membership,
+  ) => ({
     userId,
     token,
     patientProfile,
@@ -32,6 +49,11 @@ export const getPatientSelector = createSelector(
 
     postFetch,
     doctors,
+
+    getMemberShip,
+    getMemberShipSuccess,
+    getMemberShipError,
+    membership,
   }),
 );
 

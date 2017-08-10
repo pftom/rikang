@@ -30,7 +30,7 @@ class TabThreeHeaderSection extends PureComponent {
   }
 
   render() {
-    const { patientProfile, navigation, dispatch, token } = this.props;
+    const { patientProfile, navigation, dispatch, token, membership } = this.props;
     return (
      <LinearGradient
             start={{x: 0.0, y: 0.0}} end={{x: 1.0, y: 1.0}}
@@ -51,13 +51,29 @@ class TabThreeHeaderSection extends PureComponent {
                   <SelectPhoto handleAddPic={this.handleAddPic} personInfo={true} avatar={patientProfile && patientProfile.get('avatar') || null} />
                 </View>
                 <View style={styles.rightBox}>
-                  <Text style={styles.name}>{patientProfile && patientProfile.get('name') && patientProfile.get('name') || '还没填写姓名'}</Text>
-                  <TouchableOpacity onPress={() => { navigation.navigate('PatientPersonInfo', { token, patientProfile, dispatch })}}>
-                    <View style={styles.infoBox}>
-                      <Text style={styles.info}>个人信息</Text>
-                      <Image source={require('../img/rightArrow.png')} />
-                    </View>
-                  </TouchableOpacity>
+                  <View style={styles.membershipBox}>
+                    <Text style={styles.name}>{patientProfile && patientProfile.get('name') && patientProfile.get('name') || '还没填写姓名'}</Text>
+                    {
+                      membership && (
+                        <Image source={require('../img/membership.png')} />
+                      )
+                    }
+                  </View>
+                  <View style={styles.infoContainer}>
+                      <TouchableOpacity onPress={() => { navigation.navigate('PatientPersonInfo', { token, patientProfile, dispatch })}}>
+                      <View style={styles.infoBox}>
+                        <Image source={require('../img/pen.png')} />
+                        <Text style={styles.info}>个人信息</Text>
+                      </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={() => { thia.handleMemberShip() }}>
+                      <View style={styles.infoBox}>
+                        <Image source={require('../img/sign.png')} />
+                        <Text style={styles.info}>日康会员</Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             </View>
