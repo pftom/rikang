@@ -11,6 +11,8 @@ import { WaitForAcceptListItemStyle } from './WaitForAcceptListItemStyle';
 import { FinishedListItemStyle } from './FinishedListItemStyle';
 import { NewCommentStyle } from './NewCommentStyle';
 
+import { MemberShipStyle } from './MemberShipStyle';
+
 
 export {
   SelectPhotoStyle,
@@ -24,4 +26,6 @@ export {
   WaitForAcceptListItemStyle,
   FinishedListItemStyle,
   NewCommentStyle,
+
+  MemberShipStyle,
 }

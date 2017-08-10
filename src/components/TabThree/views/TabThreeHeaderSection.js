@@ -38,11 +38,11 @@ class TabThreeHeaderSection extends PureComponent {
   }
 
   handleMemberShip = () => {
-    const { navigation, membership } = this.props;
-    if(!(membership && membership.get('expire'))) {
+    const { navigation, membership, dispatch, token, patientProfile } = this.props;
+    if((membership && membership.get('expire'))) {
       this.successToast('您已开通会员');
     } else {
-      navigation.navigate('MemberShip', { dispatch, token, });
+      navigation.navigate('MemberShip', { dispatch, token, phone: patientProfile.get('phone') });
     }
   }
 

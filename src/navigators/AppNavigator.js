@@ -17,6 +17,10 @@ import ChangePassword from '../components/TabThree/views/ChangePassword';
 import Feedback from '../components/TabThree/views/Feedback';
 import About from '../components/TabThree/views/About';
 
+
+//member ship
+import MemberShip from '../components/TabThree/views/MemberShip';
+
 /*
  *
  *
@@ -117,6 +121,8 @@ export const AppNavigator = StackNavigator({
     ChangePassword: { screen: ChangePassword },
     Feedback: { screen: Feedback },
     About: { screen: About },
+
+    MemberShip: { screen: MemberShip },
 
     QuestionDetail: { screen: QuestionDetail },
     PutQuestionDetail: { screen: PutQuestionDetail },
